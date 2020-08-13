@@ -66,11 +66,11 @@
     </ul>
 
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
+    <form class="form-inline ml-3" method="POST" action="<?php echo htmlspecialchars('search_process.php'); ?>">
       <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control form-control-navbar" type="text" name="search_input" id="user_search" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
+          <button class="btn btn-navbar" name="submit" type="submit">
             <i class="fas fa-search"></i>
           </button>
         </div>
@@ -168,15 +168,17 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="user_list.php" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>User List</p>
+                  <span class="right badge badge-danger"><?php echo countUser(); ?></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="active_list.php" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
-                  <p>Active List</p>
+                  <p>Active/Inactive List</p>
+                  <span class="right badge badge-danger"><?php echo countActiveUser(); ?></span>
                 </a>
               </li>
             </ul>
@@ -194,15 +196,17 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="unpaid_list.php" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Overdue List</p>
+                  <span class="right badge badge-danger"><?php echo countUnpaid(); ?></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="paid_list.php" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Paid List</p>
+                  <span class="right badge badge-danger"><?php echo countPaid(); ?></span>
                 </a>
               </li>
             </ul>

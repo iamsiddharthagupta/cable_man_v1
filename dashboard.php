@@ -1,12 +1,19 @@
 <?php
-// Session starts here. It can be used in any page.
-	session_start();
-	if(isset($_SESSION['curr_user'])){
-	$curr_user = ucwords($_SESSION['curr_user']);
-	} else {
-	header('location:index.php');
-	}
-	include 'organ.php';
+
+  session_start();
+
+  if(isset($_SESSION['user_level'])){
+      $curr_user = ucwords($_SESSION['curr_user']);
+      if($_SESSION['user_level'] != 1){
+          header('Location: agent_panel.php');
+      }
+  } else {
+    header('Location: index.php');
+  }
+
+  require_once 'connection.php';
+  require_once 'organ.php';
+
 ?>
 
   <!-- Content Header (Page header) -->
