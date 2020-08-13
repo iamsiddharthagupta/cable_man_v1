@@ -4,8 +4,8 @@
     if(isset($_SESSION['curr_user'])){
         header('location:dashboard.php');
     }
-    include '../common/header.php';
-    include '../common/connection.php';
+    include 'common/header.php';
+    include 'connection.php';
 ?>
 
 <style type="text/css">

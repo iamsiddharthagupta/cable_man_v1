@@ -1,6 +1,6 @@
 <?php
 // Database Connection.
-    $conn = mysqli_connect('localhost','root','','portal_db');
+    $conn = mysqli_connect('localhost','root','','cable_erp');
 
 	// Check Connection
 	if(mysqli_connect_errno()){
