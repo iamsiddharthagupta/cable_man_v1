@@ -29,5 +29,8 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
+    <!-- Misc. Script -->
+    <script type="text/javascript" src="common/script.js"></script>
+
 </head>
 <body class="hold-transition sidebar-mini">

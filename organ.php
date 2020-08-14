@@ -44,8 +44,14 @@
     return $data['count_paid'];
   }
 
-    include 'common/header.php';
+  function ActiveList(){
 
+    $query = "GROUP BY cbl_user.user_id,cbl_user_dev.dev_id ORDER BY expiry_date ASC";
+
+    return urlencode($query);
+  }
+
+    include 'common/header.php';
 ?>
 
 <div class="wrapper">
@@ -175,7 +181,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="active_list.php" class="nav-link">
+                <a href="active_list.php?query=<?php echo ActiveList(); ?>" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Active/Inactive List</p>
                   <span class="right badge badge-danger"><?php echo countActiveUser(); ?></span>

@@ -44,34 +44,31 @@
 
 		<?php
 				
-				$current_month = date('F');
-				
-				$query = "
-							SELECT
-			                cbl_user.user_id AS user_id,
-			                cbl_user.first_name AS first_name,
-			                cbl_user.last_name AS last_name,
-			                cbl_user.address AS address,
-			                cbl_user.area AS area,
-			                cbl_user.phone_no AS phone_no,
-			                cbl_dev_stock.package AS package,
-			                cbl_dev_stock.device_no AS device_no,
-			                MAX(cbl_ledger.renew_date) AS renew_date,
-			                MAX(cbl_ledger.expiry_date) AS expiry_date,
-			                MAX(cbl_ledger.renew_month) AS renew_month,
-			                cbl_ledger.invoice_no AS invoice_no,
-			                cbl_ledger.user_id AS user_id,
-			                cbl_ledger.ledger_id AS ledger_id
+			$query = "
+						SELECT
+		                cbl_user.user_id AS user_id,
+		                cbl_user.first_name AS first_name,
+		                cbl_user.last_name AS last_name,
+		                cbl_user.address AS address,
+		                cbl_user.area AS area,
+		                cbl_user.phone_no AS phone_no,
+		                cbl_dev_stock.package AS package,
+		                cbl_dev_stock.device_no AS device_no,
+		                cbl_ledger.renew_date AS renew_date,
+		                cbl_ledger.expiry_date AS expiry_date,
+		                cbl_ledger.renew_month AS renew_month,
+		                cbl_ledger.invoice_no AS invoice_no,
+		                cbl_ledger.user_id AS user_id,
+		                cbl_ledger.ledger_id AS ledger_id
 
-			                FROM cbl_user_dev
-			                RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
-			                LEFT JOIN cbl_ledger ON cbl_ledger.dev_id = cbl_user_dev.dev_id
-			                LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
+		                FROM cbl_user_dev
+		                RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
+		                LEFT JOIN cbl_ledger ON cbl_ledger.dev_id = cbl_user_dev.dev_id
+		                LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
 
-			                WHERE cbl_ledger.status = 'Renewed'
-			                GROUP BY cbl_ledger.ledger_id
-			                ORDER BY cbl_ledger.renew_month DESC
-						";
+		                WHERE cbl_ledger.status = 'Renewed'
+		                GROUP BY cbl_ledger.ledger_id
+		                ORDER BY cbl_ledger.renew_month DESC";
 
 	$result = mysqli_query($conn,$query);
 

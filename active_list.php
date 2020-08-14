@@ -2,14 +2,16 @@
 
 	session_start();
 
-  if(isset($_SESSION['user_level'])){
-      $curr_user = ucwords($_SESSION['curr_user']);
-      if($_SESSION['user_level'] != 1){
-          header('Location: agent_panel.php');
-      }
-  } else {
-    header('Location: index.php');
-  }
+	if(isset($_SESSION['user_level'])){
+	  $curr_user = ucwords($_SESSION['curr_user']);
+	  if($_SESSION['user_level'] != 1){
+	      header('Location: agent_panel.php');
+	  }
+	} else {
+	header('Location: index.php');
+	}
+
+	$query = $_GET['query'];
 
 	require_once 'connection.php';
 	require_once 'organ.php';
@@ -24,17 +26,14 @@
 		</div>
 	</div>
 
-<div class="row">
-	<div class="col-sm">
-		<div class="table-responsive">
-			<table class="table table-hover text-center table-bordered table-sm">
+	<div class="card-body table-responsive p-0" style="height: 600px;">
+		<table class="table table-hover text-center table-bordered table-sm table-head-fixed text-nowrap">
 			    <thead class="thead-light">
 			      <tr>
 			      	<th>Action</th>
 			      	<th>Name</th>
 			      	<th>Device</th>
 			      	<th>Duration</th>
-			      	<th>Payment</th>
 			        <th>Mobile No</th>
 			        <th>Address</th>
 			        <th>Package</th>
@@ -42,8 +41,7 @@
 				</thead>
 
 <?php
-	
-	$current_date = date('Y-m-d');
+
 	$query = "
 				SELECT
 				cbl_user.user_id AS user_id,
@@ -57,18 +55,12 @@
 				cbl_dev_stock.device_mso AS device_mso,
 				MAX(cbl_ledger.renew_date) AS renew_date,
 				MAX(cbl_ledger.expiry_date) AS expiry_date,
-				MAX(cbl_ledger.status) AS status,
-				MAX(cbl_ledger.pay_amount) AS pay_amount,
 				cbl_ledger.ledger_id AS ledger_id
 
 				FROM cbl_user_dev
 				RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
 				RIGHT JOIN cbl_ledger ON cbl_ledger.dev_id = cbl_user_dev.dev_id
-				LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
-
-				GROUP BY cbl_user.user_id,cbl_user_dev.dev_id
-				ORDER BY expiry_date ASC
-			";
+				LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id ".$query;
 
 	$result = mysqli_query($conn,$query);
 
@@ -104,7 +96,7 @@
 							<strong><span class="mr-1"><?php echo $data['first_name']." ".$data['last_name'];?></span><span class="text-danger">[Expired]</span></strong>
 						</div>
 					<?php } elseif($current_date == $end_date) { ?>
-							<strong><span class="mr-1"><?php echo $data['first_name']." ".$data['last_name'];?></span><span class="text-warning">[Expiring Today]</span></strong>
+							<strong><span class="mr-1"><?php echo $data['first_name']." ".$data['last_name'];?></span><span class="text-warning">[Expiring]</span></strong>
 					<?php } else { ?>
 							<strong>
 								<span class="mr-1"><?php echo $data['first_name']." ".$data['last_name'];?></span>
@@ -118,14 +110,6 @@
 				<td>
 					<strong><?php echo date('j F',strtotime($data['renew_date'])); ?><span> - </span><?php echo date('j F',strtotime($data['expiry_date'])); ?>
 					</strong>
-				</td>
-				
-				<td>
-					<?php if($data['status'] == 'Renewed'){ ?>
-						<strong><div class="text-danger">Unpaid</div></strong>
-					<?php } elseif($data['status'] == 'Paid') { ?>
-						<strong><div class="text-success">Paid: <?php echo $data['pay_amount']; ?></div></strong>
-					<?php } ?>
 				</td>
 
 				<td><?php echo $data['phone_no'];?></td>
@@ -141,9 +125,6 @@
 		}
 	?>
 		</table>
-	</div>
-</div>
-
 	</div>
 </div>
 
