@@ -48,6 +48,13 @@
 
 // Dynamic Query Functions for Sidebar Lists.
 
+  function UserList(){
+
+    $query = "GROUP BY cbl_user.user_id ORDER BY cbl_user.doi DESC";
+
+    return urlencode($query);
+  }
+
   function ActiveList(){
 
     $query = "GROUP BY cbl_user.user_id,cbl_user_dev.dev_id ORDER BY expiry_date ASC";
@@ -85,10 +92,10 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="dashboard.php" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
+        <a href="add_user.php" class="nav-link"><i class="fas fa-plus-circle"></i></a>
       </li>
     </ul>
 
@@ -195,7 +202,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="user_list.php" class="nav-link">
+                <a href="user_list.php?query=<?php echo UserList(); ?>" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>User List</p>
                   <span class="right badge badge-danger"><?php echo countUser(); ?></span>

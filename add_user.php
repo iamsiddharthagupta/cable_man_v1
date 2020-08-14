@@ -22,16 +22,16 @@
   $msgClass = '';
   
   if(filter_has_var(INPUT_POST, 'submit')){
-    $first_name = $_POST['first_name'];
-    $last_name = $_POST['last_name'];
-    $phone_no = $_POST['phone_no'];
-    $area = $_POST['area'];
-    $address = $_POST['address'];
+    $first_name = mysqli_real_escape_string($conn,$_POST['first_name']);
+    $last_name = mysqli_real_escape_string($conn,$_POST['last_name']);
+    $phone_no = mysqli_real_escape_string($conn,$_POST['phone_no']);
+    $area = mysqli_real_escape_string($conn,$_POST['area']);
+    $address = mysqli_real_escape_string($conn,$_POST['address']);
 
     if(!empty($area)){
 
-    $query = "INSERT INTO `cbl_user`
-              (`first_name`,`last_name`,`phone_no`,`area`,`address`)
+    $query = "INSERT INTO cbl_user
+              (first_name,last_name,phone_no,area,address)
               VALUES
               ('$first_name','$last_name','$phone_no','$area','$address')";
 
@@ -40,7 +40,6 @@
     if($result == true){
       ?>
             <script type="text/javascript">
-              alert('User Added!');
               window.open('map_device.php?user_id=<?php echo mysqli_insert_id($conn); ?>','_self');
             </script>
     <?php
@@ -57,13 +56,24 @@
 
 ?>
 
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Dashboard</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">User List</a></li>
+          <li class="breadcrumb-item active">Add User</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container p-3">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item">
-    <i class="fas fa-folder-plus mr-1"></i>Entry Form</li>
-  </ol>
-  
-  <hr size="3" noshade>
 
 <!-- Warning LED -->
       <?php if($msg != ''): ?>

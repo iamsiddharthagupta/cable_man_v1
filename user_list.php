@@ -14,6 +14,8 @@
   require_once 'connection.php';
   require_once 'organ.php';
 
+  $query = $_GET['query'];
+
 ?>
 
 <div class="container-fluid p-2">
@@ -28,8 +30,8 @@
 		</div>
 	</div>
 
-	<div class="table-responsive">
-		<table class="table table-hover text-center table-bordered table-sm">
+	<div class="card-body table-responsive p-0" style="height: 600px;">
+		<table class="table table-hover text-center table-bordered table-sm table-head-fixed text-nowrap">
 		    <thead class="thead-light">
 		      <tr>
 		      	<th>Action</th>
@@ -62,22 +64,18 @@
 
 			RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
 			LEFT JOIN cbl_ledger ON cbl_ledger.dev_id = cbl_user_dev.dev_id
-			LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
-
-			GROUP BY cbl_user.user_id
-			ORDER BY cbl_user.doi DESC
-	";
+			LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id ".$query;
 	$result = mysqli_query($conn,$query);
 
 	if(mysqli_num_rows($result) < 1){
 		echo "<tr><td colspan='10'>No user yet! Start feeding them from <a href='add_user.php'>here</a></td><tr>";
 	} else {
+		$i = 0;
+		foreach ($result as $key => $data) : $i++; ?>
 		
-		foreach ($result as $key => $data) : ?>
-
 			<tbody id="myTable">
 				<tr>
-
+					
 					<td>
 						<div class="btn-group" role="group">
 	    					<button type="button" class="btn btn-dark btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
