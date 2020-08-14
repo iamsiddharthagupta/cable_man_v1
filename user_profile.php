@@ -26,9 +26,9 @@
             cbl_user.area AS area,
             cbl_user.doi AS doi,
             cbl_ledger.status AS status,
-            SUM(cbl_dev_stock.package) AS package,
-            COUNT(cbl_user_dev.dev_id) AS devices,
-            cbl_dev_stock.device_no AS device_no
+            cbl_dev_stock.package AS package,
+            cbl_dev_stock.device_no AS device_no,
+            cbl_dev_stock.device_mso AS device_mso
             
             FROM cbl_user_dev
 
@@ -41,6 +41,7 @@
   
   $result = mysqli_query($conn,$query);
   $data = mysqli_fetch_assoc($result);
+  $dev_count = mysqli_num_rows($result);
 
 ?>
 
@@ -67,7 +68,6 @@
         <div class="row">
           
           <div class="col-md-3">
-            <!-- Profile Image -->
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
@@ -96,16 +96,19 @@
               <div class="card-body">
 
                   <span><strong>Phone:</strong> <span class="text-muted"><?php echo $data['phone_no']; ?></span></span><br>
-                  <span><strong>Devices:</strong> <span class="text-muted"><?php echo $data['devices']; ?></span></span><br>
+                  <span><strong>Devices:</strong> <span class="text-muted"><?php echo $dev_count; ?></span></span><br>
                   <span><strong>Package:</strong> Rs.<span class="text-muted"><?php echo $data['package']; ?></span></span><br>
                   <span><strong>Customer Since:</strong> <span class="text-muted"><?php echo date('jS M y',strtotime($data['doi'])); ?></span></span>
 
-                  <hr>
+                    <hr>
 
-                  <strong>Devices:</strong>
+                  <strong>Devices:</strong><br>
+
                   <?php
                     foreach ($result as $key => $data) {
-                      echo $data['device_no'];
+                        ?>
+                            <span class="text-muted"><?php echo $data['device_mso'].' '.$data['device_no']; ?></span><br>
+                        <?php
                     }
                   ?>
               </div>
@@ -116,78 +119,225 @@
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="#renewal" data-toggle="tab">Renewal</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#ledger" data-toggle="tab">Ledger</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Update</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#device" data-toggle="tab">Device</a></li>
                 </ul>
               </div>
               <div class="card-body">
                 <div class="tab-content">
-                    
-                  <div class="active tab-pane" id="activity">
 
+                  <div class="active tab-pane" id="renewal">
+                    <h1>Hi Renewal</h1>
                   </div>
 
-                  <div class="tab-pane" id="timeline">
-                  
+          <div class="tab-pane" id="ledger">
+                    <h1>Hi Ledger</h1>
                   </div>
 
-                <div class="tab-pane" id="settings">
-                  <form class="form-horizontal" method="POST" action="<?php echo htmlspecialchars('update_process.php'); ?>" autocomplete="off">
-                  <div class="row">
-                    <div class="col-sm">
-                      <label>First Name: *</label>
-                        <input type="text" class="form-control" name="first_name" value="<?php echo $data['first_name']; ?>" placeholder="First Name">
-                    </div>
-                    <div class="col-sm">
-                      <label>Last Name:</label>
-                        <input type="text" class="form-control" name="last_name" value="<?php echo $data['last_name'];?>" placeholder="Last Name">
-                    </div>
-                  </div>
-
-                    <div class="row">
+                    <div class="tab-pane" id="settings">
+                      <form class="form-horizontal" method="POST" action="<?php echo htmlspecialchars('update_process.php'); ?>" autocomplete="off">
+                      <div class="row">
                         <div class="col-sm">
-                          <label>Contact Number:</label>
-                            <input type="text" id="contactInput" class="form-control" name="phone_no" value="<?php echo $data['phone_no'];?>" placeholder="Contact Number">
+                          <label>First Name: *</label>
+                            <input type="text" class="form-control" name="first_name" value="<?php echo $data['first_name']; ?>" placeholder="First Name">
                         </div>
-
                         <div class="col-sm">
-                          <label>Area: *</label>
-                            <select name="area" class="form-control">
-                              <option value="">Select Area</option>
-                              
-                              <option value="Humayunpur" <?php if($data["area"]=='Humayunpur'){ echo "selected"; } ?>>Humayunpur</option>
-                              
-                              <option value="Arjun Nagar" <?php if($data["area"]=='Arjun Nagar'){ echo "selected"; } ?>>Arjun Nagar</option>
-                              
-                              <option value="Krishna Nagar" <?php if($data["area"]=='Krishna Nagar'){ echo "selected"; } ?>>Krishna Nagar</option>
-                              
-                              <option value="B-4" <?php if($data["area"]=='B-4'){ echo "selected"; } ?>>B-4</option>
-                              
-                              <option value="Other" <?php if($data["area"]=='Other'){ echo "selected"; }?>>Other</option>
-                            </select>
-                      </div>
-                    </div>
-
-                    <div class="row mb-2">
-                      <div class="col-sm">
-                          <label>Address</label>
-                            <textarea class="form-control" name="address" placeholder="Complete Address with House Number and Floor"><?php echo $data['address'];?></textarea>
+                          <label>Last Name:</label>
+                            <input type="text" class="form-control" name="last_name" value="<?php echo $data['last_name'];?>" placeholder="Last Name">
                         </div>
                       </div>
+
+                        <div class="row">
+                            <div class="col-sm">
+                              <label>Contact Number:</label>
+                                <input type="text" id="contactInput" class="form-control" name="phone_no" value="<?php echo $data['phone_no'];?>" placeholder="Contact Number">
+                            </div>
+
+                            <div class="col-sm">
+                              <label>Area: *</label>
+                                <select name="area" class="form-control">
+                                  <option value="" disabled>Select Area</option>
+                                  
+                                  <option value="Humayunpur" <?php if($data["area"]=='Humayunpur'){ echo "selected"; } ?>>Humayunpur</option>
+                                  
+                                  <option value="Arjun Nagar" <?php if($data["area"]=='Arjun Nagar'){ echo "selected"; } ?>>Arjun Nagar</option>
+                                  
+                                  <option value="Krishna Nagar" <?php if($data["area"]=='Krishna Nagar'){ echo "selected"; } ?>>Krishna Nagar</option>
+                                  
+                                  <option value="B-4" <?php if($data["area"]=='B-4'){ echo "selected"; } ?>>B-4</option>
+                                  
+                                  <option value="Other" <?php if($data["area"]=='Other'){ echo "selected"; }?>>Other</option>
+                                </select>
+                          </div>
+                        </div>
+
+                        <div class="row mb-2">
+                          <div class="col-sm">
+                              <label>Address</label>
+                                <textarea class="form-control" name="address" placeholder="Complete Address with House Number and Floor"><?php echo $data['address'];?></textarea>
+                            </div>
+                          </div>
 
                       <input type="hidden" name="user_id" value="<?php echo $data['user_id']; ?>">
-                      <button type="submit" name="submit" class="btn btn-outline-primary">Update</button>
+                      <button type="submit" name="submit" class="btn btn-outline-success">Update</button>
                     </form>
                   </div>
 
-                </div>
+    <div class="tab-pane" id="device">
+
+    <div class="row">
+
+      <div class="col-sm-4">
+        <form method="POST" action="<?php echo htmlspecialchars('map_device_process.php') ?>">
+          
+          <div class="card">
+            <div class="card-header">Map/Edit Device:</div>
+              
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><span class="mr-2">Name:</span>
+                  <strong><a href="user_profile.php?user_id=<?php echo $data['user_id']; ?>"><?php echo $data['first_name']." ".$data['last_name']; ?></a></strong>
+                </li>
+                <li class="list-group-item"><span class="mr-2">Area:</span>
+                  <strong><?php echo $data['area']; ?></strong>
+                </li>
+
+                <?php
+                  $result = mysqli_query($conn,"
+                      
+                              SELECT * FROM cbl_user_dev
+                              RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
+                              LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
+                              WHERE cbl_user_dev.user_id = '$user_id'
+
+                              ");
+                  
+                  $data = mysqli_fetch_assoc($result);
+
+                  foreach ($result as $key => $data) {
+                    echo "  <li class='list-group-item'>
+                          <span>$data[device_mso]</span> - <strong><span>$data[device_no]</span></strong>
+                        </li>";
+
+                  }
+                ?>
+
+                <li class="list-group-item">
+                  <input type="text" name="device_no" id="myInput" placeholder="Enter Device ID" class="form-control" required>
+                </li>
+                <li class="list-group-item">
+                  <textarea name="reason" class="form-control" placeholder="Reason"></textarea>
+                </li>
+                <li class="list-group-item">
+                    <div class="col-sm-2 mr-1 mb-1">
+                      <input type="hidden" name="prev_dev_no" value="<?php echo $data['device_no']; ?>">
+                      <input type="hidden" name="prev_dev_mso" value="<?php echo $data['device_mso']; ?>">
+                      <input type="hidden" name="prev_dev_type" value="<?php echo $data['device_type']; ?>">
+                      <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+                      <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                    <div class="col-sm-2">
+                      <a href="#addDevice" data-toggle="modal" class="btn btn-primary">Add</a>
+                      <?php include 'add_device_modal.php'; ?>
+                    </div>
+                  </li>
+                </ul>
+
               </div>
-            </div>
+            </form>
           </div>
 
+      <div class="col-sm-8">
+        <div class="card-body table-responsive p-0" style="height: 500px;">
+          <table class="table table-hover text-center table-bordered table-sm table-head-fixed">
+            <thead class="thead-light">
+              <tr>
+                <th>Dev ID</th>
+                <th>MSO</th>
+                <th>Package</th>
+                <th>Assignee</th>
+                <th>Action</th>
+              </tr>
+          </thead>
+
+          <?php
+
+            $query = "  SELECT
+
+                  cbl_dev_stock.dev_id AS dev_id,
+                  cbl_dev_stock.device_no AS device_no,
+                  cbl_dev_stock.device_mso AS device_mso,
+                  cbl_dev_stock.device_type AS device_type,
+                  cbl_dev_stock.package AS package,
+                  cbl_user.user_id AS user_id,
+                  cbl_user.first_name AS first_name,
+                  cbl_user.last_name AS last_name,
+                  cbl_user_dev.assign_id AS assign_id
+
+                  FROM cbl_user_dev
+                  LEFT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
+                  RIGHT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
+                  ORDER BY cbl_user.user_id ASC";
+            $result = mysqli_query($conn,$query);
+
+            if (mysqli_num_rows($result) < 1){
+              echo "<tr><td colspan='6'>Not Yet Active!</td><tr>";
+            } else {
+              
+              foreach ($result as $key => $data) : ?>
+                
+          <tbody id="myTable">
+            <tr>
+              <td><?php echo $data['device_no']; ?></td>
+              
+              <td><?php echo $data['device_mso'],' '.$data['device_type']; ?></td>
+              
+              <td><?php echo $data['package']; ?></td>
+              
+              <td><a href="map_device.php?user_id=<?php echo $data['user_id']; ?>"><?php echo $data['first_name']." ".$data['last_name']; ?></a></td>
+              
+              <td>
+
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-dark btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Action
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                      <form method="POST" action="edit_device.php">
+                      <input type="hidden" name="dev_id" value="<?php echo $data['dev_id']; ?>">
+                      <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+                        <button type="submit" name="submit" class="dropdown-item">Edit</button>
+                    </form>
+                    <?php if(empty($data['user_id'])){ ?>
+                    <?php } else { ?>
+                        <form method="POST" action="release_device.php">
+                          <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+                        <input type="hidden" name="assign_id" value="<?php echo $data['assign_id']; ?>">
+                          <button type="submit" name="submit" onclick="return confirm('Do you want to release this user?');" class="dropdown-item">Release</button>
+                      </form>
+                    <?php } ?>
+                    </div>
+                  </div>
+              </td>
+            </tr>
+          </tbody>
+
+            <?php
+              endforeach;
+              }
+            ?>
+        </table>
+      </div>
+    </div>
+
+
+        </div>
+      </div>
     </div>
   </div>
+</div>
+</div>
 </section>
 
 <?php require_once 'common/footer.php'; ?>
