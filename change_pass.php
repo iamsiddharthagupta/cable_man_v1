@@ -1,16 +1,20 @@
 <?php
-// Session starts here. It can be used in any page.
-	session_start();
-	$curr_prof = $_SESSION['curr_user'];
-	if(isset($_SESSION['curr_user'])){
-	$curr_user = ucwords($_SESSION['curr_user']);
-	} else {
-	header('location:index.php');
-	}
-	include '../common/cable_organ.php';
-	include '../common/connection.php';
-?>
 
+  session_start();
+
+  if(isset($_SESSION['user_level'])){
+      $curr_user = ucwords($_SESSION['curr_user']);
+      if($_SESSION['user_level'] != 1){
+          header('Location: agent_panel.php');
+      }
+  } else {
+    header('Location: index.php');
+  }
+
+  require_once 'connection.php';
+  require_once 'organ.php';
+
+?>
 <?php
 // Empty variable for Notification LED above the form.
 	$msg = '';
@@ -62,6 +66,4 @@
 		</div>
 	</div>
 
-<?php
-	include '../common/footer.php';
-?>
+<?php require_once 'common/footer.php'; ?>

@@ -1,6 +1,8 @@
 <?php
-include "../common/connection.php";
-if (isset($_GET['term'])) {
+
+  require_once 'connection.php';
+  
+  if (isset($_GET['term'])) {
      
    $query = "SELECT * FROM cbl_user WHERE first_name LIKE '{$_GET['term']}%' OR last_name LIKE '{$_GET['term']}%' LIMIT 5";
     $result = mysqli_query($conn, $query);
@@ -14,5 +16,6 @@ if (isset($_GET['term'])) {
     }
     //return json res
     echo json_encode($res);
-}
+  }
+
 ?>

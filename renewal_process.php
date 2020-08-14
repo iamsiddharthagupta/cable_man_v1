@@ -1,6 +1,6 @@
 <?php
 
-	include '../common/connection.php';
+	require_once 'connection.php';
 
 	// Setting up Indian timezone.
 	date_default_timezone_set("Asia/Kolkata");

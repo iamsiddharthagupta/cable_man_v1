@@ -147,4 +147,4 @@
 	</div>
 </div>
 
-<?php include '../common/footer.php'; ?>
+<?php require_once 'common/footer.php'; ?>

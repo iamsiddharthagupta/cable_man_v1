@@ -1,6 +1,6 @@
 <?php
 
-	include '../common/connection.php';
+	require_once 'connection.php';
 
 	$dev_id = $_POST['dev_id'];
 	$user_id = $_POST['user_id'];

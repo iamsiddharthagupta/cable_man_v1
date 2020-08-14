@@ -1,6 +1,6 @@
 <?php
     
-    include '../common/connection.php';
+    require_once 'connection.php';
 
 // Getting all the variables from Update form by POST.
   if(filter_has_var(INPUT_POST, 'submit')){

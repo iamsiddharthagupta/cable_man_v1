@@ -8,7 +8,7 @@
 
 <?php  
 
-include '../common/connection.php';
+require_once 'connection.php';
 
 $output = '';
 

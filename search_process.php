@@ -1,6 +1,6 @@
 <?php
 
-	include '../common/connection.php';
+	require_once 'connection.php';
 
 	$search_input = $_POST['search_input'];
 

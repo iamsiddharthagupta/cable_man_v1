@@ -1,6 +1,6 @@
 <?php
 
-	include("../common/connection.php");
+	require_once 'connection.php';
 	
 	$query = "SELECT user_id FROM cbl_ledger WHERE ledger_id ='" . $_GET["ledger_id"] . "'";
 	$result = mysqli_query($conn,$query);

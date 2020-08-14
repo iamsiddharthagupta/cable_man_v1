@@ -17,7 +17,7 @@
 
       <form method="POST" action="<?php echo htmlspecialchars('login_process.php'); ?>">
         <div class="input-group mb-3">
-          <input type="text" name="username" class="form-control" placeholder="Username" value="<?php echo isset($_POST['username']) ? $username : ''; ?>" autofocus>
+          <input type="text" name="username" class="form-control" placeholder="Username" autofocus>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>

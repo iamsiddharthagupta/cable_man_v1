@@ -1,6 +1,6 @@
 <?php
 
-	include '../common/connection.php';
+	require_once 'connection.php';
 
 // Variables from Form.
 	$user_id = $_POST['user_id'];

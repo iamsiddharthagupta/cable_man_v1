@@ -1,7 +1,6 @@
 <?php
-	
-	include '../common/header.php';
-	include '../common/connection.php';
+
+	require_once 'connection.php';
 	
 	$user_id = $_POST['user_id'];
 	$device_no = $_POST['device_no'];

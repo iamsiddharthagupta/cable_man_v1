@@ -1,6 +1,6 @@
 <?php
 
-	include("../common/connection.php");
+	require_once 'connection.php';
 
 	$query = "DELETE FROM cbl_user_dev WHERE assign_id ='" . $_POST["assign_id"] . "'";
 	

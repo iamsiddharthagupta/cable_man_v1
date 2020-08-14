@@ -1,13 +1,19 @@
 <?php
-// Session starts here. It can be used in any page.
+
   session_start();
-  if(isset($_SESSION['curr_user'])){
-  $curr_user = ucwords($_SESSION['curr_user']);
+
+  if(isset($_SESSION['user_level'])){
+      $curr_user = ucwords($_SESSION['curr_user']);
+      if($_SESSION['user_level'] != 1){
+          header('Location: agent_panel.php');
+      }
   } else {
-  header('location:index.php');
+    header('Location: index.php');
   }
-  include '../common/cable_organ.php';
-  include '../common/connection.php';
+
+  require_once 'connection.php';
+  require_once 'organ.php';
+
 ?>
 
 <?php
@@ -109,6 +115,4 @@
     </form>
 </div>
 
-<?php
-  include '../common/footer.php';
-?>
+<?php require_once 'common/footer.php'; ?>

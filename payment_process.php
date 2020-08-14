@@ -1,6 +1,6 @@
 <?php
 	
-	include '../common/connection.php';
+	require_once 'connection.php';
 
 	$ledger_id = $_POST['ledger_id'];
 	$pay_amount = $_POST['pay_amount'];
