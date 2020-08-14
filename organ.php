@@ -1,5 +1,7 @@
 <?php
 
+// Counting Functions of Sidebar Badges.
+
   function countUser(){
     include 'connection.php';
     $query = "SELECT COUNT(user_id) AS total_users FROM cbl_user";
@@ -44,12 +46,31 @@
     return $data['count_paid'];
   }
 
+// Dynamic Query Functions for Sidebar Lists.
+
   function ActiveList(){
 
     $query = "GROUP BY cbl_user.user_id,cbl_user_dev.dev_id ORDER BY expiry_date ASC";
 
     return urlencode($query);
   }
+
+  function PaidList($status){
+
+    $query = "WHERE cbl_ledger.status = '$status' GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
+
+    return urlencode($query);
+  }
+
+  function OverdueList($status){
+
+    $query = "WHERE cbl_ledger.status = '$status' GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
+
+    return urlencode($query);
+  }
+
+
+
 
     include 'common/header.php';
 ?>
@@ -202,14 +223,14 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="unpaid_list.php" class="nav-link">
+                <a href="payment_list.php?query=<?php echo OverdueList('Renewed'); ?>" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Overdue List</p>
                   <span class="right badge badge-danger"><?php echo countUnpaid(); ?></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="paid_list.php" class="nav-link">
+                <a href="payment_list.php?query=<?php echo PaidList('Paid'); ?>" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Paid List</p>
                   <span class="right badge badge-danger"><?php echo countPaid(); ?></span>

@@ -45,7 +45,7 @@
     <div class="container p-1 mt-2 emp-profile">
         <div class="row">
             <div class="col-sm-10">
-                <div class="profile-head"> 
+                <div class="profile-head">
                     
                     <h5>
                     	<?php echo $data['first_name']." ".$data['last_name']; ?>
