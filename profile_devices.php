@@ -43,7 +43,11 @@
                   echo "<tr><td colspan='4'>No Device Assigned!</td><tr>";
                 } else {
 
-                  foreach ($result as $key => $data) : ?>
+                foreach ($result as $key => $data) :
+
+                	$urlMulti = "user_id={$user_id}&dev_id={$data['dev_id']}";
+                
+                ?>
 
                   <tbody>
                     <tr>
@@ -57,11 +61,7 @@
                       </td>
 
                       <td>
-	                        <form method="POST" action="profile_renewal.php">
-								<input type="hidden" name="dev_id" value="<?php echo $data['dev_id']; ?>">
-								<input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-								<input type="submit" class="btn btn-outline-success btn-xs" value="Renew">
-							</form>
+	                        <a href="profile_renewal.php?<?= $urlMulti; ?>"><i class="fas fa-sync"></i></a>
                       </td>
 
                     </tr>

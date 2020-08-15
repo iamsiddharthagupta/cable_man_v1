@@ -1,18 +1,15 @@
 <?php
 
-	$user_id = $_POST['user_id'];
+	$user_id = $_GET['user_id'];
+	require_once 'profile_casing.php';
 
 ?>
-
-<?php
-
-	require_once 'profile_casing.php'; ?>
 
 		<div class="col-md-9">
           	<div class="container-fluid">
 
 		<?php
-		      $dev_id = $_POST['dev_id'];
+		      $dev_id = $_GET['dev_id'];
 
 		      $query = "SELECT
 		                cbl_user.user_id AS user_id,
