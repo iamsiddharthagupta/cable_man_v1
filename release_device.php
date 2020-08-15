@@ -7,12 +7,9 @@
 	$result = mysqli_query($conn,$query);
 			
 		if($result == true){
-		?>
-			<script type="text/javascript">
-		      alert('User Released Successfully!');
-		      window.open('map_device.php?user_id=<?php echo $_POST['user_id']; ?>','_self');
-		    </script>
-	    <?php
+		
+			header('Location: user_profile.php?user_id='.$_POST['user_id']);
+		
 		} else {
 		?>
 			<script type="text/javascript">

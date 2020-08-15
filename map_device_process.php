@@ -16,20 +16,17 @@
 
 	$query = "
 			INSERT INTO cbl_user_dev
-			(`user_id`,`dev_id`)
+			(user_id,dev_id)
 			VALUES
 			('$user_id','$dev_id')
 			";
 	$result = mysqli_query($conn,$query);
-	?>
-		<script type="text/javascript">
-        	alert('Device Mapped Successfully!');
-        	window.open('map_device.php?user_id=<?php echo $user_id; ?>','_self');
-        </script>
-    <?php
+	
+	header('Location: user_profile.php?user_id='.$user_id);
+
 }
 	?>
 		<script type="text/javascript">
 	    	alert('Please insert valid device number!');
-	    	window.open('map_device.php?user_id=<?php echo $user_id; ?>','_self');
+	    	window.open('user_profile.php?user_id=<?php echo $user_id; ?>','_self');
 	    </script>

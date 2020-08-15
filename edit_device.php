@@ -22,15 +22,23 @@
 	$data = mysqli_fetch_assoc($result);
 ?>
 
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Edit Device</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Edit Device</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="container p-5">
-
-	<ol class="breadcrumb">
-	    <li class="breadcrumb-item">
-	    <i class="fas fa-edit mr-1"></i>Edit Device</li>
-	</ol>
-  
-  <hr size="3" noshade>
 
 	<form method="post" action="<?php echo htmlspecialchars('edit_device_process.php'); ?>" autocomplete="off" class="bg-light">
 		<div class="row mb-2">

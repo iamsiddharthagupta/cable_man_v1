@@ -25,15 +25,14 @@
             cbl_user.address AS address,
             cbl_user.area AS area,
             cbl_user.doi AS doi,
-            cbl_ledger.status AS status,
-            cbl_dev_stock.package AS package,
             cbl_dev_stock.device_no AS device_no,
-            cbl_dev_stock.device_mso AS device_mso
-            
+            cbl_dev_stock.device_mso AS device_mso,
+            cbl_dev_stock.device_type AS device_type,
+            cbl_dev_stock.package AS package
+
             FROM cbl_user_dev
 
             RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
-            LEFT JOIN cbl_ledger ON cbl_ledger.dev_id = cbl_user_dev.dev_id
             LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
 
             WHERE cbl_user.user_id = '$user_id'";
@@ -76,8 +75,6 @@
 
                 <h3 class="profile-username text-center"><?php echo $data['first_name']." ".$data['last_name']; ?></h3>
 
-                <p class="text-muted text-center"><?php echo $data['address'].", ".$data['area']; ?></p>
-
                 <a href="#" class="btn btn-primary btn-block"><b>Install Receipt</b></a>
               </div>
 
@@ -95,19 +92,18 @@
 
               <div class="card-body">
 
-                  <span><strong>Phone:</strong> <span class="text-muted"><?php echo $data['phone_no']; ?></span></span><br>
-                  <span><strong>Devices:</strong> <span class="text-muted"><?php echo $dev_count; ?></span></span><br>
-                  <span><strong>Package:</strong> Rs.<span class="text-muted"><?php echo $data['package']; ?></span></span><br>
+                  <span><strong>Phone:</strong> <span class="text-muted"><?php if(empty($data['phone_no'])){echo 'Unavailable';} else { echo $data['phone_no']; } ?></span></span><br>
+                  <span><strong>Address:</strong> <span class="text-muted"><?php echo $data['address'].", ".$data['area']; ?></span></span>
                   <span><strong>Customer Since:</strong> <span class="text-muted"><?php echo date('jS M y',strtotime($data['doi'])); ?></span></span>
 
                     <hr>
 
-                  <strong>Devices:</strong><br>
+                  <strong>Device and Package:</strong><br>
 
                   <?php
                     foreach ($result as $key => $data) {
                         ?>
-                            <span class="text-muted"><?php echo $data['device_mso'].' '.$data['device_no']; ?></span><br>
+                            <span class="text-muted">(Rs.<?php echo $data['package']; ?>) <strong><?php echo $data['device_mso']; ?></strong> <?php echo $data['device_no']; ?></span><br>
                         <?php
                     }
                   ?>
@@ -133,8 +129,90 @@
                   </div>
 
           <div class="tab-pane" id="ledger">
-                    <h1>Hi Ledger</h1>
-                  </div>
+            <div class="table-responsive">
+              <table class="table table-hover text-center table-bordered table-sm">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th>Device</th>
+                            <th>Duration</th>
+                            <th>Amount</th>
+                            <th>Balance</th>
+                            <th>Status</th>
+                            <th>Payment</th>
+                            <th>Action</th>
+                          </tr>
+                      </thead>
+
+              <?php
+              
+                $query = "
+                      SELECT * FROM cbl_user_dev
+
+                      RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
+                      LEFT JOIN cbl_ledger ON cbl_ledger.dev_id = cbl_user_dev.dev_id
+                      LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
+
+                      WHERE cbl_ledger.user_id = '$user_id'
+                      ORDER BY renew_date DESC
+                      ";
+                $result = mysqli_query($conn,$query);
+
+                if (mysqli_num_rows($result) < 1){
+                  echo "<tr><td colspan='10'>Not Yet Active!</td><tr>";
+                } else {
+                  
+                  foreach ($result as $key => $data) : ?>
+
+                  <tbody>
+                    <tr>
+                      
+                      <td><?php echo $data['device_no']; ?></td>
+
+                      <td>
+                        <strong><?php echo date('jS M',strtotime($data['renew_date'])); ?> - <?php echo date('jS M',strtotime($data['expiry_date'])); ?></strong>
+                      </td>
+
+                      <td><?php echo $data['pay_amount']; ?></td>
+
+                      <td><?php if($data['pay_amount'] < $data['package']){ ?>
+                          <div class="text-danger"><strong><?php echo $data['pay_amount'] - $data['package']; ?></strong></div>
+                        <?php } elseif($data['pay_amount'] > $data['package']) { ?>
+                          <div class="text-success"><strong><?php echo $data['pay_amount'] - $data['package']; ?></strong></div>
+                        <?php } else { ?>
+                          <div><?php echo 'Clear'; ?></div>
+                        <?php } ?>
+                      </td>
+                      
+                      <td><?php echo $data['status']; ?></td>
+                      
+                      <td>
+                        <?php if($data['pay_date'] == NULL){ ?>
+                          <div class="text-danger">Unpaid</div>
+                        <?php } else { ?>
+                          <div><?php echo date('j F y',strtotime($data['pay_date'])); ?></div>
+                        <?php } ?>
+                      </td>
+                      
+                      <td>
+                        <?php if($data['status'] == 'Renewed'){ ?>
+                          <button onclick="window.location.href='payment_form.php?ledger_id=<?php echo $data['ledger_id']; ?>'" class="btn btn-sm btn-danger">Pay <?php echo $data['package']; ?></button>
+                        <?php } else { ?>
+                          <form method="POST" action="receipt.php">
+                            <input type="hidden" name="ledger_id" value="<?php echo $data['ledger_id']; ?>">
+                            <input type="submit" name="generate_pdf" class="btn btn-success btn-sm" value="Reciept">
+                          </form>
+                        <?php } ?>
+                      </td>
+
+                    </tr>
+                  </tbody>
+                  <?php
+                    endforeach;
+                  }
+                ?>
+              </table>
+            </div>
+          </div>
 
                     <div class="tab-pane" id="settings">
                       <form class="form-horizontal" method="POST" action="<?php echo htmlspecialchars('update_process.php'); ?>" autocomplete="off">
@@ -190,19 +268,11 @@
     <div class="row">
 
       <div class="col-sm-4">
-        <form method="POST" action="<?php echo htmlspecialchars('map_device_process.php') ?>">
           
           <div class="card">
             <div class="card-header">Map/Edit Device:</div>
               
               <ul class="list-group list-group-flush">
-                <li class="list-group-item"><span class="mr-2">Name:</span>
-                  <strong><a href="user_profile.php?user_id=<?php echo $data['user_id']; ?>"><?php echo $data['first_name']." ".$data['last_name']; ?></a></strong>
-                </li>
-                <li class="list-group-item"><span class="mr-2">Area:</span>
-                  <strong><?php echo $data['area']; ?></strong>
-                </li>
-
                 <?php
                   $result = mysqli_query($conn,"
                       
@@ -215,14 +285,22 @@
                   
                   $data = mysqli_fetch_assoc($result);
 
-                  foreach ($result as $key => $data) {
-                    echo "  <li class='list-group-item'>
-                          <span>$data[device_mso]</span> - <strong><span>$data[device_no]</span></strong>
-                        </li>";
-
-                  }
+                  foreach ($result as $key => $data) :
+                    ?>
+                        <li class="list-group-item">
+                          <span>
+                            <form method="POST" action="release_device.php">
+                              <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+                              <input type="hidden" name="assign_id" value="<?php echo $data['assign_id']; ?>">
+                              <button type="submit" name="submit" onclick="return confirm('Do you want to release this user?');" class="btn btn-danger btn-xs"><i class="far fa-times-circle"></i></button>
+                            </form>
+                          </span>
+                          <span><?php echo $data['device_mso']; ?></span> - <strong><span><?php echo $data['device_no']; ?></span></strong>
+                        </li>
+                    <?php
+                  endforeach;
                 ?>
-
+                <form method="POST" action="<?php echo htmlspecialchars('map_device_process.php') ?>">
                 <li class="list-group-item">
                   <input type="text" name="device_no" id="myInput" placeholder="Enter Device ID" class="form-control" required>
                 </li>
@@ -230,22 +308,18 @@
                   <textarea name="reason" class="form-control" placeholder="Reason"></textarea>
                 </li>
                 <li class="list-group-item">
-                    <div class="col-sm-2 mr-1 mb-1">
+                    <div class="col-sm-2">
                       <input type="hidden" name="prev_dev_no" value="<?php echo $data['device_no']; ?>">
                       <input type="hidden" name="prev_dev_mso" value="<?php echo $data['device_mso']; ?>">
                       <input type="hidden" name="prev_dev_type" value="<?php echo $data['device_type']; ?>">
                       <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
                       <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                     </div>
-                    <div class="col-sm-2">
-                      <a href="#addDevice" data-toggle="modal" class="btn btn-primary">Add</a>
-                      <?php include 'add_device_modal.php'; ?>
-                    </div>
+                    </form>
                   </li>
                 </ul>
 
               </div>
-            </form>
           </div>
 
       <div class="col-sm-8">
@@ -263,22 +337,22 @@
 
           <?php
 
-            $query = "  SELECT
+            $query = "
+                      SELECT
+                      cbl_dev_stock.dev_id AS dev_id,
+                      cbl_dev_stock.device_no AS device_no,
+                      cbl_dev_stock.device_mso AS device_mso,
+                      cbl_dev_stock.device_type AS device_type,
+                      cbl_dev_stock.package AS package,
+                      cbl_user.user_id AS user_id,
+                      cbl_user.first_name AS first_name,
+                      cbl_user.last_name AS last_name,
+                      cbl_user_dev.assign_id AS assign_id
 
-                  cbl_dev_stock.dev_id AS dev_id,
-                  cbl_dev_stock.device_no AS device_no,
-                  cbl_dev_stock.device_mso AS device_mso,
-                  cbl_dev_stock.device_type AS device_type,
-                  cbl_dev_stock.package AS package,
-                  cbl_user.user_id AS user_id,
-                  cbl_user.first_name AS first_name,
-                  cbl_user.last_name AS last_name,
-                  cbl_user_dev.assign_id AS assign_id
-
-                  FROM cbl_user_dev
-                  LEFT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
-                  RIGHT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
-                  ORDER BY cbl_user.user_id ASC";
+                      FROM cbl_user_dev
+                      LEFT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
+                      RIGHT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
+                      ORDER BY cbl_user.user_id ASC";
             $result = mysqli_query($conn,$query);
 
             if (mysqli_num_rows($result) < 1){
@@ -305,17 +379,17 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                       <form method="POST" action="edit_device.php">
-                      <input type="hidden" name="dev_id" value="<?php echo $data['dev_id']; ?>">
-                      <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+                        <input type="hidden" name="dev_id" value="<?php echo $data['dev_id']; ?>">
+                        <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
                         <button type="submit" name="submit" class="dropdown-item">Edit</button>
-                    </form>
+                      </form>
                     <?php if(empty($data['user_id'])){ ?>
                     <?php } else { ?>
                         <form method="POST" action="release_device.php">
                           <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-                        <input type="hidden" name="assign_id" value="<?php echo $data['assign_id']; ?>">
+                          <input type="hidden" name="assign_id" value="<?php echo $data['assign_id']; ?>">
                           <button type="submit" name="submit" onclick="return confirm('Do you want to release this user?');" class="dropdown-item">Release</button>
-                      </form>
+                        </form>
                     <?php } ?>
                     </div>
                   </div>
