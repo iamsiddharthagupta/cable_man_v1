@@ -1,9 +1,13 @@
-<?php require_once 'profile_casing.php'; ?>
+<?php
+	
+	require_once 'profile_casing.php';
+	$user_id = $_GET['user_id'];
+?>
 
 		<div class="col-md-9">
           	<div class="container-fluid">
 
-          		                  <div class="card-body table-responsive p-0" style="height: 490px;">
+          		<div class="card-body table-responsive p-0" style="height: 490px;">
                     <table class="table table-hover text-center table-bordered table-sm table-head-fixed">
                         <thead>
                           <tr>
@@ -53,7 +57,11 @@
                       </td>
 
                       <td>
-                        <a href="renew<?php echo $data['dev_id']; ?>"><i class="fas fa-sync"></i></a>
+	                        <form method="POST" action="profile_renewal.php">
+								<input type="hidden" name="dev_id" value="<?php echo $data['dev_id']; ?>">
+								<input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+								<input type="submit" class="btn btn-outline-success btn-xs" value="Renew">
+							</form>
                       </td>
 
                     </tr>
