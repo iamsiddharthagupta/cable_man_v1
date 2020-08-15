@@ -83,9 +83,9 @@
 	    					</button>
 		    				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 								<?php if(!empty($data['device_no']) && empty($data['status'])){ ?>
-									<a class="dropdown-item" href="renewal_form.php?user_id=<?php echo $data['user_id']; ?>">Activate</a>
+									<a class="dropdown-item" href="user_profile.php?user_id=<?php echo $data['user_id']; ?>">Activate</a>
 								<?php } elseif(!empty($data['status'])) { ?>
-									<a class="dropdown-item" href="renewal_form.php?user_id=<?php echo $data['user_id']; ?>">Renew</a>
+									<a class="dropdown-item" href="user_profile.php?user_id=<?php echo $data['user_id']; ?>">Renew</a>
 								<?php } else { ?>
 								<a class="dropdown-item" href="user_profile.php?user_id=<?php echo $data['user_id']; ?>">Assign Device</a>
 								<?php } ?>
@@ -103,7 +103,7 @@
 						<?php } ?>
 					</td>
 
-					<td><a href="user_profile.php?user_id=<?php echo $data['user_id']; ?>"><strong><?php echo $data['first_name']." ".$data['last_name'];?></strong></a></td>
+					<td><a href="profile_ledger.php?user_id=<?php echo $data['user_id']; ?>"><strong><?php echo $data['first_name']." ".$data['last_name'];?></strong></a></td>
 
 					<td><?php echo $data['address'];?>, <strong><?php echo $data['area'] ?></strong></td>
 

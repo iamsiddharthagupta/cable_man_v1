@@ -22,40 +22,23 @@
 	$expiry_date = date_format($format_expiry,'Y-m-d');
 	$expiry_month = date('F',strtotime($expiry_date));
 
-	if(!empty($dev_id)){
-
-
-	foreach ($dev_id as $key => $dev_id) {
-
 // Query.
-	$query = "INSERT INTO cbl_ledger (`user_id`,`dev_id`,`renew_date`,`renew_month`,`expiry_month`,`expiry_date`,`note`,`invoice_no`) VALUES ('$user_id','$dev_id','$renew_date','$renew_month','$expiry_month','$expiry_date','$note','$invoice_no')";
+	$query = "INSERT INTO cbl_ledger (user_id,dev_id,renew_date,renew_month,expiry_month,expiry_date,note,invoice_no) VALUES ('$user_id','$dev_id','$renew_date','$renew_month','$expiry_month','$expiry_date','$note','$invoice_no')";
 	$result = mysqli_query($conn,$query);
-
-	}
 
 	if($result == true){
 		?>
             <script type="text/javascript">
-                  alert('Activated Successfully!');
-                  window.open('renewal_form.php?user_id=<?php echo $user_id; ?>','_self');
+                  window.open('user_profile.php?user_id=<?php echo $user_id; ?>','_self');
             </script>
         <?php
 	} else {
 		?>
             <script type="text/javascript">
               alert('Database crashed!');
-              window.open('renewal_form.php?user_id=<?php echo $user_id; ?>','_self');
+              window.open('user_profile.php?user_id=<?php echo $user_id; ?>','_self');
             </script>
 	   	<?php
 	}
-
-} else {
-	?>
-        <script type="text/javascript">
-          alert('Please choose device!');
-          window.open('renewal_form.php?user_id=<?php echo $user_id; ?>','_self');
-        </script>
-	<?php
-}
 
 ?>

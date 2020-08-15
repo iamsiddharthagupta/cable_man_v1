@@ -93,7 +93,7 @@
               <div class="card-body">
 
                   <span><strong>Phone:</strong> <span class="text-muted"><?php if(empty($data['phone_no'])){echo 'Unavailable';} else { echo $data['phone_no']; } ?></span></span><br>
-                  <span><strong>Address:</strong> <span class="text-muted"><?php echo $data['address'].", ".$data['area']; ?></span></span>
+                  <span><strong>Address:</strong> <span class="text-muted"><?php echo $data['address'].", ".$data['area']; ?></span></span><br>
                   <span><strong>Customer Since:</strong> <span class="text-muted"><?php echo date('jS M y',strtotime($data['doi'])); ?></span></span>
 
                     <hr>
@@ -103,7 +103,7 @@
                   <?php
                     foreach ($result as $key => $data) {
                         ?>
-                            <span class="text-muted">(Rs.<?php echo $data['package']; ?>) <strong><?php echo $data['device_mso']; ?></strong> <?php echo $data['device_no']; ?></span><br>
+                            <span>(Rs.<?php echo $data['package']; ?>) <strong><?php echo $data['device_mso']; ?></strong> <?php echo $data['device_no']; ?></span><br>
                         <?php
                     }
                   ?>
@@ -122,16 +122,82 @@
                 </ul>
               </div>
               <div class="card-body">
-                <div class="tab-content">
 
+                <div class="tab-content">
+<!-- Renewal Panel -->
                   <div class="active tab-pane" id="renewal">
-                    <h1>Hi Renewal</h1>
+                      
+                  <div class="card-body table-responsive p-0" style="height: 490px;">
+                    <table class="table table-hover text-center table-bordered table-sm table-head-fixed">
+                        <thead>
+                          <tr>
+                            <th>Device</th>
+                            <th>MSO</th>
+                            <th>Duration</th>
+                            <th>Renew</th>
+                          </tr>
+                      </thead>
+
+              <?php
+              
+                $query = "SELECT
+
+                          cbl_dev_stock.dev_id AS dev_id,
+                          cbl_dev_stock.device_no AS device_no,
+                          cbl_dev_stock.device_mso AS device_mso,
+                          cbl_dev_stock.device_type AS device_type,
+                          MAX(cbl_ledger.renew_date) AS renew_date,
+                          MAX(cbl_ledger.expiry_date) AS expiry_date
+
+                          FROM cbl_user_dev
+
+                          RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
+                          LEFT JOIN cbl_ledger ON cbl_ledger.dev_id = cbl_user_dev.dev_id
+                          LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
+
+                          WHERE cbl_user_dev.user_id = '$user_id'
+                          GROUP BY cbl_dev_stock.dev_id";
+                $result = mysqli_query($conn,$query);
+
+                if (mysqli_num_rows($result) < 1){
+                  echo "<tr><td colspan='4'>No Device Assigned!</td><tr>";
+                } else {
+
+                  foreach ($result as $key => $data) : ?>
+
+                  <tbody>
+                    <tr>
+                      
+                      <td><?php echo $data['device_no']; ?></td>
+                      
+                      <td><?php echo $data['device_mso']; ?></td>
+
+                      <td>
+                        <strong><?php if(empty($data['renew_date'])){ echo 'Activation Pending'; } else {echo date('jS M',strtotime($data['renew_date'])).' - '. date('jS M',strtotime($data['expiry_date']));} ?></strong>
+                      </td>
+
+                      <td>
+                        <a href="#renew<?php echo $data['dev_id']; ?>" data-toggle="modal"><i class="fas fa-sync"></i></a>
+                      </td>
+
+                    </tr>
+                    <?php require_once 'renewal_modal.php'; ?>
+                  </tbody>
+                  <?php
+                    endforeach;
+                  }
+                ?>
+              </table>
+            </div>
+
                   </div>
 
+<!-- Ledger Panel -->
           <div class="tab-pane" id="ledger">
-            <div class="table-responsive">
-              <table class="table table-hover text-center table-bordered table-sm">
-                        <thead class="thead-dark">
+
+            <div class="card-body table-responsive p-0" style="height: 490px;">
+              <table class="table table-hover text-center table-bordered table-sm table-head-fixed">
+                        <thead>
                           <tr>
                             <th>Device</th>
                             <th>Duration</th>
@@ -158,7 +224,7 @@
                 $result = mysqli_query($conn,$query);
 
                 if (mysqli_num_rows($result) < 1){
-                  echo "<tr><td colspan='10'>Not Yet Active!</td><tr>";
+                  echo "<tr><td colspan='7'>Not Yet Active!</td><tr>";
                 } else {
                   
                   foreach ($result as $key => $data) : ?>
@@ -212,8 +278,9 @@
                 ?>
               </table>
             </div>
-          </div>
 
+          </div>
+<!-- Update Panel -->
                     <div class="tab-pane" id="settings">
                       <form class="form-horizontal" method="POST" action="<?php echo htmlspecialchars('update_process.php'); ?>" autocomplete="off">
                       <div class="row">
@@ -263,25 +330,23 @@
                     </form>
                   </div>
 
+
+<!-- Device Panel -->
     <div class="tab-pane" id="device">
 
     <div class="row">
-
-      <div class="col-sm-4">
-          
+      <div class="col-md">
           <div class="card">
             <div class="card-header">Map/Edit Device:</div>
-              
               <ul class="list-group list-group-flush">
                 <?php
-                  $result = mysqli_query($conn,"
-                      
-                              SELECT * FROM cbl_user_dev
-                              RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
-                              LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
-                              WHERE cbl_user_dev.user_id = '$user_id'
 
-                              ");
+                  $query = "SELECT * FROM cbl_user_dev
+                            RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
+                            LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
+                            WHERE cbl_user_dev.user_id = '$user_id'";
+
+                  $result = mysqli_query($conn,$query);
                   
                   $data = mysqli_fetch_assoc($result);
 
@@ -292,15 +357,13 @@
                             <form method="POST" action="release_device.php">
                               <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
                               <input type="hidden" name="assign_id" value="<?php echo $data['assign_id']; ?>">
-                              <button type="submit" name="submit" onclick="return confirm('Do you want to release this user?');" class="btn btn-danger btn-xs"><i class="far fa-times-circle"></i></button>
-                            </form>
-                          </span>
-                          <span><?php echo $data['device_mso']; ?></span> - <strong><span><?php echo $data['device_no']; ?></span></strong>
+                              <button type="submit" name="submit" onclick="return confirm('Do you want to release this user?');" class="btn btn-danger btn-xs">x</button>
+                            </form> <?php echo $data['device_mso']; ?> - <strong><?php echo $data['device_no']; ?></strong></span>
                         </li>
                     <?php
                   endforeach;
                 ?>
-                <form method="POST" action="<?php echo htmlspecialchars('map_device_process.php') ?>">
+                    <form method="POST" action="<?php echo htmlspecialchars('map_device_process.php') ?>">
                 <li class="list-group-item">
                   <input type="text" name="device_no" id="myInput" placeholder="Enter Device ID" class="form-control" required>
                 </li>
@@ -315,19 +378,19 @@
                       <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
                       <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                     </div>
-                    </form>
                   </li>
                 </ul>
-
               </div>
           </div>
+          </form>
 
-      <div class="col-sm-8">
-        <div class="card-body table-responsive p-0" style="height: 500px;">
+      <div class="col-md">
+        <div class="card-body table-responsive p-0" style="height: 490px;">
           <table class="table table-hover text-center table-bordered table-sm table-head-fixed">
             <thead class="thead-light">
               <tr>
-                <th>Dev ID</th>
+                <th>SN</th>
+                <th>Dev #</th>
                 <th>MSO</th>
                 <th>Package</th>
                 <th>Assignee</th>
@@ -358,18 +421,21 @@
             if (mysqli_num_rows($result) < 1){
               echo "<tr><td colspan='6'>Not Yet Active!</td><tr>";
             } else {
-              
-              foreach ($result as $key => $data) : ?>
+              $i = 0;
+              foreach ($result as $key => $data) : $i++; ?>
                 
           <tbody id="myTable">
             <tr>
+
+              <td><?php echo $i; ?></td>
+
               <td><?php echo $data['device_no']; ?></td>
               
-              <td><?php echo $data['device_mso'],' '.$data['device_type']; ?></td>
+              <td><?php echo $data['device_mso'];?> [<?php echo $data['device_type']; ?>]</td>
               
               <td><?php echo $data['package']; ?></td>
               
-              <td><a href="map_device.php?user_id=<?php echo $data['user_id']; ?>"><?php echo $data['first_name']." ".$data['last_name']; ?></a></td>
+              <td><a href="user_profile.php?user_id=<?php echo $data['user_id']; ?>"><?php echo $data['first_name']." ".$data['last_name']; ?></a></td>
               
               <td>
 
