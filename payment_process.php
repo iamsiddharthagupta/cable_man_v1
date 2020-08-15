@@ -26,7 +26,7 @@
 	?>
             <script type="text/javascript">
               alert('Payment Added for Selected Month!');
-              window.open('payment_form.php?ledger_id=<?php echo $ledger_id; ?>','_self');
+              window.open('profile_payment.php?ledger_id=<?php echo $ledger_id; ?>','_self');
             </script>
     <?php
 	} else {

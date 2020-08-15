@@ -1,4 +1,7 @@
-<?php require_once 'profile_casing.php'; ?>
+<?php
+  require_once 'profile_casing.php';
+  $user_id = $_GET['user_id'];
+?>
 
 		<div class="col-md-9">
           	<div class="container-fluid">
@@ -35,7 +38,11 @@
                   echo "<tr><td colspan='7'>Not Yet Active!</td><tr>";
                 } else {
                   
-                  foreach ($result as $key => $data) : ?>
+                  foreach ($result as $key => $data) :
+
+                      $urlMulti = "user_id={$user_id}&ledger_id={$data['ledger_id']}";
+                  
+                  ?>
 
                   <tbody>
                     <tr>
@@ -69,7 +76,9 @@
                       
                       <td>
                         <?php if($data['status'] == 'Renewed'){ ?>
-                          <button onclick="window.location.href='payment_form.php?ledger_id=<?php echo $data['ledger_id']; ?>'" class="btn btn-sm btn-danger">Pay <?php echo $data['package']; ?></button>
+
+                          <a href="profile_payment.php?<?= $urlMulti; ?>"><i class="fas fa-rupee-sign"></i></a>
+
                         <?php } else { ?>
                           <form method="POST" action="receipt.php">
                             <input type="hidden" name="ledger_id" value="<?php echo $data['ledger_id']; ?>">

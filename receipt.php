@@ -16,7 +16,7 @@
 
 	// Invoice Part from below --------------------------------------------------------------------------------->
     // Include autoloader 
-    require_once '../vendor/autoload.php';
+    require_once 'vendor/autoload.php';
  
     // Reference the Dompdf namespace 
     use Dompdf\Dompdf;

@@ -55,9 +55,11 @@
 			              <input type="hidden" name="invoice_no" value="<?php echo 'ALC'.date('Ymd').$data['user_id']; ?>">
 			              <input type="hidden" name="user_id" value="<?php echo $data['user_id']; ?>">
 			              <input type="hidden" name="dev_id" value="<?php echo $dev_id; ?>">
+			              <button type="submit" name="submit" class="btn btn-primary">Submit</button>
 			            </li>
 			          </ul>
 			      </div>
+			  	</form>
 			  </div>
 			</div>
 			</div>
