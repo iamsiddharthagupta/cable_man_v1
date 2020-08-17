@@ -21,13 +21,13 @@
 <div class="container-fluid p-2">
 
 	<div class="row justify-content-center">
-		<div class="col-sm-6">
-			<input id="myInput" class="form-control border-success mb-2 mr-sm-2 text-center" placeholder="A-Z Users, Search...">
-			<form method="post" action="export_data.php">
-	      		<a href="add_user.php" class="btn btn-outline-primary mb-2">Add User</a>
-	      		<input type="submit" name="export" class="btn btn-outline-success mb-2 mr-sm-2" value="export xls">
-	    	</form>
+		<div class="col-md-8">
+			<input id="myInput" class="form-control border-success mb-2 mr-sm-2 text-center" placeholder="Search...">
 		</div>
+		<form method="post" action="export_data.php">
+      		<a href="add_user.php" class="btn btn-outline-primary mb-2">Add User</a>
+      		<input type="submit" name="export" class="btn btn-outline-success mb-2 mr-sm-2" value="export xls">
+    	</form>
 	</div>
 
 	<div class="card-body table-responsive p-0" style="height: 600px;">
