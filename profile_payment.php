@@ -108,7 +108,7 @@
 		                <td><?php echo $data['device_no']; ?></td>
 
 		                <td>
-		                  <strong><?php echo date('F',strtotime($data['renew_month'])); ?></strong>
+		                  <strong><?php echo $data['renew_month']; ?></strong>
 		                </td>
 
 		                <td><?php echo $data['due_amount']; ?></td>
