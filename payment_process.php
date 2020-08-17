@@ -13,24 +13,28 @@
 // Payment Logic.
 
 	$bal = '';
+	$msg = '';
 
 	if($pay_amount < $due_amount){
 
 		$due = $pay_amount - $due_amount;
 
 		$bal = $due;
+		$msg = 'Balance';
 	
 	} elseif($pay_amount > $due_amount) {
 
 		$adv = $pay_amount - $due_amount;
 
 		$bal = $adv;
+		$msg = 'Advance';
 
 	} elseif ($pay_amount == $due_amount){
 
 		$clear = $pay_amount - $due_amount;
 
 		$bal = $clear;
+		$msg = 'Clear';
 
 	}
 
@@ -38,6 +42,7 @@
 				UPDATE cbl_ledger SET
 				pay_amount = '$pay_amount',
 				pay_balance = '$bal',
+				pay_status = '$msg',
 				pay_date = '$pay_date',
 				pay_month = '$pay_month',
 				status = 'Paid'

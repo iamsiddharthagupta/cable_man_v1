@@ -10,6 +10,7 @@
                     <tr>
                       <th>Device</th>
                       <th>Duration</th>
+                      <th>Due Amount</th>
                       <th>Amount</th>
                       <th>Balance</th>
                       <th>Status</th>
@@ -50,6 +51,8 @@
                 <td>
                   <strong><?php echo date('jS M',strtotime($data['renew_date'])); ?> - <?php echo date('jS M',strtotime($data['expiry_date'])); ?></strong>
                 </td>
+
+                <td><?php echo $data['due_amount']; ?></td>
 
                 <td><?php echo $data['pay_amount']; ?></td>
                 

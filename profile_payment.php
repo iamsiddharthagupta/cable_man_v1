@@ -71,6 +71,7 @@
 		                    <tr>
 		                      <th>Device</th>
 		                      <th>Month</th>
+		                      <th>Due</th>
 		                      <th>Amount</th>
 		                      <th>Balance</th>
 		                      <th>Status</th>
@@ -109,6 +110,8 @@
 		                <td>
 		                  <strong><?php echo date('F',strtotime($data['renew_month'])); ?></strong>
 		                </td>
+
+		                <td><?php echo $data['due_amount']; ?></td>
 
 		                <td><?php echo $data['pay_amount']; ?></td>
 		                
