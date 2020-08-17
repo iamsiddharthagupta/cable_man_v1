@@ -19,6 +19,7 @@
 		                cbl_user.address AS address,
 		                cbl_user.area AS area,
 		                cbl_dev_stock.device_no AS device_no,
+		                cbl_dev_stock.package AS package,
 		                cbl_dev_stock.device_mso AS device_mso,
 		                cbl_dev_stock.device_type AS device_type
 		                
@@ -49,10 +50,8 @@
 			              <input type="date" name="renew_date" class="form-control" required>
 			            </li>
 			            <li class="list-group-item">
-			              <textarea name="note" placeholder="Notes" class="form-control"></textarea>
-			            </li>
-			            <li class="list-group-item">
 			              <input type="hidden" name="invoice_no" value="<?php echo 'ALC'.date('Ymd').$data['user_id']; ?>">
+			              <input type="hidden" name="package" value="<?php echo $data['package']; ?>">
 			              <input type="hidden" name="user_id" value="<?php echo $data['user_id']; ?>">
 			              <input type="hidden" name="dev_id" value="<?php echo $dev_id; ?>">
 			              <button type="submit" name="submit" class="btn btn-primary">Submit</button>

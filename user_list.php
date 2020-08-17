@@ -83,11 +83,11 @@
 	    					</button>
 		    				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 								<?php if(!empty($data['device_no']) && empty($data['status'])){ ?>
-									<a class="dropdown-item" href="user_profile.php?user_id=<?php echo $data['user_id']; ?>">Activate</a>
+									<a class="dropdown-item" href="profile_devices.php?user_id=<?php echo $data['user_id']; ?>">Activate</a>
 								<?php } elseif(!empty($data['status'])) { ?>
-									<a class="dropdown-item" href="user_profile.php?user_id=<?php echo $data['user_id']; ?>">Renew</a>
+									<a class="dropdown-item" href="profile_renewal.php?user_id=<?php echo $data['user_id']; ?>">Renew</a>
 								<?php } else { ?>
-								<a class="dropdown-item" href="user_profile.php?user_id=<?php echo $data['user_id']; ?>">Assign Device</a>
+								<a class="dropdown-item" href="profile_renewal.php?user_id=<?php echo $data['user_id']; ?>">Assign Device</a>
 								<?php } ?>
 						    </div>
 				  		</div>

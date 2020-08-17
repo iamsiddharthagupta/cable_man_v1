@@ -8,9 +8,9 @@
 // Getting form indexes.
 	$dev_id = $_POST['dev_id'];
 	$invoice_no = $_POST['invoice_no'];
+	$due_amount = $_POST['package'];
 	$user_id = $_POST['user_id'];
 	$renew_date = $_POST['renew_date'];
-	$note = $_POST['note'];
 	$current_month = date('F');
 
 // Preparing Expiry date and Month to insert into the database.
@@ -23,7 +23,8 @@
 	$expiry_month = date('F',strtotime($expiry_date));
 
 // Query.
-	$query = "INSERT INTO cbl_ledger (user_id,dev_id,renew_date,renew_month,expiry_month,expiry_date,note,invoice_no) VALUES ('$user_id','$dev_id','$renew_date','$renew_month','$expiry_month','$expiry_date','$note','$invoice_no')";
+	$query = "INSERT INTO cbl_ledger (user_id,dev_id,renew_date,renew_month,expiry_month,expiry_date,invoice_no,due_amount)				VALUES
+			('$user_id','$dev_id','$renew_date','$renew_month','$expiry_month','$expiry_date','$invoice_no','$due_amount')";
 	$result = mysqli_query($conn,$query);
 
 	if($result == true){
@@ -35,7 +36,7 @@
 	} else {
 		?>
             <script type="text/javascript">
-	              alert('Database crashed!');
+	              alert('Database Error.');
 	              window.open('profile_ledger.php?user_id=<?php echo $user_id; ?>','_self');
             </script>
 	   	<?php
