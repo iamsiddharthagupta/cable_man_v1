@@ -76,7 +76,13 @@
     return urlencode($query);
   }
 
+  // Dinamic Filter Function in User List.
+    function UserFilter($area){
 
+    $query = "WHERE cbl_user.area = '$area' GROUP BY cbl_user.user_id";
+
+    return urlencode($query);
+  }
 
 
     include 'common/header.php';

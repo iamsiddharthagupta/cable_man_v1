@@ -21,17 +21,23 @@
 <div class="container-fluid p-2">
 
 	<div class="form-row">
+		<div class="col-auto">
+			<div class="btn-group" role="group">
+				<button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Filter
+				</button>
+				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+				      <a class="dropdown-item" href="user_list.php?query=<?php echo UserFilter('Humayunpur'); ?>">Humayunpur</a>
+				      <a class="dropdown-item" href="user_list.php?query=<?php echo UserFilter('Arjun Nagar'); ?>">Arjun Nagar</a>
+				      <a class="dropdown-item" href="user_list.php?query=<?php echo UserFilter('Krishna Nagar'); ?>">Krishna Nagar</a>
+				      <a class="dropdown-item" href="user_list.php?query=<?php echo UserFilter('B-4'); ?>">B-4</a>
+
+				      <a class="dropdown-item" href="user_list.php?query=<?php echo UserFilter('Other'); ?>">Other</a>
+			    </div>
+			</div>
+		</div>
 		<div class="form-group col-md">
 			<input id="myInput" class="form-control border-success text-center" placeholder="Search...">
-		</div>
-		<div class="form-group col-md">
-			<select class="form-control">
-				<option value="">ABC</option>
-				<option value="">DEF</option>
-			</select>
-		</div>
-		<div class="col-auto">
-			<button class="btn btn-primary">Filter</button>
 		</div>
 	</div>
 
