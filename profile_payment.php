@@ -29,40 +29,36 @@
 
 ?>
 		<div class="col-md-3">
-          	<div class="container-fluid">
-
-		        <form method="POST" action="<?php echo htmlspecialchars('profile_payment_process.php'); ?>">
-					<div class="card">
-						<div class="card-header">Payment Panel:</div>
-						  <ul class="list-group list-group-flush">
-						    <li class="list-group-item"><span class="mr-2">Device:</span>
-						    	<strong><?php echo $data['device_no']." - ".$data['device_mso']; ?></strong>
-						    </li>
-						    <li class="list-group-item"><span class="mr-2">Duration:</span>
-						    	<strong><?php echo date('jS M',strtotime($data['renew_date'])); ?> - <?php echo date('jS M',strtotime($data['expiry_date'])); ?></strong>
-						    </li>
-						    <li class="list-group-item"><span class="mr-2">Invoice:</span>
-						    	<strong><?php echo $data['invoice_no']." - ".$data['renew_month']; ?></strong>
-						    	<input type="hidden" name="ledger_id" value="<?php echo $data['ledger_id']; ?>">
-						    	<input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-						    	<input type="hidden" name="due_invoice" value="<?php echo $data['invoice_no']; ?>">
-						    	<input type="hidden" name="due_amount" value="<?php echo $data['due_amount']; ?>">
-						    </li>
-						    <li class="list-group-item">
-						    	<input type="number" name="pay_amount" class="form-control border-success" value="<?php echo $data['due_amount']; ?>">
-						    </li>
-						    <li class="list-group-item">
-						    	<input type="date" name="pay_date" class="form-control" required>
-						    </li>
-						     <li class="list-group-item">
-						    	
-								<button type="submit" name="submit" class="btn btn-primary">Submit</button>
-						    </li>
-						  </ul>
-					</div>
-				</form>
-
-          	</div>
+	        <form method="POST" action="<?php echo htmlspecialchars('profile_payment_process.php'); ?>">
+				<div class="card">
+					<div class="card-header">Payment Panel:</div>
+					  <ul class="list-group list-group-flush">
+					    <li class="list-group-item"><span class="mr-2">Device:</span>
+					    	<strong><?php echo $data['device_no']." - ".$data['device_mso']; ?></strong>
+					    </li>
+					    <li class="list-group-item"><span class="mr-2">Duration:</span>
+					    	<strong><?php echo date('jS M',strtotime($data['renew_date'])); ?> - <?php echo date('jS M',strtotime($data['expiry_date'])); ?></strong>
+					    </li>
+					    <li class="list-group-item"><span class="mr-2">Invoice:</span>
+					    	<strong><?php echo $data['invoice_no']." - ".$data['renew_month']; ?></strong>
+					    	<input type="hidden" name="ledger_id" value="<?php echo $data['ledger_id']; ?>">
+					    	<input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+					    	<input type="hidden" name="due_invoice" value="<?php echo $data['invoice_no']; ?>">
+					    	<input type="hidden" name="due_amount" value="<?php echo $data['due_amount']; ?>">
+					    </li>
+					    <li class="list-group-item">
+					    	<input type="number" name="pay_amount" class="form-control border-success" value="<?php echo $data['due_amount']; ?>">
+					    </li>
+					    <li class="list-group-item">
+					    	<input type="date" name="pay_date" class="form-control" required>
+					    </li>
+					     <li class="list-group-item">
+					    	
+							<button type="submit" name="submit" class="btn btn-primary">Submit</button>
+					    </li>
+					  </ul>
+				</div>
+			</form>
 		</div>
 		<div class="col-md-6">
 			<div class="card-body table-responsive p-0" style="height: 490px;">
@@ -74,7 +70,6 @@
 		                      <th>Due</th>
 		                      <th>Amount</th>
 		                      <th>Balance</th>
-		                      <th>Status</th>
 		                      <th>Payment</th>
 		                    </tr>
 		                </thead>
@@ -108,7 +103,7 @@
 		                <td><?php echo $data['device_no']; ?></td>
 
 		                <td>
-		                  <strong><?php echo $data['renew_month']; ?></strong>
+		                  <strong><?php echo $data['renew_month']; ?> (<?php echo $data['renew_term']; ?>)</strong>
 		                </td>
 
 		                <td><?php echo $data['due_amount']; ?></td>
@@ -116,8 +111,6 @@
 		                <td><?php echo $data['pay_amount']; ?></td>
 		                
 		                <td><?php echo $data['pay_balance']; ?></td>
-		                
-		                <td><?php echo $data['status']; ?></td>
 		                
 		                <td>
 		                  <?php if($data['pay_date'] == NULL){ ?>
@@ -134,11 +127,9 @@
 		            }
 		          ?>
 		        </table>
-	      </div>
-	</div>
-
-</div>
-
+	      	</div>
+		</div>
+		</div>
 </section>
 
 <?php require_once 'common/footer.php'; ?>

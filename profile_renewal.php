@@ -5,9 +5,16 @@
 
 ?>
 
-		<div class="col-md-9">
-          	<div class="container-fluid">
-
+<div class="col-md-9">
+	<div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">Renewal Panel</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
 		<?php
 		      $dev_id = $_GET['dev_id'];
 
@@ -33,39 +40,45 @@
 		      $result = mysqli_query($conn,$query);
 		      $data = mysqli_fetch_assoc($result);
 		?>
-
-			<div class="container-fluid">
-			<div class="row">
-			  <div class="col-sm mb-2">
-			    <form method="POST" action="<?php echo htmlspecialchars('profile_renewal_process.php'); ?>">
-			      <div class="card">
-			          <ul class="list-group list-group-flush">
-			            <li class="list-group-item"><span class="mr-2">Device No:</span>
-			              <strong><?php echo $data['device_no']; ?></strong>
-			            </li>
-			            <li class="list-group-item"><span class="mr-2">Device MSO:</span>
-			              <strong><?php echo $data['device_mso']; ?></strong>
-			            </li>
-			            <li class="list-group-item">
-			              <input type="date" name="renew_date" class="form-control" required>
-			            </li>
-			            <li class="list-group-item">
-			              <input type="hidden" name="invoice_no" value="<?php echo 'ALC'.date('Ymd').$data['user_id']; ?>">
-			              <input type="hidden" name="package" value="<?php echo $data['package']; ?>">
-			              <input type="hidden" name="user_id" value="<?php echo $data['user_id']; ?>">
-			              <input type="hidden" name="dev_id" value="<?php echo $dev_id; ?>">
-			              <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-			            </li>
-			          </ul>
-			      </div>
-			  	</form>
-			  </div>
-			</div>
-			</div>
-
-          	</div>
+		    <form method="POST" action="<?php echo htmlspecialchars('profile_renewal_process.php'); ?>">
+		      <div class="card">
+		          <ul class="list-group list-group-flush">
+		            <li class="list-group-item"><span class="mr-2">Device No:</span>
+		              <strong><?php echo $data['device_no']; ?></strong>
+		            </li>
+		            <li class="list-group-item"><span class="mr-2">Device MSO:</span>
+		              <strong><?php echo $data['device_mso']; ?></strong>
+		            </li>
+		            <li class="list-group-item"><span class="mr-2">Package:</span>
+		              INR <strong><?php echo $data['package']; ?></strong>
+		            </li>
+		            <li class="list-group-item">
+		              <input type="date" name="renew_date" class="form-control" required>
+		            </li>
+		            <li class="list-group-item"><span class="mr-2">Duration:</span>
+		              <select class="form-control" name="renew_term">
+		              	<option value="" disabled>Select Period</option>
+		              	<option value="1">Monthly</option>
+		              	<option value="3">Quarterly</option>
+		              	<option value="6">Half Yearly</option>
+		              	<option value="12">Annually</option>
+		              </select>
+		            </li>
+		            <li class="list-group-item">
+		              <input type="hidden" name="invoice_no" value="<?php echo 'ALC'.date('Ymd').$data['user_id']; ?>">
+		              <input type="hidden" name="package" value="<?php echo $data['package']; ?>">
+		              <input type="hidden" name="user_id" value="<?php echo $data['user_id']; ?>">
+		              <input type="hidden" name="dev_id" value="<?php echo $dev_id; ?>">
+		              <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+		            </li>
+		          </ul>
+		      </div>
+		  	</form>
+		  </div>
 		</div>
+       </div>
 	</div>
+</div>
 
 </section>
 
