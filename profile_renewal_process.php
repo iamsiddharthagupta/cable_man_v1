@@ -14,13 +14,13 @@
 	$renew_term = $_POST['renew_term'];
 	
 
-	$renew_term_months = $renew_term." "."months";
+	$renew_term_month = $renew_term." "."months";
 	$due_amount = $package * $renew_term;
 
 
 // Preparing Expiry date and Month to insert into the database.
 	$format_renew = date_create($renew_date);
-	$format_expiry = date_add($format_renew,date_interval_create_from_date_string($renew_term_months));
+	$format_expiry = date_add($format_renew,date_interval_create_from_date_string($renew_term_month));
 
 // Finalized after conversion.
 	$renew_month = date('F',strtotime($renew_date));
@@ -28,7 +28,7 @@
 	$expiry_month = date('F',strtotime($expiry_date));
 
 // Query.
-	$query = "	INSERT INTO cbl_ledger (user_id,dev_id,renew_date,renew_month,expiry_month,expiry_date,renew_term,renew_term_month,invoice_no,due_amount) VALUES ('$user_id','$dev_id','$renew_date','$renew_month','$expiry_month','$expiry_date','$renew_term','$renew_term_days','$invoice_no','$due_amount')";
+	$query = "	INSERT INTO cbl_ledger (user_id,dev_id,renew_date,renew_month,expiry_month,expiry_date,renew_term,renew_term_month,invoice_no,due_amount) VALUES ('$user_id','$dev_id','$renew_date','$renew_month','$expiry_month','$expiry_date','$renew_term','$renew_term_month','$invoice_no','$due_amount')";
 	$result = mysqli_query($conn,$query);
 
 	if($result == true){

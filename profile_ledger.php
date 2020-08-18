@@ -49,7 +49,7 @@
                 <td><?php echo $data['device_no']; ?></td>
 
                 <td>
-                  <strong><?php echo date('jS M',strtotime($data['renew_date'])); ?> - <?php echo date('jS M',strtotime($data['expiry_date'])); ?></strong>
+                  <strong><?php echo date('jS M',strtotime($data['renew_date'])); ?> - <?php echo date('jS M',strtotime($data['expiry_date'])); ?> (<?php echo $data['renew_term']; ?>)</strong>
                 </td>
 
                 <td><?php echo $data['due_amount']; ?></td>

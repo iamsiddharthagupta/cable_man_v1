@@ -55,9 +55,9 @@
 		            <li class="list-group-item">
 		              <input type="date" name="renew_date" class="form-control" required>
 		            </li>
-		            <li class="list-group-item"><span class="mr-2">Duration:</span>
+		            <li class="list-group-item"><span class="mr-2">Renewal Term:</span>
 		              <select class="form-control" name="renew_term">
-		              	<option value="" disabled>Select Period</option>
+		              	<option value="" disabled>Select Term</option>
 		              	<option value="1">Monthly</option>
 		              	<option value="3">Quarterly</option>
 		              	<option value="6">Half Yearly</option>
