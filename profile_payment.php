@@ -31,7 +31,7 @@
 		<div class="col-md-3">
           	<div class="container-fluid">
 
-		        <form method="POST" action="<?php echo htmlspecialchars('payment_process.php'); ?>">
+		        <form method="POST" action="<?php echo htmlspecialchars('profile_payment_process.php'); ?>">
 					<div class="card">
 						<div class="card-header">Payment Panel:</div>
 						  <ul class="list-group list-group-flush">

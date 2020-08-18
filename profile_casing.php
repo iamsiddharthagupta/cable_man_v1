@@ -80,7 +80,7 @@
                         Action
                     </button>
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                      <a class="dropdown-item" href="profile_device_map.php?user_id=<?php echo $data['user_id']; ?>">Update User Profile</a>
+                      <a class="dropdown-item" href="profile_update.php?user_id=<?php echo $data['user_id']; ?>">Update Profile</a>
                       <a class="dropdown-item" href="profile_device_map.php?user_id=<?php echo $data['user_id']; ?>">Map/Edit Device</a>
                       <a class="dropdown-item" href="profile_devices.php?user_id=<?php echo $data['user_id']; ?>">Renew</a>
                       <a class="dropdown-item" href="profile_ledger.php?user_id=<?php echo $data['user_id']; ?>">Ledger</a>
@@ -100,7 +100,6 @@
               </div>
 
               <div class="card-body">
-
                   <span><strong>Phone:</strong> <span class="text-muted"><?php if(empty($data['phone_no'])){echo 'Unavailable';} else { echo $data['phone_no']; } ?></span></span><br>
                   <span><strong>Address:</strong> <span class="text-muted"><?php echo $data['address'].", ".$data['area']; ?></span></span><br>
                   <span><strong>Customer Since:</strong> <span class="text-muted"><?php echo date('jS M y',strtotime($data['doi'])); ?></span></span>
@@ -118,5 +117,6 @@
                   ?>
               </div>
             </div>
+
           </div>
 
