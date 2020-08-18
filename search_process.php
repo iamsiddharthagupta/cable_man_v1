@@ -13,5 +13,5 @@
 ?>
 
 <script type="text/javascript">
-	window.location.href='user_profile.php?user_id=<?php echo $user_id; ?>'
+	window.location.href='profile_ledger.php?user_id=<?php echo $user_id; ?>'
 </script>

@@ -51,12 +51,13 @@
 		                cbl_user.address AS address,
 		                cbl_user.area AS area,
 		                cbl_user.phone_no AS phone_no,
-		                cbl_dev_stock.package AS package,
 		                cbl_dev_stock.device_no AS device_no,
 		                cbl_ledger.renew_date AS renew_date,
 		                cbl_ledger.pay_amount AS pay_amount,
 		                cbl_ledger.expiry_date AS expiry_date,
 		                cbl_ledger.renew_month AS renew_month,
+		                cbl_ledger.due_amount AS due_amount,
+		                cbl_ledger.renew_term AS renew_term,
 		                cbl_ledger.user_id AS user_id,
 		                cbl_ledger.ledger_id AS ledger_id
 
@@ -78,7 +79,7 @@
 
 				<td>
 					<?php if(empty($data['pay_amount'])){ ?>
-						<button onclick="window.location.href='payment_form.php?ledger_id=<?php echo $data['ledger_id']; ?>'" class="btn btn-sm btn-danger">Pay <?php echo $data['package']; ?></button>
+						<button onclick="window.location.href='payment_form.php?ledger_id=<?php echo $data['ledger_id']; ?>'" class="btn btn-sm btn-danger">Pay <?php echo $data['due_amount']; ?></button>
 					<?php } else { ?>
 						<form method="POST" action="receipt.php">
 							<input type="hidden" name="ledger_id" value="<?php echo $data['ledger_id']; ?>">
@@ -89,7 +90,7 @@
 
 				<td><?php echo $data['device_no']; ?></td>
 
-				<td><strong><span><?php echo date('jS M',strtotime($data['renew_date']));?> - <?php echo date('jS M',strtotime($data['expiry_date']));?></span></strong></td>
+				<td><strong><span><?php echo date('jS M',strtotime($data['renew_date']));?> - <?php echo date('jS M',strtotime($data['expiry_date']));?></span> (<?php echo $data['renew_term'];?>)</strong></td>
 				
 				<td><strong><?php echo $data['renew_month'];?></strong></td>
 
