@@ -23,14 +23,14 @@
     if($result == true){
       ?>
         <script type="text/javascript">
-              window.open('profile_ledger.php?user_id=<?php echo $user_id;?>','_self');
+              window.open('profile_update.php?user_id=<?php echo $user_id;?>','_self');
         </script>
       <?php
         } else {
       ?>
         <script type="text/javascript">
               alert('Database Error.');
-              window.open('profile_ledger.php?user_id=<?php echo $user_id;?>','_self');
+              window.open('profile_update.php?user_id=<?php echo $user_id;?>','_self');
         </script>
       <?php
     }

@@ -20,10 +20,13 @@
 
 <div class="container-fluid p-2">
 
-	<div class="form-row">
+	<div class="form-row justify-content-center">
+		<div class="form-group col-md-6">
+			<input id="myInput" class="form-control border-success text-center" placeholder="Search...">
+		</div>
 		<div class="col-auto">
 			<div class="btn-group" role="group">
-				<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						Filter Area
 				</button>
 				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
@@ -38,8 +41,10 @@
 			    </div>
 			</div>
 		</div>
-		<div class="form-group col-md">
-			<input id="myInput" class="form-control border-success text-center" placeholder="Search...">
+		<div class="col-auto">
+			<form method="post" action="export_data.php">
+	      		<input type="submit" name="export" class="btn btn-outline-success mb-2 mr-sm-2" value="export xls">
+    		</form>
 		</div>
 	</div>
 
@@ -55,7 +60,7 @@
 		        <th>Connection(s)</th>
 		        <th>Package</th>
 		      </tr>
-		</thead>
+			</thead>
 
 <?php
 
@@ -102,6 +107,7 @@
 								<?php } else { ?>
 								<a class="dropdown-item" href="profile_device_map.php?user_id=<?php echo $data['user_id']; ?>">Assign Device</a>
 								<?php } ?>
+								<a class="dropdown-item" href="profile_update.php?user_id=<?php echo $data['user_id']; ?>">Update Profile</a>
 						    </div>
 				  		</div>
 					</td>

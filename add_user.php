@@ -28,7 +28,7 @@
     $area = mysqli_real_escape_string($conn,$_POST['area']);
     $address = mysqli_real_escape_string($conn,$_POST['address']);
 
-    if(!empty($first_name)){
+    if(!empty($first_name) && !empty($phone_no) && !empty($address)){
 
     $query = "INSERT INTO cbl_user
               (first_name,last_name,phone_no,area,address)
@@ -97,7 +97,7 @@
       <div class="form-row">
         <div class=" form-group col-md">
           <label>Contact Number:</label>
-            <input type="text" class="form-control" name="phone_no" placeholder="Contact Number" value="<?php echo isset($_POST['primary_cont']) ? $primary_cont : ''; ?>">
+            <input type="text" class="form-control" name="phone_no" placeholder="Contact Number" value="<?php echo isset($_POST['phone_no']) ? $phone_no : ''; ?>">
         </div>
         <div class=" form-group col-md">
           <label>Area: *</label>

@@ -89,14 +89,18 @@
 		echo "<tr><td colspan='13'>No user yet.</td><tr>";
 	} else {
 		
-		foreach ($result as $key => $data) : ?>
+		foreach ($result as $key => $data) :
+
+			$urlMulti = "user_id={$data['user_id']}&ledger_id={$data['ledger_id']}";
+
+		?>
 
 		<tbody id="myTable">
 			<tr>
 
 				<td>
 					<?php if(empty($data['pay_amount'])){ ?>
-						<button onclick="window.location.href='payment_form.php?ledger_id=<?php echo $data['ledger_id']; ?>'" class="btn btn-sm btn-danger">Pay <?php echo $data['due_amount']; ?></button>
+						<button onclick="window.location.href='profile_payment.php?<?= $urlMulti; ?>'" class="btn btn-sm btn-danger">Pay <?php echo $data['due_amount']; ?></button>
 					<?php } else { ?>
 						<form method="POST" action="receipt.php">
 							<input type="hidden" name="ledger_id" value="<?php echo $data['ledger_id']; ?>">
