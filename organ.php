@@ -79,11 +79,18 @@
   // Dinamic Filter Function in User List.
     function UserFilter($area){
 
-    $query = "WHERE cbl_user.area = '$area' GROUP BY cbl_user.user_id";
+    $query = "WHERE cbl_user.area = '$area' GROUP BY cbl_user.user_id ORDER BY address ASC";
 
     return urlencode($query);
   }
 
+  // Dinamic Filter Function in User List.
+    function OverdueFilter($area){
+
+    $query = "WHERE cbl_ledger.status = 'Renewed' AND cbl_user.area = '$area' GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
+
+    return urlencode($query);
+  }
 
     include 'common/header.php';
 ?>

@@ -23,10 +23,12 @@
 	<div class="form-row">
 		<div class="col-auto">
 			<div class="btn-group" role="group">
-				<button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Filter
+				<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Filter Area
 				</button>
 				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+				      <a class="dropdown-item" href="user_list.php?query=<?php echo UserList(); ?>">All</a>
+
 				      <a class="dropdown-item" href="user_list.php?query=<?php echo UserFilter('Humayunpur'); ?>">Humayunpur</a>
 				      <a class="dropdown-item" href="user_list.php?query=<?php echo UserFilter('Arjun Nagar'); ?>">Arjun Nagar</a>
 				      <a class="dropdown-item" href="user_list.php?query=<?php echo UserFilter('Krishna Nagar'); ?>">Krishna Nagar</a>
