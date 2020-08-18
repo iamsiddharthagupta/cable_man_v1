@@ -37,7 +37,7 @@
 			<div class="container-fluid">
 			<div class="row">
 			  <div class="col-sm mb-2">
-			    <form method="POST" action="<?php echo htmlspecialchars('renewal_process.php'); ?>">
+			    <form method="POST" action="<?php echo htmlspecialchars('profile_renewal_process.php'); ?>">
 			      <div class="card">
 			          <ul class="list-group list-group-flush">
 			            <li class="list-group-item"><span class="mr-2">Device No:</span>

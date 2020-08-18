@@ -40,7 +40,7 @@
 
 <div class="container p-5">
 
-	<form method="post" action="<?php echo htmlspecialchars('edit_device_process.php'); ?>" autocomplete="off" class="bg-light">
+	<form method="post" action="<?php echo htmlspecialchars('device_edit_process.php'); ?>" autocomplete="off" class="bg-light">
 		<div class="row mb-2">
 			<div class="col-sm">
 				<label>Device ID:</label>

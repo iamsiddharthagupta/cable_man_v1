@@ -33,7 +33,7 @@
 </div>
 
 <div class="container">
-	<form method="POST" action="<?php echo htmlspecialchars('add_device_process.php'); ?>">
+	<form method="POST" action="<?php echo htmlspecialchars('device_map_process.php'); ?>">
 		<div class="form-row">
 		<div class="form-group col-md">
           <input type="text" name="device_no" id="myInput" class="form-control" placeholder="Enter STB, VC, NDS Number" required>
@@ -132,13 +132,13 @@
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                       <form method="POST" action="edit_device.php">
                         <input type="hidden" name="dev_id" value="<?php echo $data['dev_id']; ?>">
-                        <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+                        <input type="hidden" name="user_id" value="<?php echo $data['user_id']; ?>">
                         <button type="submit" name="submit" class="dropdown-item">Edit</button>
                       </form>
                     <?php if(empty($data['user_id'])){ ?>
                     <?php } else { ?>
-                        <form method="POST" action="release_device.php">
-                          <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+                        <form method="POST" action="device_release.php">
+                          <input type="hidden" name="user_id" value="<?php echo $data['user_id']; ?>">
                           <input type="hidden" name="assign_id" value="<?php echo $data['assign_id']; ?>">
                           <button type="submit" name="submit" onclick="return confirm('Do you want to release this user?');" class="dropdown-item">Release</button>
                         </form>

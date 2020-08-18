@@ -66,8 +66,7 @@
 
           <?php
 
-            $query = "
-                      SELECT
+            $query = "SELECT
                       cbl_dev_stock.dev_id AS dev_id,
                       cbl_dev_stock.device_no AS device_no,
                       cbl_dev_stock.device_mso AS device_mso,
@@ -85,7 +84,7 @@
             $result = mysqli_query($conn,$query);
 
             if (mysqli_num_rows($result) < 1){
-              echo "<tr><td colspan='6'>Not Yet Active!</td><tr>";
+              echo "<tr><td colspan='5'>Not Yet Active!</td><tr>";
             } else {
               $i = 0;
               foreach ($result as $key => $data) : $i++; ?>
@@ -101,11 +100,17 @@
               <td><?php echo $data['first_name']." ".$data['last_name']; ?></td>
               
               <td>
-                <form method="POST" action="release_device.php">
-                  <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-                  <input type="hidden" name="assign_id" value="<?php echo $data['assign_id']; ?>">
-                  <button type="submit" name="submit" onclick="return confirm('Do you want to release this user?');" class="btn btn-danger btn-xs">Release</button>
-                </form>
+                <?php if(empty($data['user_id'])){
+
+                } else { ?>
+
+                  <form method="POST" action="release_device.php">
+                    <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+                    <input type="hidden" name="assign_id" value="<?php echo $data['assign_id']; ?>">
+                    <button type="submit" name="submit" onclick="return confirm('Do you want to release this user?');" class="btn btn-danger btn-xs">Release</button>
+                  </form>
+
+                <?php } ?>
               </td>
             </tr>
           </tbody>

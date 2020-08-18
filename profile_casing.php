@@ -80,7 +80,7 @@
                         Action
                     </button>
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                      <a class="dropdown-item" href="profile_device_map.php?user_id=<?php echo $data['user_id']; ?>">Assign/Edit Device</a>
+                      <a class="dropdown-item" href="profile_device_map.php?user_id=<?php echo $data['user_id']; ?>">Map/Edit Device</a>
                       <a class="dropdown-item" href="profile_devices.php?user_id=<?php echo $data['user_id']; ?>">Renew</a>
                       <a class="dropdown-item" href="profile_ledger.php?user_id=<?php echo $data['user_id']; ?>">Ledger</a>
                     </div>

@@ -40,7 +40,7 @@
     if($result == true){
       ?>
             <script type="text/javascript">
-              window.open('map_device.php?user_id=<?php echo mysqli_insert_id($conn); ?>','_self');
+              window.open('profile_device_map.php?user_id=<?php echo mysqli_insert_id($conn); ?>','_self');
             </script>
     <?php
     } else {
@@ -60,7 +60,7 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0 text-dark">Dashboard</h1>
+        <h1 class="m-0 text-dark">Add User</h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
