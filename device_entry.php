@@ -40,7 +40,7 @@
         </div>
         <div class="form-group col-md">
           <select name="device_mso" class="form-control" required>
-            <option value="">MSO</option>
+            <option value="" disabled>MSO</option>
             <option value="SK Vision">SK Vision</option>
             <option value="Sky HD">Sky HD</option>
             <option value="Hathway">Hathway</option>
@@ -49,7 +49,7 @@
         </div>
         <div class="form-group col-md">
           <select class="form-control" name="device_type" required>
-            <option value="">Type</option>
+            <option value="" disabled>Type</option>
             <option value="SD">SD</option>
             <option value="HD">HD</option>
           </select>
@@ -76,7 +76,7 @@
             <thead class="thead-light">
               <tr>
                 <th>SN</th>
-                <th>Dev #</th>
+                <th>Device ID</th>
                 <th>MSO</th>
                 <th>Package</th>
                 <th>Assignee</th>
@@ -130,7 +130,7 @@
                         Action
                     </button>
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                      <form method="POST" action="edit_device.php">
+                      <form method="POST" action="device_edit.php">
                         <input type="hidden" name="dev_id" value="<?php echo $data['dev_id']; ?>">
                         <input type="hidden" name="user_id" value="<?php echo $data['user_id']; ?>">
                         <button type="submit" name="submit" class="dropdown-item">Edit</button>

@@ -28,7 +28,7 @@
     $area = mysqli_real_escape_string($conn,$_POST['area']);
     $address = mysqli_real_escape_string($conn,$_POST['address']);
 
-    if(!empty($area)){
+    if(!empty($first_name)){
 
     $query = "INSERT INTO cbl_user
               (first_name,last_name,phone_no,area,address)
@@ -83,26 +83,26 @@
 
   <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" autocomplete="off" class="bg-light">
   
-    <div class="form-row mb-2">
-        <div class="col-sm">
+    <div class="form-row">
+        <div class=" form-group col-md">
           <label>First Name: *</label>
             <input type="text" class="form-control" name="first_name" placeholder="First Name" value="<?php echo isset($_POST['first_name']) ? $first_name : ''; ?>">
         </div>
-        <div class="col-sm">
+        <div class=" form-group col-md">
           <label>Last Name:</label>
             <input type="text" class="form-control" name="last_name" placeholder="Last Name" value="<?php echo isset($_POST['last_name']) ? $last_name : ''; ?>">
         </div>
     </div>
 
-      <div class="form-row mb-2">
-        <div class="col-sm">
+      <div class="form-row">
+        <div class=" form-group col-md">
           <label>Contact Number:</label>
             <input type="text" class="form-control" name="phone_no" placeholder="Contact Number" value="<?php echo isset($_POST['primary_cont']) ? $primary_cont : ''; ?>">
         </div>
-        <div class="col-sm">
+        <div class=" form-group col-md">
           <label>Area: *</label>
             <select name="area" class="form-control">
-              <option value="">Select Area</option>
+              <option value="" disabled>Select Area</option>
               <option value="Humayunpur">Humayunpur</option>
               <option value="Arjun Nagar">Arjun Nagar</option>
               <option value="Krishna Nagar">Krishna Nagar</option>
@@ -112,8 +112,8 @@
         </div>
       </div>
 
-      <div class="form-row mb-2">
-        <div class="col-sm">
+      <div class="form-row">
+        <div class=" form-group col-md">
           <label>Address:</label>
           <textarea class="form-control" name="address" placeholder="Complete Address with House Number and Floor"><?php echo isset($_POST['address']) ? $address : ''; ?></textarea>
         </div>
@@ -121,7 +121,6 @@
       <div class="form-group">
         <button type="submit" name="submit" class="btn btn-outline-primary">Add</button>
       </div>
-      
     </form>
 </div>
 

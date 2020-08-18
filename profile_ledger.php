@@ -69,16 +69,21 @@
                 </td>
                 
                 <td>
-                  <?php if($data['status'] == 'Renewed'){ ?>
-
-                    <a href="profile_payment.php?<?= $urlMulti; ?>"><i class="fas fa-rupee-sign"></i></a>
-
-                  <?php } else { ?>
-                    <form method="POST" action="receipt.php">
-                      <input type="hidden" name="ledger_id" value="<?php echo $data['ledger_id']; ?>">
-                      <input type="submit" name="generate_pdf" class="btn btn-success btn-sm" value="Reciept">
-                    </form>
-                  <?php } ?>
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-dark btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Action
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        <?php if($data['status'] == 'Renewed'){ ?>
+                          <a class="dropdown-item" href="profile_payment.php?<?= $urlMulti; ?>">Add Payment</a>
+                        <?php } else { ?>
+                          <form method="POST" action="receipt.php">
+                            <input type="hidden" name="ledger_id" value="<?php echo $data['ledger_id']; ?>">
+                            <input type="submit" name="generate_pdf" class="dropdown-item" value="Reciept">
+                          </form>
+                        <?php } ?>
+                    </div>
+                  </div>
                 </td>
 
               </tr>

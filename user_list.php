@@ -20,14 +20,19 @@
 
 <div class="container-fluid p-2">
 
-	<div class="row justify-content-center">
-		<div class="col-md-8">
-			<input id="myInput" class="form-control border-success mb-2 mr-sm-2 text-center" placeholder="Search...">
+	<div class="form-row">
+		<div class="form-group col-md">
+			<input id="myInput" class="form-control border-success text-center" placeholder="Search...">
 		</div>
-		<form method="post" action="export_data.php">
-      		<a href="add_user.php" class="btn btn-outline-primary mb-2">Add User</a>
-      		<input type="submit" name="export" class="btn btn-outline-success mb-2 mr-sm-2" value="export xls">
-    	</form>
+		<div class="form-group col-md">
+			<select class="form-control">
+				<option value="">ABC</option>
+				<option value="">DEF</option>
+			</select>
+		</div>
+		<div class="col-auto">
+			<button class="btn btn-primary">Filter</button>
+		</div>
 	</div>
 
 	<div class="card-body table-responsive p-0" style="height: 600px;">
@@ -58,7 +63,7 @@
 			cbl_dev_stock.device_no AS device_no,
 			cbl_ledger.renew_date AS renew_date,
 			cbl_ledger.status AS status,
-			COUNT(cbl_user_dev.user_id) AS device_count
+			COUNT(cbl_user_dev.dev_id) AS device_count
 
 			FROM cbl_user_dev
 

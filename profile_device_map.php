@@ -3,12 +3,11 @@
 	require_once 'profile_casing.php';
 
 ?>
-
 		
 	<div class="col-md-3">
 	    <div class="container-fluid">
 	      	<div class="card">
-	      		<div class="card-header">Map/Edit Device:</div>
+	      		<div class="card-header">Map Device:</div>
 	              <ul class="list-group list-group-flush">
                 <?php
 
@@ -33,7 +32,7 @@
 	                    <?php
 	                  endforeach;
 	                ?>
-	                <form method="POST" action="<?php echo htmlspecialchars('map_device_process.php') ?>">
+	                <form method="POST" action="<?php echo htmlspecialchars('profile_device_map_process.php') ?>">
 	                <li class="list-group-item">
 	                  <input type="text" name="device_no" id="myInput" placeholder="Enter Device ID" class="form-control" required>
 	                </li>
@@ -60,7 +59,6 @@
                 <th>MSO</th>
                 <th>Package</th>
                 <th>Assignee</th>
-                <th>Action</th>
               </tr>
           </thead>
 
@@ -84,7 +82,7 @@
             $result = mysqli_query($conn,$query);
 
             if (mysqli_num_rows($result) < 1){
-              echo "<tr><td colspan='5'>Not Yet Active!</td><tr>";
+              echo "<tr><td colspan='4'>Not Yet Active!</td><tr>";
             } else {
               $i = 0;
               foreach ($result as $key => $data) : $i++; ?>
@@ -98,20 +96,7 @@
               <td><?php echo $data['package']; ?></td>
               
               <td><?php echo $data['first_name']." ".$data['last_name']; ?></td>
-              
-              <td>
-                <?php if(empty($data['user_id'])){
 
-                } else { ?>
-
-                  <form method="POST" action="release_device.php">
-                    <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-                    <input type="hidden" name="assign_id" value="<?php echo $data['assign_id']; ?>">
-                    <button type="submit" name="submit" onclick="return confirm('Do you want to release this user?');" class="btn btn-danger btn-xs">Release</button>
-                  </form>
-
-                <?php } ?>
-              </td>
             </tr>
           </tbody>
 
