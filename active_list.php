@@ -22,7 +22,7 @@
 
 	<div class="row justify-content-center">
 		<div class="col-sm-6">
-			<input id="myInput" class="form-control border-success text-center mb-2" placeholder="Active List, Search...">
+			<input id="myInput" class="form-control border-success text-center mb-2" placeholder="Search...">
 		</div>
 	</div>
 

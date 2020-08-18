@@ -192,11 +192,37 @@
             </a>
           </li>
 
+          <li class="nav-header">Users</li>
+
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon nav-icon fas fa-user-edit"></i>
+              <p>
+                Manage Users
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="add_user.php" class="nav-link">
+                  <i class="fas fa-user-plus nav-icon"></i>
+                  <p>Add User</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="device_entry.php" class="nav-link">
+                  <i class="fas fa-hdd nav-icon"></i>
+                  <p>Add Device</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon nav-icon fas fa-users"></i>
               <p>
-                Manage Users
+                Filter Users
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>

@@ -34,7 +34,7 @@
           $result = mysqli_query($conn,$query);
 
           if (mysqli_num_rows($result) < 1){
-            echo "<tr><td colspan='7'>Not Yet Active!</td><tr>";
+            echo "<tr><td colspan='8'>Not Yet Active.</td><tr>";
           } else {
             
             foreach ($result as $key => $data) :

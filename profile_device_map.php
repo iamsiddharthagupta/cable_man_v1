@@ -56,8 +56,7 @@
           <table class="table table-hover text-center table-bordered table-sm table-head-fixed">
             <thead class="thead-light">
               <tr>
-                <th>SN</th>
-                <th>Dev #</th>
+                <th>Dev ID</th>
                 <th>MSO</th>
                 <th>Package</th>
                 <th>Assignee</th>
@@ -93,39 +92,20 @@
                 
           <tbody id="myTable">
             <tr>
-
-              <td><?php echo $i; ?></td>
-
               <td><?php echo $data['device_no']; ?></td>
               
               <td><?php echo $data['device_mso'];?> [<?php echo $data['device_type']; ?>]</td>
               
               <td><?php echo $data['package']; ?></td>
               
-              <td><a href="user_profile.php?user_id=<?php echo $data['user_id']; ?>"><?php echo $data['first_name']." ".$data['last_name']; ?></a></td>
+              <td><?php echo $data['first_name']." ".$data['last_name']; ?></td>
               
               <td>
-
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-dark btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Action
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                      <form method="POST" action="edit_device.php">
-                        <input type="hidden" name="dev_id" value="<?php echo $data['dev_id']; ?>">
-                        <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-                        <button type="submit" name="submit" class="dropdown-item">Edit</button>
-                      </form>
-                    <?php if(empty($data['user_id'])){ ?>
-                    <?php } else { ?>
-                        <form method="POST" action="release_device.php">
-                          <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-                          <input type="hidden" name="assign_id" value="<?php echo $data['assign_id']; ?>">
-                          <button type="submit" name="submit" onclick="return confirm('Do you want to release this user?');" class="dropdown-item">Release</button>
-                        </form>
-                    <?php } ?>
-                    </div>
-                  </div>
+                <form method="POST" action="release_device.php">
+                  <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+                  <input type="hidden" name="assign_id" value="<?php echo $data['assign_id']; ?>">
+                  <button type="submit" name="submit" onclick="return confirm('Do you want to release this user?');" class="btn btn-danger btn-xs">Release</button>
+                </form>
               </td>
             </tr>
           </tbody>

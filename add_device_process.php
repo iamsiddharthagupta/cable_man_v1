@@ -18,13 +18,13 @@
 	if($result == true){
 		?>
             <script type="text/javascript">
-            	window.open('map_device.php?user_id=<?php echo $user_id; ?>','_self');
+            	window.open('device_entry.php','_self');
             </script>
     	<?php
 	} else {
 		?>
             <script type="text/javascript">
-              window.open('map_device.php?user_id=<?php echo $user_id; ?>','_self');
+              window.open('device_entry.php','_self');
             </script>
     	<?php
 	}

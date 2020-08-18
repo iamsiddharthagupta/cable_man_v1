@@ -87,7 +87,7 @@
 								<?php } elseif(!empty($data['status'])) { ?>
 									<a class="dropdown-item" href="profile_renewal.php?user_id=<?php echo $data['user_id']; ?>">Renew</a>
 								<?php } else { ?>
-								<a class="dropdown-item" href="profile_renewal.php?user_id=<?php echo $data['user_id']; ?>">Assign Device</a>
+								<a class="dropdown-item" href="profile_device_map.php?user_id=<?php echo $data['user_id']; ?>">Assign Device</a>
 								<?php } ?>
 						    </div>
 				  		</div>
