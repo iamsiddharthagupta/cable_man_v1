@@ -8,13 +8,13 @@
 			
 		if($result == true){
 		
-			header('Location: user_profile.php?user_id='.$_POST['user_id']);
+			header('Location: profile_device_map.php?user_id='.$_POST['user_id']);
 		
 		} else {
 		?>
 			<script type="text/javascript">
 		      alert('User Released Already!');
-		      window.open('map_device.php?user_id=<?php echo $_POST['user_id']; ?>','_self');
+		      window.open('profile_device_map.php?user_id=<?php echo $_POST['user_id']; ?>','_self');
 		    </script>
 	    <?php
 		}

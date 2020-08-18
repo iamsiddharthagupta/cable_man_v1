@@ -75,12 +75,12 @@
 
                 <h3 class="profile-username text-center"><?php echo $data['first_name']." ".$data['last_name']; ?></h3>
 
-                
                 <div class="btn-group btn-block" role="group">
                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Action
                     </button>
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                      <a class="dropdown-item" href="profile_device_map.php?user_id=<?php echo $data['user_id']; ?>">Assign/Edit Device</a>
                       <a class="dropdown-item" href="profile_devices.php?user_id=<?php echo $data['user_id']; ?>">Renew</a>
                       <a class="dropdown-item" href="profile_ledger.php?user_id=<?php echo $data['user_id']; ?>">Ledger</a>
                     </div>

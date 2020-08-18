@@ -90,7 +90,7 @@
 				</td>
 
 				<td>
-					<a href="user_profile.php?user_id=<?php echo $data['user_id']; ?>">
+					<a href="profile_ledger.php?user_id=<?php echo $data['user_id']; ?>">
 					<?php if($current_date > $end_date){ ?>
 						<div>
 							<strong><span class="mr-1"><?php echo $data['first_name']." ".$data['last_name'];?></span><span class="text-danger">[Expired]</span></strong>

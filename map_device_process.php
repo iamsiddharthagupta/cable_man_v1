@@ -22,11 +22,11 @@
 			";
 	$result = mysqli_query($conn,$query);
 	
-	header('Location: user_profile.php?user_id='.$user_id);
+	header('Location: profile_device_map.php?user_id='.$user_id);
 
 }
 	?>
 		<script type="text/javascript">
 	    	alert('Please insert valid device number!');
-	    	window.open('user_profile.php?user_id=<?php echo $user_id; ?>','_self');
+	    	window.open('profile_device_map.php?user_id=<?php echo $user_id; ?>','_self');
 	    </script>
