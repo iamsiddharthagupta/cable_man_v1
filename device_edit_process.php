@@ -21,19 +21,15 @@
 	$result = mysqli_query($conn,$query);
 
 	if($result == true){
-		?>
-            <script type="text/javascript">
-            	alert('Device Updated Successfully');
-            	window.open('device_entry.php','_self');
-            </script>
-    	<?php
+		
+		$msg = 'Device Updation Successfull.';
+        header('Location: device_entry.php?msg='.$msg);
+
 	} else {
-		?>
-            <script type="text/javascript">
-	            alert('Database Error.');
-	            window.open('device_entry.php','_self');
-            </script>
-    	<?php
+		
+		$msg = 'Database Error.';
+        header('Location: device_entry.php?msg='.$msg);
+
 	}
 
 ?>

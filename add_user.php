@@ -16,46 +16,6 @@
 
 ?>
 
-<?php
-
-  $msg = '';
-  $msgClass = '';
-  
-  if(filter_has_var(INPUT_POST, 'submit')){
-    $first_name = mysqli_real_escape_string($conn,$_POST['first_name']);
-    $last_name = mysqli_real_escape_string($conn,$_POST['last_name']);
-    $phone_no = mysqli_real_escape_string($conn,$_POST['phone_no']);
-    $area = mysqli_real_escape_string($conn,$_POST['area']);
-    $address = mysqli_real_escape_string($conn,$_POST['address']);
-
-    if(!empty($first_name) && !empty($phone_no) && !empty($address)){
-
-    $query = "INSERT INTO cbl_user
-              (first_name,last_name,phone_no,area,address)
-              VALUES
-              ('$first_name','$last_name','$phone_no','$area','$address')";
-
-    $result = mysqli_query($conn,$query) or die(mysqli_error($conn));
-
-    if($result == true){
-      ?>
-            <script type="text/javascript">
-              window.open('profile_device_map.php?user_id=<?php echo mysqli_insert_id($conn); ?>','_self');
-            </script>
-    <?php
-    } else {
-      $msg = 'Oops! Something\'s wrong with the database.';
-      $msgClass = 'alert-danger';
-    }
-
-  } else {
-    $msg = 'Please fill details!';
-    $msgClass = 'alert-warning';
-  }
-}
-
-?>
-
 <div class="content-header">
   <div class="container-fluid">
     <div class="row mb-2">
@@ -75,13 +35,16 @@
 
 <div class="container p-3">
 
-<!-- Warning LED -->
-      <?php if($msg != ''): ?>
-        <div class="alert <?php echo $msgClass ?>"><?php echo $msg; ?>
-        </div>
-      <?php endif; ?>
+    <?php if(isset($_GET['msg'])){ ?>
+      <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <?php echo $_GET['msg']; ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <?php } ?>
 
-  <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" autocomplete="off" class="bg-light">
+  <form method="post" action="<?php echo htmlspecialchars('add_user_process.php'); ?>" autocomplete="off">
   
     <div class="form-row">
         <div class=" form-group col-md">

@@ -33,7 +33,17 @@
 </div>
 
 <div class="container">
-	<form method="POST" action="<?php echo htmlspecialchars('device_map_process.php'); ?>">
+
+    <?php if(isset($_GET['msg'])){ ?>
+      <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <?php echo $_GET['msg']; ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <?php } ?>
+
+	<form method="POST" action="<?php echo htmlspecialchars('device_entry_process.php'); ?>">
 		<div class="form-row">
 		<div class="form-group col-md">
           <input type="text" name="device_no" id="myInput" class="form-control" placeholder="Enter STB, VC, NDS Number" required>

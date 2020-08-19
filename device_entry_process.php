@@ -15,16 +15,14 @@
 	$result = mysqli_query($conn,$query);
 
 	if($result == true){
-		?>
-            <script type="text/javascript">
-            	window.open('device_entry.php','_self');
-            </script>
-    	<?php
+
+		$msg = 'Device Entry Successfull.';
+        header('Location: device_entry.php?msg='.$msg);
+	
 	} else {
-		?>
-            <script type="text/javascript">
-              window.open('device_entry.php','_self');
-            </script>
-    	<?php
+
+		$msg = 'Database Error.';
+        header('Location: device_entry.php?msg='.$msg);
+	
 	}
 ?>
