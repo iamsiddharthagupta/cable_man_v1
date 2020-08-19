@@ -212,7 +212,7 @@
               <li class="nav-item">
                 <a href="device_entry.php" class="nav-link">
                   <i class="fas fa-hdd nav-icon"></i>
-                  <p>Add Device</p>
+                  <p>Manage Device</p>
                 </a>
               </li>
             </ul>

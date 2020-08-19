@@ -15,7 +15,7 @@
 
     $result = mysqli_query($conn,$query) or die(mysqli_error($conn));
 
-    if($result == true){
+    if($result){
       ?>
             <script type="text/javascript">
               window.open('profile_device_map.php?user_id=<?php echo mysqli_insert_id($conn); ?>','_self');
@@ -29,8 +29,10 @@
     }
 
   } else {
+
       $msg = 'Please Fill Details.';
       header('Location: add_user.php?msg='.$msg);
+
   }
 
 ?>

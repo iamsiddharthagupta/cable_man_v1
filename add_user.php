@@ -24,8 +24,8 @@
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item"><a href="#">User List</a></li>
+          <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+          <li class="breadcrumb-item"><a href="user_list.php?query=<?php echo UserList(); ?>">User List</a></li>
           <li class="breadcrumb-item active">Add User</li>
         </ol>
       </div>
@@ -48,7 +48,7 @@
   
     <div class="form-row">
         <div class=" form-group col-md">
-          <label>First Name: *</label>
+          <label>First Name: <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="first_name" placeholder="First Name" value="<?php echo isset($_POST['first_name']) ? $first_name : ''; ?>">
         </div>
         <div class=" form-group col-md">
@@ -59,11 +59,11 @@
 
       <div class="form-row">
         <div class=" form-group col-md">
-          <label>Contact Number:</label>
+          <label>Contact Number: <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="phone_no" placeholder="Contact Number" value="<?php echo isset($_POST['phone_no']) ? $phone_no : ''; ?>">
         </div>
         <div class=" form-group col-md">
-          <label>Area: *</label>
+          <label>Area:</label>
             <select name="area" class="form-control">
               <option value="" disabled>Select Area</option>
               <option value="Humayunpur">Humayunpur</option>
@@ -77,7 +77,7 @@
 
       <div class="form-row">
         <div class=" form-group col-md">
-          <label>Address:</label>
+          <label>Address: <span class="text-danger">*</span></label>
           <textarea class="form-control" name="address" placeholder="Complete Address with House Number and Floor"><?php echo isset($_POST['address']) ? $address : ''; ?></textarea>
         </div>
       </div>

@@ -9,30 +9,27 @@
 	      	<div class="card">
 	      		<div class="card-header">Map Device:</div>
 	              <ul class="list-group list-group-flush">
-                <?php
+                  <form method="POST" action="<?php echo htmlspecialchars('profile_device_map_process.php') ?>">
+                    <?php
 
-                  $query = "SELECT * FROM cbl_user_dev
-                            RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
-                            LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
-                            WHERE cbl_user_dev.user_id = '$user_id'";
+                      $query = "SELECT * FROM cbl_user_dev
+                                RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
+                                LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
+                                WHERE cbl_user_dev.user_id = '$user_id'";
 
-                  $result = mysqli_query($conn,$query);
-                  
-                  $data = mysqli_fetch_assoc($result);
+                      $result = mysqli_query($conn,$query);
+                      
+                      $data = mysqli_fetch_assoc($result);
 
-                  foreach ($result as $key => $data) : ?>
-                    <li class="list-group-item">
-                      <span>
-                        <form method="POST" action="release_device.php">
-                          <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-                          <input type="hidden" name="assign_id" value="<?php echo $data['assign_id']; ?>">
-                          <button type="submit" name="submit" onclick="return confirm('Do you want to release this user?');" class="btn btn-danger btn-xs">x</button>
-                        </form> <?php echo $data['device_mso']; ?> - <strong><?php echo $data['device_no']; ?></strong></span>
-                    </li>
-	                    <?php
-	                  endforeach;
-	                ?>
-	                <form method="POST" action="<?php echo htmlspecialchars('profile_device_map_process.php') ?>">
+                      $urlMulti = "user_id={$user_id}&assign_id={$data['assign_id']}";
+
+                      foreach ($result as $key => $data) : ?>
+                        <li class="list-group-item">
+                          <span><?php echo $data['device_mso']; ?> - <strong><?php echo $data['device_no']; ?></strong></span>
+                        </li>
+                    <?php
+                      endforeach;
+                    ?>
 	                <li class="list-group-item">
 	                  <input type="text" name="device_no" id="myInput" placeholder="Enter Device ID" class="form-control" required>
 	                </li>
@@ -45,8 +42,8 @@
 	                      <button type="submit" name="submit" class="btn btn-primary">Submit</button>
 	                    </div>
 	                  </li>
+                    </form>
 	                </ul>
-	            </form>
 			</div>
 		</div>
 	</div>

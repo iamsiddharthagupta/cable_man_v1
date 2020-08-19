@@ -24,7 +24,7 @@
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
           <li class="breadcrumb-item active">Add Device</li>
         </ol>
       </div>
@@ -118,7 +118,11 @@
               echo "<tr><td colspan='6'>Not Yet Active!</td><tr>";
             } else {
               $i = 0;
-              foreach ($result as $key => $data) : $i++; ?>
+              foreach ($result as $key => $data) : $i++;
+
+                $urlMulti = "user_id={$data['user_id']}&assign_id={$data['assign_id']}";
+
+              ?>
                 
           <tbody id="myTable">
             <tr>
@@ -145,13 +149,15 @@
                         <input type="hidden" name="user_id" value="<?php echo $data['user_id']; ?>">
                         <button type="submit" name="submit" class="dropdown-item">Edit</button>
                       </form>
+
                     <?php if(empty($data['user_id'])){ ?>
+                      
                     <?php } else { ?>
-                        <form method="POST" action="device_release.php">
-                          <input type="hidden" name="user_id" value="<?php echo $data['user_id']; ?>">
-                          <input type="hidden" name="assign_id" value="<?php echo $data['assign_id']; ?>">
-                          <button type="submit" name="submit" onclick="return confirm('Do you want to release this user?');" class="dropdown-item">Release</button>
-                        </form>
+                        
+                        <a href="device_release.php?<?= $urlMulti; ?>" class="dropdown-item" onclick="return confirm('Do you want to release this user?');">
+                          Release
+                        </a>
+
                     <?php } ?>
                     </div>
                   </div>
