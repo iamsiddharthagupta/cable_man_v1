@@ -88,7 +88,7 @@
   // Dinamic Filter Function in User List.
     function OverdueFilter($area){
 
-    $query = "WHERE cbl_ledger.status = 'Renewed' AND cbl_user.area = '$area' GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
+    $query = "WHERE cbl_ledger.status = 'Renewed' AND cbl_user.area = '$area' GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC,cbl_user.address ASC";
 
     return urlencode($query);
   }
@@ -173,7 +173,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="dashboard.php" class="brand-link">
       <img src="common/logo.png" alt="Endeavour Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">Endeavour Tech.</span>
@@ -271,6 +271,13 @@
                 <a href="payment_list.php?query=<?php echo PaidList('Paid'); ?>" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Paid List</p>
+                  <span class="right badge badge-danger"><?php echo countPaid(); ?></span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="payment_list.php?query=<?php echo PaidList('Paid'); ?>" class="nav-link">
+                  <i class="far fa-dot-circle nav-icon"></i>
+                  <p>Scheme List</p>
                   <span class="right badge badge-danger"><?php echo countPaid(); ?></span>
                 </a>
               </li>

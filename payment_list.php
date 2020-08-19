@@ -20,10 +20,13 @@
 
 <div class="container-fluid p-2">
 
-	<div class="form-row">
+	<div class="form-row justify-content-center">
+		<div class="form-group col-md-6">
+			<input id="myInput" class="form-control border-success text-center" placeholder="Search...">
+		</div>
 		<div class="col-auto">
 			<div class="btn-group" role="group">
-				<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						Filter Area
 				</button>
 				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
@@ -37,9 +40,6 @@
 				      <a class="dropdown-item" href="payment_list.php?query=<?php echo OverdueFilter('Other'); ?>">Other</a>
 			    </div>
 			</div>
-		</div>
-		<div class="form-group col-md">
-			<input id="myInput" class="form-control border-success text-center" placeholder="Search...">
 		</div>
 	</div>
 

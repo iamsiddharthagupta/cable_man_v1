@@ -9,7 +9,13 @@
     <strong>Copyright &copy; 2019-<?php echo date('Y') ?> Endeavour Technologies Pvt Ltd.</strong> All rights reserved.
   </footer>
 </div>
-<!-- ./wrapper -->
+
+<!-- AdminLTE Scripts -->
+    <script src="common/adminlte.min.js"></script>
+    <script src="common/bootstrap.bundle.min.js"></script>
+    <script src="common/jquery.overlayScrollbars.min.js"></script>
+<!-- Misc Script -->
+	<script type="text/javascript" src="common/script.js"></script>
 
 </body>
 </html>
