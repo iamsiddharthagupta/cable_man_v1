@@ -20,14 +20,14 @@
 
 <div class="container-fluid p-2">
 
-	<div class="form-row justify-content-center">
+	<div class="form-row justify-content-center mb-1">
 		<div class="form-group col-md-6">
 			<input id="myInput" class="form-control border-success text-center" placeholder="Search...">
 		</div>
 		<div class="col-auto">
 			<div class="btn-group" role="group">
 				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Filter Area
+					Filter Area
 				</button>
 				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 				      <a class="dropdown-item" href="payment_list.php?query=<?php echo OverdueList('Renewed'); ?>">All</a>
@@ -49,12 +49,14 @@
 			      <tr>
 			      	<th>Pay</th>
 			      	<th>Device ID</th>
-			      	<th>Duration</th>
-			      	<th>Due Month</th>
-			        <th>Name</th>
+			      	<th>Name</th>
 			        <th>Mobile No</th>
 			        <th>Address</th>
 			        <th>Area</th>
+			      	<th>Duration</th>
+			      	<th>Due Month</th>
+			      	<th>Due Amount</th>
+			      	<th>Paid Amount</th>
 			      </tr>
 				</thead>
 
@@ -74,6 +76,7 @@
 		                cbl_ledger.expiry_date AS expiry_date,
 		                cbl_ledger.renew_month AS renew_month,
 		                cbl_ledger.due_amount AS due_amount,
+		                cbl_ledger.pay_amount AS pay_amount,
 		                cbl_ledger.renew_term AS renew_term,
 		                cbl_ledger.user_id AS user_id,
 		                cbl_ledger.ledger_id AS ledger_id
@@ -110,11 +113,7 @@
 				</td>
 
 				<td><?php echo $data['device_no']; ?></td>
-
-				<td><strong><span><?php echo date('jS M',strtotime($data['renew_date']));?> - <?php echo date('jS M',strtotime($data['expiry_date']));?></span> (<?php echo $data['renew_term'];?>)</strong></td>
 				
-				<td><strong><?php echo $data['renew_month'];?></strong></td>
-
 				<td><strong><?php echo $data['first_name']." ".$data['last_name'];?></strong></td>
 
 				<td><?php echo $data['phone_no'];?></td>
@@ -122,6 +121,14 @@
 				<td><?php echo $data['address'];?></td>
 
 				<td><?php echo $data['area'];?></td>
+
+				<td><strong><span><?php echo date('jS M y',strtotime($data['renew_date']));?> - <?php echo date('jS M y',strtotime($data['expiry_date']));?></span></strong></td>
+
+				<td><strong><?php echo $data['renew_month'];?> (x <?php echo $data['renew_term'];?>)</strong></td>
+				
+				<td><strong><?php echo $data['due_amount'];?></strong></td>
+				
+				<td><strong><?php echo $data['pay_amount'];?></strong></td>
 
 			</tr>
 		</tbody>
