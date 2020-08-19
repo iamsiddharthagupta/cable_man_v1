@@ -82,7 +82,6 @@
                         Action
                     </button>
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <a class="dropdown-item" href="profile_ledger_delete.php?<?= $urlMulti; ?>" onclick="return confirm('Do you want to release this user?');">Delete Entry</a>
                         <?php if($data['status'] == 'Renewed'){ ?>
                           <a class="dropdown-item" href="profile_payment.php?<?= $urlMulti; ?>">Add Payment</a>
                         <?php } else { ?>
@@ -91,6 +90,7 @@
                             <input type="submit" name="generate_pdf" class="dropdown-item" value="Reciept">
                           </form>
                         <?php } ?>
+                        <a class="dropdown-item" href="profile_ledger_delete.php?<?= $urlMulti; ?>" onclick="return confirm('Do you want to release this user?');">Delete Entry</a>
                     </div>
                   </div>
                 </td>

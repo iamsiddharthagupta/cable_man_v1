@@ -6,6 +6,16 @@
 ?>
 
 <div class="col-md-9">
+
+	<?php if(isset($_GET['msg'])){ ?>
+      <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <?php echo $_GET['msg']; ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <?php } ?>
+
 	<div class="card card-primary">
       <div class="card-header">
         <h3 class="card-title">Renewal Panel</h3>

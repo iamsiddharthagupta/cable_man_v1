@@ -62,16 +62,23 @@
     return urlencode($query);
   }
 
-  function PaidList($status){
+  function OverdueList($status){
 
     $query = "WHERE cbl_ledger.status = '$status' GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
 
     return urlencode($query);
   }
 
-  function OverdueList($status){
+    function PaidList($status){
 
-    $query = "WHERE cbl_ledger.status = '$status' GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
+    $query = "WHERE cbl_ledger.status = '$status' AND cbl_ledger.renew_term = 1 GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
+
+    return urlencode($query);
+  }
+
+    function SchemeList($status){
+
+    $query = "WHERE cbl_ledger.status = '$status' AND cbl_ledger.renew_term > 1 GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
 
     return urlencode($query);
   }
@@ -192,7 +199,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
-          <li class="nav-header">Users</li>
+          <li class="nav-header">User Management</li>
 
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
@@ -217,6 +224,8 @@
               </li>
             </ul>
           </li>
+
+          <li class="nav-header">Filter Users</li>
 
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
@@ -270,10 +279,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="payment_list.php?query=<?php echo PaidList('Paid'); ?>" class="nav-link">
+                <a href="payment_list.php?query=<?php echo SchemeList('Paid'); ?>" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Scheme List</p>
-                  <span class="right badge badge-danger"><?php echo countPaid(); ?></span>
                 </a>
               </li>
             </ul>

@@ -31,19 +31,16 @@
 	$query = "	INSERT INTO cbl_ledger (user_id,dev_id,renew_date,renew_month,expiry_month,expiry_date,renew_term,renew_term_month,invoice_no,due_amount) VALUES ('$user_id','$dev_id','$renew_date','$renew_month','$expiry_month','$expiry_date','$renew_term','$renew_term_month','$invoice_no','$due_amount')";
 	$result = mysqli_query($conn,$query);
 
-	if($result == true){
-		?>
-            <script type="text/javascript">
-                  window.open('profile_ledger.php?user_id=<?php echo $user_id; ?>','_self');
-            </script>
-        <?php
+	if($result){
+		
+		$msg = 'Renewal Successful.';
+        header('Location: profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
+
 	} else {
-		?>
-            <script type="text/javascript">
-	              alert('Database Error.');
-	              window.open('profile_ledger.php?user_id=<?php echo $user_id; ?>','_self');
-            </script>
-	   	<?php
+		
+		$msg = 'Database Error.';
+        header('Location: profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
+
 	}
 
 ?>

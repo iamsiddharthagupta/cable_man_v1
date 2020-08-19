@@ -52,18 +52,15 @@
 	$result = mysqli_query($conn,$query);
 
 	if($result == true){
-	?>
-            <script type="text/javascript">
-              window.open('profile_ledger.php?user_id=<?php echo $user_id; ?>','_self');
-            </script>
-    <?php
+	
+		$msg = 'Payment Added Successfully.';
+        header('Location: profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
+
 	} else {
-	?>
-            <script type="text/javascript">
-              alert('Database Error.');
-              window.open('profile_ledger.php?user_id=<?php echo $user_id; ?>','_self');
-            </script>
-    <?php
+	
+		$msg = 'Database Error.';
+        header('Location: profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
+
 	}
 
 

@@ -114,7 +114,11 @@
 
 				<td><?php echo $data['device_no']; ?></td>
 				
-				<td><strong><?php echo $data['first_name']." ".$data['last_name'];?></strong></td>
+				<td>
+					<a href="profile_ledger.php?user_id=<?php echo $data['user_id']; ?>">
+						<strong><?php echo $data['first_name']." ".$data['last_name'];?></strong>
+					</a>
+				</td>
 
 				<td><?php echo $data['phone_no'];?></td>
 
