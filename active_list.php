@@ -20,9 +20,31 @@
 
 <div class="container-fluid p-2">
 
-	<div class="row justify-content-center">
-		<div class="col-sm-6">
-			<input id="myInput" class="form-control border-success text-center mb-2" placeholder="Search...">
+	<div class="form-row justify-content-center">
+		<div class="form-group col-md-6">
+			<input id="myInput" class="form-control border-success text-center" placeholder="Search...">
+		</div>
+		<div class="col-auto">
+			<div class="btn-group" role="group">
+				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Filter Area
+				</button>
+				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+				      <a class="dropdown-item" href="active_list.php?query=<?php echo ActiveList(); ?>">All</a>
+
+				      <a class="dropdown-item" href="active_list.php?query=<?php echo ActiveFilter('Humayunpur'); ?>">Humayunpur</a>
+				      <a class="dropdown-item" href="active_list.php?query=<?php echo ActiveFilter('Arjun Nagar'); ?>">Arjun Nagar</a>
+				      <a class="dropdown-item" href="active_list.php?query=<?php echo ActiveFilter('Krishna Nagar'); ?>">Krishna Nagar</a>
+				      <a class="dropdown-item" href="active_list.php?query=<?php echo ActiveFilter('B-4'); ?>">B-4</a>
+
+				      <a class="dropdown-item" href="active_list.php?query=<?php echo ActiveFilter('Other'); ?>">Other</a>
+			    </div>
+			</div>
+		</div>
+		<div class="col-auto">
+			<form method="post" action="export_data.php">
+	      		<input type="submit" name="export" class="btn btn-outline-success mb-2 mr-sm-2" value="export xls">
+    		</form>
 		</div>
 	</div>
 

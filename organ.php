@@ -46,7 +46,6 @@
     return $data['count_paid'];
   }
 
-
 // Dynamic Query Functions for Sidebar Lists.
 
   function UserList(){
@@ -81,6 +80,14 @@
     function UserFilter($area){
 
     $query = "WHERE cbl_user.area = '$area' GROUP BY cbl_user.user_id ORDER BY address ASC";
+
+    return urlencode($query);
+  }
+
+  // Dinamic Filter Function in Active List.
+    function ActiveFilter($area){
+
+    $query = "WHERE cbl_user.area = '$area' GROUP BY cbl_user.user_id,cbl_user_dev.dev_id ORDER BY cbl_ledger.expiry_date ASC,cbl_user.address ASC";
 
     return urlencode($query);
   }

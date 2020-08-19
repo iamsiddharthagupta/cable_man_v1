@@ -11,8 +11,7 @@
 	$query = "	INSERT INTO cbl_dev_stock
 				(device_no,device_mso,device_type,package)
 				VALUES
-				('$device_no','$device_mso','$device_type','$package')
-				";
+				('$device_no','$device_mso','$device_type','$package')";
 	$result = mysqli_query($conn,$query);
 
 	if($result == true){
