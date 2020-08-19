@@ -20,9 +20,9 @@
 			";
 	$result = mysqli_query($conn,$query);
 
-	if($result == true){
+	if($result){
 		
-		$msg = 'Device Updation Successfull.';
+		$msg = 'Device Updation Successful.';
         header('Location: device_entry.php?msg='.$msg);
 
 	} else {

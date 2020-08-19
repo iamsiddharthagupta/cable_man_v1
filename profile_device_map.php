@@ -21,8 +21,6 @@
                       
                       $data = mysqli_fetch_assoc($result);
 
-                      $urlMulti = "user_id={$user_id}&assign_id={$data['assign_id']}";
-
                       foreach ($result as $key => $data) : ?>
                         <li class="list-group-item">
                           <span><?php echo $data['device_mso']; ?> - <strong><?php echo $data['device_no']; ?></strong></span>

@@ -4,9 +4,19 @@
 ?>
 
 		<div class="col-md-9">
+
+    <?php if(isset($_GET['msg'])){ ?>
+      <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <?php echo $_GET['msg']; ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <?php } ?>
+
     	<div class="card-body table-responsive p-0" style="height: 490px;">
         <table class="table table-hover text-center table-bordered table-sm table-head-fixed">
-                  <thead>
+                <thead>
                     <tr>
                       <th>Device</th>
                       <th>Duration</th>
@@ -39,9 +49,7 @@
             
             foreach ($result as $key => $data) :
 
-                $urlMulti = "user_id={$user_id}&ledger_id={$data['ledger_id']}";
-            
-            ?>
+                $urlMulti = "user_id={$user_id}&ledger_id={$data['ledger_id']}"; ?>
 
             <tbody>
               <tr>
@@ -74,6 +82,7 @@
                         Action
                     </button>
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        <a class="dropdown-item" href="profile_ledger_delete.php?<?= $urlMulti; ?>" onclick="return confirm('Do you want to release this user?');">Delete Entry</a>
                         <?php if($data['status'] == 'Renewed'){ ?>
                           <a class="dropdown-item" href="profile_payment.php?<?= $urlMulti; ?>">Add Payment</a>
                         <?php } else { ?>
