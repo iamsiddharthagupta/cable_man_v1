@@ -49,7 +49,7 @@
             
             foreach ($result as $key => $data) :
 
-                $urlMulti = "user_id={$user_id}&ledger_id={$data['ledger_id']}"; ?>
+                $urlMulti = "user_id={$user_id}&ledger_id={$data['ledger_id']}&dev_id={$data['dev_id']}"; ?>
 
             <tbody>
               <tr>

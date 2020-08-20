@@ -103,7 +103,7 @@
 
 				<td>
 					<?php if(empty($data['pay_amount'])){ ?>
-						<button onclick="window.location.href='profile_payment.php?<?= $urlMulti; ?>'" class="btn btn-sm btn-danger">Pay <?php echo $data['due_amount']; ?></button>
+						<button onclick="window.location.href='profile_payment.php?<?= $urlMulti; ?>'" class="btn btn-sm btn-danger">INR <?php echo $data['due_amount']; ?></button>
 					<?php } else { ?>
 						<form method="POST" action="receipt.php">
 							<input type="hidden" name="ledger_id" value="<?php echo $data['ledger_id']; ?>">

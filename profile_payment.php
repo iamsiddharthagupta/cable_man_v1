@@ -3,6 +3,8 @@
 	require_once 'profile_casing.php';
 
 	$ledger_id = $_GET['ledger_id'];
+	$dev_id = $_GET['dev_id'];
+	
 	$query = "	SELECT
 				cbl_dev_stock.device_no AS device_no,
 				cbl_dev_stock.device_mso AS device_mso,
@@ -75,14 +77,13 @@
 		                </thead>
 
 		        <?php
-		        
 
 				$query = "	SELECT * FROM cbl_user_dev
 				            RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
 				            LEFT JOIN cbl_ledger ON cbl_ledger.dev_id = cbl_user_dev.dev_id
 				            LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
 
-				            WHERE cbl_ledger.user_id = '$user_id'
+				            WHERE cbl_ledger.dev_id = '$dev_id'
 				            ORDER BY renew_date DESC";
 
 				$result = mysqli_query($conn,$query);
@@ -93,9 +94,7 @@
 
 				foreach ($result as $key => $data) :
 
-				    $urlMulti = "user_id={$user_id}&ledger_id={$data['ledger_id']}";
-
-				?>
+				    $urlMulti = "user_id={$user_id}&ledger_id={$data['ledger_id']}"; ?>
 
 		            <tbody>
 		              <tr>

@@ -87,10 +87,9 @@
 	} else {
 		$i = 0;
 		foreach ($result as $key => $data) : $i++; ?>
-		
+
 			<tbody id="myTable">
 				<tr>
-					
 					<td>
 						<div class="btn-group" role="group">
 	    					<button type="button" class="btn btn-dark btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -124,13 +123,12 @@
 					<td><?php echo $data['device_count']; ?></td>
 					
 					<td><?php echo $data['package'];?></td>
-
 				</tr>
 			</tbody>
 		<?php
-			endforeach;
-		}
-	?>
+				endforeach;
+			}
+		?>
 		</table>
 	</div>
 </div>

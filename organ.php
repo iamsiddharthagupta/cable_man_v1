@@ -265,7 +265,7 @@
                 <a href="active_list.php?query=<?php echo ActiveList(); ?>" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Active/Inactive List</p>
-                  <span class="right badge badge-danger"><?php echo CountActiveUser(date('Y-m-d')); ?></span>
+                  <span class="right badge badge-danger"><?php echo CountActiveDevice(date('Y-m-d')); ?></span>
                 </a>
               </li>
             </ul>

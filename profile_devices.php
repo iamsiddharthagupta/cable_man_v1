@@ -3,8 +3,15 @@
 	require_once 'profile_casing.php';
 	$user_id = $_GET['user_id'];
 ?>
-      <div class="col-md-9">
-    		<div class="card-body table-responsive p-0" style="height: 490px;">
+      <div class="col-md">
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="d-flex justify-content-between">
+              <h3 class="card-title">Select Device</h3>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-body table-responsive p-0">
               <table class="table table-hover text-center table-bordered table-sm table-head-fixed">
                   <thead>
                     <tr>
@@ -42,7 +49,7 @@
 
           foreach ($result as $key => $data) :
 
-          	$urlMulti = "user_id={$user_id}&dev_id={$data['dev_id']}";
+            $urlMulti = "user_id={$user_id}&dev_id={$data['dev_id']}";
           
           ?>
 
@@ -69,6 +76,8 @@
           ?>
         </table>
       </div>
+          </div>
+        </div>
     </div>
 	</div>
 </div>
