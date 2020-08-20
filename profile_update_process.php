@@ -8,6 +8,7 @@
   $phone_no = mysqli_real_escape_string($conn,$_POST['phone_no']);
   $area = mysqli_real_escape_string($conn,$_POST['area']);
   $address = mysqli_real_escape_string($conn,$_POST['address']);
+  $user_status = mysqli_real_escape_string($conn,$_POST['user_status']);
   $user_id = $_POST['user_id'];
 
     $query = "UPDATE cbl_user SET
@@ -15,7 +16,8 @@
     last_name = '$last_name',
     phone_no = '$phone_no',
     address = '$address',
-    area = '$area'
+    area = '$area',
+    user_status = '$user_status'
 
     WHERE user_id = '$user_id'";
 

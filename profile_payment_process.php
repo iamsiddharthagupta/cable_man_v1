@@ -45,7 +45,7 @@
 				pay_status = '$msg',
 				pay_date = '$pay_date',
 				pay_month = '$pay_month',
-				status = 'Paid'
+				ledger_status = 'Paid'
 
 				WHERE ledger_id = '$ledger_id' AND invoice_no = '$due_invoice'
 			";

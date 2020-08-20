@@ -25,6 +25,7 @@
             cbl_user.address AS address,
             cbl_user.area AS area,
             cbl_user.doi AS doi,
+            cbl_user.user_status AS user_status,
             cbl_dev_stock.device_no AS device_no,
             cbl_dev_stock.device_mso AS device_mso,
             cbl_dev_stock.device_type AS device_type,

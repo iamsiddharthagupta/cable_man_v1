@@ -36,7 +36,7 @@
   function CountUnpaid(){
     require 'connection.php';
     $query = "SELECT COUNT(user_id) AS count_unpaid FROM cbl_ledger
-              WHERE status = 'Renewed'";
+              WHERE ledger_status = 'Renewed'";
     $result = mysqli_query($conn,$query);
     $data = mysqli_fetch_assoc($result);
     return $data['count_unpaid'];
@@ -44,7 +44,7 @@
 
    function CountPaid(){
     require 'connection.php';
-    $query = "SELECT COUNT(ledger_id) AS count_paid FROM cbl_ledger WHERE status = 'Paid'";
+    $query = "SELECT COUNT(ledger_id) AS count_paid FROM cbl_ledger WHERE ledger_status = 'Paid'";
     $result = mysqli_query($conn,$query);
     $data = mysqli_fetch_assoc($result);
     return $data['count_paid'];
@@ -67,30 +67,30 @@
     return urlencode($query);
   }
 
-  function ActiveList(){
+  function ActiveList($user_status){
 
-    $query = "GROUP BY cbl_user.user_id,cbl_user_dev.dev_id ORDER BY expiry_date ASC";
-
-    return urlencode($query);
-  }
-
-  function OverdueList($status){
-
-    $query = "WHERE cbl_ledger.status = '$status' GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
+    $query = "WHERE cbl_user.user_status = '$user_status' GROUP BY cbl_user.user_id,cbl_user_dev.dev_id ORDER BY expiry_date ASC";
 
     return urlencode($query);
   }
 
-    function PaidList($status){
+  function OverdueList($ledger_status){
 
-    $query = "WHERE cbl_ledger.status = '$status' AND cbl_ledger.renew_term = 1 GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
+    $query = "WHERE cbl_ledger.ledger_status = '$ledger_status' GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
 
     return urlencode($query);
   }
 
-    function SchemeList($status){
+    function PaidList($ledger_status){
 
-    $query = "WHERE cbl_ledger.status = '$status' AND cbl_ledger.renew_term > 1 GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
+    $query = "WHERE cbl_ledger.ledger_status = '$ledger_status' AND cbl_ledger.renew_term = 1 GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
+
+    return urlencode($query);
+  }
+
+    function SchemeList($ledger_status){
+
+    $query = "WHERE cbl_ledger.ledger_status = '$ledger_status' AND cbl_ledger.renew_term > 1 GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
 
     return urlencode($query);
   }
@@ -121,7 +121,7 @@
   // Dinamic Filter Function in User List.
     function OverdueFilter($area){
 
-    $query = "WHERE cbl_ledger.status = 'Renewed' AND cbl_user.area = '$area' GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC,cbl_user.address ASC";
+    $query = "WHERE cbl_ledger.ledger_status = 'Renewed' AND cbl_user.area = '$area' GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC,cbl_user.address ASC";
 
     return urlencode($query);
   }
@@ -207,7 +207,7 @@
           <img src="common/avatar.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="setting.php" class="d-block"><?php echo $curr_user; ?></a>
+          <a href="change_pass.php" class="d-block"><?php echo $curr_user; ?></a>
         </div>
       </div>
 
@@ -262,9 +262,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="active_list.php?query=<?php echo ActiveList(); ?>" class="nav-link">
+                <a href="active_list.php?query=<?php echo ActiveList('ac'); ?>" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
-                  <p>Active/Inactive List</p>
+                  <p>Active/Expired List</p>
                   <span class="right badge badge-danger"><?php echo CountActiveDevice(date('Y-m-d')); ?></span>
                 </a>
               </li>

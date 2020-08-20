@@ -66,7 +66,7 @@
                 
                 <td><?php echo $data['pay_balance']; ?></td>
                 
-                <td><?php echo $data['status']; ?></td>
+                <td><?php echo $data['ledger_status']; ?></td>
                 
                 <td>
                   <?php if($data['pay_date'] == NULL){ ?>
@@ -82,7 +82,7 @@
                         Action
                     </button>
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <?php if($data['status'] == 'Renewed'){ ?>
+                        <?php if($data['ledger_status'] == 'Renewed'){ ?>
                           <a class="dropdown-item" href="profile_payment.php?<?= $urlMulti; ?>">Add Payment</a>
                         <?php } else { ?>
                           <form method="POST" action="receipt.php">

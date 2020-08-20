@@ -28,7 +28,7 @@
 	    <form method="POST" action="<?php echo htmlspecialchars('profile_update_process.php'); ?>" autocomplete="off">
 		    <div class=" form-row">
 		        <div class="form-group col-sm">
-		          <label>First Name: *</label>
+		          <label>First Name:</label>
 		            <input type="text" class="form-control" name="first_name" value="<?php echo $data['first_name']; ?>" placeholder="First Name">
 		        </div>
 		        <div class="col-sm">
@@ -44,7 +44,7 @@
 	        	</div>
 
 		        <div class="form-group col-sm">
-		          <label>Area: *</label>
+		          <label>Area:</label>
 		            <select name="area" class="form-control">
 		              <option value="" disabled>Select Area</option>
 		              
@@ -62,8 +62,16 @@
     		</div>
 
 		    <div class="form-row">
+		    	<div class="form-group col-sm">
+		    		<label>User Status:</label>
+		    		<select class="form-control" name="user_status">
+		    			<option value="" disabled>Select Status</option>
+		    			<option value="ac" <?php if($data["user_status"] == 'ac'){ echo "selected"; } ?>>Active</option>
+		    			<option value="dc" <?php if($data["user_status"] == 'dc'){ echo "selected"; } ?>>Disconnected</option>
+		    		</select>
+		    	</div>
 		      <div class="form-group col-sm">
-		          <label>Address</label>
+		          <label>Address:</label>
 		            <textarea class="form-control" name="address" placeholder="Complete Address with House Number and Floor"><?php echo $data['address'];?></textarea>
 		        </div>
 		    </div>

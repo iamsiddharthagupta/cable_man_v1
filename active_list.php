@@ -30,7 +30,7 @@
 						Filter Area
 				</button>
 				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-				      <a class="dropdown-item" href="active_list.php?query=<?php echo ActiveList(); ?>">All</a>
+				      <a class="dropdown-item" href="active_list.php?query=<?php echo ActiveList('ac'); ?>">All</a>
 
 				      <a class="dropdown-item" href="active_list.php?query=<?php echo ActiveFilter('Humayunpur'); ?>">Humayunpur</a>
 				      <a class="dropdown-item" href="active_list.php?query=<?php echo ActiveFilter('Arjun Nagar'); ?>">Arjun Nagar</a>

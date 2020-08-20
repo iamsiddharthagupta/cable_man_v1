@@ -69,9 +69,10 @@
 			cbl_user.user_id AS user_id,
 			cbl_user.first_name AS first_name,
 			cbl_user.last_name AS last_name,
+			cbl_user.phone_no AS phone_no,
 			cbl_user.address AS address,
 			cbl_user.area AS area,
-			cbl_user.phone_no AS phone_no,
+			cbl_user.user_status AS user_status,
 			SUM(cbl_dev_stock.package) AS package,
 			COUNT(cbl_user_dev.dev_id) AS device_count,
 			cbl_user_dev.dev_id AS dev_id
@@ -96,8 +97,8 @@
 	      						Action
 	    					</button>
 		    				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-								<?php if(!empty($data['dev_id'])){ ?>
-									<a class="dropdown-item" href="profile_devices.php?user_id=<?php echo $data['user_id']; ?>">Activate</a>
+								<?php if($data['user_status'] == 'dc'){ ?>
+									<a class="dropdown-item" href="profile_update.php?user_id=<?php echo $data['user_id']; ?>">Activate</a>
 								<?php } else { ?>
 								<a class="dropdown-item" href="profile_device_map.php?user_id=<?php echo $data['user_id']; ?>">Assign Device</a>
 								<?php } ?>
@@ -108,9 +109,11 @@
 
 					<td>
 						<?php if(empty($data['dev_id'])){ ?>
-							<div class="text-danger"><strong>Device Unmapped</strong></div>
-						<?php } else { ?>
-							<div class="text-success"><strong>Ready</strong></div>
+							<div class="text-warning"><strong>Device Unmapped</strong></div>
+						<?php } elseif($data['user_status'] == 'ac') { ?>
+							<div class="text-success"><strong>Active</strong></div>
+						<?php } elseif($data['user_status'] == 'dc'){ ?>
+							<div class="text-danger"><strong>Disconnected</strong></div>
 						<?php } ?>
 					</td>
 

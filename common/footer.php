@@ -11,9 +11,9 @@
 </div>
 
 <!-- AdminLTE Scripts -->
+    <script src="common/jquery.overlayScrollbars.min.js"></script>
     <script src="common/adminlte.min.js"></script>
     <script src="common/bootstrap.bundle.min.js"></script>
-    <script src="common/jquery.overlayScrollbars.min.js"></script>
 <!-- Misc Script -->
 	<script type="text/javascript" src="common/script.js"></script>
 

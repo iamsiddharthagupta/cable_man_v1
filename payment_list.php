@@ -70,6 +70,7 @@
 		                cbl_user.address AS address,
 		                cbl_user.area AS area,
 		                cbl_user.phone_no AS phone_no,
+		                cbl_dev_stock.dev_id AS dev_id,
 		                cbl_dev_stock.device_no AS device_no,
 		                cbl_ledger.renew_date AS renew_date,
 		                cbl_ledger.pay_amount AS pay_amount,
@@ -94,7 +95,7 @@
 		
 		foreach ($result as $key => $data) :
 
-			$urlMulti = "user_id={$data['user_id']}&ledger_id={$data['ledger_id']}";
+			$urlMulti = "user_id={$data['user_id']}&ledger_id={$data['ledger_id']}&dev_id={$data['dev_id']}";
 
 		?>
 
