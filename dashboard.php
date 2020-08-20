@@ -87,17 +87,50 @@
         </div>
       </div>
 
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header border-0">
-            <div class="d-flex justify-content-between">
-              <h3 class="card-title">Expiring Today</h3>
+      <div class="col-md-6"><i class=""></i>
+            <div class="card">
+              <div class="card-header border-0">
+                <h3 class="card-title">Overviews</h3>
+              </div>
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
+                  <p class="text-success text-xl">
+                    <i class="fas fa-sync-alt"></i>
+                  </p>
+                  <p class="d-flex flex-column text-right">
+                    <span class="font-weight-bold">
+                      <i class="fas fa-arrow-up text-success"></i> 12
+                    </span>
+                    <span class="text-muted">Recent Renewal</span>
+                  </p>
+                </div>
+                <!-- /.d-flex -->
+                <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
+                  <p class="text-warning text-xl">
+                    <i class="ion ion-ios-cart-outline"></i>
+                  </p>
+                  <p class="d-flex flex-column text-right">
+                    <span class="font-weight-bold">
+                      <i class="ion ion-android-arrow-up text-warning"></i> 0.8%
+                    </span>
+                    <span class="text-muted">SALES RATE</span>
+                  </p>
+                </div>
+                <!-- /.d-flex -->
+                <div class="d-flex justify-content-between align-items-center mb-0">
+                  <p class="text-danger text-xl">
+                    <i class="ion ion-ios-people-outline"></i>
+                  </p>
+                  <p class="d-flex flex-column text-right">
+                    <span class="font-weight-bold">
+                      <i class="ion ion-android-arrow-down text-danger"></i> 1%
+                    </span>
+                    <span class="text-muted">REGISTRATION RATE</span>
+                  </p>
+                </div>
+                <!-- /.d-flex -->
+              </div>
             </div>
-          </div>
-          <div class="card-body">
-            
-          </div>
-        </div>
       </div>
 
   </div>

@@ -99,7 +99,7 @@
 		    				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 								<?php if($data['user_status'] == 'dc'){ ?>
 									<a class="dropdown-item" href="profile_update.php?user_id=<?php echo $data['user_id']; ?>">Activate</a>
-								<?php } else { ?>
+								<?php } elseif(empty($data['dev_id'])) { ?>
 								<a class="dropdown-item" href="profile_device_map.php?user_id=<?php echo $data['user_id']; ?>">Assign Device</a>
 								<?php } ?>
 								<a class="dropdown-item" href="profile_update.php?user_id=<?php echo $data['user_id']; ?>">Update Profile</a>
