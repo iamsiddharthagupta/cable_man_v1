@@ -33,7 +33,7 @@
 
 	if($result){
 		
-		$msg = 'Renewal Successful.';
+		$msg = 'Activation Successful.';
         header('Location: profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
 
 	} else {

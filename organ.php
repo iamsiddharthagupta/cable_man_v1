@@ -1,9 +1,9 @@
 <?php
 
-// Counting Functions of Sidebar Badges.
+// Counting Functions of Badges.
 
-  function countUser(){
-    include 'connection.php';
+  function CountUser(){
+    require 'connection.php';
     $query = "SELECT COUNT(user_id) AS total_users FROM cbl_user";
     $result = mysqli_query($conn,$query);
     $value = mysqli_fetch_assoc($result);
@@ -11,26 +11,30 @@
     return $num_rows;
   }
 
-  function countActiveUser(){
-    include 'connection.php';
-    $query = "SELECT COUNT(DISTINCT user_id) AS user_id FROM cbl_ledger";
-    $result = mysqli_query($conn,$query);
-    $data = mysqli_fetch_assoc($result);
-    return $data['user_id'];
-  }
-
-  function countActiveDevice(){
-    include 'connection.php';
+  function CountActiveUser($date){
+    require 'connection.php';
     $query = "SELECT
-              COUNT(DISTINCT dev_id) AS dev_id FROM cbl_ledger
-              WHERE status = 'Renewed' OR 'Paid'";
+              COUNT(DISTINCT user_id) AS active_user
+              FROM cbl_ledger
+              WHERE '$date' BETWEEN renew_date AND expiry_date";
     $result = mysqli_query($conn,$query);
     $data = mysqli_fetch_assoc($result);
-    return $data['dev_id'];
+    return $data['active_user'];
+    }
+
+
+  function CountActiveDevice($date){
+    require 'connection.php';
+    $query = "SELECT
+              COUNT(DISTINCT dev_id) AS active_dev FROM cbl_ledger
+              WHERE '$date' BETWEEN renew_date AND expiry_date";
+    $result = mysqli_query($conn,$query);
+    $data = mysqli_fetch_assoc($result);
+    return $data['active_dev'];
   }
 
-  function countUnpaid(){
-    include 'connection.php';
+  function CountUnpaid(){
+    require 'connection.php';
     $query = "SELECT COUNT(user_id) AS count_unpaid FROM cbl_ledger
               WHERE status = 'Renewed'";
     $result = mysqli_query($conn,$query);
@@ -38,12 +42,20 @@
     return $data['count_unpaid'];
   }
 
-   function countPaid(){
-    include 'connection.php';
+   function CountPaid(){
+    require 'connection.php';
     $query = "SELECT COUNT(ledger_id) AS count_paid FROM cbl_ledger WHERE status = 'Paid'";
     $result = mysqli_query($conn,$query);
     $data = mysqli_fetch_assoc($result);
     return $data['count_paid'];
+  }
+
+     function CountExpiring($date){
+    require 'connection.php';
+    $query = "SELECT COUNT(ledger_id) AS count_expiring FROM cbl_ledger WHERE expiry_date = '$date'";
+    $result = mysqli_query($conn,$query);
+    $data = mysqli_fetch_assoc($result);
+    return $data['count_expiring'];
   }
 
 // Dynamic Query Functions for Sidebar Lists.
@@ -79,6 +91,13 @@
     function SchemeList($status){
 
     $query = "WHERE cbl_ledger.status = '$status' AND cbl_ledger.renew_term > 1 GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
+
+    return urlencode($query);
+  }
+
+    function ExpiringList($date){
+
+    $query = "WHERE cbl_ledger.expiry_date = '$date' GROUP BY cbl_user.user_id,cbl_user_dev.dev_id ORDER BY expiry_date ASC";
 
     return urlencode($query);
   }
@@ -120,7 +139,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="dashboard.php" class="nav-link">Home</a>
+        <a href="dashboard.php" class="nav-link">Dashboard</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="add_user.php" class="nav-link"><i class="fas fa-plus-circle"></i></a>
@@ -130,7 +149,7 @@
     <!-- SEARCH FORM -->
     <form class="form-inline ml-3" method="POST" action="<?php echo htmlspecialchars('search_process.php'); ?>">
       <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="text" name="search_input" id="user_search" placeholder="Search" aria-label="Search">
+        <input class="form-control form-control-navbar" type="text" name="search_input" id="user_search" placeholder="Search" aria-label="Search" required>
         <div class="input-group-append">
           <button class="btn btn-navbar" name="submit" type="submit">
             <i class="fas fa-search"></i>
@@ -145,14 +164,13 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
+          <span class="badge badge-warning navbar-badge"><?php echo CountExpiring(date('Y-m-d')); ?></span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-header">15 Notifications</span>
+          <span class="dropdown-header"><?php echo CountExpiring(date('Y-m-d')); ?> Notifications</span>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-hourglass-end mr-2"></i> 4 Expiring Today...
-            <span class="float-right text-muted text-sm">3 mins</span>
+          <a href="active_list.php?query=<?php echo ExpiringList(date('Y-m-d')); ?>" class="dropdown-item">
+            <i class="fas fa-hourglass-end mr-2"></i><?php echo CountExpiring(date('Y-m-d')); ?> Expiring Today
           </a>
         </div>
       </li>
@@ -189,7 +207,7 @@
           <img src="common/avatar.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block"><?php echo $curr_user; ?></a>
+          <a href="setting.php" class="d-block"><?php echo $curr_user; ?></a>
         </div>
       </div>
 
@@ -240,14 +258,14 @@
                 <a href="user_list.php?query=<?php echo UserList(); ?>" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>User List</p>
-                  <span class="right badge badge-danger"><?php echo countUser(); ?></span>
+                  <span class="right badge badge-danger"><?php echo CountUser(); ?></span>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="active_list.php?query=<?php echo ActiveList(); ?>" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Active/Inactive List</p>
-                  <span class="right badge badge-danger"><?php echo countActiveUser(); ?></span>
+                  <span class="right badge badge-danger"><?php echo CountActiveUser(date('Y-m-d')); ?></span>
                 </a>
               </li>
             </ul>
@@ -268,14 +286,14 @@
                 <a href="payment_list.php?query=<?php echo OverdueList('Renewed'); ?>" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Overdue List</p>
-                  <span class="right badge badge-danger"><?php echo countUnpaid(); ?></span>
+                  <span class="right badge badge-danger"><?php echo CountUnpaid(); ?></span>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="payment_list.php?query=<?php echo PaidList('Paid'); ?>" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Paid List</p>
-                  <span class="right badge badge-danger"><?php echo countPaid(); ?></span>
+                  <span class="right badge badge-danger"><?php echo CountPaid(); ?></span>
                 </a>
               </li>
               <li class="nav-item">

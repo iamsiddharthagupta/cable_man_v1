@@ -25,53 +25,77 @@
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active">Starter Page</li>
+          <li class="breadcrumb-item active">Dashboard</li>
         </ol>
       </div>
     </div>
   </div>
 </div>
 
-<div class="container p-3">
-  <div class="row justify-content-between p-3">
-    
-    <div class="col-sm">
-      <div class="card border-dark mb-3 text-center">
-          <div class="card-header">Active Users</div>
-          <div class="card-body text-dark">
-            <h2 class="card-title text-primary">[<?php echo countActiveUser(); ?>]</h2>
-          </div>
-      </div>
-    </div>
-    <div class="col-sm">
-      <div class="card border-dark mb-3 text-center">
-          <div class="card-header">Active Devices</div>
-          <div class="card-body text-dark">
-            <h2 class="card-title text-success">[<?php echo countActiveDevice(); ?>]</h2>
-          </div>
-      </div>
-    </div>
-    <div class="col-sm">
-      <div class="card border-dark mb-3 text-center">
-          <div class="card-header">Due Invoices</div>
-          <div class="card-body text-dark">
-            <h2 class="card-title text-danger">[<?php echo countUnpaid(); ?>]</h2>
-          </div>
-      </div>
-    </div>
-  </div>
+<div class="container-fluid">
+  <div class="row">
 
-  <div class="row justify-content-between p-3">
-    <div class="col-sm">
-      <div class="card border-primary mb-3 text-center">
-        <div class="card-header">Total Collection</div>
-        <div class="card-body">
-          <h5 class="card-title">Coming Soon!</h5>
+      <div class="col-md-3 col-6">
+        <div class="small-box bg-info">
+          <div class="inner">
+            <h3><?php echo CountActiveDevice(date('Y-m-d')); ?></h3>
+            <p>Active Devices</p>
+          </div>
+          <div class="icon">
+            <i class="fas fa-hdd"></i>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
+      <div class="col-md-3 col-6">
+        <div class="small-box bg-success">
+          <div class="inner">
+            <h3><?php echo CountActiveUser(date('Y-m-d')); ?></h3>
+            <p>Active Users</p>
+          </div>
+          <div class="icon">
+            <i class="fas fa-user-check"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-6">
+        <div class="small-box bg-warning">
+          <div class="inner">
+            <h3>44</h3>
+            <p>User Registrations</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-person-add"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-6">
+        <div class="small-box bg-danger">
+          <div class="inner">
+            <h3>65</h3>
+            <p>Unique Visitors</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-pie-graph"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="d-flex justify-content-between">
+              <h3 class="card-title">Expiring Today</h3>
+            </div>
+          </div>
+          <div class="card-body">
+          </div>
+        </div>
+      </div>
+
+  </div>
 </div>
 
 <?php require_once 'common/footer.php'; ?>

@@ -73,15 +73,12 @@
 			cbl_user.area AS area,
 			cbl_user.phone_no AS phone_no,
 			SUM(cbl_dev_stock.package) AS package,
-			cbl_dev_stock.device_no AS device_no,
-			cbl_ledger.renew_date AS renew_date,
-			cbl_ledger.status AS status,
-			COUNT(cbl_user_dev.dev_id) AS device_count
+			COUNT(cbl_user_dev.dev_id) AS device_count,
+			cbl_user_dev.dev_id AS dev_id
 
 			FROM cbl_user_dev
 
 			RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
-			LEFT JOIN cbl_ledger ON cbl_ledger.dev_id = cbl_user_dev.dev_id
 			LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id ".$query;
 	$result = mysqli_query($conn,$query);
 
@@ -100,10 +97,8 @@
 	      						Action
 	    					</button>
 		    				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-								<?php if(!empty($data['device_no']) && empty($data['status'])){ ?>
+								<?php if(!empty($data['dev_id'])){ ?>
 									<a class="dropdown-item" href="profile_devices.php?user_id=<?php echo $data['user_id']; ?>">Activate</a>
-								<?php } elseif(!empty($data['status'])) { ?>
-									<a class="dropdown-item" href="profile_renewal.php?user_id=<?php echo $data['user_id']; ?>">Renew</a>
 								<?php } else { ?>
 								<a class="dropdown-item" href="profile_device_map.php?user_id=<?php echo $data['user_id']; ?>">Assign Device</a>
 								<?php } ?>
@@ -113,12 +108,10 @@
 					</td>
 
 					<td>
-						<?php if(empty($data['device_no'])){ ?>
-							<div class="text-warning"><strong>Device Unassigned</strong></div>
-						<?php } elseif(!empty($data['device_no']) && empty($data['status'])) { ?>
-							<div class="text-danger"><strong>Activation Pending</strong></div>
+						<?php if(empty($data['dev_id'])){ ?>
+							<div class="text-danger"><strong>Device Unmapped</strong></div>
 						<?php } else { ?>
-							<div class="text-success"><strong>Active</strong></div>
+							<div class="text-success"><strong>Ready</strong></div>
 						<?php } ?>
 					</td>
 

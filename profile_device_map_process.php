@@ -21,12 +21,15 @@
 			('$user_id','$dev_id')
 			";
 	$result = mysqli_query($conn,$query);
-	
-	header('Location: profile_device_map.php?user_id='.$user_id);
 
+	$msg = 'Device Mapped Successfully.';
+    header('Location: profile_device_map.php?user_id='.$user_id.'&msg='.$msg);
+
+} else {
+
+	$msg = 'Please insert valid device number!';
+    header('Location: profile_device_map.php?user_id='.$user_id.'&msg='.$msg);
+    
 }
-	?>
-		<script type="text/javascript">
-	    	alert('Please insert valid device number!');
-	    	window.open('profile_device_map.php?user_id=<?php echo $user_id; ?>','_self');
-	    </script>
+
+?>
