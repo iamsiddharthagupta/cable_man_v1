@@ -1,5 +1,7 @@
 <?php
-  
+    
+    require_once 'connection.php';
+
     $first_name = mysqli_real_escape_string($conn,$_POST['first_name']);
     $last_name = mysqli_real_escape_string($conn,$_POST['last_name']);
     $phone_no = mysqli_real_escape_string($conn,$_POST['phone_no']);

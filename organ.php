@@ -67,6 +67,22 @@
     return $data['pay_amount'];
   }
 
+    function CountRecentUser($curr_date){
+
+    require 'connection.php';
+    $date = date_create($curr_date);
+    date_sub($date,date_interval_create_from_date_string("1 Month"));
+    $back_date = date_format($date,"Y-m-d");
+
+    $query = "SELECT COUNT(user_id) AS count_recent
+              FROM cbl_user
+              WHERE doi BETWEEN '$back_date' AND '$curr_date'";
+    $result = mysqli_query($conn,$query);
+    $data = mysqli_fetch_assoc($result);
+    return $data['count_recent'];
+    }
+
+
 // Dynamic Query Functions for Sidebar Lists.
 
   function UserList(){
@@ -156,6 +172,16 @@
 
     return urlencode($query);
   
+  }
+
+    function RecentUser($curr_date){
+
+    $date = date_create($curr_date);
+    date_sub($date,date_interval_create_from_date_string("1 Month"));
+    $back_date = date_format($date,"Y-m-d");
+    
+    $query = "WHERE cbl_user.doi BETWEEN '$back_date' AND '$curr_date' AND cbl_user.user_status = 'ac' GROUP BY cbl_user.user_id,cbl_user_dev.dev_id ORDER BY expiry_date ASC";
+    return urlencode($query);
   }
 
     include 'common/header.php';

@@ -99,8 +99,8 @@
                 <i class="fas fa-user-plus"></i>
               </p>
               <p class="d-flex flex-column text-right">
-                <span class="font-weight-bold">12</span>
-                <span class="text-muted">New Connection</span>
+                <span class="font-weight-bold"><?php echo CountRecentUser(date('Y-m-d')); ?></span>
+                <span class="text-muted"><a href="active_list.php?query=<?php echo RecentUser(date('Y-m-d')); ?>">New Connection</a></span>
               </p>
             </div>
 

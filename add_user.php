@@ -49,18 +49,18 @@
     <div class="form-row">
         <div class=" form-group col-md">
           <label>First Name: <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" name="first_name" placeholder="First Name" value="<?php echo isset($_POST['first_name']) ? $first_name : ''; ?>">
+            <input type="text" class="form-control" name="first_name" placeholder="First Name">
         </div>
         <div class=" form-group col-md">
           <label>Last Name:</label>
-            <input type="text" class="form-control" name="last_name" placeholder="Last Name" value="<?php echo isset($_POST['last_name']) ? $last_name : ''; ?>">
+            <input type="text" class="form-control" name="last_name" placeholder="Last Name">
         </div>
     </div>
 
       <div class="form-row">
         <div class=" form-group col-md">
           <label>Contact Number: <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" name="phone_no" placeholder="Contact Number" value="<?php echo isset($_POST['phone_no']) ? $phone_no : ''; ?>">
+            <input type="text" class="form-control" name="phone_no" placeholder="Contact Number">
         </div>
         <div class=" form-group col-md">
           <label>Area:</label>
@@ -78,7 +78,7 @@
       <div class="form-row">
         <div class=" form-group col-md">
           <label>Address: <span class="text-danger">*</span></label>
-          <textarea class="form-control" name="address" placeholder="Complete Address with House Number and Floor"><?php echo isset($_POST['address']) ? $address : ''; ?></textarea>
+          <textarea class="form-control" name="address" placeholder="Complete Address with House Number and Floor"></textarea>
         </div>
       </div>
       <div class="form-group">
