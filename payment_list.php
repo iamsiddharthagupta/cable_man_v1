@@ -108,7 +108,7 @@
 					<?php } else { ?>
 						<form method="POST" action="receipt.php">
 							<input type="hidden" name="ledger_id" value="<?php echo $data['ledger_id']; ?>">
-							<input type="submit" class="btn btn-outline-success btn-sm" value="<?php echo $data['renew_month'] ?>">
+							<input type="submit" class="btn btn-outline-success btn-sm" value="Receipt">
 						</form>
                     <?php } ?>
 				</td>

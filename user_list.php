@@ -52,6 +52,7 @@
 		<table class="table table-hover text-center table-bordered table-sm table-head-fixed text-nowrap">
 		    <thead class="thead-light">
 		      <tr>
+		      	<th>S.No</th>
 		      	<th>Action</th>
 		      	<th>Notification</th>
 		        <th>Name</th>
@@ -81,6 +82,7 @@
 
 			RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
 			LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id ".$query;
+
 	$result = mysqli_query($conn,$query);
 
 	if(mysqli_num_rows($result) < 1){
@@ -91,6 +93,9 @@
 
 			<tbody id="myTable">
 				<tr>
+
+					<td><?php echo $i; ?></td>
+
 					<td>
 						<div class="btn-group" role="group">
 	    					<button type="button" class="btn btn-dark btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -99,8 +104,10 @@
 		    				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 								<?php if($data['user_status'] == 'dc'){ ?>
 									<a class="dropdown-item" href="profile_update.php?user_id=<?php echo $data['user_id']; ?>">Activate</a>
+								<?php } elseif($data['user_status'] == 'ac' AND !empty($data['dev_id'])){ ?>
+									<a class="dropdown-item" href="profile_devices.php?user_id=<?php echo $data['user_id']; ?>">Activate</a>
 								<?php } elseif(empty($data['dev_id'])) { ?>
-								<a class="dropdown-item" href="profile_device_map.php?user_id=<?php echo $data['user_id']; ?>">Assign Device</a>
+									<a class="dropdown-item" href="profile_device_map.php?user_id=<?php echo $data['user_id']; ?>">Assign Device</a>
 								<?php } ?>
 								<a class="dropdown-item" href="profile_update.php?user_id=<?php echo $data['user_id']; ?>">Update Profile</a>
 						    </div>

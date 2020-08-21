@@ -58,6 +58,15 @@
     return $data['count_expiring'];
   }
 
+
+     function CountDateColl($date){
+    require 'connection.php';
+    $query = "SELECT SUM(pay_amount) AS pay_amount FROM cbl_ledger WHERE pay_date = '$date'";
+    $result = mysqli_query($conn,$query);
+    $data = mysqli_fetch_assoc($result);
+    return $data['pay_amount'];
+  }
+
 // Dynamic Query Functions for Sidebar Lists.
 
   function UserList(){
@@ -66,6 +75,13 @@
 
     return urlencode($query);
   }
+
+  function UserActiveList($user_status){
+
+  $query = "WHERE cbl_user.user_status = '$user_status' GROUP BY cbl_user.user_id ORDER BY cbl_user.doi DESC";
+
+  return urlencode($query);
+}
 
   function ActiveList($user_status){
 
@@ -124,6 +140,22 @@
     $query = "WHERE cbl_ledger.ledger_status = 'Renewed' AND cbl_user.area = '$area' GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC,cbl_user.address ASC";
 
     return urlencode($query);
+  }
+
+  function DailyCollMonth($date){
+
+    $query = "WHERE cbl_ledger.pay_date = '$date' AND cbl_ledger.ledger_status = 'Paid' AND cbl_ledger.renew_term = 1 GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
+
+    return urlencode($query);
+  
+  }
+
+    function DailyCollScheme($date){
+
+    $query = "WHERE cbl_ledger.pay_date = '$date' AND cbl_ledger.ledger_status = 'Paid' AND cbl_ledger.renew_term > 1 GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
+
+    return urlencode($query);
+  
   }
 
     include 'common/header.php';
