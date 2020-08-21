@@ -41,11 +41,6 @@
 			    </div>
 			</div>
 		</div>
-		<div class="col-auto">
-			<form method="post" action="export_data.php">
-	      		<input type="submit" name="export" class="btn btn-outline-success mb-2 mr-sm-2" value="export xls">
-    		</form>
-		</div>
 	</div>
 
 	<div class="card-body table-responsive p-0" style="height: 600px;">

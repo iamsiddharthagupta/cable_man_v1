@@ -50,7 +50,7 @@
     return $data['count_paid'];
   }
 
-     function CountExpiring($date){
+  function CountExpiring($date){
     require 'connection.php';
     $query = "SELECT COUNT(ledger_id) AS count_expiring FROM cbl_ledger WHERE expiry_date = '$date'";
     $result = mysqli_query($conn,$query);
@@ -58,8 +58,7 @@
     return $data['count_expiring'];
   }
 
-
-     function CountDateColl($date){
+  function CountDateColl($date){
     require 'connection.php';
     $query = "SELECT SUM(pay_amount) AS pay_amount FROM cbl_ledger WHERE pay_date = '$date'";
     $result = mysqli_query($conn,$query);
@@ -82,6 +81,14 @@
     return $data['count_recent'];
     }
 
+
+    function CountRecentRenew($date){
+    require 'connection.php';
+    $query = "SELECT COUNT(user_id) AS recent_renew FROM cbl_ledger WHERE renew_date = '$date'";
+    $result = mysqli_query($conn,$query);
+    $data = mysqli_fetch_assoc($result);
+    return $data['recent_renew'];
+  }
 
 // Dynamic Query Functions for Sidebar Lists.
 
@@ -180,8 +187,17 @@
     date_sub($date,date_interval_create_from_date_string("1 Month"));
     $back_date = date_format($date,"Y-m-d");
     
-    $query = "WHERE cbl_user.doi BETWEEN '$back_date' AND '$curr_date' AND cbl_user.user_status = 'ac' GROUP BY cbl_user.user_id,cbl_user_dev.dev_id ORDER BY expiry_date ASC";
+    $query = "WHERE cbl_user.doi BETWEEN '$back_date' AND '$curr_date' AND cbl_user.user_status = 'ac' GROUP BY cbl_user.user_id ORDER BY cbl_user.doi DESC";
     return urlencode($query);
+  }
+
+
+  function RecentRenew($date){
+
+    $query = "WHERE cbl_ledger.renew_date = '$date' GROUP BY cbl_user.user_id,cbl_user_dev.dev_id ORDER BY expiry_date ASC";
+
+    return urlencode($query);
+
   }
 
     include 'common/header.php';

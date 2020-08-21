@@ -14,6 +14,9 @@
   require_once 'connection.php';
   require_once 'organ.php';
 
+  $query = "SELECT device_mso, COUNT(dev_id) as devices FROM cbl_dev_stock GROUP BY device_mso";
+  $result = mysqli_query($conn,$query);
+
 ?>
 
 <div class="content-header">
@@ -100,7 +103,9 @@
               </p>
               <p class="d-flex flex-column text-right">
                 <span class="font-weight-bold"><?php echo CountRecentUser(date('Y-m-d')); ?></span>
-                <span class="text-muted"><a href="active_list.php?query=<?php echo RecentUser(date('Y-m-d')); ?>">New Connection</a></span>
+                <span class="text-muted">
+                  <a href="user_list.php?query=<?php echo RecentUser(date('Y-m-d')); ?>">New Connection</a>
+                </span>
               </p>
             </div>
 
@@ -109,8 +114,10 @@
                 <i class="fas fa-sync-alt"></i>
               </p>
               <p class="d-flex flex-column text-right">
-                <span class="font-weight-bold">12</span>
-                <span class="text-muted">Recent Renewal</span>
+                <span class="font-weight-bold"><?php echo CountRecentRenew(date('Y-m-d')); ?></span>
+                <span class="text-muted">
+                  <a href="active_list.php?query=<?php echo RecentRenew(date('Y-m-d')); ?>">Recent Renewal</a>
+                </span>
               </p>
             </div>
             
@@ -120,7 +127,7 @@
               </p>
               <p class="d-flex flex-column text-right">
                 <span class="font-weight-bold">1</span>
-                <span class="text-muted">Recent Deactivations</span>
+                <span class="text-muted">Recent Deactivation</span>
               </p>
             </div>
 
@@ -134,12 +141,42 @@
             <h3 class="card-title">Device Overviews</h3>
           </div>
           <div class="card-body">
-
+            <div id="piechart"></div>
           </div>
         </div>
       </div>
 
   </div>
 </div>
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data = google.visualization.arrayToDataTable([
+        ['MSO', 'Device Count'],
+
+        <?php
+
+            while($row = mysqli_fetch_array($result)){  
+                echo "['".$row["device_mso"]."', ".$row["devices"]."],";  
+              }
+
+        ?>
+
+      ]);
+
+      var options = {
+        title: 'MSO Wise Devices'
+      };
+
+      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+      chart.draw(data, options);
+    }
+  </script>
 
 <?php require_once 'common/footer.php'; ?>
