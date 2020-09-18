@@ -1,4 +1,4 @@
-<?php require_once 'common/header.php'; ?>
+<?php require_once 'assets/header.php'; ?>
 
 <div class="hold-transition login-page">
   <div class="login-box">
@@ -9,10 +9,10 @@
 
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+      <p class="login-box-msg">Authorized Personnel Only</p>
 
           <?php if(isset($_GET['msg'])){ ?>
-            <div class="alert alert-primary" role="alert"><?php echo $_GET['msg']; ?></div>
+            <div class="alert alert-warning" role="alert"><?php echo $_GET['msg']; ?></div>
           <?php } ?>
 
       <form method="POST" action="<?php echo htmlspecialchars('login_process.php'); ?>">

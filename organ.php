@@ -1,4 +1,69 @@
 <?php
+  
+  // Setting up Indian timezone.
+  date_default_timezone_set("Asia/Kolkata");  
+
+  class Database {
+
+      function __construct() {
+
+        include 'connection.php';
+        $this->conn = $conn;
+      }
+    }
+
+
+  class User extends Database {
+
+      public function profile_add_user() {
+
+        if(isset($_POST['submit'])) {
+
+          $first_name = mysqli_real_escape_string($this->conn,$_POST['first_name']);
+          $last_name = mysqli_real_escape_string($this->conn,$_POST['last_name']);
+          $phone_no = mysqli_real_escape_string($this->conn,$_POST['phone_no']);
+          $area = mysqli_real_escape_string($this->conn,$_POST['area']);
+          $address = mysqli_real_escape_string($this->conn,$_POST['address']);
+
+          if(!empty($first_name) && !empty($phone_no) && !empty($address)){
+
+          $sql = "INSERT INTO cbl_user
+                    (first_name,last_name,phone_no,area,address)
+                    VALUES
+                    ('$first_name','$last_name','$phone_no','$area','$address')";
+
+          if(mysqli_query($this->conn,$sql)){
+           
+            header('Location: user_profile_renewal.php?user_id='.mysqli_insert_id($this->conn));
+
+          } else {
+
+            $msg = 'Database Error.';
+            header('Location: user_profile_add.php?msg='.$msg);
+          
+          }
+
+        } else {
+
+            $msg = 'Please Fill Details.';
+            header('Location: user_profile_add.php?msg='.$msg);
+
+        }
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+  }
+
 
 // Counting Functions of Badges.
 
@@ -199,5 +264,10 @@
     return urlencode($query);
 
   }
+
+  // Including Navbar and Sidebar
+
+  require_once 'assets/top-nav.php';
+  require_once 'assets/side-nav.php'; 
 
 ?>

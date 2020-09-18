@@ -15,8 +15,7 @@
 
   require_once 'connection.php';
   require_once 'organ.php';
-  require_once 'assets/top-nav.php';
-  require_once 'assets/side-nav.php';
+
 
   $query = "SELECT device_mso, COUNT(dev_id) as devices FROM cbl_dev_stock GROUP BY device_mso";
   $result = mysqli_query($conn,$query);

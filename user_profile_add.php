@@ -1,5 +1,6 @@
 <?php
 
+  ob_start();
   session_start();
 
   if(isset($_SESSION['user_level'])){
@@ -11,8 +12,10 @@
     header('Location: index.php');
   }
 
-  require_once 'connection.php';
   require_once 'organ.php';
+
+  $user = new User();
+  $result = $user->profile_add_user();
 
 ?>
 
@@ -20,7 +23,7 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0 text-dark">Add User</h1>
+        <h1 class="m-0 text-dark">New Registration</h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
@@ -44,7 +47,7 @@
       </div>
     <?php } ?>
 
-  <form method="post" action="<?php echo htmlspecialchars('add_user_process.php'); ?>" autocomplete="off">
+  <form method="POST" autocomplete="off">
   
     <div class="form-row">
         <div class=" form-group col-md">
@@ -87,4 +90,4 @@
     </form>
 </div>
 
-<?php require_once 'common/footer.php'; ?>
+<?php require_once 'assets/footer.php'; ?>

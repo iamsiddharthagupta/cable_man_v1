@@ -1,6 +1,7 @@
 <?php
 
   session_start();
+  
   require_once 'connection.php';
 
   if(filter_has_var(INPUT_POST, 'submit')){
