@@ -2,7 +2,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="dashboard.php" class="brand-link">
-      <img src="common/logo.png" alt="Endeavour Logo" class="brand-image img-circle elevation-3"
+      <img src="assets/logo.png" alt="Endeavour Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">Endeavour Tech.</span>
     </a>
@@ -12,7 +12,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="common/avatar.png" class="img-circle elevation-2" alt="User Image">
+          <img src="assets/avatar.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="change_pass.php" class="d-block"><?php echo $curr_user; ?></a>

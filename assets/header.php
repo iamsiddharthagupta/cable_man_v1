@@ -15,11 +15,11 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     
     <!-- AdminLTE Styles -->
-    <link rel="stylesheet" href="common/adminlte.min.css">
-    <link rel="stylesheet" href="common/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="assets/adminlte.min.css">
+    <link rel="stylesheet" href="assets/OverlayScrollbars.min.css">
 
     <!-- JQuery UI and Script -->
-    <script src="common/jquery.min.js"></script>
+    <script src="assets/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
 
