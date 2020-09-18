@@ -8,7 +8,9 @@
           header('Location: agent_panel.php');
       }
   } else {
+
     header('Location: index.php');
+
   }
 
   require_once 'connection.php';
