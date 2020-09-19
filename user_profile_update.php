@@ -1,19 +1,12 @@
 <?php
 
-	require_once 'profile_casing.php';
+	require_once 'user_profile_base.php';
+
+	$result = $user->user_profile_update();
 
 ?>
 		
 <div class="col-md">
-
-	<?php if(isset($_GET['msg'])){ ?>
-      <div class="alert alert-primary alert-dismissible fade show" role="alert">
-        <?php echo $_GET['msg']; ?>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-    <?php } ?>
 
 	    <div class="card card-primary">
           <div class="card-header">
@@ -23,67 +16,67 @@
               </button>
             </div>
           </div>
-
+        <form method="POST" autocomplete="off">
          <div class="card-body">
-	    <form method="POST" action="<?php echo htmlspecialchars('profile_update_process.php'); ?>" autocomplete="off">
-		    <div class=" form-row">
-		        <div class="form-group col-sm">
+		    <div class="form-row">
+		        <div class="form-group col-md">
 		          <label>First Name:</label>
-		            <input type="text" class="form-control" name="first_name" value="<?php echo $data['first_name']; ?>" placeholder="First Name">
+		            <input type="text" class="form-control" name="first_name" value="<?php echo $row['first_name']; ?>" placeholder="First Name">
 		        </div>
-		        <div class="col-sm">
+		        <div class="form-group col-md">
 		          <label>Last Name:</label>
-		            <input type="text" class="form-control" name="last_name" value="<?php echo $data['last_name'];?>" placeholder="Last Name">
+		            <input type="text" class="form-control" name="last_name" value="<?php echo $row['last_name'];?>" placeholder="Last Name">
 		        </div>
 		    </div>
 
 	    	<div class="form-row">
-	        	<div class="form-group col-sm">
+	        	<div class="form-group col-md">
 	          		<label>Contact Number:</label>
-	            	<input type="text" id="contactInput" class="form-control" name="phone_no" value="<?php echo $data['phone_no'];?>" placeholder="Contact Number">
+	            	<input type="text" id="contactInput" class="form-control" name="phone_no" value="<?php echo $row['phone_no'];?>" placeholder="Contact Number">
 	        	</div>
 
-		        <div class="form-group col-sm">
+		        <div class="form-group col-md">
 		          <label>Area:</label>
 		            <select name="area" class="form-control">
 		              <option value="" disabled>Select Area</option>
 		              
-		              <option value="Humayunpur" <?php if($data["area"]=='Humayunpur'){ echo "selected"; } ?>>Humayunpur</option>
+		              <option value="Humayunpur" <?php if($row["area"]=='Humayunpur'){ echo "selected"; } ?>>Humayunpur</option>
 		              
-		              <option value="Arjun Nagar" <?php if($data["area"]=='Arjun Nagar'){ echo "selected"; } ?>>Arjun Nagar</option>
+		              <option value="Arjun Nagar" <?php if($row["area"]=='Arjun Nagar'){ echo "selected"; } ?>>Arjun Nagar</option>
 		              
-		              <option value="Krishna Nagar" <?php if($data["area"]=='Krishna Nagar'){ echo "selected"; } ?>>Krishna Nagar</option>
+		              <option value="Krishna Nagar" <?php if($row["area"]=='Krishna Nagar'){ echo "selected"; } ?>>Krishna Nagar</option>
 		              
-		              <option value="B-4" <?php if($data["area"]=='B-4'){ echo "selected"; } ?>>B-4</option>
+		              <option value="B-4" <?php if($row["area"]=='B-4'){ echo "selected"; } ?>>B-4</option>
 		              
-		              <option value="Other" <?php if($data["area"]=='Other'){ echo "selected"; }?>>Other</option>
+		              <option value="Other" <?php if($row["area"]=='Other'){ echo "selected"; }?>>Other</option>
 		            </select>
 		      	</div>
     		</div>
 
 		    <div class="form-row">
-		    	<div class="form-group col-sm">
+		    	<div class="form-group col-md">
 		    		<label>User Status:</label>
 		    		<select class="form-control" name="user_status">
 		    			<option value="" disabled>Select Status</option>
-		    			<option value="ac" <?php if($data["user_status"] == 'ac'){ echo "selected"; } ?>>Active</option>
-		    			<option value="dc" <?php if($data["user_status"] == 'dc'){ echo "selected"; } ?>>Disconnected</option>
+		    			<option value="1" <?php if($row["user_status"] == '1'){ echo "selected"; } ?>>Active</option>
+		    			<option value="0" <?php if($row["user_status"] == '0'){ echo "selected"; } ?>>Disconnected</option>
 		    		</select>
 		    	</div>
-		      <div class="form-group col-sm">
+		      	<div class="form-group col-md">
 		          <label>Address:</label>
-		            <textarea class="form-control" name="address" placeholder="Complete Address with House Number and Floor"><?php echo $data['address'];?></textarea>
+		            <input type="text" name="address" class="form-control" value="<?php echo $row['address'];?>">
 		        </div>
 		    </div>
-		    <div class="col-auto">
-		    	<input type="hidden" name="user_id" value="<?php echo $data['user_id']; ?>">
+		    <div class="form-row">
+		    	<input type="hidden" name="user_id" value="<?php echo $row['user_id']; ?>">
         		<button type="submit" name="submit" class="btn btn-outline-primary">Update</button>
 		    </div>
-    		</form>
     	    </div>
+    	    </form>
          </div>
 	   	</div>
+	
 	</div>
-</section>
+</div>
 
-<?php require_once 'common/footer.php'; ?>
+<?php require_once 'assets/footer.php'; ?>

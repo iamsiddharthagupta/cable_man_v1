@@ -1,5 +1,6 @@
 <?php
-
+  
+  ob_start();
   session_start();
 
   if(isset($_SESSION['user_level'])){
@@ -11,37 +12,11 @@
     header('Location: index.php');
   }
 
-  require_once 'connection.php';
   require_once 'organ.php';
 
-  $user_id = $_GET['user_id'];
-
-  $query = "
-            SELECT
-            cbl_user.user_id AS user_id,
-            cbl_user.first_name AS first_name,
-            cbl_user.last_name AS last_name,
-            cbl_user.phone_no AS phone_no,
-            cbl_user.address AS address,
-            cbl_user.area AS area,
-            cbl_user.doi AS doi,
-            cbl_user.user_status AS user_status,
-            cbl_dev_stock.device_no AS device_no,
-            cbl_dev_stock.device_mso AS device_mso,
-            cbl_dev_stock.device_type AS device_type,
-            cbl_dev_stock.package AS package
-
-            FROM cbl_user_dev
-
-            RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
-            LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
-
-            WHERE cbl_user.user_id = '$user_id'";
-
-  
-  $result = mysqli_query($conn,$query);
-  $data = mysqli_fetch_assoc($result);
-  $dev_count = mysqli_num_rows($result);
+  $user = new User();
+  $result = $user->user_profile_base_fetch($_GET['user_id']);
+  $row = mysqli_fetch_assoc($result);
 
 ?>
 
@@ -63,28 +38,37 @@
     </div>
 <!-- Breadcrumbs Ends -->
 
-    <section class="content">
       <div class="container-fluid">
         <div class="row">
           
           <div class="col-md-3">
+
+            <?php if(isset($_GET['msg'])){ ?>
+              <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <?php echo $_GET['msg']; ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            <?php } ?>
+
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle" src="common/avatar.png" alt="User profile picture">
+                  <img class="profile-user-img img-fluid img-circle" src="assets/avatar.png" alt="User profile picture">
                 </div>
 
-                <h3 class="profile-username text-center"><?php echo $data['first_name']." ".$data['last_name']; ?></h3>
+                <h3 class="profile-username text-center"><?php echo $row['first_name']." ".$row['last_name']; ?></h3>
 
                 <div class="btn-group btn-block" role="group">
                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Action
                     </button>
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                      <a class="dropdown-item" href="profile_update.php?user_id=<?php echo $data['user_id']; ?>">Update Profile</a>
-                      <a class="dropdown-item" href="profile_device_map.php?user_id=<?php echo $data['user_id']; ?>">Map Device</a>
-                      <a class="dropdown-item" href="profile_devices.php?user_id=<?php echo $data['user_id']; ?>">Renew</a>
-                      <a class="dropdown-item" href="profile_ledger.php?user_id=<?php echo $data['user_id']; ?>">Ledger</a>
+                      <a class="dropdown-item" href="user_profile_select_device.php?user_id=<?php echo $row['user_id']; ?>">Renew</a>
+                      <a class="dropdown-item" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Ledger</a>
+                      <a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
+                      <a class="dropdown-item" href="user_profile_device_map.php?user_id=<?php echo $row['user_id']; ?>">Map Device</a>
                     </div>
                 </div>
 
@@ -101,18 +85,18 @@
               </div>
 
               <div class="card-body">
-                  <span><strong>Phone:</strong> <span class="text-muted"><?php if(empty($data['phone_no'])){echo 'Unavailable';} else { echo $data['phone_no']; } ?></span></span><br>
-                  <span><strong>Address:</strong> <span class="text-muted"><?php echo $data['address'].", ".$data['area']; ?></span></span><br>
-                  <span><strong>Customer Since:</strong> <span class="text-muted"><?php echo date('jS M y',strtotime($data['doi'])); ?></span></span>
+                  <span><strong>Phone:</strong> <span class="text-muted"><?php if(empty($row['phone_no'])){echo 'Unavailable';} else { echo $row['phone_no']; } ?></span></span><br>
+                  <span><strong>Address:</strong> <span class="text-muted"><?php echo $row['address'].", ".$row['area']; ?></span></span><br>
+                  <span><strong>Customer Since:</strong> <span class="text-muted"><?php echo date('jS M y',strtotime($row['doi'])); ?></span></span>
 
                     <hr>
 
                   <strong>Device and Package:</strong><br>
 
                   <?php
-                    foreach ($result as $key => $data) {
+                    foreach ($result as $key => $row) {
                         ?>
-                            <span>(Rs.<?php echo $data['package']; ?>) <strong><?php echo $data['device_mso']; ?></strong> <?php echo $data['device_no']; ?></span><br>
+                            <span>(Rs.<?php echo $row['package']; ?>) <strong><?php echo $row['device_mso']; ?></strong> <?php echo $row['device_no']; ?></span><br>
                         <?php
                     }
                   ?>

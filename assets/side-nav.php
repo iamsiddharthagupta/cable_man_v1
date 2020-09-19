@@ -63,7 +63,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="user_list.php?query=<?php echo UserList(); ?>" class="nav-link">
+                <a href="user_list.php" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>User List</p>
                   <span class="right badge badge-danger"><?php echo CountUser(); ?></span>

@@ -50,22 +50,22 @@
   <form method="POST" autocomplete="off">
   
     <div class="form-row">
-        <div class=" form-group col-md">
+        <div class="form-group col-md">
           <label>First Name: <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="first_name" placeholder="First Name">
         </div>
-        <div class=" form-group col-md">
+        <div class="form-group col-md">
           <label>Last Name:</label>
             <input type="text" class="form-control" name="last_name" placeholder="Last Name">
         </div>
     </div>
 
       <div class="form-row">
-        <div class=" form-group col-md">
+        <div class="form-group col-md">
           <label>Contact Number: <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="phone_no" placeholder="Contact Number">
         </div>
-        <div class=" form-group col-md">
+        <div class="form-group col-md">
           <label>Area:</label>
             <select name="area" class="form-control">
               <option value="" disabled>Select Area</option>
