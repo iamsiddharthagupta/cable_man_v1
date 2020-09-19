@@ -83,8 +83,8 @@
         </div>
 		</div>
 	</form>
-
-	        <div class="card-body table-responsive p-0" style="height: 490px;">
+        
+        <div class="card-body table-responsive p-0" style="height: 480px;">
           <table class="table table-hover text-center table-bordered table-sm table-head-fixed">
             <thead class="thead-light">
               <tr>
@@ -138,10 +138,13 @@
                           Edit
                         </a>
 
-                        <a href="device_release.php?user_id<?php echo $row['user_id']; ?>&assign_id=<?php echo $row['assign_id']; ?>" class="dropdown-item" onclick="return confirm('Do you want to release this user?');">
+                        <?php if(empty($row['assign_id'])) { ?>
+                        <a href="device_delete.php?dev_id=<?php echo $row['dev_id']; ?>" class="dropdown-item" onclick="return confirm('Do you want to release this user?');">
                           Delete
                         </a>
+                      <?php } else { ?>
 
+                      <?php } ?>
                     </div>
                   </div>
               </td>
@@ -149,7 +152,7 @@
           </tbody>
 
             <?php
-              endforeach;
+                endforeach;
               }
             ?>
         </table>
