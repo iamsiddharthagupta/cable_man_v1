@@ -33,7 +33,7 @@
 					    			<input type="number" name="pay_amount" class="form-control" value="<?php echo $row['due_amount']; ?>">
 					    		</div>
 					    		<div class="form-group col-md">
-					    			<input type="number" name="pay_amount" class="form-control" placeholder="Discount">
+					    			<input type="number" name="pay_discount" class="form-control" placeholder="Discount">
 					    		</div>
 					    	</div>
 					    </li>

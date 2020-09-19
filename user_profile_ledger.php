@@ -42,7 +42,7 @@
                 
                 <td><?php echo $row['pay_balance']; ?></td>
                 
-                <td><?php echo $row['ledger_status']; ?></td>
+                <td><?php echo $row['pay_status']; ?></td>
                 
                 <td>
                   <?php if($row['pay_date'] == NULL){ ?>

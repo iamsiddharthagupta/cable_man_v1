@@ -1,5 +1,6 @@
 <?php
-
+  
+  ob_start();
 	session_start();
 
 	if(isset($_SESSION['user_level'])){
@@ -11,8 +12,10 @@
 	header('Location: index.php');
 	}
 
-	require_once 'connection.php';
 	require_once 'organ.php';
+
+  $user = new User();
+  $result = $user->device_entry();
 
 ?>
 
@@ -35,7 +38,7 @@
 <div class="container">
 
     <?php if(isset($_GET['msg'])){ ?>
-      <div class="alert alert-primary alert-dismissible fade show" role="alert">
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
         <?php echo $_GET['msg']; ?>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -43,14 +46,14 @@
       </div>
     <?php } ?>
 
-	<form method="POST" action="<?php echo htmlspecialchars('device_entry_process.php'); ?>">
+	<form method="POST">
 		<div class="form-row">
 		<div class="form-group col-md">
           <input type="text" name="device_no" id="myInput" class="form-control" placeholder="Enter STB, VC, NDS Number" required>
         </div>
         <div class="form-group col-md">
           <select name="device_mso" class="form-control" required>
-            <option value="" disabled>MSO</option>
+            <option value="">Choose MSO</option>
             <option value="SK Vision">SK Vision</option>
             <option value="Sky HD">Sky HD</option>
             <option value="Hathway">Hathway</option>
@@ -59,7 +62,7 @@
         </div>
         <div class="form-group col-md">
           <select class="form-control" name="device_type" required>
-            <option value="" disabled>Type</option>
+            <option value="">Choose Type</option>
             <option value="SD">SD</option>
             <option value="HD">HD</option>
           </select>
@@ -69,7 +72,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text">&#8377</span>
             </div>
-            <input type="number" class="form-control" name="package" aria-label="Amount (to the nearest rupee)" placeholder="Package">
+            <input type="number" class="form-control" name="package" aria-label="Amount (to the nearest rupee)" placeholder="Package" required="">
             <div class="input-group-append">
               <span class="input-group-text">.00</span>
             </div>
@@ -96,69 +99,49 @@
 
           <?php
 
-            $query = "
-                      SELECT
-                      cbl_dev_stock.dev_id AS dev_id,
-                      cbl_dev_stock.device_no AS device_no,
-                      cbl_dev_stock.device_mso AS device_mso,
-                      cbl_dev_stock.device_type AS device_type,
-                      cbl_dev_stock.package AS package,
-                      cbl_user.user_id AS user_id,
-                      cbl_user.first_name AS first_name,
-                      cbl_user.last_name AS last_name,
-                      cbl_user_dev.assign_id AS assign_id
+            $user = new User();
 
-                      FROM cbl_user_dev
-                      LEFT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
-                      RIGHT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
-                      ORDER BY cbl_user.user_id ASC";
-            $result = mysqli_query($conn,$query);
+            $result = $user->user_profile_device_list_fetch();
 
             if (mysqli_num_rows($result) < 1){
+              
               echo "<tr><td colspan='6'>Not Yet Active!</td><tr>";
+            
             } else {
-              $i = 0;
-              foreach ($result as $key => $data) : $i++;
-
-                $urlMulti = "user_id={$data['user_id']}&assign_id={$data['assign_id']}";
-
-              ?>
+              
+                $i = 0;
+              
+              foreach ($result as $key => $row) : $i++; ?>
                 
           <tbody id="myTable">
             <tr>
 
               <td><?php echo $i; ?></td>
 
-              <td><?php echo $data['device_no']; ?></td>
+              <td><?php echo $row['device_no']; ?></td>
               
-              <td><?php echo $data['device_mso'];?> [<?php echo $data['device_type']; ?>]</td>
+              <td><?php echo $row['device_mso'];?> [<?php echo $row['device_type']; ?>]</td>
               
-              <td><?php echo $data['package']; ?></td>
+              <td><?php echo $row['package']; ?></td>
               
-              <td><?php echo $data['first_name']." ".$data['last_name']; ?></td>
+              <td><?php echo $row['first_name']." ".$row['last_name']; ?></td>
               
               <td>
 
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-dark btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-dark btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Action
                     </button>
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                      <form method="POST" action="device_edit.php">
-                        <input type="hidden" name="dev_id" value="<?php echo $data['dev_id']; ?>">
-                        <input type="hidden" name="user_id" value="<?php echo $data['user_id']; ?>">
-                        <button type="submit" name="submit" class="dropdown-item">Edit</button>
-                      </form>
-
-                    <?php if(empty($data['user_id'])){ ?>
-                      
-                    <?php } else { ?>
                         
-                        <a href="device_release.php?<?= $urlMulti; ?>" class="dropdown-item" onclick="return confirm('Do you want to release this user?');">
-                          Release
+                        <a href="device_edit.php?dev_id=<?php echo $row['dev_id']; ?>" class="dropdown-item">
+                          Edit
                         </a>
 
-                    <?php } ?>
+                        <a href="device_release.php?user_id<?php echo $row['user_id']; ?>&assign_id=<?php echo $row['assign_id']; ?>" class="dropdown-item" onclick="return confirm('Do you want to release this user?');">
+                          Delete
+                        </a>
+
                     </div>
                   </div>
               </td>
@@ -173,4 +156,4 @@
       </div>
 </div>
 
-<?php require_once 'common/footer.php'; ?>
+<?php require_once 'assets/footer.php'; ?>

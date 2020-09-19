@@ -1,28 +1,19 @@
-<?php
+<?php require_once 'user_profile_base.php'; ?>
 
-	require_once 'user_profile_base.php';
-
-?>
-		
 	<div class="col-md-3">
-    
 	    <div class="container-fluid">
 	      	<div class="card">
-	      		<div class="card-header">Map Device:</div>
+	      		<div class="card-header">Mapped Device:</div>
 	              <ul class="list-group list-group-flush">
-                  <form method="POST" action="<?php echo htmlspecialchars('profile_device_map_process.php') ?>">
+                  <form method="POST">
                     <?php
-
-                      $query = "SELECT * FROM cbl_user_dev
-                                RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
-                                LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
-                                WHERE cbl_user_dev.user_id = '$user_id'";
-
-                      $result = mysqli_query($conn,$query);
                       
+                      $result = $user->user_profile_device_fetch($_GET['user_id']);
+
                       $data = mysqli_fetch_assoc($result);
 
                       foreach ($result as $key => $data) : ?>
+                        
                         <li class="list-group-item">
                           <span><?php echo $data['device_mso']; ?> - <strong><?php echo $data['device_no']; ?></strong></span>
                         </li>
@@ -43,8 +34,8 @@
 	                  </li>
                     </form>
 	                </ul>
-			</div>
-		</div>
+            </div>
+		    </div>
 	</div>
 	<div class="col-md-6">
 		        <div class="card-body table-responsive p-0" style="height: 490px;">
@@ -60,28 +51,15 @@
 
           <?php
 
-            $query = "SELECT
-                      cbl_dev_stock.dev_id AS dev_id,
-                      cbl_dev_stock.device_no AS device_no,
-                      cbl_dev_stock.device_mso AS device_mso,
-                      cbl_dev_stock.device_type AS device_type,
-                      cbl_dev_stock.package AS package,
-                      cbl_user.user_id AS user_id,
-                      cbl_user.first_name AS first_name,
-                      cbl_user.last_name AS last_name,
-                      cbl_user_dev.assign_id AS assign_id
-
-                      FROM cbl_user_dev
-                      LEFT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
-                      RIGHT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
-                      ORDER BY cbl_user.user_id ASC";
-            $result = mysqli_query($conn,$query);
+            $result = $user->user_profile_device_list_fetch();
 
             if (mysqli_num_rows($result) < 1){
+
               echo "<tr><td colspan='4'>Not Yet Active!</td><tr>";
+
             } else {
-              $i = 0;
-              foreach ($result as $key => $data) : $i++; ?>
+
+              foreach ($result as $key => $data) : ?>
                 
           <tbody id="myTable">
             <tr>
@@ -103,6 +81,8 @@
         </table>
       </div>
 	</div>
-</section>
 
-<?php require_once 'common/footer.php'; ?>
+  </div>
+</div>
+
+<?php require_once 'assets/footer.php'; ?>

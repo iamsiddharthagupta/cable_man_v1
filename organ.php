@@ -328,9 +328,113 @@
         header('Location: user_profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
 
       }
+    }
+  }
+
+  public function user_profile_device_fetch($user_id) {
+
+      $sql = "
+                SELECT * FROM cbl_user_dev
+                RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
+                LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
+                WHERE cbl_user_dev.user_id = '$user_id'
+                ";
+
+      $result = mysqli_query($this->conn,$sql);
+      return $result;
+  }
+
+  public function user_profile_device_list_fetch() {
+
+      $sql = "
+              SELECT
+              cbl_dev_stock.dev_id AS dev_id,
+              cbl_dev_stock.device_no AS device_no,
+              cbl_dev_stock.device_mso AS device_mso,
+              cbl_dev_stock.device_type AS device_type,
+              cbl_dev_stock.package AS package,
+              cbl_user.user_id AS user_id,
+              cbl_user.first_name AS first_name,
+              cbl_user.last_name AS last_name,
+              cbl_user_dev.assign_id AS assign_id
+
+              FROM cbl_user_dev
+              LEFT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
+              RIGHT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
+              ORDER BY cbl_user.user_id ASC
+              ";
+      $result = mysqli_query($this->conn,$sql);
+      return $result;
+  }
+
+  public function device_entry() {
+
+      if(isset($_POST['submit'])) {
+
+      $user_id = $_POST['user_id'];
+      $device_no = mysqli_real_escape_string($this->conn,$_POST['device_no']);
+      $device_mso = mysqli_real_escape_string($this->conn,$_POST['device_mso']);
+      $device_type = mysqli_real_escape_string($this->conn,$_POST['device_type']);
+      $package = mysqli_real_escape_string($this->conn,$_POST['package']);
+
+      $sql = "  INSERT INTO cbl_dev_stock
+            (device_no,device_mso,device_type,package)
+            VALUES
+            ('$device_no','$device_mso','$device_type','$package')";
+
+      if(mysqli_query($this->conn,$sql)){
+
+        $msg = 'Device Entry Successfull.';
+            header('Location: device_entry.php?msg='.$msg);
+      
+      } else {
+
+        $msg = 'Database Error.';
+            header('Location: device_entry.php?msg='.$msg);
+      
+      }
+    }
+  }
+
+  public function device_edit_fetch($dev_id) {
+
+    $sql = "SELECT * FROM cbl_dev_stock WHERE dev_id = '$dev_id'";
+    $result = mysqli_query($this->conn,$sql);
+    return $result;
+  }
+
+  public function device_edit() {
+
+    if(isset($_POST['submit'])) {
+
+      $dev_id = $_POST['dev_id'];
+      $device_no = mysqli_real_escape_string($this->conn,$_POST['device_no']);
+      $device_mso = mysqli_real_escape_string($this->conn,$_POST['device_mso']);
+      $device_type = mysqli_real_escape_string($this->conn,$_POST['device_type']);
+      $package = mysqli_real_escape_string($this->conn,$_POST['package']);
+
+      $sql = "  UPDATE cbl_dev_stock
+                SET
+                device_no = '$device_no',
+                device_mso = '$device_mso',
+                device_type = '$device_type',
+                package = '$package'
+
+                WHERE dev_id = '$dev_id'
+              ";
+
+      if(mysqli_query($this->conn,$sql)){
+        
+        $msg = 'Device Updation Successful.';
+        header('Location: device_entry.php?msg='.$msg);
+
+      } else {
+        
+        $msg = 'Database Error.';
+        header('Location: device_entry.php?msg='.$msg);
 
       }
-
+    }
   }
 
 }
