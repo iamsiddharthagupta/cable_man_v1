@@ -25,39 +25,13 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
-          <li class="nav-header">User Management</li>
-
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link">
-              <i class="nav-icon nav-icon fas fa-user-edit"></i>
-              <p>
-                Manage Users
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="user_profile_add.php" class="nav-link">
-                  <i class="fas fa-user-plus nav-icon"></i>
-                  <p>Add User</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="device_entry.php" class="nav-link">
-                  <i class="fas fa-hdd nav-icon"></i>
-                  <p>Manage Device</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <li class="nav-header">Filter Users</li>
+          <li class="nav-header">Users Management</li>
 
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon nav-icon fas fa-users"></i>
               <p>
-                Filter Users
+                Manage Users
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -72,11 +46,20 @@
               <li class="nav-item">
                 <a href="active_list.php?query=<?php echo ActiveList('ac'); ?>" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
-                  <p>Active/Expired List</p>
+                  <p>Expired List</p>
                   <span class="right badge badge-danger"><?php echo CountActiveDevice(date('Y-m-d')); ?></span>
                 </a>
               </li>
             </ul>
+          </li>
+
+          <li class="nav-header">Device Management</li>
+
+          <li class="nav-item">
+            <a href="device_entry.php" class="nav-link">
+              <i class="fas fa-hdd nav-icon"></i>
+              <p>Manage Device</p>
+            </a>
           </li>
 
           <li class="nav-header">Payments</li>

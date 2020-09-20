@@ -85,7 +85,7 @@
 	</form>
         
         <div class="card-body table-responsive p-0" style="height: 480px;">
-          <table class="table table-hover text-center table-bordered table-sm table-head-fixed">
+          <table class="table table-hover text-center table-bordered table-sm table-head-fixed text-nowrap">
             <thead class="thead-light">
               <tr>
                 <th>SN</th>
