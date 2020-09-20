@@ -93,5 +93,5 @@
 	</div>
 </div>
 <?php
-	include 'common/footer.php';
+	include 'assets/footer.php';
 ?>
