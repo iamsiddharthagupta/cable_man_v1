@@ -12,7 +12,7 @@
         <a href="dashboard.php" class="nav-link">Dashboard</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="profile_add_user.php" class="nav-link"><i class="fas fa-plus-circle"></i></a>
+        <a href="user_profile_add.php" class="nav-link"><i class="fas fa-plus-circle"></i></a>
       </li>
     </ul>
 

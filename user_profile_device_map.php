@@ -1,4 +1,9 @@
-<?php require_once 'user_profile_base.php'; ?>
+<?php
+
+  require_once 'user_profile_base.php';
+  $result = $user->user_device_map();
+
+?>
 
 	<div class="col-md-3">
 	    <div class="container-fluid">
@@ -10,12 +15,12 @@
                       
                       $result = $user->user_profile_device_fetch($_GET['user_id']);
 
-                      $data = mysqli_fetch_assoc($result);
+                      $row = mysqli_fetch_assoc($result);
 
-                      foreach ($result as $key => $data) : ?>
+                      foreach ($result as $key => $row) : ?>
                         
                         <li class="list-group-item">
-                          <span><?php echo $data['device_mso']; ?> - <strong><?php echo $data['device_no']; ?></strong></span>
+                          <span><?php echo $row['device_mso']; ?> - <strong><?php echo $row['device_no']; ?></strong></span>
                         </li>
                     <?php
                       endforeach;
@@ -28,7 +33,7 @@
 	                </li>
 	                <li class="list-group-item">
 	                    <div class="col-sm-2">
-	                      <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+	                      <input type="hidden" name="user_id" value="<?php echo $_GET['user_id']; ?>">
 	                      <button type="submit" name="submit" class="btn btn-primary">Submit</button>
 	                    </div>
 	                  </li>
@@ -59,17 +64,17 @@
 
             } else {
 
-              foreach ($result as $key => $data) : ?>
+              foreach ($result as $key => $row) : ?>
                 
           <tbody id="myTable">
             <tr>
-              <td><?php echo $data['device_no']; ?></td>
+              <td><?php echo $row['device_no']; ?></td>
               
-              <td><?php echo $data['device_mso'];?> [<?php echo $data['device_type']; ?>]</td>
+              <td><?php echo $row['device_mso'];?> [<?php echo $row['device_type']; ?>]</td>
               
-              <td><?php echo $data['package']; ?></td>
+              <td><?php echo $row['package']; ?></td>
               
-              <td><?php echo $data['first_name']." ".$data['last_name']; ?></td>
+              <td><?php echo $row['first_name']." ".$row['last_name']; ?></td>
 
             </tr>
           </tbody>

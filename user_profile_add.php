@@ -15,7 +15,7 @@
   require_once 'organ.php';
 
   $user = new User();
-  $result = $user->profile_add_user();
+  $result = $user->user_profile_add();
 
 ?>
 
@@ -28,7 +28,7 @@
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-          <li class="breadcrumb-item"><a href="user_list.php?query=<?php echo UserList(); ?>">User List</a></li>
+          <li class="breadcrumb-item"><a href="#">User List</a></li>
           <li class="breadcrumb-item active">Add User</li>
         </ol>
       </div>
@@ -39,7 +39,7 @@
 <div class="container p-3">
 
     <?php if(isset($_GET['msg'])){ ?>
-      <div class="alert alert-primary alert-dismissible fade show" role="alert">
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
         <?php echo $_GET['msg']; ?>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>

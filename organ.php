@@ -15,7 +15,7 @@
 
   class User extends Connection {
 
-      public function profile_add_user() {
+      public function user_profile_add() {
 
         if(isset($_POST['submit'])) {
 
@@ -34,7 +34,7 @@
 
           if(mysqli_query($this->conn,$sql)){
            
-            header('Location: user_profile_renewal.php?user_id='.mysqli_insert_id($this->conn));
+            header('Location: user_profile_device_map.php?user_id='.mysqli_insert_id($this->conn));
 
           } else {
 
@@ -333,7 +333,7 @@
 
   public function user_profile_device_fetch($user_id) {
 
-      $sql = "
+        $sql = "
                 SELECT * FROM cbl_user_dev
                 RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
                 LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
@@ -343,6 +343,41 @@
       $result = mysqli_query($this->conn,$sql);
       return $result;
   }
+
+  public function user_device_map() {
+
+      if(isset($_POST['submit'])) {
+
+          $user_id = $_POST['user_id'];
+          $device_no = $_POST['device_no'];
+
+        // Extracting dev_id by device_no.
+          $result = mysqli_query($this->conn,"SELECT * FROM cbl_dev_stock WHERE device_no = '$device_no'");
+          $data = mysqli_fetch_assoc($result);
+
+          if(!empty($data['dev_id'])){
+
+          $dev_id = $data['dev_id'];
+
+          $sql = "
+                    INSERT INTO cbl_user_dev
+                    (user_id,dev_id)
+                    VALUES
+                    ('$user_id','$dev_id')
+                  ";
+          $result = mysqli_query($this->conn,$sql);
+
+          $msg = 'Device Mapped Successfully.';
+          header('Location: user_profile_device_map.php?user_id='.$user_id.'&msg='.$msg);
+
+        } else {
+
+          $msg = 'Please insert valid device number!';
+          header('Location: user_profile_device_map.php?user_id='.$user_id.'&msg='.$msg);
+            
+        }
+      }
+    }
 
   public function user_profile_device_list_fetch() {
 
@@ -386,12 +421,12 @@
 
         $msg = 'Device Entry Successfull.';
         header('Location: device_entry.php?msg='.$msg);
-      
+
       } else {
 
         $msg = 'Database Error.';
         header('Location: device_entry.php?msg='.$msg);
-      
+
       }
     }
   }

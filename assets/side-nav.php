@@ -37,7 +37,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="profile_add_user.php" class="nav-link">
+                <a href="user_profile_add.php" class="nav-link">
                   <i class="fas fa-user-plus nav-icon"></i>
                   <p>Add User</p>
                 </a>
