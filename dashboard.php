@@ -13,12 +13,8 @@
 
   }
 
-  require_once 'connection.php';
   require_once 'organ.php';
-
-
-  $query = "SELECT device_mso, COUNT(dev_id) as devices FROM cbl_dev_stock GROUP BY device_mso";
-  $result = mysqli_query($conn,$query);
+  $result = $user->chart_data();
 
 ?>
 
@@ -44,7 +40,7 @@
       <div class="col-md-3 col-6">
         <div class="small-box bg-info">
           <div class="inner">
-            <h3><?php echo CountActiveDevice(date('Y-m-d')); ?></h3>
+            <h3><?php echo $user->CountActiveDevice(date('Y-m-d')); ?></h3>
             <p>Active Devices</p>
           </div>
           <div class="icon">
@@ -57,7 +53,7 @@
       <div class="col-md-3 col-6">
         <div class="small-box bg-success">
           <div class="inner">
-            <h3><?php echo CountActiveUser(date('Y-m-d')); ?></h3>
+            <h3><?php echo $user->CountActiveUser(date('Y-m-d')); ?></h3>
             <p>Active Users</p>
           </div>
           <div class="icon">
@@ -70,7 +66,7 @@
       <div class="col-md-3 col-6">
         <div class="small-box bg-danger">
           <div class="inner">
-            <h3><?php echo CountUnpaid(); ?></h3>
+            <h3><?php echo $user->CountUnpaid(); ?></h3>
             <p>Overdues</p>
           </div>
           <div class="icon">
@@ -83,7 +79,7 @@
       <div class="col-md-3 col-6">
         <div class="small-box bg-warning">
           <div class="inner">
-            <h3>Rs.<?php echo CountDateColl(date('Y-m-d')); ?></h3>
+            <h3>Rs.<?php echo $user->CountDateColl(date('Y-m-d')); ?></h3>
             <p>Today's Collection</p>
           </div>
           <div class="icon">
@@ -105,7 +101,7 @@
                 <i class="fas fa-user-plus"></i>
               </p>
               <p class="d-flex flex-column text-right">
-                <span class="font-weight-bold"><?php echo CountRecentUser(date('Y-m-d')); ?></span>
+                <span class="font-weight-bold"><?php echo $user->CountRecentUser(date('Y-m-d')); ?></span>
                 <span class="text-muted">
                   <a href="user_list.php?query=<?php echo RecentUser(date('Y-m-d')); ?>">New Connection</a>
                 </span>
@@ -117,7 +113,7 @@
                 <i class="fas fa-sync-alt"></i>
               </p>
               <p class="d-flex flex-column text-right">
-                <span class="font-weight-bold"><?php echo CountRecentRenew(date('Y-m-d')); ?></span>
+                <span class="font-weight-bold"><?php echo $user->CountRecentRenew(date('Y-m-d')); ?></span>
                 <span class="text-muted">
                   <a href="active_list.php?query=<?php echo RecentRenew(date('Y-m-d')); ?>">Recent Renewal</a>
                 </span>
@@ -152,34 +148,34 @@
   </div>
 </div>
 
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript">
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
 
-    function drawChart() {
+  function drawChart() {
 
-      var data = google.visualization.arrayToDataTable([
-        ['MSO', 'Device Count'],
+    var data = google.visualization.arrayToDataTable([
+      ['MSO', 'Device Count'],
 
-        <?php
+      <?php
 
-            while($row = mysqli_fetch_array($result)){  
-                echo "['".$row["device_mso"]."', ".$row["devices"]."],";  
-              }
+          while($row = mysqli_fetch_array($result)){  
+              echo "['".$row["device_mso"]."', ".$row["devices"]."],";  
+            }
 
-        ?>
+      ?>
 
-      ]);
+    ]);
 
-      var options = {
-        title: 'MSO Wise Devices'
-      };
+    var options = {
+      title: 'MSO Wise Devices'
+    };
 
-      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
-      chart.draw(data, options);
-    }
-  </script>
+    chart.draw(data, options);
+  }
+</script>
 
 <?php require_once 'assets/footer.php'; ?>

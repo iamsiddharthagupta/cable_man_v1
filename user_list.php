@@ -11,7 +11,6 @@
     header('Location: index.php');
   }
 
-  require_once 'connection.php';
   require_once 'organ.php';
 
 ?>
@@ -34,12 +33,12 @@
 		    <thead class="thead-light">
 		      <tr>
 		      	<th>Action</th>
-		      	<th>Notification</th>
+		      	<th>Status</th>
 		        <th>Name</th>
 		        <th>Address</th>
-		        <th>Mobile No</th>
-		        <th>Connection(s)</th>
-		        <th>Package</th>
+		        <th>Phone</th>
+		        <th>Conn(s)</th>
+		        <th>Rate</th>
 		      </tr>
 			</thead>
 
@@ -54,42 +53,42 @@
 	
 	} else {
 
-		foreach ($result as $key => $data) : ?>
+		foreach ($result as $key => $row) : ?>
 
 			<tbody id="myTable">
 				<tr>
 
 					<td>
 						<div class="btn-group" role="group">
-	    					<button type="button" class="btn btn-dark btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	    					<button type="button" class="btn btn-dark btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	      						Action
 	    					</button>
 		    				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-								<?php if($data['user_status'] == 0){ ?>
-									<a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $data['user_id']; ?>">Activate</a>
-								<?php } elseif($data['user_status'] == 1 AND !empty($data['dev_id'])){ ?>
-									<a class="dropdown-item" href="user_profile_devices.php?user_id=<?php echo $data['user_id']; ?>">Activate</a>
-								<?php } elseif(empty($data['dev_id'])) { ?>
-									<a class="dropdown-item" href="user_profile_device_map.php?user_id=<?php echo $data['user_id']; ?>">Assign Device</a>
+								<?php if($row['user_status'] == 0){ ?>
+									<a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Activate</a>
+								<?php } elseif($row['user_status'] == 1 AND !empty($row['dev_id'])){ ?>
+									<a class="dropdown-item" href="user_profile_devices.php?user_id=<?php echo $row['user_id']; ?>">Activate</a>
+								<?php } elseif(empty($row['dev_id'])) { ?>
+									<a class="dropdown-item" href="user_profile_device_map.php?user_id=<?php echo $row['user_id']; ?>">Assign Device</a>
 								<?php } ?>
-								<a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $data['user_id']; ?>">Update Profile</a>
+								<a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
 						    </div>
 				  		</div>
 					</td>
 
 					<td>
-						<?php echo $data['user_status']; ?>
+						<?php echo $row['user_status']; ?>
 					</td>
 
-					<td><a href="user_profile_ledger.php?user_id=<?php echo $data['user_id']; ?>"><strong><?php echo $data['first_name']." ".$data['last_name'];?></strong></a></td>
+					<td><a href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>"><strong><?php echo $row['first_name']." ".$row['last_name'];?></strong></a></td>
 
-					<td><?php echo $data['address'];?>, <strong><?php echo $data['area'] ?></strong></td>
+					<td><?php echo $row['address'];?>, <strong><?php echo $row['area'] ?></strong></td>
 
-					<td><?php echo $data['phone_no'];?></td>
+					<td><?php echo $row['phone_no'];?></td>
 
-					<td><?php echo $data['device_count']; ?></td>
+					<td><?php echo $row['device_count']; ?></td>
 					
-					<td><?php echo $data['package'];?></td>
+					<td><?php echo $row['package'];?></td>
 				</tr>
 			</tbody>
 		<?php

@@ -12,7 +12,6 @@
       }
     }
 
-
   class User extends Connection {
 
       public function user_profile_add() {
@@ -488,98 +487,134 @@
     }
   }
 
-}
+
+  public function user_list_active() {
+
+    $sql = "
+              SELECT
+              cbl_user.user_id AS user_id,
+              cbl_user.first_name AS first_name,
+              cbl_user.last_name AS last_name,
+              cbl_user.phone_no AS phone_no,
+              cbl_user.address AS address,
+              cbl_user.area AS area,
+              cbl_dev_stock.package AS package,
+              cbl_dev_stock.device_no AS device_no,
+              cbl_dev_stock.device_mso AS device_mso,
+              MAX(cbl_ledger.renew_date) AS renew_date,
+              MAX(cbl_ledger.expiry_date) AS expiry_date,
+              cbl_ledger.ledger_id AS ledger_id,
+              CASE
+                WHEN CURDATE() = cbl_ledger.expiry_date THEN '(Expiring)'
+              END AS ledger_status
+
+              FROM cbl_user_dev
+              RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
+              RIGHT JOIN cbl_ledger ON cbl_ledger.dev_id = cbl_user_dev.dev_id
+              LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
+              WHERE cbl_user.user_status = 1
+              GROUP BY cbl_user.user_id,cbl_user_dev.dev_id
+              ORDER BY expiry_date ASC
+            ";
+
+    $result = mysqli_query($this->conn,$sql);
+    return $result;
+  }
 
 
-// Counting Functions of Badges.
+  // Chart Data
+  public function chart_data() {
+    $sql = "SELECT device_mso, COUNT(dev_id) as devices FROM cbl_dev_stock GROUP BY device_mso";
+    $result = mysqli_query($this->conn,$sql);
+    return $result;
+  }
 
-  function CountUser(){
-    require 'connection.php';
+  // Counting functions
+  public function CountUser(){
     $query = "SELECT COUNT(user_id) AS total_users FROM cbl_user";
-    $result = mysqli_query($conn,$query);
+    $result = mysqli_query($this->conn,$query);
     $value = mysqli_fetch_assoc($result);
     $num_rows = $value['total_users'];
     return $num_rows;
   }
 
-  function CountActiveUser($date){
-    require 'connection.php';
+  public function CountActiveUser(){
     $query = "SELECT
               COUNT(DISTINCT user_id) AS active_user
               FROM cbl_ledger
-              WHERE '$date' BETWEEN renew_date AND expiry_date";
-    $result = mysqli_query($conn,$query);
+              WHERE CURDATE() BETWEEN renew_date AND expiry_date";
+    $result = mysqli_query($this->conn,$query);
     $data = mysqli_fetch_assoc($result);
     return $data['active_user'];
     }
 
-
-  function CountActiveDevice($date){
-    require 'connection.php';
+  public function CountActiveDevice($date){
     $query = "SELECT
               COUNT(DISTINCT dev_id) AS active_dev FROM cbl_ledger
               WHERE '$date' BETWEEN renew_date AND expiry_date";
-    $result = mysqli_query($conn,$query);
+    $result = mysqli_query($this->conn,$query);
     $data = mysqli_fetch_assoc($result);
     return $data['active_dev'];
   }
 
-  function CountUnpaid(){
-    require 'connection.php';
+  public function CountUnpaid(){
     $query = "SELECT COUNT(user_id) AS count_unpaid FROM cbl_ledger
               WHERE ledger_status = 'Renewed'";
-    $result = mysqli_query($conn,$query);
+    $result = mysqli_query($this->conn,$query);
     $data = mysqli_fetch_assoc($result);
     return $data['count_unpaid'];
   }
 
-   function CountPaid(){
-    require 'connection.php';
+   public function CountPaid(){
     $query = "SELECT COUNT(ledger_id) AS count_paid FROM cbl_ledger WHERE ledger_status = 'Paid'";
-    $result = mysqli_query($conn,$query);
+    $result = mysqli_query($this->conn,$query);
     $data = mysqli_fetch_assoc($result);
     return $data['count_paid'];
   }
 
-  function CountExpiring($date){
-    require 'connection.php';
+  public function CountExpiring($date){
     $query = "SELECT COUNT(ledger_id) AS count_expiring FROM cbl_ledger WHERE expiry_date = '$date'";
-    $result = mysqli_query($conn,$query);
+    $result = mysqli_query($this->conn,$query);
     $data = mysqli_fetch_assoc($result);
     return $data['count_expiring'];
   }
 
-  function CountDateColl($date){
-    require 'connection.php';
-    $query = "SELECT SUM(pay_amount) AS pay_amount FROM cbl_ledger WHERE pay_date = '$date'";
-    $result = mysqli_query($conn,$query);
+  public function CountDateColl($date){
+    $query = "
+              SELECT
+              CASE
+                WHEN pay_amount IS NOT NULL THEN SUM(pay_amount)
+                WHEN pay_amount IS NULL THEN '0'
+              END AS pay_amount
+              FROM cbl_ledger WHERE pay_date = '$date'
+              ";
+    $result = mysqli_query($this->conn,$query);
     $data = mysqli_fetch_assoc($result);
     return $data['pay_amount'];
   }
 
-    function CountRecentUser($curr_date){
+  public function CountRecentUser($curr_date){
+  $date = date_create($curr_date);
+  date_sub($date,date_interval_create_from_date_string("1 Month"));
+  $back_date = date_format($date,"Y-m-d");
 
-    require 'connection.php';
-    $date = date_create($curr_date);
-    date_sub($date,date_interval_create_from_date_string("1 Month"));
-    $back_date = date_format($date,"Y-m-d");
-
-    $query = "SELECT COUNT(user_id) AS count_recent
-              FROM cbl_user
-              WHERE doi BETWEEN '$back_date' AND '$curr_date'";
-    $result = mysqli_query($conn,$query);
-    $data = mysqli_fetch_assoc($result);
-    return $data['count_recent'];
-    }
-
-
-    function CountRecentRenew($date){
-    require 'connection.php';
-    $query = "SELECT COUNT(user_id) AS recent_renew FROM cbl_ledger WHERE renew_date = '$date'";
-    $result = mysqli_query($conn,$query);
-    $data = mysqli_fetch_assoc($result);
-    return $data['recent_renew'];
+  $query = "SELECT COUNT(user_id) AS count_recent
+            FROM cbl_user
+            WHERE doi BETWEEN '$back_date' AND '$curr_date'";
+  $result = mysqli_query($this->conn,$query);
+  $data = mysqli_fetch_assoc($result);
+  return $data['count_recent'];
   }
+
+  public function CountRecentRenew($date){
+  $query = "SELECT COUNT(user_id) AS recent_renew FROM cbl_ledger WHERE renew_date = '$date'";
+  $result = mysqli_query($this->conn,$query);
+  $data = mysqli_fetch_assoc($result);
+  return $data['recent_renew'];
+  }
+
+}
+
 
 // Dynamic Query Functions for Sidebar Lists.
 

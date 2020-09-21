@@ -1,4 +1,11 @@
-<?php require_once 'header.php' ?>
+<?php
+  
+  require_once 'header.php';
+  require_once 'organ.php';
+
+  $user = new User();
+
+?>
 
 <div class="wrapper">
   <!-- Navbar -->
@@ -34,13 +41,13 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge"><?php echo CountExpiring(date('Y-m-d')); ?></span>
+          <span class="badge badge-warning navbar-badge"><?php echo $user->CountExpiring(date('Y-m-d')); ?></span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-header"><?php echo CountExpiring(date('Y-m-d')); ?> Notifications</span>
+          <span class="dropdown-header"><?php echo $user->CountExpiring(date('Y-m-d')); ?> Notifications</span>
           <div class="dropdown-divider"></div>
           <a href="active_list.php?query=<?php echo ExpiringList(date('Y-m-d')); ?>" class="dropdown-item">
-            <i class="fas fa-hourglass-end mr-2"></i><?php echo CountExpiring(date('Y-m-d')); ?> Expiring Today
+            <i class="fas fa-hourglass-end mr-2"></i><?php echo $user->CountExpiring(date('Y-m-d')); ?> Expiring Today
           </a>
         </div>
       </li>

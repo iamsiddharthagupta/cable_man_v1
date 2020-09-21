@@ -40,14 +40,21 @@
                 <a href="user_list.php" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>User List</p>
-                  <span class="right badge badge-danger"><?php echo CountUser(); ?></span>
+                  <span class="right badge badge-danger"><?php echo $user->CountUser(); ?></span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="user_list_active.php" class="nav-link">
+                  <i class="far fa-dot-circle nav-icon"></i>
+                  <p>Active List</p>
+                  <span class="right badge badge-danger"><?php echo $user->CountActiveUser(); ?></span>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="active_list.php?query=<?php echo ActiveList('ac'); ?>" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Expired List</p>
-                  <span class="right badge badge-danger"><?php echo CountActiveDevice(date('Y-m-d')); ?></span>
+                  <span class="right badge badge-danger"><?php echo $user->CountActiveDevice(date('Y-m-d')); ?></span>
                 </a>
               </li>
             </ul>
@@ -77,14 +84,14 @@
                 <a href="payment_list.php?query=<?php echo OverdueList('Renewed'); ?>" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Overdue List</p>
-                  <span class="right badge badge-danger"><?php echo CountUnpaid(); ?></span>
+                  <span class="right badge badge-danger"><?php echo $user->CountUnpaid(); ?></span>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="payment_list.php?query=<?php echo PaidList('Paid'); ?>" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Paid List</p>
-                  <span class="right badge badge-danger"><?php echo CountPaid(); ?></span>
+                  <span class="right badge badge-danger"><?php echo $user->CountPaid(); ?></span>
                 </a>
               </li>
               <li class="nav-item">
