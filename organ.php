@@ -14,6 +14,8 @@
 
   class User extends Connection {
 
+    // CRUD operations
+
       public function user_profile_add() {
 
         if(isset($_POST['submit'])) {
@@ -86,36 +88,279 @@
         }
       }
 
-    public function user_list() {
+    public function user_profile_renewal() {
 
-      $sql ="
+      if(isset($_POST['submit'])) {
+
+      $dev_id = $_POST['dev_id'];
+      $user_id = $_POST['user_id'];
+      $invoice_no = $_POST['invoice_no'];
+      $package = $_POST['package'];
+      $renew_date = $_POST['renew_date'];
+      $renew_term = $_POST['renew_term'];
+      
+
+      $renew_term_month = $renew_term." "."months";
+      $due_amount = $package * $renew_term;
+
+
+    // Preparing Expiry date and Month to insert into the database.
+      $format_renew = date_create($renew_date);
+      $format_expiry = date_add($format_renew,date_interval_create_from_date_string($renew_term_month));
+
+    // Finalized after conversion.
+      $renew_month = date('F',strtotime($renew_date));
+      $expiry_date = date_format($format_expiry,'Y-m-d');
+      $expiry_month = date('F',strtotime($expiry_date));
+
+    // Query.
+      $sql = "  INSERT INTO cbl_ledger (user_id,dev_id,renew_date,renew_month,expiry_month,expiry_date,renew_term,renew_term_month,invoice_no,due_amount) VALUES ('$user_id','$dev_id','$renew_date','$renew_month','$expiry_month','$expiry_date','$renew_term','$renew_term_month','$invoice_no','$due_amount')";
+
+      if(mysqli_query($this->conn,$sql)){
+        
+        $msg = 'Activation Successful.';
+            header('Location: user_profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
+
+      } else {
+        
+        $msg = 'Database Error.';
+            header('Location: user_profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
+
+      }
+    }
+  }
+
+  public function user_profile_payment() {
+
+    if(isset($_POST['submit'])) {
+
+      $user_id = $_POST['user_id'];
+      $ledger_id = $_POST['ledger_id'];
+      $due_amount = $_POST['due_amount'];
+      $pay_amount = $_POST['pay_amount'];
+      $pay_date = $_POST['pay_date'];
+      $due_invoice = $_POST['due_invoice'];
+      $pay_month = date('F',strtotime($pay_date));
+
+      $sql = "
+                UPDATE cbl_ledger SET
+                pay_amount = '$pay_amount',
+                pay_date = '$pay_date',
+                pay_month = '$pay_month',
+                ledger_status = 'Paid',
+                pay_balance = CASE
+                                WHEN '$pay_amount' < '$due_amount' THEN '$pay_amount' - '$due_amount'
+                                WHEN '$pay_amount' > '$due_amount' THEN '$pay_amount' - '$due_amount'
+                                WHEN '$pay_amount' = '$due_amount' THEN '$pay_amount' - '$due_amount'
+                              END,
+                pay_status =  CASE
+                                WHEN '$pay_amount' < '$due_amount' THEN 'Balance'
+                                WHEN '$pay_amount' > '$due_amount' THEN 'Advance'
+                                WHEN '$pay_amount' = '$due_amount' THEN 'Clear'
+                              END
+
+                WHERE ledger_id = '$ledger_id'
+              ";
+
+      if(mysqli_query($this->conn,$sql)){
+      
+        $msg = 'Payment Added Successfully.';
+        header('Location: user_profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
+
+      } else {
+      
+        $msg = 'Database Error.';
+        header('Location: user_profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
+
+      }
+    }
+  }
+
+  public function user_device_map() {
+
+      if(isset($_POST['submit'])) {
+
+          $user_id = $_POST['user_id'];
+          $device_no = $_POST['device_no'];
+
+        // Extracting dev_id by device_no.
+          $result = mysqli_query($this->conn,"SELECT * FROM cbl_dev_stock WHERE device_no = '$device_no'");
+          $data = mysqli_fetch_assoc($result);
+
+          if(!empty($data['dev_id'])){
+
+          $dev_id = $data['dev_id'];
+
+          $sql = "
+                    INSERT INTO cbl_user_dev
+                    (user_id,dev_id)
+                    VALUES
+                    ('$user_id','$dev_id')
+                  ";
+          $result = mysqli_query($this->conn,$sql);
+
+          $msg = 'Device Mapped Successfully.';
+          header('Location: user_profile_device_map.php?user_id='.$user_id.'&msg='.$msg);
+
+        } else {
+
+          $msg = 'Please insert valid device number!';
+          header('Location: user_profile_device_map.php?user_id='.$user_id.'&msg='.$msg);
+            
+        }
+      }
+    }
+
+  public function device_entry() {
+
+      if(isset($_POST['submit'])) {
+
+      $user_id = $_POST['user_id'];
+      $device_no = mysqli_real_escape_string($this->conn,$_POST['device_no']);
+      $device_mso = mysqli_real_escape_string($this->conn,$_POST['device_mso']);
+      $device_type = mysqli_real_escape_string($this->conn,$_POST['device_type']);
+      $package = mysqli_real_escape_string($this->conn,$_POST['package']);
+
+      $sql = "  INSERT INTO cbl_dev_stock
+            (device_no,device_mso,device_type,package)
+            VALUES
+            ('$device_no','$device_mso','$device_type','$package')";
+
+      if(mysqli_query($this->conn,$sql)){
+
+        $msg = 'Device Entry Successfull.';
+        header('Location: device_entry.php?msg='.$msg);
+
+      } else {
+
+        $msg = 'Database Error.';
+        header('Location: device_entry.php?msg='.$msg);
+
+      }
+    }
+  }
+
+  public function device_edit() {
+
+    if(isset($_POST['submit'])) {
+
+      $dev_id = $_POST['dev_id'];
+      $device_no = mysqli_real_escape_string($this->conn,$_POST['device_no']);
+      $device_mso = mysqli_real_escape_string($this->conn,$_POST['device_mso']);
+      $device_type = mysqli_real_escape_string($this->conn,$_POST['device_type']);
+      $package = mysqli_real_escape_string($this->conn,$_POST['package']);
+
+      $sql = "  UPDATE cbl_dev_stock
+                SET
+                device_no = '$device_no',
+                device_mso = '$device_mso',
+                device_type = '$device_type',
+                package = '$package'
+
+                WHERE dev_id = '$dev_id'
+              ";
+
+      if(mysqli_query($this->conn,$sql)){
+        
+        $msg = 'Device Updation Successful.';
+        header('Location: device_entry.php?msg='.$msg);
+
+      } else {
+        
+        $msg = 'Database Error.';
+        header('Location: device_entry.php?msg='.$msg);
+
+      }
+    }
+  }
+
+  public function device_delete($dev_id) {
+
+    $sql = "DELETE FROM cbl_dev_stock WHERE dev_id ='" . $dev_id . "'";
+
+    if(mysqli_query($this->conn,$sql)){
+
+        $msg = 'Device Deleted Successfully.';
+        header('Location: device_entry.php?msg='.$msg);
+
+      } else {
+
+        $msg = 'Database Error.';
+        header('Location: device_entry.php?msg='.$msg);
+      }
+  }
+
+  // Fetch functions
+
+  public function device_edit_fetch($dev_id) {
+
+    $sql = "SELECT * FROM cbl_dev_stock WHERE dev_id = '$dev_id'";
+    $result = mysqli_query($this->conn,$sql);
+    return $result;
+  }
+
+  public function user_profile_payment_fetch($ledger_id) {
+
+    $sql = "
               SELECT
-              u.user_id,
-              u.first_name,
-              u.last_name,
-              u.phone_no,
-              u.address,
-              u.area,
-              u.user_status,
-              SUM(d.package) AS package,
-              COUNT(ud.dev_id) AS device_count,
-              ud.dev_id,
-              CASE
-                WHEN ud.dev_id IS NULL THEN 'Device Unmapped'
-                WHEN u.user_status = 0 THEN 'Inactive'
-                WHEN u.user_status = 1 THEN 'Active'
-              END AS user_status
+              d.device_no,
+              d.device_mso,
+              l.renew_date,
+              l.expiry_date,
+              l.renew_month,
+              l.invoice_no,
+              l.due_amount,
+              l.pay_balance,
+              l.ledger_id,
+              l.user_id
 
               FROM cbl_user_dev ud
 
               RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
+              LEFT JOIN cbl_ledger l ON l.dev_id = ud.dev_id
               LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
-              GROUP BY u.user_id ORDER BY u.doi DESC
-            ";
 
-        $result = mysqli_query($this->conn,$sql);
-        return $result;
-    }
+              WHERE l.ledger_id = '$ledger_id'
+            ";
+    $result = mysqli_query($this->conn,$sql);
+    return $result;
+  }
+
+  public function user_profile_device_fetch($user_id) {
+
+        $sql = "
+                SELECT * FROM cbl_user_dev
+                RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
+                LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
+                WHERE cbl_user_dev.user_id = '$user_id'
+                ";
+
+      $result = mysqli_query($this->conn,$sql);
+      return $result;
+  }
+
+  public function user_profile_device_list_fetch() {
+
+      $sql = "
+              SELECT
+              cbl_dev_stock.dev_id AS dev_id,
+              cbl_dev_stock.device_no AS device_no,
+              cbl_dev_stock.device_mso AS device_mso,
+              cbl_dev_stock.device_type AS device_type,
+              cbl_dev_stock.package AS package,
+              cbl_user.user_id AS user_id,
+              cbl_user.first_name AS first_name,
+              cbl_user.last_name AS last_name,
+              cbl_user_dev.assign_id AS assign_id
+
+              FROM cbl_user_dev
+              LEFT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
+              RIGHT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
+              ORDER BY cbl_user.user_id ASC
+              ";
+      $result = mysqli_query($this->conn,$sql);
+      return $result;
+  }
 
     public function user_profile_base_fetch($user_id) {
 
@@ -215,316 +460,147 @@
           return $result;
     }
 
-    public function user_profile_renewal() {
-
-      if(isset($_POST['submit'])) {
-
-      $dev_id = $_POST['dev_id'];
-      $user_id = $_POST['user_id'];
-      $invoice_no = $_POST['invoice_no'];
-      $package = $_POST['package'];
-      $renew_date = $_POST['renew_date'];
-      $renew_term = $_POST['renew_term'];
-      
-
-      $renew_term_month = $renew_term." "."months";
-      $due_amount = $package * $renew_term;
-
-
-    // Preparing Expiry date and Month to insert into the database.
-      $format_renew = date_create($renew_date);
-      $format_expiry = date_add($format_renew,date_interval_create_from_date_string($renew_term_month));
-
-    // Finalized after conversion.
-      $renew_month = date('F',strtotime($renew_date));
-      $expiry_date = date_format($format_expiry,'Y-m-d');
-      $expiry_month = date('F',strtotime($expiry_date));
-
-    // Query.
-      $sql = "  INSERT INTO cbl_ledger (user_id,dev_id,renew_date,renew_month,expiry_month,expiry_date,renew_term,renew_term_month,invoice_no,due_amount) VALUES ('$user_id','$dev_id','$renew_date','$renew_month','$expiry_month','$expiry_date','$renew_term','$renew_term_month','$invoice_no','$due_amount')";
-
-      if(mysqli_query($this->conn,$sql)){
-        
-        $msg = 'Activation Successful.';
-            header('Location: user_profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
-
-      } else {
-        
-        $msg = 'Database Error.';
-            header('Location: user_profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
-
-      }
-    }
+  public function chart_data_fetch() {
+    $sql = "SELECT device_mso, COUNT(dev_id) as devices FROM cbl_dev_stock GROUP BY device_mso";
+    $result = mysqli_query($this->conn,$sql);
+    return $result;
   }
 
-  public function user_profile_payment_fetch($ledger_id) {
+    // List functions
 
-    $sql = "
+    public function user_list() {
+
+      $sql ="
               SELECT
-              cbl_dev_stock.device_no AS device_no,
-              cbl_dev_stock.device_mso AS device_mso,
-              cbl_ledger.renew_date AS renew_date,
-              cbl_ledger.expiry_date AS expiry_date,
-              cbl_ledger.renew_month AS renew_month,
-              cbl_ledger.invoice_no AS invoice_no,
-              cbl_ledger.due_amount AS due_amount,
-              cbl_ledger.pay_balance AS pay_balance,
-              cbl_ledger.ledger_id AS ledger_id,
-              cbl_ledger.user_id AS user_id
+              u.user_id,
+              u.first_name,
+              u.last_name,
+              u.phone_no,
+              u.address,
+              u.area,
+              u.user_status,
+              SUM(d.package) AS package,
+              COUNT(ud.dev_id) AS device_count,
+              ud.dev_id,
+              CASE
+                WHEN ud.dev_id IS NULL THEN 'Device Unmapped'
+                WHEN u.user_status = 0 THEN 'Inactive'
+                WHEN u.user_status = 1 THEN 'Active'
+              END AS user_status
 
-              FROM cbl_user_dev
+              FROM cbl_user_dev ud
 
-              RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
-              LEFT JOIN cbl_ledger ON cbl_ledger.dev_id = cbl_user_dev.dev_id
-              LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
-
-              WHERE cbl_ledger.ledger_id = '$ledger_id'
+              RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
+              LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
+              GROUP BY u.user_id ORDER BY u.doi DESC
             ";
-    $result = mysqli_query($this->conn,$sql);
-    return $result;
-  }
 
-  public function user_profile_payment() {
-
-    if(isset($_POST['submit'])) {
-
-      $user_id = $_POST['user_id'];
-      $ledger_id = $_POST['ledger_id'];
-      $due_amount = $_POST['due_amount'];
-      $pay_amount = $_POST['pay_amount'];
-      $pay_date = $_POST['pay_date'];
-      $due_invoice = $_POST['due_invoice'];
-      $pay_month = date('F',strtotime($pay_date));
-
-      $sql = "
-                UPDATE cbl_ledger SET
-                pay_amount = '$pay_amount',
-                pay_date = '$pay_date',
-                pay_month = '$pay_month',
-                ledger_status = 'Paid',
-                pay_balance = CASE
-                                WHEN '$pay_amount' < '$due_amount' THEN '$pay_amount' - '$due_amount'
-                                WHEN '$pay_amount' > '$due_amount' THEN '$pay_amount' - '$due_amount'
-                                WHEN '$pay_amount' = '$due_amount' THEN '$pay_amount' - '$due_amount'
-                              END,
-                pay_status =  CASE
-                                WHEN '$pay_amount' < '$due_amount' THEN 'Balance'
-                                WHEN '$pay_amount' > '$due_amount' THEN 'Advance'
-                                WHEN '$pay_amount' = '$due_amount' THEN 'Clear'
-                              END
-
-                WHERE ledger_id = '$ledger_id'
-              ";
-
-      if(mysqli_query($this->conn,$sql)){
-      
-        $msg = 'Payment Added Successfully.';
-        header('Location: user_profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
-
-      } else {
-      
-        $msg = 'Database Error.';
-        header('Location: user_profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
-
-      }
+        $result = mysqli_query($this->conn,$sql);
+        return $result;
     }
-  }
-
-  public function user_profile_device_fetch($user_id) {
-
-        $sql = "
-                SELECT * FROM cbl_user_dev
-                RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
-                LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
-                WHERE cbl_user_dev.user_id = '$user_id'
-                ";
-
-      $result = mysqli_query($this->conn,$sql);
-      return $result;
-  }
-
-  public function user_device_map() {
-
-      if(isset($_POST['submit'])) {
-
-          $user_id = $_POST['user_id'];
-          $device_no = $_POST['device_no'];
-
-        // Extracting dev_id by device_no.
-          $result = mysqli_query($this->conn,"SELECT * FROM cbl_dev_stock WHERE device_no = '$device_no'");
-          $data = mysqli_fetch_assoc($result);
-
-          if(!empty($data['dev_id'])){
-
-          $dev_id = $data['dev_id'];
-
-          $sql = "
-                    INSERT INTO cbl_user_dev
-                    (user_id,dev_id)
-                    VALUES
-                    ('$user_id','$dev_id')
-                  ";
-          $result = mysqli_query($this->conn,$sql);
-
-          $msg = 'Device Mapped Successfully.';
-          header('Location: user_profile_device_map.php?user_id='.$user_id.'&msg='.$msg);
-
-        } else {
-
-          $msg = 'Please insert valid device number!';
-          header('Location: user_profile_device_map.php?user_id='.$user_id.'&msg='.$msg);
-            
-        }
-      }
-    }
-
-  public function user_profile_device_list_fetch() {
-
-      $sql = "
-              SELECT
-              cbl_dev_stock.dev_id AS dev_id,
-              cbl_dev_stock.device_no AS device_no,
-              cbl_dev_stock.device_mso AS device_mso,
-              cbl_dev_stock.device_type AS device_type,
-              cbl_dev_stock.package AS package,
-              cbl_user.user_id AS user_id,
-              cbl_user.first_name AS first_name,
-              cbl_user.last_name AS last_name,
-              cbl_user_dev.assign_id AS assign_id
-
-              FROM cbl_user_dev
-              LEFT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
-              RIGHT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
-              ORDER BY cbl_user.user_id ASC
-              ";
-      $result = mysqli_query($this->conn,$sql);
-      return $result;
-  }
-
-  public function device_entry() {
-
-      if(isset($_POST['submit'])) {
-
-      $user_id = $_POST['user_id'];
-      $device_no = mysqli_real_escape_string($this->conn,$_POST['device_no']);
-      $device_mso = mysqli_real_escape_string($this->conn,$_POST['device_mso']);
-      $device_type = mysqli_real_escape_string($this->conn,$_POST['device_type']);
-      $package = mysqli_real_escape_string($this->conn,$_POST['package']);
-
-      $sql = "  INSERT INTO cbl_dev_stock
-            (device_no,device_mso,device_type,package)
-            VALUES
-            ('$device_no','$device_mso','$device_type','$package')";
-
-      if(mysqli_query($this->conn,$sql)){
-
-        $msg = 'Device Entry Successfull.';
-        header('Location: device_entry.php?msg='.$msg);
-
-      } else {
-
-        $msg = 'Database Error.';
-        header('Location: device_entry.php?msg='.$msg);
-
-      }
-    }
-  }
-
-  public function device_delete($dev_id) {
-
-    $sql = "DELETE FROM cbl_dev_stock WHERE dev_id ='" . $dev_id . "'";
-
-    if(mysqli_query($this->conn,$sql)){
-
-        $msg = 'Device Deleted Successfully.';
-        header('Location: device_entry.php?msg='.$msg);
-
-      } else {
-
-        $msg = 'Database Error.';
-        header('Location: device_entry.php?msg='.$msg);
-      }
-  }
-
-  public function device_edit_fetch($dev_id) {
-
-    $sql = "SELECT * FROM cbl_dev_stock WHERE dev_id = '$dev_id'";
-    $result = mysqli_query($this->conn,$sql);
-    return $result;
-  }
-
-  public function device_edit() {
-
-    if(isset($_POST['submit'])) {
-
-      $dev_id = $_POST['dev_id'];
-      $device_no = mysqli_real_escape_string($this->conn,$_POST['device_no']);
-      $device_mso = mysqli_real_escape_string($this->conn,$_POST['device_mso']);
-      $device_type = mysqli_real_escape_string($this->conn,$_POST['device_type']);
-      $package = mysqli_real_escape_string($this->conn,$_POST['package']);
-
-      $sql = "  UPDATE cbl_dev_stock
-                SET
-                device_no = '$device_no',
-                device_mso = '$device_mso',
-                device_type = '$device_type',
-                package = '$package'
-
-                WHERE dev_id = '$dev_id'
-              ";
-
-      if(mysqli_query($this->conn,$sql)){
-        
-        $msg = 'Device Updation Successful.';
-        header('Location: device_entry.php?msg='.$msg);
-
-      } else {
-        
-        $msg = 'Database Error.';
-        header('Location: device_entry.php?msg='.$msg);
-
-      }
-    }
-  }
-
 
   public function user_list_active() {
 
     $sql = "
               SELECT
-              cbl_user.user_id AS user_id,
-              cbl_user.first_name AS first_name,
-              cbl_user.last_name AS last_name,
-              cbl_user.phone_no AS phone_no,
-              cbl_user.address AS address,
-              cbl_user.area AS area,
-              cbl_dev_stock.package AS package,
-              cbl_dev_stock.device_no AS device_no,
-              cbl_dev_stock.device_mso AS device_mso,
-              MAX(cbl_ledger.renew_date) AS renew_date,
-              MAX(cbl_ledger.expiry_date) AS expiry_date,
-              cbl_ledger.ledger_id AS ledger_id,
+              u.user_id,
+              u.first_name,
+              u.last_name,
+              u.phone_no,
+              u.address,
+              u.area,
+              d.package,
+              d.device_no,
+              d.device_mso,
+              MAX(l.renew_date) AS renew_date,
+              MAX(l.expiry_date) AS expiry_date,
+              l.ledger_id,
               CASE
-                WHEN CURDATE() = cbl_ledger.expiry_date THEN '(Expiring)'
+                WHEN CURDATE() = l.expiry_date THEN '(Expiring)'
               END AS ledger_status
 
-              FROM cbl_user_dev
-              RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
-              RIGHT JOIN cbl_ledger ON cbl_ledger.dev_id = cbl_user_dev.dev_id
-              LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
-              WHERE cbl_user.user_status = 1
-              GROUP BY cbl_user.user_id,cbl_user_dev.dev_id
-              ORDER BY expiry_date ASC
+              FROM cbl_user_dev ud
+
+              RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
+              RIGHT JOIN cbl_ledger l ON l.dev_id = ud.dev_id
+              LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
+
+              WHERE u.user_status = 1
+              GROUP BY u.user_id,ud.dev_id
+              ORDER BY l.expiry_date ASC
             ";
 
     $result = mysqli_query($this->conn,$sql);
     return $result;
   }
 
+  public function user_list_expiry() {
 
-  // Chart Data
-  public function chart_data() {
-    $sql = "SELECT device_mso, COUNT(dev_id) as devices FROM cbl_dev_stock GROUP BY device_mso";
+    $sql = "
+              SELECT
+              u.user_id,
+              u.first_name,
+              u.last_name,
+              u.phone_no,
+              u.address,
+              u.area,
+              d.package,
+              d.device_no,
+              d.device_mso,
+              MAX(l.renew_date) AS renew_date,
+              MAX(l.expiry_date) AS expiry_date,
+              l.ledger_id,
+              CASE
+                WHEN CURDATE() = l.expiry_date THEN '(Expiring)'
+              END AS ledger_status
+
+              FROM cbl_user_dev ud
+              
+              RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
+              RIGHT JOIN cbl_ledger l ON l.dev_id = ud.dev_id
+              LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
+
+              WHERE u.user_status = 1 AND l.user_id NOT IN (SELECT user_id FROM cbl_ledger WHERE expiry_date > CURDATE())
+
+              GROUP BY u.user_id,ud.dev_id
+              ORDER BY l.expiry_date ASC
+            ";
+
+    $result = mysqli_query($this->conn,$sql);
+    return $result;
+  }
+
+  public function user_list_unpaid() {
+
+    $sql = "
+              SELECT
+              cbl_user.user_id AS user_id,
+              cbl_user.first_name AS first_name,
+              cbl_user.last_name AS last_name,
+              cbl_user.address AS address,
+              cbl_user.area AS area,
+              cbl_user.phone_no AS phone_no,
+              cbl_dev_stock.dev_id AS dev_id,
+              cbl_dev_stock.device_no AS device_no,
+              cbl_ledger.renew_date AS renew_date,
+              cbl_ledger.pay_amount AS pay_amount,
+              cbl_ledger.expiry_date AS expiry_date,
+              cbl_ledger.renew_month AS renew_month,
+              cbl_ledger.due_amount AS due_amount,
+              cbl_ledger.pay_amount AS pay_amount,
+              cbl_ledger.renew_term AS renew_term,
+              cbl_ledger.user_id AS user_id,
+              cbl_ledger.ledger_id AS ledger_id
+
+              FROM cbl_user_dev
+              RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
+              LEFT JOIN cbl_ledger ON cbl_ledger.dev_id = cbl_user_dev.dev_id
+              LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
+              WHERE cbl_ledger.ledger_status = 'Renewed'
+              GROUP BY cbl_ledger.ledger_id
+              ORDER BY cbl_ledger.renew_month DESC
+            ";
+
     $result = mysqli_query($this->conn,$sql);
     return $result;
   }
@@ -546,6 +622,23 @@
     $result = mysqli_query($this->conn,$query);
     $data = mysqli_fetch_assoc($result);
     return $data['active_user'];
+    }
+
+    public function CountExpiredUser(){
+    $query = "
+              SELECT * FROM cbl_user_dev ud
+              
+              RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
+              RIGHT JOIN cbl_ledger l ON l.dev_id = ud.dev_id
+              LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
+
+              WHERE u.user_status = 1 AND l.user_id NOT IN (SELECT user_id FROM cbl_ledger WHERE expiry_date > CURDATE())
+
+              GROUP BY u.user_id,ud.dev_id
+              ORDER BY l.expiry_date ASC
+              ";
+    $result = mysqli_query($this->conn,$query);
+    return mysqli_num_rows($result);
     }
 
   public function CountActiveDevice($date){
@@ -616,28 +709,7 @@
 }
 
 
-// Dynamic Query Functions for Sidebar Lists.
-
-  function UserActiveList($user_status){
-
-  $query = "WHERE cbl_user.user_status = '$user_status' GROUP BY cbl_user.user_id ORDER BY cbl_user.doi DESC";
-
-  return urlencode($query);
-}
-
-  function ActiveList($user_status){
-
-    $query = "WHERE cbl_user.user_status = '$user_status' GROUP BY cbl_user.user_id,cbl_user_dev.dev_id ORDER BY expiry_date ASC";
-
-    return urlencode($query);
-  }
-
-  function OverdueList($ledger_status){
-
-    $query = "WHERE cbl_ledger.ledger_status = '$ledger_status' GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
-
-    return urlencode($query);
-  }
+// Dynamic Query Functions for Sidebar Lists
 
     function PaidList($ledger_status){
 

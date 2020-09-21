@@ -14,7 +14,7 @@
   }
 
   require_once 'organ.php';
-  $result = $user->chart_data();
+  $result = $user->chart_data_fetch();
 
 ?>
 
@@ -46,7 +46,7 @@
           <div class="icon">
             <i class="fas fa-hdd"></i>
           </div>
-          <a href="active_list.php?query=<?php echo ActiveList('ac'); ?>" class="small-box-footer">View <i class="fas fa-arrow-circle-right"></i></a>
+          <a href="#" class="small-box-footer">View <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
 
@@ -59,7 +59,7 @@
           <div class="icon">
             <i class="fas fa-user-check"></i>
           </div>
-          <a href="user_list.php?query=<?php echo UserActiveList('ac'); ?>" class="small-box-footer">View <i class="fas fa-arrow-circle-right"></i></a>
+          <a href="#" class="small-box-footer">View <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
 
@@ -72,7 +72,7 @@
           <div class="icon">
             <i class="fas fa-file-invoice"></i>
           </div>
-          <a href="payment_list.php?query=<?php echo OverdueList('Renewed'); ?>" class="small-box-footer">View <i class="fas fa-arrow-circle-right"></i></a>
+          <a href="user_list_unpaid.php" class="small-box-footer">View <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
 

@@ -40,7 +40,7 @@
 <?php
 	
 	$user = new User();
-	$result = $user->user_list_active();
+	$result = $user->user_list_expiry();
 
 	if (mysqli_num_rows($result) < 1) {
 		echo "<tr><td colspan='13'>No user yet.</td><tr>";

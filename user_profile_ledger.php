@@ -10,7 +10,7 @@
                       <th>Duration</th>
                       <th>Due Amount</th>
                       <th>Amount</th>
-                      <th>Balance</th>
+                      <th>Arrears</th>
                       <th>Status</th>
                       <th>Payment</th>
                       <th>Action</th>

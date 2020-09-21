@@ -51,10 +51,10 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="active_list.php?query=<?php echo ActiveList('ac'); ?>" class="nav-link">
+                <a href="user_list_expiry.php" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Expired List</p>
-                  <span class="right badge badge-danger"><?php echo $user->CountActiveDevice(date('Y-m-d')); ?></span>
+                  <span class="right badge badge-danger"><?php echo $user->CountExpiredUser(); ?></span>
                 </a>
               </li>
             </ul>
@@ -81,7 +81,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="payment_list.php?query=<?php echo OverdueList('Renewed'); ?>" class="nav-link">
+                <a href="user_list_unpaid.php" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Overdue List</p>
                   <span class="right badge badge-danger"><?php echo $user->CountUnpaid(); ?></span>
