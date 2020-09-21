@@ -51,7 +51,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="user_list_expiry.php" class="nav-link">
+                <a href="user_list_expired.php" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Expired List</p>
                   <span class="right badge badge-danger"><?php echo $user->CountExpiredUser(); ?></span>

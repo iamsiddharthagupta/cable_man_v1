@@ -12,7 +12,6 @@
 	}
 
 	require_once 'organ.php';
-
 ?>
 
 <div class="container-fluid p-2">
@@ -39,7 +38,6 @@
 
 <?php
 	
-	$user = new User();
 	$result = $user->user_list_active();
 
 	if (mysqli_num_rows($result) < 1) {
@@ -69,7 +67,9 @@
 				</td>
 
 				<td>
-					<a href="user_profile_ledger.php?user_id=<?php echo $data['user_id']; ?>"><?php echo $data['first_name']." ".$data['last_name'];?></a> <strong class="text-warning"><?php echo $data['ledger_status']; ?></strong>
+					<strong>
+					<a href="user_profile_ledger.php?user_id=<?php echo $data['user_id']; ?>"><?php echo $data['first_name']." ".$data['last_name'];?></a> <span class="text-warning"><?php echo $data['ledger_status']; ?></span>
+					</strong>
 				</td>
 
 				<td><strong><?php echo $data['device_mso']; ?></strong> - <span><?php echo $data['device_no']; ?></span></td>

@@ -343,20 +343,20 @@
 
       $sql = "
               SELECT
-              cbl_dev_stock.dev_id AS dev_id,
-              cbl_dev_stock.device_no AS device_no,
-              cbl_dev_stock.device_mso AS device_mso,
-              cbl_dev_stock.device_type AS device_type,
-              cbl_dev_stock.package AS package,
-              cbl_user.user_id AS user_id,
-              cbl_user.first_name AS first_name,
-              cbl_user.last_name AS last_name,
-              cbl_user_dev.assign_id AS assign_id
+              d.dev_id,
+              d.device_no,
+              d.device_mso,
+              d.device_type,
+              d.package,
+              u.user_id,
+              u.first_name,
+              u.last_name,
+              ud.assign_id
 
-              FROM cbl_user_dev
-              LEFT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
-              RIGHT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
-              ORDER BY cbl_user.user_id ASC
+              FROM cbl_user_dev ud
+              LEFT JOIN cbl_user u ON u.user_id = ud.user_id
+              RIGHT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
+              ORDER BY u.user_id ASC
               ";
       $result = mysqli_query($this->conn,$sql);
       return $result;
@@ -366,25 +366,25 @@
 
       $sql = "
             SELECT
-            cbl_user.user_id AS user_id,
-            cbl_user.first_name AS first_name,
-            cbl_user.last_name AS last_name,
-            cbl_user.phone_no AS phone_no,
-            cbl_user.address AS address,
-            cbl_user.area AS area,
-            cbl_user.doi AS doi,
-            cbl_user.user_status AS user_status,
-            cbl_dev_stock.device_no AS device_no,
-            cbl_dev_stock.device_mso AS device_mso,
-            cbl_dev_stock.device_type AS device_type,
-            cbl_dev_stock.package AS package
+            u.user_id,
+            u.first_name,
+            u.last_name,
+            u.phone_no,
+            u.address,
+            u.area,
+            u.doi,
+            u.user_status,
+            d.device_no,
+            d.device_mso,
+            d.device_type,
+            d.package
 
-            FROM cbl_user_dev
+            FROM cbl_user_dev ud
 
-            RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
-            LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
+            RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
+            LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
 
-            WHERE cbl_user.user_id = '$user_id'";
+            WHERE u.user_id = '$user_id'";
 
   
       $result = mysqli_query($this->conn,$sql);
@@ -394,13 +394,13 @@
     public function user_profile_ledger_fetch($user_id) {
 
       $sql = "
-                    SELECT * FROM cbl_user_dev
+                    SELECT * FROM cbl_user_dev ud
 
-                    RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
-                    LEFT JOIN cbl_ledger ON cbl_ledger.dev_id = cbl_user_dev.dev_id
-                    LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
+                    RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
+                    LEFT JOIN cbl_ledger l ON l.dev_id = ud.dev_id
+                    LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
 
-                    WHERE cbl_ledger.user_id = '$user_id'
+                    WHERE l.user_id = '$user_id'
                     ORDER BY renew_date DESC
                 ";
       $result = mysqli_query($this->conn,$sql);
@@ -411,22 +411,22 @@
 
           $sql = "
                     SELECT
-                    cbl_user_dev.user_id AS user_id,
-                    cbl_dev_stock.dev_id AS dev_id,
-                    cbl_dev_stock.device_no AS device_no,
-                    cbl_dev_stock.device_mso AS device_mso,
-                    cbl_dev_stock.device_type AS device_type,
-                    MAX(cbl_ledger.renew_date) AS renew_date,
-                    MAX(cbl_ledger.expiry_date) AS expiry_date
+                    ud.user_id,
+                    d.dev_id,
+                    d.device_no,
+                    d.device_mso,
+                    d.device_type,
+                    MAX(l.renew_date) AS renew_date,
+                    MAX(l.expiry_date) AS expiry_date
 
-                    FROM cbl_user_dev
+                    FROM cbl_user_dev ud
 
-                    RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
-                    LEFT JOIN cbl_ledger ON cbl_ledger.dev_id = cbl_user_dev.dev_id
-                    LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
+                    RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
+                    LEFT JOIN cbl_ledger l ON l.dev_id = ud.dev_id
+                    LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
 
-                    WHERE cbl_user_dev.user_id = '$user_id'
-                    GROUP BY cbl_dev_stock.dev_id
+                    WHERE ud.user_id = '$user_id'
+                    GROUP BY d.dev_id
                     ";
       $result = mysqli_query($this->conn,$sql);
       return $result;
@@ -436,24 +436,24 @@
 
             $sql = "
                     SELECT
-                    cbl_user_dev.user_id AS user_id,
-                    cbl_user.first_name AS first_name,
-                    cbl_user.last_name AS last_name,
-                    cbl_user.phone_no AS phone_no,
-                    cbl_user.address AS address,
-                    cbl_user.area AS area,
-                    cbl_dev_stock.dev_id AS dev_id,
-                    cbl_dev_stock.device_no AS device_no,
-                    cbl_dev_stock.package AS package,
-                    cbl_dev_stock.device_mso AS device_mso,
-                    cbl_dev_stock.device_type AS device_type
+                    ud.user_id,
+                    u.first_name,
+                    u.last_name,
+                    u.phone_no,
+                    u.address,
+                    u.area,
+                    d.dev_id,
+                    d.device_no,
+                    d.package,
+                    d.device_mso,
+                    d.device_type
                     
-                    FROM cbl_user_dev
+                    FROM cbl_user_dev ud
 
-                    RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
-                    LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
+                    RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
+                    LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
                     
-                    WHERE cbl_user_dev.dev_id = '$dev_id'
+                    WHERE ud.dev_id = '$dev_id'
                     ";
 
           $result = mysqli_query($this->conn,$sql);
@@ -495,8 +495,7 @@
               GROUP BY u.user_id ORDER BY u.doi DESC
             ";
 
-        $result = mysqli_query($this->conn,$sql);
-        return $result;
+        return mysqli_query($this->conn,$sql);
     }
 
   public function user_list_active() {
@@ -525,16 +524,15 @@
               RIGHT JOIN cbl_ledger l ON l.dev_id = ud.dev_id
               LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
 
-              WHERE u.user_status = 1
+              WHERE u.user_status = 1 AND CURDATE() BETWEEN l.renew_date AND l.expiry_date
               GROUP BY u.user_id,ud.dev_id
               ORDER BY l.expiry_date ASC
             ";
 
-    $result = mysqli_query($this->conn,$sql);
-    return $result;
+    return mysqli_query($this->conn,$sql);
   }
 
-  public function user_list_expiry() {
+  public function user_list_expired() {
 
     $sql = "
               SELECT
@@ -549,10 +547,7 @@
               d.device_mso,
               MAX(l.renew_date) AS renew_date,
               MAX(l.expiry_date) AS expiry_date,
-              l.ledger_id,
-              CASE
-                WHEN CURDATE() = l.expiry_date THEN '(Expiring)'
-              END AS ledger_status
+              l.ledger_id
 
               FROM cbl_user_dev ud
               
@@ -566,52 +561,49 @@
               ORDER BY l.expiry_date ASC
             ";
 
-    $result = mysqli_query($this->conn,$sql);
-    return $result;
+    return mysqli_query($this->conn,$sql);
   }
 
   public function user_list_unpaid() {
 
     $sql = "
               SELECT
-              cbl_user.user_id AS user_id,
-              cbl_user.first_name AS first_name,
-              cbl_user.last_name AS last_name,
-              cbl_user.address AS address,
-              cbl_user.area AS area,
-              cbl_user.phone_no AS phone_no,
-              cbl_dev_stock.dev_id AS dev_id,
-              cbl_dev_stock.device_no AS device_no,
-              cbl_ledger.renew_date AS renew_date,
-              cbl_ledger.pay_amount AS pay_amount,
-              cbl_ledger.expiry_date AS expiry_date,
-              cbl_ledger.renew_month AS renew_month,
-              cbl_ledger.due_amount AS due_amount,
-              cbl_ledger.pay_amount AS pay_amount,
-              cbl_ledger.renew_term AS renew_term,
-              cbl_ledger.user_id AS user_id,
-              cbl_ledger.ledger_id AS ledger_id
+              u.user_id,
+              u.first_name,
+              u.last_name,
+              u.address,
+              u.area,
+              u.phone_no,
+              d.dev_id,
+              d.device_no,
+              l.renew_date,
+              l.pay_amount,
+              l.expiry_date,
+              l.renew_month,
+              l.due_amount,
+              l.pay_amount,
+              l.renew_term,
+              l.user_id,
+              l.ledger_id
 
-              FROM cbl_user_dev
-              RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
-              LEFT JOIN cbl_ledger ON cbl_ledger.dev_id = cbl_user_dev.dev_id
-              LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
-              WHERE cbl_ledger.ledger_status = 'Renewed'
-              GROUP BY cbl_ledger.ledger_id
-              ORDER BY cbl_ledger.renew_month DESC
+              FROM cbl_user_dev ud
+              RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
+              LEFT JOIN cbl_ledger l ON l.dev_id = ud.dev_id
+              LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
+              WHERE l.ledger_status = 'Renewed'
+              GROUP BY l.ledger_id
+              ORDER BY l.renew_month DESC
             ";
 
-    $result = mysqli_query($this->conn,$sql);
-    return $result;
+    return mysqli_query($this->conn,$sql);
   }
 
   // Counting functions
   public function CountUser(){
     $query = "SELECT COUNT(user_id) AS total_users FROM cbl_user";
     $result = mysqli_query($this->conn,$query);
-    $value = mysqli_fetch_assoc($result);
-    $num_rows = $value['total_users'];
-    return $num_rows;
+    $row = mysqli_fetch_assoc($result);
+    return $row['total_users'];
   }
 
   public function CountActiveUser(){
@@ -620,8 +612,8 @@
               FROM cbl_ledger
               WHERE CURDATE() BETWEEN renew_date AND expiry_date";
     $result = mysqli_query($this->conn,$query);
-    $data = mysqli_fetch_assoc($result);
-    return $data['active_user'];
+    $row = mysqli_fetch_assoc($result);
+    return $row['active_user'];
     }
 
     public function CountExpiredUser(){
@@ -646,30 +638,30 @@
               COUNT(DISTINCT dev_id) AS active_dev FROM cbl_ledger
               WHERE '$date' BETWEEN renew_date AND expiry_date";
     $result = mysqli_query($this->conn,$query);
-    $data = mysqli_fetch_assoc($result);
-    return $data['active_dev'];
+    $row = mysqli_fetch_assoc($result);
+    return $row['active_dev'];
   }
 
   public function CountUnpaid(){
     $query = "SELECT COUNT(user_id) AS count_unpaid FROM cbl_ledger
               WHERE ledger_status = 'Renewed'";
     $result = mysqli_query($this->conn,$query);
-    $data = mysqli_fetch_assoc($result);
-    return $data['count_unpaid'];
+    $row = mysqli_fetch_assoc($result);
+    return $row['count_unpaid'];
   }
 
    public function CountPaid(){
     $query = "SELECT COUNT(ledger_id) AS count_paid FROM cbl_ledger WHERE ledger_status = 'Paid'";
     $result = mysqli_query($this->conn,$query);
-    $data = mysqli_fetch_assoc($result);
-    return $data['count_paid'];
+    $row = mysqli_fetch_assoc($result);
+    return $row['count_paid'];
   }
 
   public function CountExpiring($date){
     $query = "SELECT COUNT(ledger_id) AS count_expiring FROM cbl_ledger WHERE expiry_date = '$date'";
     $result = mysqli_query($this->conn,$query);
-    $data = mysqli_fetch_assoc($result);
-    return $data['count_expiring'];
+    $row = mysqli_fetch_assoc($result);
+    return $row['count_expiring'];
   }
 
   public function CountDateColl($date){
@@ -682,28 +674,28 @@
               FROM cbl_ledger WHERE pay_date = '$date'
               ";
     $result = mysqli_query($this->conn,$query);
-    $data = mysqli_fetch_assoc($result);
-    return $data['pay_amount'];
+    $row = mysqli_fetch_assoc($result);
+    return $row['pay_amount'];
   }
 
   public function CountRecentUser($curr_date){
-  $date = date_create($curr_date);
-  date_sub($date,date_interval_create_from_date_string("1 Month"));
-  $back_date = date_format($date,"Y-m-d");
+    $date = date_create($curr_date);
+    date_sub($date,date_interval_create_from_date_string("1 Month"));
+    $back_date = date_format($date,"Y-m-d");
 
-  $query = "SELECT COUNT(user_id) AS count_recent
-            FROM cbl_user
-            WHERE doi BETWEEN '$back_date' AND '$curr_date'";
-  $result = mysqli_query($this->conn,$query);
-  $data = mysqli_fetch_assoc($result);
-  return $data['count_recent'];
+    $query = "SELECT COUNT(user_id) AS count_recent
+              FROM cbl_user
+              WHERE doi BETWEEN '$back_date' AND '$curr_date'";
+    $result = mysqli_query($this->conn,$query);
+    $row = mysqli_fetch_assoc($result);
+    return $row['count_recent'];
   }
 
   public function CountRecentRenew($date){
-  $query = "SELECT COUNT(user_id) AS recent_renew FROM cbl_ledger WHERE renew_date = '$date'";
-  $result = mysqli_query($this->conn,$query);
-  $data = mysqli_fetch_assoc($result);
-  return $data['recent_renew'];
+    $query = "SELECT COUNT(user_id) AS recent_renew FROM cbl_ledger WHERE renew_date = '$date'";
+    $result = mysqli_query($this->conn,$query);
+    $row = mysqli_fetch_assoc($result);
+    return $row['recent_renew'];
   }
 
 }

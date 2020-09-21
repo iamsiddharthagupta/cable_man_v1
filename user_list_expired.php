@@ -12,7 +12,6 @@
 	}
 
 	require_once 'organ.php';
-
 ?>
 
 <div class="container-fluid p-2">
@@ -30,7 +29,7 @@
 			      	<th>Action</th>
 			      	<th>Name</th>
 			      	<th>Device</th>
-			      	<th>Duration</th>
+			      	<th>Status</th>
 			        <th>Phone</th>
 			        <th>Address</th>
 			        <th>Rate</th>
@@ -40,7 +39,7 @@
 <?php
 	
 	$user = new User();
-	$result = $user->user_list_expiry();
+	$result = $user->user_list_expired();
 
 	if (mysqli_num_rows($result) < 1) {
 		echo "<tr><td colspan='13'>No user yet.</td><tr>";
@@ -69,14 +68,15 @@
 				</td>
 
 				<td>
-					<a href="user_profile_ledger.php?user_id=<?php echo $data['user_id']; ?>"><?php echo $data['first_name']." ".$data['last_name'];?></a> <strong class="text-warning"><?php echo $data['ledger_status']; ?></strong>
+					<strong>
+						<a href="user_profile_ledger.php?user_id=<?php echo $data['user_id']; ?>"><?php echo $data['first_name']." ".$data['last_name'];?></a>
+					</strong>
 				</td>
 
 				<td><strong><?php echo $data['device_mso']; ?></strong> - <span><?php echo $data['device_no']; ?></span></td>
 
 				<td>
-					<strong><?php echo date('j M',strtotime($data['renew_date'])); ?><span> - </span><?php echo date('j M',strtotime($data['expiry_date'])); ?>
-					</strong>
+					<strong class="text-danger">Expired On: <?php echo date('j M',strtotime($data['expiry_date'])); ?></strong>
 				</td>
 
 				<td><?php echo $data['phone_no'];?></td>
