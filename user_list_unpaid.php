@@ -11,16 +11,14 @@
     header('Location: index.php');
   }
 
-  require_once 'connection.php';
   require_once 'organ.php';
-
 ?>
 
 <div class="container-fluid p-2">
 
 	<div class="form-row justify-content-center mb-1">
 		<div class="form-group col-md-6">
-			<input id="myInput" class="form-control border-success text-center" placeholder="Search...">
+			<input id="myInput" class="form-control text-center" placeholder="Search...">
 		</div>
 	</div>
 
@@ -28,16 +26,12 @@
 		<table class="table table-hover text-center table-bordered table-sm table-head-fixed text-nowrap">
 			    <thead class="thead-light">
 			      <tr>
-			      	<th>Pay</th>
-			      	<th>Device ID</th>
+			      	<th>Actions</th>
 			      	<th>Name</th>
 			        <th>Mobile No</th>
 			        <th>Address</th>
-			        <th>Area</th>
-			      	<th>Duration</th>
-			      	<th>Due Month</th>
-			      	<th>Due Amount</th>
-			      	<th>Paid Amount</th>
+			      	<th>Bills</th>
+			      	<th>Due</th>
 			      </tr>
 				</thead>
 
@@ -49,47 +43,36 @@
 		echo "<tr><td colspan='13'>No user yet.</td><tr>";
 	} else {
 		
-		foreach ($result as $key => $data) :
-
-			$urlMulti = "user_id={$data['user_id']}&ledger_id={$data['ledger_id']}&dev_id={$data['dev_id']}";
-
-?>
+		foreach ($result as $key => $row) : ?>
 
 		<tbody id="myTable">
 			<tr>
-
+					
 				<td>
-					<?php if(empty($data['pay_amount'])){ ?>
-						<button onclick="window.location.href='profile_payment.php?<?= $urlMulti; ?>'" class="btn btn-sm btn-danger">INR <?php echo $data['due_amount']; ?></button>
-					<?php } else { ?>
-						<form method="POST" action="receipt.php">
-							<input type="hidden" name="ledger_id" value="<?php echo $data['ledger_id']; ?>">
-							<input type="submit" class="btn btn-outline-success btn-sm" value="Receipt">
-						</form>
-                    <?php } ?>
+					<div class="btn-group" role="group">
+    					<button type="button" class="btn btn-dark btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      						Action
+    					</button>
+	    				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+							<a class="dropdown-item" target="_blank" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Add Payment</a>
+							<a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
+					    </div>
+				  	</div>
 				</td>
 
-				<td><?php echo $data['device_no']; ?></td>
-				
 				<td>
-					<a href="profile_ledger.php?user_id=<?php echo $data['user_id']; ?>">
-						<strong><?php echo $data['first_name']." ".$data['last_name'];?></strong>
+					<a href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">
+						<strong><?php echo $row['first_name']." ".$row['last_name'];?></strong>
 					</a>
 				</td>
 
-				<td><?php echo $data['phone_no'];?></td>
+				<td><?php echo $row['phone_no'];?></td>
 
-				<td><?php echo $data['address'];?></td>
-
-				<td><?php echo $data['area'];?></td>
-
-				<td><strong><span><?php echo date('jS M y',strtotime($data['renew_date']));?> - <?php echo date('jS M y',strtotime($data['expiry_date']));?></span></strong></td>
-
-				<td><strong><?php echo $data['renew_month'];?> (x <?php echo $data['renew_term'];?>)</strong></td>
+				<td><?php echo $row['address'];?>, <strong><?php echo $row['area'];?></strong></td>
 				
-				<td><strong><?php echo $data['due_amount'];?></strong></td>
+				<td><strong class="text-danger"><?php echo $row['months'];?></strong></td>
 				
-				<td><strong><?php echo $data['pay_amount'];?></strong></td>
+				<td><strong><?php echo $row['bills'];?></strong></td>
 
 			</tr>
 		</tbody>

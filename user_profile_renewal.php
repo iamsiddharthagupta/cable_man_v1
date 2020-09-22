@@ -26,7 +26,7 @@
 		              <strong>[<?php echo $row['device_mso']; ?>] <?php echo $row['device_no']; ?></strong>
 		            </li>
 		            <li class="list-group-item"><span class="mr-2">Package:</span>
-		              Rs. <strong><?php echo $row['package']; ?></strong>
+		              <strong>Rs.<?php echo $row['package']; ?></strong>
 		            </li>
 		            <li class="list-group-item"><span class="mr-2">Last Renewal:</span>
 		              <strong></strong>

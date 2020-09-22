@@ -574,25 +574,17 @@
               u.address,
               u.area,
               u.phone_no,
-              d.dev_id,
-              d.device_no,
-              l.renew_date,
-              l.pay_amount,
-              l.expiry_date,
-              l.renew_month,
-              l.due_amount,
-              l.pay_amount,
-              l.renew_term,
+              SUM(l.due_amount) AS bills,
+              SUM(l.renew_term) AS months,
               l.user_id,
               l.ledger_id
 
               FROM cbl_user_dev ud
               RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
               LEFT JOIN cbl_ledger l ON l.dev_id = ud.dev_id
-              LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
               WHERE l.ledger_status = 'Renewed'
-              GROUP BY l.ledger_id
-              ORDER BY l.renew_month DESC
+              GROUP BY l.user_id
+              ORDER BY months DESC
             ";
 
     return mysqli_query($this->conn,$sql);

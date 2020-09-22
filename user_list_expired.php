@@ -45,10 +45,10 @@
 		echo "<tr><td colspan='13'>No user yet.</td><tr>";
 	} else {
 
-		foreach ($result as $key => $data) :
+		foreach ($result as $key => $row) :
 
 		$current_date = date_create(date('Y-m-d'));
-		$end_date = date_create($data['expiry_date']);
+		$end_date = date_create($row['expiry_date']);
 
 ?>
 		<tbody id="myTable">
@@ -60,30 +60,30 @@
       						Action
     					</button>
 	    				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-						      <a class="dropdown-item" href="user_profile_select_device.php?user_id=<?php echo $data['user_id']; ?>">Renew</a>
-						      <a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $data['user_id']; ?>">Update Profile</a>
-						      <a class="dropdown-item" href="user_profile_ledger.php?user_id=<?php echo $data['user_id']; ?>">Add Payment</a>
+						      <a class="dropdown-item" href="user_profile_select_device.php?user_id=<?php echo $row['user_id']; ?>">Renew</a>
+						      <a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
+						      <a class="dropdown-item" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Add Payment</a>
 					    </div>
 				  	</div>
 				</td>
 
 				<td>
 					<strong>
-						<a href="user_profile_ledger.php?user_id=<?php echo $data['user_id']; ?>"><?php echo $data['first_name']." ".$data['last_name'];?></a>
+						<a href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>"><?php echo $row['first_name']." ".$row['last_name'];?></a>
 					</strong>
 				</td>
 
-				<td><strong><?php echo $data['device_mso']; ?></strong> - <span><?php echo $data['device_no']; ?></span></td>
+				<td><strong><?php echo $row['device_mso']; ?></strong> - <span><?php echo $row['device_no']; ?></span></td>
 
 				<td>
-					<strong class="text-danger">Expired On: <?php echo date('j M',strtotime($data['expiry_date'])); ?></strong>
+					<strong class="text-danger">Expired On: <?php echo date('j M',strtotime($row['expiry_date'])); ?></strong>
 				</td>
 
-				<td><?php echo $data['phone_no'];?></td>
+				<td><?php echo $row['phone_no'];?></td>
 
-				<td><?php echo $data['address'];?>, <strong><?php echo $data['area'];?></strong></td>
+				<td><?php echo $row['address'];?>, <strong><?php echo $row['area'];?></strong></td>
 
-				<td><span>Rs.</span><?php echo $data['package'];?></td>
+				<td><span>Rs.</span><?php echo $row['package'];?></td>
 
 			</tr>
 		</tbody>
