@@ -15,7 +15,7 @@
           <img src="assets/avatar.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="change_pass.php" class="d-block"><?php echo $curr_user; ?></a>
+          <a href="admin_change_pass.php" class="d-block"><?php echo $curr_user; ?></a>
         </div>
       </div>
 
@@ -88,7 +88,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="payment_list.php?query=<?php echo PaidList('Paid'); ?>" class="nav-link">
+                <a href="user_list_paid.php" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Paid List</p>
                   <span class="right badge badge-danger"><?php echo $user->CountPaid(); ?></span>
@@ -109,12 +109,6 @@
             <a href="collection_book.php" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>Collection Book</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="setting.php" class="nav-link">
-              <i class="nav-icon fas fa-user-cog"></i>
-              <p>Settings</p>
             </a>
           </li>
 

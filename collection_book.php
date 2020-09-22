@@ -154,4 +154,4 @@
     </div>
 </div>
 
-<?php require_once 'common/footer.php'; ?>
+<?php require_once 'assets/footer.php'; ?>

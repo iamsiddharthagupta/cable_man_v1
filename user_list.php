@@ -21,7 +21,7 @@
 			<input id="myInput" class="form-control text-center" placeholder="Search...">
 		</div>
 		<div class="col-auto">
-			<form method="post" action="export_data.php">
+			<form method="POST" action="export_data.php">
 	      		<input type="submit" name="export" class="btn btn-outline-success mb-2 mr-sm-2" value="export xls">
     		</form>
 		</div>
@@ -43,7 +43,6 @@
 
 <?php
 
-	$user = new User();
 	$result = $user->user_list();
 
 	if(mysqli_num_rows($result) < 1){
@@ -63,13 +62,15 @@
 	      						Action
 	    					</button>
 		    				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-								<?php if($row['user_status'] == 0){ ?>
-									<a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Activate</a>
-								<?php } elseif($row['user_status'] == 1 AND !empty($row['dev_id'])){ ?>
-									<a class="dropdown-item" href="user_profile_devices.php?user_id=<?php echo $row['user_id']; ?>">Activate</a>
-								<?php } elseif(empty($row['dev_id'])) { ?>
-									<a class="dropdown-item" href="user_profile_device_map.php?user_id=<?php echo $row['user_id']; ?>">Assign Device</a>
-								<?php } ?>
+								
+		    					<?php if(empty($row['dev_id'])){ ?>
+		    						<a class="dropdown-item" href="user_profile_device_map.php?user_id=<?php echo $row['user_id']; ?>">Assign Device</a>
+		    					<?php } elseif($row['user_status'] == 1 AND !empty($row['dev_id'])){ ?>
+		    						<a class="dropdown-item" href="user_profile_devices.php?user_id=<?php echo $row['user_id']; ?>">Activate</a>
+		    					<?php } elseif(empty($row['dev_id'])) { ?>
+		    						<a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Activate</a>
+		    					<?php } ?>
+
 								<a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
 						    </div>
 				  		</div>

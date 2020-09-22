@@ -4,7 +4,7 @@
   require_once 'organ.php';
 
   $user = new User();
-
+  $admin = new Admin();
 ?>
 
 <div class="wrapper">
@@ -46,7 +46,7 @@
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <span class="dropdown-header"><?php echo $user->CountExpiring(date('Y-m-d')); ?> Notifications</span>
           <div class="dropdown-divider"></div>
-          <a href="active_list.php?query=<?php echo ExpiringList(date('Y-m-d')); ?>" class="dropdown-item">
+          <a href="user_list_active.php" class="dropdown-item">
             <i class="fas fa-hourglass-end mr-2"></i><?php echo $user->CountExpiring(date('Y-m-d')); ?> Expiring Today
           </a>
         </div>
@@ -57,7 +57,7 @@
           <?php echo $curr_user; ?>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="change_pass.php">Change Password</a>
+          <a class="dropdown-item" href="admin_change_pass.php">Change Password</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="logout.php">Logout</a>
         </div>
