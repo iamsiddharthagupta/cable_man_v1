@@ -288,6 +288,23 @@
       }
   }
 
+  public function release_device($assign_id,$user_id) {
+
+    $sql = "DELETE FROM cbl_user_dev WHERE assign_id ='" . $assign_id . "'";
+    
+    if(mysqli_query($this->conn,$sql)) {
+
+      $msg = 'Device Released from the User!';
+      header('Location: user_profile_device_map.php?user_id='.$user_id.'&msg='.$msg);
+
+    } else {
+
+      $msg = 'Database Error.';
+      header('Location: user_profile_device_map.php?user_id='.$user_id.'&msg='.$msg);
+
+    }
+  }
+
   // Fetch functions
 
   public function device_edit_fetch($dev_id) {
