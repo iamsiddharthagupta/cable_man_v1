@@ -376,7 +376,8 @@
             d.device_no,
             d.device_mso,
             d.device_type,
-            d.package
+            d.package,
+            d.dev_id
 
             FROM cbl_user_dev ud
 

@@ -47,7 +47,7 @@
           <div class="icon">
             <i class="fas fa-user-check"></i>
           </div>
-          <a href="#" class="small-box-footer">View <i class="fas fa-arrow-circle-right"></i></a>
+          <a href="user_list_active.php" class="small-box-footer">View <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
 
@@ -60,7 +60,7 @@
           <div class="icon">
             <i class="fas fa-user-slash"></i>
           </div>
-          <a href="user_list_unpaid.php" class="small-box-footer">View <i class="fas fa-arrow-circle-right"></i></a>
+          <a href="user_list_expired.php" class="small-box-footer">View <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
 

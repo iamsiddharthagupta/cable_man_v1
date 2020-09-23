@@ -6,39 +6,44 @@
 ?>
 
 	<div class="col-md-3">
-	    <div class="container-fluid">
-	      	<div class="card">
-	      		<div class="card-header">Mapped Device:</div>
-	              <ul class="list-group list-group-flush">
-                  <form method="POST">
-                    <?php
-                      
-                      $result = $user->user_profile_device_fetch($_GET['user_id']);
+    <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Mapped Device:</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i></button>
+              </div>
+            </div>
+            <div class="card-body">
+              <form method="POST">
+                  <table class="table table-sm text-nowrap">
 
-                      $row = mysqli_fetch_assoc($result);
+                  <?php
 
-                      foreach ($result as $key => $row) : ?>
-                        
-                        <li class="list-group-item">
-                          <span><?php echo $row['device_mso']; ?> - <strong><?php echo $row['device_no']; ?></strong></span>
-                        </li>
-                    <?php
-                      endforeach;
-                    ?>
-	                <li class="list-group-item">
-	                  <input type="text" name="device_no" id="myInput" placeholder="Enter Device ID" class="form-control" required>
-	                </li>
-	                <li class="list-group-item">
-	                  <textarea name="reason" class="form-control" placeholder="Reason"></textarea>
-	                </li>
-	                <li class="list-group-item">
-	                    <div class="col-sm-2">
-	                      <input type="hidden" name="user_id" value="<?php echo $_GET['user_id']; ?>">
-	                      <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-	                    </div>
-	                  </li>
-                    </form>
-	                </ul>
+                    $result = $user->user_profile_device_fetch($_GET['user_id']);
+                    $row = mysqli_fetch_assoc($result);
+                    foreach ($result as $key => $row) :
+                  ?>
+                    <tbody>
+                      <tr>
+                        <td><?php echo $row['device_mso'].' - '.$row['device_no']; ?></td>
+                        <td><a href="#" class="btn btn-danger btn-xs"><i class="fas fa-minus-circle"></i></a></td>
+                      </tr>
+                    </tbody>
+                  
+                  <?php
+                    endforeach;
+                  ?>
+                </table>
+                  <div class="form-group col-md">
+                      <input type="text" name="device_no" id="myInput" placeholder="Enter Device ID" class="form-control" required> 
+                  </div>
+
+                  <div class="form-group col-md">
+                    <input type="hidden" name="user_id" value="<?php echo $_GET['user_id']; ?>">
+                    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                  </div>
+              </form>
             </div>
 		    </div>
 	</div>

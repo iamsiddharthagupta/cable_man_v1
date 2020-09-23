@@ -68,7 +68,7 @@
                       <a class="dropdown-item" href="user_profile_select_device.php?user_id=<?php echo $row['user_id']; ?>">Renew</a>
                       <a class="dropdown-item" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Ledger</a>
                       <a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
-                      <a class="dropdown-item" href="user_profile_device_map.php?user_id=<?php echo $row['user_id']; ?>">Map Device</a>
+                      <a class="dropdown-item" href="user_profile_device_map.php?user_id=<?php echo $row['user_id']; ?>">Edit Device</a>
                     </div>
                 </div>
 
@@ -96,7 +96,9 @@
                   <?php
                     foreach ($result as $key => $row) {
                         ?>
-                            <span>(Rs.<?php echo $row['package']; ?>) <strong><?php echo $row['device_mso']; ?></strong> <?php echo $row['device_no']; ?></span><br>
+                            <span>(Rs.<?php echo $row['package']; ?>) <strong><?php echo $row['device_mso']; ?></strong> <a href="device_edit.php?dev_id=<?php echo $row['dev_id']; ?>">
+                          <?php echo $row['device_no']; ?>
+                        </a></span><br>
                         <?php
                     }
                   ?>
