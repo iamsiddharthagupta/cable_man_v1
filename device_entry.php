@@ -12,9 +12,9 @@
 	header('Location: index.php');
 	}
 
-	require_once 'organ.php';
+  $page = 'device_entry.php';
 
-  $user = new User();
+	require_once 'organ.php';
   $result = $user->device_entry();
 
 ?>

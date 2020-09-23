@@ -11,6 +11,7 @@
     header('Location: index.php');
   }
 
+  $page = 'user_list_unpaid.php';
   require_once 'organ.php';
 ?>
 

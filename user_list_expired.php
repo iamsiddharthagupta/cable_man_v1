@@ -11,6 +11,8 @@
 	header('Location: index.php');
 	}
 
+	$page = 'user_list_expired.php';
+
 	require_once 'organ.php';
 ?>
 
@@ -38,7 +40,6 @@
 
 <?php
 	
-	$user = new User();
 	$result = $user->user_list_expired();
 
 	if (mysqli_num_rows($result) < 1) {

@@ -10,7 +10,7 @@
   } else {
     header('Location: index.php');
   }
-
+  $page = 'collection_book.php';
   require_once 'connection.php';
   require_once 'organ.php';
 

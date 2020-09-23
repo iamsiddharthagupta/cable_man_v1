@@ -37,21 +37,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="user_list.php" class="nav-link">
+                <a href="user_list.php" class="nav-link <?php if($page == 'user_list.php'){ echo 'active'; } ?>">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>User List</p>
                   <span class="right badge badge-danger"><?php echo mysqli_num_rows($user->user_list()); ?></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="user_list_active.php" class="nav-link">
+                <a href="user_list_active.php" class="nav-link <?php if($page == 'user_list_active.php'){ echo 'active'; } ?>">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Active List</p>
                   <span class="right badge badge-danger"><?php echo mysqli_num_rows($user->user_list_active()); ?></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="user_list_expired.php" class="nav-link">
+                <a href="user_list_expired.php" class="nav-link <?php if($page == 'user_list_expired.php'){ echo 'active'; } ?>">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Expired List</p>
                   <span class="right badge badge-danger"><?php echo mysqli_num_rows($user->user_list_expired()); ?></span>
@@ -63,7 +63,7 @@
           <li class="nav-header">Device Management</li>
 
           <li class="nav-item">
-            <a href="device_entry.php" class="nav-link">
+            <a href="device_entry.php" class="nav-link <?php if($page == 'device_entry.php'){ echo 'active'; } ?>">
               <i class="fas fa-hdd nav-icon"></i>
               <p>Manage Device</p>
             </a>
@@ -81,14 +81,14 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="user_list_unpaid.php" class="nav-link">
+                <a href="user_list_unpaid.php" class="nav-link <?php if($page == 'user_list_unpaid.php'){ echo 'active'; } ?>">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Overdue List</p>
                   <span class="right badge badge-danger"><?php echo mysqli_num_rows($user->user_list_unpaid()); ?></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="user_list_scheme.php" class="nav-link">
+                <a href="user_list_scheme.php" class="nav-link <?php if($page == 'user_list_scheme.php'){ echo 'active'; } ?>">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Scheme List</p>
                   <span class="right badge badge-danger"><?php echo mysqli_num_rows($user->user_list_scheme()); ?></span>
@@ -100,7 +100,7 @@
           <li class="nav-header">Reports</li>
 
           <li class="nav-item">
-            <a href="collection_book.php" class="nav-link">
+            <a href="collection_book.php" class="nav-link <?php if($page == 'collection_book.php'){ echo 'active'; } ?>">
               <i class="nav-icon fas fa-book"></i>
               <p>Collection Book</p>
             </a>

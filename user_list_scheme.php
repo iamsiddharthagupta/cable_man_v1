@@ -10,7 +10,7 @@
   } else {
     header('Location: index.php');
   }
-  
+  $page = 'user_list_scheme.php';
   require_once 'organ.php';
 ?>
 
