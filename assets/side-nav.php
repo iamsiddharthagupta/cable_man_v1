@@ -25,7 +25,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
-          <li class="nav-header">Users Management</li>
+          <li class="nav-header">User Management</li>
 
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">

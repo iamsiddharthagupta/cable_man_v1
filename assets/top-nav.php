@@ -5,6 +5,9 @@
 
   $user = new User();
   $admin = new Admin();
+
+  $result = $user->user_search();
+
 ?>
 
 <div class="wrapper">
@@ -24,7 +27,7 @@
     </ul>
 
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3" method="POST" action="<?php echo htmlspecialchars('search_process.php'); ?>">
+    <form class="form-inline ml-3" method="POST">
       <div class="input-group input-group-sm">
         <input class="form-control form-control-navbar" type="text" name="search_input" id="user_search" placeholder="Search" aria-label="Search" required>
         <div class="input-group-append">

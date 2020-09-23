@@ -21,11 +21,6 @@
 		<div class="form-group col-md-6">
 			<input id="myInput" class="form-control text-center" placeholder="Search...">
 		</div>
-		<div class="col-auto">
-			<form method="POST" action="export_data.php">
-	      		<input type="submit" name="export" class="btn btn-outline-success mb-2 mr-sm-2" value="export xls">
-    		</form>
-		</div>
 	</div>
 
 	<div class="card-body table-responsive p-0" style="height: 600px;">

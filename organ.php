@@ -664,8 +664,28 @@
     return $row['recent_renew'];
   }
 
-}
+  public function user_search() {
 
+    if(isset($_POST['submit'])) {
+
+      $search_input = $_POST['search_input'];
+
+      $sql = "SELECT user_id FROM cbl_user WHERE (SELECT CONCAT(first_name,' ',last_name) = '$search_input' OR first_name = '$search_input')";
+      
+      if($result = mysqli_query($this->conn,$sql)) {
+
+        $row = mysqli_fetch_assoc($result);
+        header('Location: user_profile_ledger.php?user_id='.$row['user_id']);
+
+      } else {
+
+        echo 'Search Failed!';
+
+      }
+    }
+  }
+
+}
   class Admin extends User {
 
     public function admin_profile_fetch($curr_user) {

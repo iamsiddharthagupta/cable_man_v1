@@ -53,7 +53,7 @@
         </div>
         <div class="form-group col-md">
           <select name="device_mso" class="form-control" required>
-            <option value="">Choose MSO</option>
+            <option value="">Select MSO</option>
             <option value="SK Vision">SK Vision</option>
             <option value="Sky HD">Sky HD</option>
             <option value="Hathway">Hathway</option>
@@ -62,7 +62,7 @@
         </div>
         <div class="form-group col-md">
           <select class="form-control" name="device_type" required>
-            <option value="">Choose Type</option>
+            <option value="">Select STB Type</option>
             <option value="SD">SD</option>
             <option value="HD">HD</option>
           </select>
