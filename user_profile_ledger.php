@@ -58,15 +58,22 @@
                         Action
                     </button>
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        
                         <?php if($row['ledger_status'] == 'Renewed'){ ?>
                           <a class="dropdown-item" href="user_profile_payment.php?user_id=<?php echo $row['user_id']; ?>&ledger_id=<?php echo $row['ledger_id']; ?>&dev_id=<?php echo $row['dev_id']; ?>">Add Payment</a>
+                        
                         <?php } else { ?>
+                        
                           <form method="POST" action="receipt.php">
                             <input type="hidden" name="ledger_id" value="<?php echo $row['ledger_id']; ?>">
                             <input type="submit" name="generate_pdf" class="dropdown-item" value="Reciept">
                           </form>
+                        
                         <?php } ?>
-                        <a class="dropdown-item" href="profile_ledger_delete.php?user_id=<?php echo $row['user_id']; ?>&ledger_id=<?php echo $row['ledger_id']; ?>&dev_id=<?php echo $row['dev_id']; ?>" onclick="return confirm('Do you want to delete this ledger?');">Delete Entry</a>
+                        
+                        <a class="dropdown-item" href="user_profile_ledger_delete.php?user_id=<?php echo $row['user_id']; ?>&ledger_id=<?php echo $row['ledger_id']; ?>" onclick="return confirm('Do you want to delete this entry?');">Delete Entry
+                        </a>
+
                     </div>
                   </div>
                 </td>

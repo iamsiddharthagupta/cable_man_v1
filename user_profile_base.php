@@ -96,7 +96,7 @@
                   <?php
                     foreach ($result as $key => $row) {
                         ?>
-                            <span>(Rs.<?php echo $row['package']; ?>) <strong><?php echo $row['device_mso']; ?> </strong>[<?php echo $row['device_type']; ?>] <a href="device_edit.php?dev_id=<?php echo $row['dev_id']; ?>&user_id=<?php echo $row['user_id']; ?>">
+                            <span><?php echo $row['device_details']; ?><a href="device_edit.php?dev_id=<?php echo $row['dev_id']; ?>&user_id=<?php echo $row['user_id']; ?>">
                           <?php echo $row['device_no']; ?>
                         </a></span><br>
                         <?php

@@ -175,6 +175,24 @@
     }
   }
 
+  public function user_profile_ledger_delete($ledger_id,$user_id) {
+
+    $sql = "DELETE FROM cbl_ledger WHERE ledger_id ='" . $_GET["ledger_id"] . "'";
+
+    if(mysqli_query($this->conn,$sql)) {
+
+      $msg = 'Entry Deleted Successfully.';
+      header('Location: user_profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
+
+    } else {
+
+      $msg = 'Database Error.';
+      header('Location: user_profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
+
+    }
+
+  }
+
   public function user_device_map() {
 
       if(isset($_POST['submit'])) {
@@ -390,9 +408,8 @@
             u.doi,
             u.user_status,
             d.device_no,
-            d.device_mso,
+            CONCAT('Rs.',d.package,' - ',d.device_mso) AS device_details,
             d.device_type,
-            d.package,
             d.dev_id
 
             FROM cbl_user_dev ud
@@ -523,6 +540,7 @@
               u.address,
               u.area,
               d.package,
+              d.dev_id,
               d.device_no,
               d.device_mso,
               MAX(l.renew_date) AS renew_date,
@@ -591,6 +609,7 @@
               u.address,
               u.area,
               d.package,
+              d.dev_id,
               d.device_no,
               d.device_mso,
               MAX(l.renew_date) AS renew_date,
