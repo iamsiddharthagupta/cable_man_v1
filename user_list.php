@@ -10,7 +10,6 @@
   } else {
     header('Location: index.php');
   }
-  
   require_once 'organ.php';
 ?>
 

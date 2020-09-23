@@ -6,8 +6,7 @@
   class Connection {
 
       function __construct() {
-
-        include 'connection.php';
+          include 'connection.php';
         $this->conn = $conn;
       }
     }
@@ -470,8 +469,7 @@
 
     public function user_list() {
 
-      $sql ="
-              SELECT
+    $sql = " SELECT
               u.user_id,
               u.first_name,
               u.last_name,
@@ -492,8 +490,7 @@
 
               RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
               LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
-              GROUP BY u.user_id ORDER BY u.doi DESC
-            ";
+              GROUP BY u.user_id ORDER BY u.doi DESC";
 
         return mysqli_query($this->conn,$sql);
     }
@@ -591,25 +588,25 @@
   }
 
   // Counting functions
-  public function CountUser(){
-    $query = "SELECT COUNT(user_id) AS total_users FROM cbl_user";
-    $result = mysqli_query($this->conn,$query);
+  public function CountUser() {
+    $sql = "SELECT COUNT(user_id) AS total_users FROM cbl_user";
+    $result = mysqli_query($this->conn,$sql);
     $row = mysqli_fetch_assoc($result);
     return $row['total_users'];
   }
 
-  public function CountActiveUser(){
-    $query = "SELECT
+  public function CountActiveUser() {
+    $sql = "SELECT
               COUNT(DISTINCT user_id) AS active_user
               FROM cbl_ledger
               WHERE CURDATE() BETWEEN renew_date AND expiry_date";
-    $result = mysqli_query($this->conn,$query);
+    $result = mysqli_query($this->conn,$sql);
     $row = mysqli_fetch_assoc($result);
     return $row['active_user'];
     }
 
-    public function CountExpiredUser(){
-    $query = "
+    public function CountExpiredUser() {
+    $sql = "
               SELECT * FROM cbl_user_dev ud
               
               RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
@@ -621,43 +618,27 @@
               GROUP BY u.user_id,ud.dev_id
               ORDER BY l.expiry_date ASC
               ";
-    $result = mysqli_query($this->conn,$query);
+    $result = mysqli_query($this->conn,$sql);
     return mysqli_num_rows($result);
     }
 
-  public function CountActiveDevice($date){
-    $query = "SELECT
-              COUNT(DISTINCT dev_id) AS active_dev FROM cbl_ledger
-              WHERE '$date' BETWEEN renew_date AND expiry_date";
-    $result = mysqli_query($this->conn,$query);
-    $row = mysqli_fetch_assoc($result);
-    return $row['active_dev'];
-  }
-
-  public function CountUnpaid(){
-    $query = "SELECT COUNT(user_id) AS count_unpaid FROM cbl_ledger
+  public function CountUnpaid() {
+    $sql = "SELECT COUNT(user_id) AS count_unpaid FROM cbl_ledger
               WHERE ledger_status = 'Renewed'";
-    $result = mysqli_query($this->conn,$query);
+    $result = mysqli_query($this->conn,$sql);
     $row = mysqli_fetch_assoc($result);
     return $row['count_unpaid'];
   }
 
-   public function CountPaid(){
-    $query = "SELECT COUNT(ledger_id) AS count_paid FROM cbl_ledger WHERE ledger_status = 'Paid'";
-    $result = mysqli_query($this->conn,$query);
-    $row = mysqli_fetch_assoc($result);
-    return $row['count_paid'];
-  }
-
-  public function CountExpiring($date){
-    $query = "SELECT COUNT(ledger_id) AS count_expiring FROM cbl_ledger WHERE expiry_date = '$date'";
-    $result = mysqli_query($this->conn,$query);
+  public function CountExpiring($date) {
+    $sql = "SELECT COUNT(ledger_id) AS count_expiring FROM cbl_ledger WHERE expiry_date = '$date'";
+    $result = mysqli_query($this->conn,$sql);
     $row = mysqli_fetch_assoc($result);
     return $row['count_expiring'];
   }
 
-  public function CountDateColl($date){
-    $query = "
+  public function CountDateColl($date) {
+    $sql = "
               SELECT
               CASE
                 WHEN pay_amount IS NOT NULL THEN SUM(pay_amount)
@@ -665,27 +646,27 @@
               END AS pay_amount
               FROM cbl_ledger WHERE pay_date = '$date'
               ";
-    $result = mysqli_query($this->conn,$query);
+    $result = mysqli_query($this->conn,$sql);
     $row = mysqli_fetch_assoc($result);
     return $row['pay_amount'];
   }
 
-  public function CountRecentUser($curr_date){
+  public function CountRecentUser($curr_date) {
     $date = date_create($curr_date);
     date_sub($date,date_interval_create_from_date_string("1 Month"));
     $back_date = date_format($date,"Y-m-d");
 
-    $query = "SELECT COUNT(user_id) AS count_recent
+    $sql = "SELECT COUNT(user_id) AS count_recent
               FROM cbl_user
               WHERE doi BETWEEN '$back_date' AND '$curr_date'";
-    $result = mysqli_query($this->conn,$query);
+    $result = mysqli_query($this->conn,$sql);
     $row = mysqli_fetch_assoc($result);
     return $row['count_recent'];
   }
 
-  public function CountRecentRenew($date){
-    $query = "SELECT COUNT(user_id) AS recent_renew FROM cbl_ledger WHERE renew_date = '$date'";
-    $result = mysqli_query($this->conn,$query);
+  public function CountRecentRenew($date) {
+    $sql = "SELECT COUNT(user_id) AS recent_renew FROM cbl_ledger WHERE renew_date = '$date'";
+    $result = mysqli_query($this->conn,$sql);
     $row = mysqli_fetch_assoc($result);
     return $row['recent_renew'];
   }
@@ -717,7 +698,7 @@
 
     public function admin_change_pass($curr_user) {
 
-        if(isset($_POST['submit'])){
+        if(isset($_POST['submit'])) {
 
         $current_pass = $_POST['current_pass'];
         $new_pass = $_POST['new_pass'];
@@ -795,13 +776,6 @@
 
 // Dynamic Query Functions for Sidebar Lists
 
-    function PaidList($ledger_status){
-
-    $query = "WHERE cbl_ledger.ledger_status = '$ledger_status' AND cbl_ledger.renew_term = 1 GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
-
-    return urlencode($query);
-  }
-
     function SchemeList($ledger_status){
 
     $query = "WHERE cbl_ledger.ledger_status = '$ledger_status' AND cbl_ledger.renew_term > 1 GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
@@ -812,22 +786,6 @@
     function ExpiringList($date){
 
     $query = "WHERE cbl_ledger.expiry_date = '$date' GROUP BY cbl_user.user_id,cbl_user_dev.dev_id ORDER BY expiry_date ASC";
-
-    return urlencode($query);
-  }
-
-  // Dinamic Filter Function in Active List.
-    function ActiveFilter($area){
-
-    $query = "WHERE cbl_user.area = '$area' GROUP BY cbl_user.user_id,cbl_user_dev.dev_id ORDER BY cbl_ledger.expiry_date ASC,cbl_user.address ASC";
-
-    return urlencode($query);
-  }
-
-  // Dinamic Filter Function in User List.
-    function OverdueFilter($area){
-
-    $query = "WHERE cbl_ledger.ledger_status = 'Renewed' AND cbl_user.area = '$area' GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC,cbl_user.address ASC";
 
     return urlencode($query);
   }

@@ -14,6 +14,7 @@
   }
 
   require_once 'organ.php';
+  
   $result = $user->chart_data_fetch();
 
 ?>
@@ -38,19 +39,6 @@
   <div class="row">
 
       <div class="col-md-3 col-6">
-        <div class="small-box bg-info">
-          <div class="inner">
-            <h3><?php echo $user->CountActiveDevice(date('Y-m-d')); ?></h3>
-            <p>Active Devices</p>
-          </div>
-          <div class="icon">
-            <i class="fas fa-hdd"></i>
-          </div>
-          <a href="#" class="small-box-footer">View <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-      </div>
-
-      <div class="col-md-3 col-6">
         <div class="small-box bg-success">
           <div class="inner">
             <h3><?php echo $user->CountActiveUser(date('Y-m-d')); ?></h3>
@@ -66,11 +54,11 @@
       <div class="col-md-3 col-6">
         <div class="small-box bg-danger">
           <div class="inner">
-            <h3><?php echo $user->CountUnpaid(); ?></h3>
-            <p>Overdues</p>
+            <h3><?php echo 11; ?></h3>
+            <p>Expired Users</p>
           </div>
           <div class="icon">
-            <i class="fas fa-file-invoice"></i>
+            <i class="fas fa-user-slash"></i>
           </div>
           <a href="user_list_unpaid.php" class="small-box-footer">View <i class="fas fa-arrow-circle-right"></i></a>
         </div>
@@ -79,11 +67,24 @@
       <div class="col-md-3 col-6">
         <div class="small-box bg-warning">
           <div class="inner">
+            <h3><?php echo $user->CountUnpaid(); ?></h3>
+            <p>Overdues</p>
+          </div>
+          <div class="icon">
+            <i class="fas fa-rupee-sign"></i>
+          </div>
+          <a href="user_list_unpaid.php" class="small-box-footer">View <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-6">
+        <div class="small-box bg-info">
+          <div class="inner">
             <h3>Rs.<?php echo $user->CountDateColl(date('Y-m-d')); ?></h3>
             <p>Today's Collection</p>
           </div>
           <div class="icon">
-            <i class="fas fa-rupee-sign"></i>
+            <i class="fas fa-hdd"></i>
           </div>
           <a href="collection_book.php" class="small-box-footer">View <i class="fas fa-arrow-circle-right"></i></a>
         </div>

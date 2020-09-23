@@ -88,14 +88,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="user_list_paid.php" class="nav-link">
-                  <i class="far fa-dot-circle nav-icon"></i>
-                  <p>Paid List</p>
-                  <span class="right badge badge-danger"><?php echo $user->CountPaid(); ?></span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="payment_list.php?query=<?php echo SchemeList('Paid'); ?>" class="nav-link">
+                <a href="user_list_scheme.php" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Scheme List</p>
                 </a>
