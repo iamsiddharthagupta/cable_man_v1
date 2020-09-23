@@ -66,7 +66,7 @@
                             <input type="submit" name="generate_pdf" class="dropdown-item" value="Reciept">
                           </form>
                         <?php } ?>
-                        <a class="dropdown-item" href="profile_ledger_delete.php?user_id=<?php echo $row['user_id']; ?>&ledger_id=<?php echo $row['ledger_id']; ?>&dev_id=<?php echo $row['dev_id']; ?>" onclick="return confirm('Do you want to release this user?');">Delete Entry</a>
+                        <a class="dropdown-item" href="profile_ledger_delete.php?user_id=<?php echo $row['user_id']; ?>&ledger_id=<?php echo $row['ledger_id']; ?>&dev_id=<?php echo $row['dev_id']; ?>" onclick="return confirm('Do you want to delete this ledger?');">Delete Entry</a>
                     </div>
                   </div>
                 </td>

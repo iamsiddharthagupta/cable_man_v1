@@ -4,5 +4,4 @@
 	
 	require_once 'organ.php';
 
-	$user = new User();
-	$result = $user->device_delete($_GET['dev_id']);
+	$result = $user->device_delete($_GET['dev_id'],$_GET['user_id']);

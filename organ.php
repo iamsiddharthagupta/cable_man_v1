@@ -273,19 +273,19 @@
     }
   }
 
-  public function device_delete($dev_id) {
+  public function device_delete($dev_id,$user_id) {
 
     $sql = "DELETE FROM cbl_dev_stock WHERE dev_id ='" . $dev_id . "'";
 
     if(mysqli_query($this->conn,$sql)){
 
-        $msg = 'Device Deleted Successfully.';
-        header('Location: device_entry.php?msg='.$msg);
+        $msg = 'Device Deleted Successfully!';
+        header('Location: user_profile_device_map.php?user_id='.$user_id.'&msg='.$msg);
 
       } else {
 
         $msg = 'Database Error.';
-        header('Location: device_entry.php?msg='.$msg);
+        header('Location: user_profile_device_map.php?user_id='.$user_id.'&msg='.$msg);
       }
   }
 

@@ -8,7 +8,7 @@
 	<div class="col-md-3">
     <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Mapped Device:</h3>
+              <h3 class="card-title">Mapped Device</h3>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                   <i class="fas fa-minus"></i></button>
@@ -19,7 +19,6 @@
                   <table class="table table-sm text-nowrap">
 
                   <?php
-
                     $result = $user->user_profile_device_fetch($_GET['user_id']);
                     $row = mysqli_fetch_assoc($result);
                     foreach ($result as $key => $row) :
@@ -27,7 +26,7 @@
                     <tbody>
                       <tr>
                         <td><?php echo $row['device_mso'].' - '.$row['device_no']; ?></td>
-                        <td><a href="#" class="btn btn-danger btn-xs"><i class="fas fa-minus-circle"></i></a></td>
+                        <td><a href="#" class="btn btn-danger btn-xs" onclick="return confirm('Do you want to release this device?');"><i class="fas fa-minus-circle"></i></a></td>
                       </tr>
                     </tbody>
                   
@@ -48,10 +47,19 @@
 		    </div>
 	</div>
 	<div class="col-md-6">
-		        <div class="card-body table-responsive p-0" style="height: 490px;">
-          <table class="table table-hover text-center table-bordered table-sm table-head-fixed">
+      <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Device List</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+              <i class="fas fa-minus"></i></button>
+          </div>
+        </div>
+		    <div class="card-body table-responsive p-0" style="height: 490px;">
+          <table class="table table-hover text-center table-bordered table-sm table-head-fixed text-nowrap">
             <thead class="thead-light">
               <tr>
+                <th>Action</th>
                 <th>Dev ID</th>
                 <th>MSO</th>
                 <th>Package</th>
@@ -73,6 +81,28 @@
                 
           <tbody id="myTable">
             <tr>
+
+              <td>
+
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-dark btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Action
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        
+                        <a href="device_edit.php?dev_id=<?php echo $row['dev_id']; ?>" class="dropdown-item">
+                          Edit
+                        </a>
+
+                        <?php if(empty($row['assign_id'])) { ?>
+                        <a href="device_delete.php?dev_id=<?php echo $row['dev_id']; ?>&user_id=<?php echo $_GET['user_id']; ?>" class="dropdown-item" onclick="return confirm('Do you want to release this user?');">
+                          Delete
+                        </a>
+                      <?php } ?>
+                    </div>
+                  </div>
+              </td>
+
               <td><?php echo $row['device_no']; ?></td>
               
               <td><?php echo $row['device_mso'];?> [<?php echo $row['device_type']; ?>]</td>
@@ -90,8 +120,9 @@
             ?>
         </table>
       </div>
-	</div>
+	   </div>
 
+    </div>
   </div>
 </div>
 
