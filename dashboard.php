@@ -41,7 +41,7 @@
       <div class="col-md-3 col-6">
         <div class="small-box bg-success">
           <div class="inner">
-            <h3><?php echo $user->CountActiveUser(date('Y-m-d')); ?></h3>
+            <h3><?php echo mysqli_num_rows($user->user_list_active()); ?></h3>
             <p>Active Users</p>
           </div>
           <div class="icon">
@@ -67,7 +67,7 @@
       <div class="col-md-3 col-6">
         <div class="small-box bg-warning">
           <div class="inner">
-            <h3><?php echo $user->CountUnpaid(); ?></h3>
+            <h3><?php echo mysqli_num_rows($user->user_list_unpaid()); ?></h3>
             <p>Overdues</p>
           </div>
           <div class="icon">
@@ -127,7 +127,7 @@
               </p>
               <p class="d-flex flex-column text-right">
                 <span class="font-weight-bold">1</span>
-                <span class="text-muted">Recent Deactivation</span>
+                <span class="text-muted">Today's Expiry</span>
               </p>
             </div>
 

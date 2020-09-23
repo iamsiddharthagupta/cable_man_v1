@@ -1,4 +1,4 @@
-  <!-- Main Sidebar Container -->
+<!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="dashboard.php" class="brand-link">
@@ -40,21 +40,21 @@
                 <a href="user_list.php" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>User List</p>
-                  <span class="right badge badge-danger"><?php echo $user->CountUser(); ?></span>
+                  <span class="right badge badge-danger"><?php echo mysqli_num_rows($user->user_list()); ?></span>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="user_list_active.php" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Active List</p>
-                  <span class="right badge badge-danger"><?php echo $user->CountActiveUser(); ?></span>
+                  <span class="right badge badge-danger"><?php echo mysqli_num_rows($user->user_list_active()); ?></span>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="user_list_expired.php" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Expired List</p>
-                  <span class="right badge badge-danger"><?php echo $user->CountExpiredUser(); ?></span>
+                  <span class="right badge badge-danger"><?php echo mysqli_num_rows($user->user_list_expired()); ?></span>
                 </a>
               </li>
             </ul>
@@ -84,13 +84,14 @@
                 <a href="user_list_unpaid.php" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Overdue List</p>
-                  <span class="right badge badge-danger"><?php echo $user->CountUnpaid(); ?></span>
+                  <span class="right badge badge-danger"><?php echo mysqli_num_rows($user->user_list_unpaid()); ?></span>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="user_list_scheme.php" class="nav-link">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Scheme List</p>
+                  <span class="right badge badge-danger"><?php echo mysqli_num_rows($user->user_list_scheme()); ?></span>
                 </a>
               </li>
             </ul>

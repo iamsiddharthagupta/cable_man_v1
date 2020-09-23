@@ -64,12 +64,9 @@
 								
 		    					<?php if(empty($row['dev_id'])){ ?>
 		    						<a class="dropdown-item" href="user_profile_device_map.php?user_id=<?php echo $row['user_id']; ?>">Assign Device</a>
-		    					<?php } elseif($row['user_status'] == 1 AND !empty($row['dev_id'])){ ?>
+		    					<?php } elseif(!empty($row['dev_id'])){ ?>
 		    						<a class="dropdown-item" href="user_profile_devices.php?user_id=<?php echo $row['user_id']; ?>">Activate</a>
-		    					<?php } elseif(empty($row['dev_id'])) { ?>
-		    						<a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Activate</a>
 		    					<?php } ?>
-
 								<a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
 						    </div>
 				  		</div>

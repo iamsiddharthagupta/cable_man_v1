@@ -28,10 +28,10 @@
 			      <tr>
 			      	<th>Actions</th>
 			      	<th>Name</th>
-			        <th>Mobile No</th>
-			        <th>Address</th>
 			      	<th>Bills</th>
 			      	<th>Due</th>
+			        <th>Mobile No</th>
+			        <th>Address</th>
 			      </tr>
 				</thead>
 
@@ -66,13 +66,13 @@
 					</a>
 				</td>
 
-				<td><?php echo $row['phone_no'];?></td>
-
-				<td><?php echo $row['address'];?>, <strong><?php echo $row['area'];?></strong></td>
-				
 				<td><strong class="text-danger"><?php echo $row['months'];?></strong></td>
 				
 				<td><strong><?php echo $row['bills'];?></strong></td>
+
+				<td><?php echo $row['phone_no'];?></td>
+
+				<td><?php echo $row['address'];?>, <strong><?php echo $row['area'];?></strong></td>
 
 			</tr>
 		</tbody>

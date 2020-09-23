@@ -529,6 +529,40 @@
     return mysqli_query($this->conn,$sql);
   }
 
+  public function user_list_scheme() {
+
+    $sql = "
+              SELECT
+              u.user_id,
+              u.first_name,
+              u.last_name,
+              u.phone_no,
+              u.address,
+              u.area,
+              d.package,
+              d.device_no,
+              d.device_mso,
+              MAX(l.renew_date) AS renew_date,
+              MAX(l.expiry_date) AS expiry_date,
+              l.ledger_id,
+              CASE
+                WHEN CURDATE() = l.expiry_date THEN '(Expiring)'
+              END AS ledger_status
+
+              FROM cbl_user_dev ud
+
+              RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
+              RIGHT JOIN cbl_ledger l ON l.dev_id = ud.dev_id
+              LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
+
+              WHERE u.user_status = 1 AND CURDATE() BETWEEN l.renew_date AND l.expiry_date AND l.renew_term > 1
+              GROUP BY u.user_id,ud.dev_id
+              ORDER BY l.expiry_date ASC
+            ";
+
+    return mysqli_query($this->conn,$sql);
+  }
+
   public function user_list_expired() {
 
     $sql = "
@@ -588,47 +622,6 @@
   }
 
   // Counting functions
-  public function CountUser() {
-    $sql = "SELECT COUNT(user_id) AS total_users FROM cbl_user";
-    $result = mysqli_query($this->conn,$sql);
-    $row = mysqli_fetch_assoc($result);
-    return $row['total_users'];
-  }
-
-  public function CountActiveUser() {
-    $sql = "SELECT
-              COUNT(DISTINCT user_id) AS active_user
-              FROM cbl_ledger
-              WHERE CURDATE() BETWEEN renew_date AND expiry_date";
-    $result = mysqli_query($this->conn,$sql);
-    $row = mysqli_fetch_assoc($result);
-    return $row['active_user'];
-    }
-
-    public function CountExpiredUser() {
-    $sql = "
-              SELECT * FROM cbl_user_dev ud
-              
-              RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
-              RIGHT JOIN cbl_ledger l ON l.dev_id = ud.dev_id
-              LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
-
-              WHERE u.user_status = 1 AND l.user_id NOT IN (SELECT user_id FROM cbl_ledger WHERE expiry_date > CURDATE())
-
-              GROUP BY u.user_id,ud.dev_id
-              ORDER BY l.expiry_date ASC
-              ";
-    $result = mysqli_query($this->conn,$sql);
-    return mysqli_num_rows($result);
-    }
-
-  public function CountUnpaid() {
-    $sql = "SELECT COUNT(user_id) AS count_unpaid FROM cbl_ledger
-              WHERE ledger_status = 'Renewed'";
-    $result = mysqli_query($this->conn,$sql);
-    $row = mysqli_fetch_assoc($result);
-    return $row['count_unpaid'];
-  }
 
   public function CountExpiring($date) {
     $sql = "SELECT COUNT(ledger_id) AS count_expiring FROM cbl_ledger WHERE expiry_date = '$date'";
@@ -709,7 +702,7 @@
         $confirm_pass = md5($confirm_pass);
     // Fetching current password from database to validate password input.
         $sql = "SELECT password FROM tbl_auth WHERE full_name = '$curr_user'";
-        $result = mysqli_query($this->conn,$sql) or die (mysqli_error($conn));
+        $result = mysqli_query($this->conn,$sql);
         $curr_valid = mysqli_fetch_assoc($result);
     // Logic
           if($current_pass == $curr_valid['password']) {

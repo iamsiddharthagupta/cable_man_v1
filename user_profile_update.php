@@ -16,8 +16,8 @@
               </button>
             </div>
           </div>
+          <div class="card-body">
         <form method="POST" autocomplete="off">
-         <div class="card-body">
 		    <div class="form-row">
 		        <div class="form-group col-md">
 		          <label>First Name:</label>
@@ -71,8 +71,8 @@
 		    	<input type="hidden" name="user_id" value="<?php echo $row['user_id']; ?>">
         		<button type="submit" name="submit" class="btn btn-outline-primary">Update</button>
 		    </div>
-    	    </div>
     	    </form>
+    	</div>
          </div>
 	   	</div>
 	
