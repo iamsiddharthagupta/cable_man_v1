@@ -44,7 +44,7 @@
           <div class="col-md-3">
 
             <?php if(isset($_GET['msg'])){ ?>
-              <div class="alert alert-primary alert-dismissible fade show" role="alert">
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <?php echo $_GET['msg']; ?>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
@@ -96,7 +96,7 @@
                   <?php
                     foreach ($result as $key => $row) {
                         ?>
-                            <span>(Rs.<?php echo $row['package']; ?>) <strong><?php echo $row['device_mso']; ?></strong> <a href="device_edit.php?dev_id=<?php echo $row['dev_id']; ?>">
+                            <span>(Rs.<?php echo $row['package']; ?>) <strong><?php echo $row['device_mso']; ?> </strong>[<?php echo $row['device_type']; ?>] <a href="device_edit.php?dev_id=<?php echo $row['dev_id']; ?>&user_id=<?php echo $row['user_id']; ?>">
                           <?php echo $row['device_no']; ?>
                         </a></span><br>
                         <?php

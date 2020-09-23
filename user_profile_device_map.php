@@ -26,7 +26,7 @@
                     <tbody>
                       <tr>
                         <td><?php echo $row['device_mso'].' - '.$row['device_no']; ?></td>
-                        <td><a href="#" class="btn btn-danger btn-xs" onclick="return confirm('Do you want to release this device?');"><i class="fas fa-minus-circle"></i></a></td>
+                        <td><a href="#" onclick="return confirm('Do you want to release this device?');"><i class="fas fa-minus-circle"></i></a></td>
                       </tr>
                     </tbody>
                   
@@ -41,6 +41,7 @@
                   <div class="form-group col-md">
                     <input type="hidden" name="user_id" value="<?php echo $_GET['user_id']; ?>">
                     <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                    <a href="device_entry.php?user_id=<?php echo $_GET['user_id']; ?>" class="btn btn-success">Add Device</a>
                   </div>
               </form>
             </div>
@@ -90,7 +91,7 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                         
-                        <a href="device_edit.php?dev_id=<?php echo $row['dev_id']; ?>" class="dropdown-item">
+                        <a href="device_edit.php?dev_id=<?php echo $row['dev_id']; ?>&user_id=<?php echo $_GET['user_id']; ?>" class="dropdown-item">
                           Edit
                         </a>
 

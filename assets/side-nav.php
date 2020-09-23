@@ -60,15 +60,6 @@
             </ul>
           </li>
 
-          <li class="nav-header">Device Management</li>
-
-          <li class="nav-item">
-            <a href="device_entry.php" class="nav-link <?php if($page == 'device_entry.php'){ echo 'active'; } ?>">
-              <i class="fas fa-hdd nav-icon"></i>
-              <p>Manage Device</p>
-            </a>
-          </li>
-
           <li class="nav-header">Payments</li>
 
           <li class="nav-item has-treeview menu-open">

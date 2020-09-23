@@ -18,7 +18,7 @@
 	$result = $user->device_edit_fetch($_GET['dev_id']);
 
 	$row = mysqli_fetch_assoc($result);
-	$result = $user->device_edit();
+	$result = $user->device_edit($_GET['user_id']);
 ?>
 
 <div class="content-header">

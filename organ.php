@@ -210,11 +210,10 @@
       }
     }
 
-  public function device_entry() {
+  public function device_entry($user_id) {
 
       if(isset($_POST['submit'])) {
 
-      $user_id = $_POST['user_id'];
       $device_no = mysqli_real_escape_string($this->conn,$_POST['device_no']);
       $device_mso = mysqli_real_escape_string($this->conn,$_POST['device_mso']);
       $device_type = mysqli_real_escape_string($this->conn,$_POST['device_type']);
@@ -228,18 +227,18 @@
       if(mysqli_query($this->conn,$sql)){
 
         $msg = 'Device Entry Successfull.';
-        header('Location: device_entry.php?msg='.$msg);
+        header('Location: user_profile_device_map.php?user_id='.$user_id.'&msg='.$msg);
 
       } else {
 
         $msg = 'Database Error.';
-        header('Location: device_entry.php?msg='.$msg);
+        header('Location: user_profile_device_map.php?user_id='.$user_id.'&msg='.$msg);
 
       }
     }
   }
 
-  public function device_edit() {
+  public function device_edit($user_id) {
 
     if(isset($_POST['submit'])) {
 
@@ -262,12 +261,12 @@
       if(mysqli_query($this->conn,$sql)){
         
         $msg = 'Device Updation Successful.';
-        header('Location: device_entry.php?msg='.$msg);
+        header('Location: user_profile_device_map.php?user_id='.$user_id.'&msg='.$msg);
 
       } else {
         
         $msg = 'Database Error.';
-        header('Location: device_entry.php?msg='.$msg);
+        header('Location: user_profile_device_map.php?user_id='.$user_id.'&msg='.$msg);
 
       }
     }
