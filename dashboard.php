@@ -15,6 +15,8 @@
 
   require_once 'organ.php';
 
+  $result = $user->dashboard_expiring_list();
+
 ?>
 
 <div class="content-header">
@@ -136,7 +138,7 @@
       <div class="col-md-6">
                   <div class="card card-info">
             <div class="card-header">
-              <h3 class="card-title">Expiring</h3>
+              <h3 class="card-title">Expiring Today</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -144,27 +146,25 @@
               </div>
             </div>
             <div class="card-body p-0">
-              <table class="table table-sm">
-                <thead>
-                  <tr>
-                    <th>File Name</th>
-                    <th>File Size</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                
+              <table class="table table-sm text-nowrap">
                 <tbody>
 
                   <tr>
-                    <td>Functional-requirements.docx</td>
-                    <td>49.8005 kb</td>
-                    <td class="text-right py-0 align-middle">
-                      <div class="btn-group btn-group-sm">
-                        <a href="#"><i class="fas fa-sync-alt"></i></a>
-                      </div>
-                    </td>
-                  </tr>
+                    
+                    <?php
 
+                      foreach ($result as $key => $row) :
+                        
+                        ?>
+
+                          <td class="text-danger"><?php echo $row['full_name']; ?></td>
+                          <td class="text-danger"><?php echo $row['address']; ?></td>
+                          <td class="text-danger"><?php echo date('j M',strtotime($row['expiry_date'])); ?></td>
+
+                  </tr>
+                    <?php
+                      endforeach;
+                    ?>
                 </tbody>
               </table>
             </div>

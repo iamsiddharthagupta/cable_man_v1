@@ -1,7 +1,7 @@
 <?php
   
   // Setting up Indian timezone.
-  date_default_timezone_set("Asia/Kolkata");  
+  date_default_timezone_set("Asia/Kolkata");
 
   class Connection {
 
@@ -564,6 +564,29 @@
     return mysqli_query($this->conn,$sql);
   }
 
+  public function dashboard_expiring_list() {
+
+    $sql = "
+              SELECT
+              CONCAT(u.first_name,' ',u.last_name) AS full_name,
+              CONCAT(u.address,', ',u.area) AS address,
+              MAX(l.expiry_date) AS expiry_date
+
+              FROM cbl_user_dev ud
+
+              RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
+              RIGHT JOIN cbl_ledger l ON l.dev_id = ud.dev_id
+
+              WHERE u.user_status = 1 AND l.expiry_date = CURDATE()
+              GROUP BY u.user_id,ud.dev_id
+              ORDER BY l.expiry_date ASC
+            ";
+
+    return mysqli_query($this->conn,$sql);
+
+  }
+
+
   public function user_list_scheme() {
 
     $sql = "
@@ -653,6 +676,20 @@
               GROUP BY l.user_id
               ORDER BY months DESC
             ";
+
+    return mysqli_query($this->conn,$sql);
+  }
+
+  public function collection_summary() {
+
+    $sql = "
+                SELECT pay_date AS pay_date,
+                SUM(pay_amount) AS pay_amount
+                FROM cbl_ledger
+                WHERE pay_amount > 0
+                GROUP BY pay_date
+                ORDER BY pay_date DESC
+              ";
 
     return mysqli_query($this->conn,$sql);
   }
@@ -824,20 +861,6 @@
 
 
 // Dynamic Query Functions for Sidebar Lists
-
-    function SchemeList($ledger_status){
-
-    $query = "WHERE cbl_ledger.ledger_status = '$ledger_status' AND cbl_ledger.renew_term > 1 GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
-
-    return urlencode($query);
-  }
-
-    function ExpiringList($date){
-
-    $query = "WHERE cbl_ledger.expiry_date = '$date' GROUP BY cbl_user.user_id,cbl_user_dev.dev_id ORDER BY expiry_date ASC";
-
-    return urlencode($query);
-  }
 
   function DailyCollMonth($date){
 

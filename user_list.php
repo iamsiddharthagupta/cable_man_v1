@@ -41,7 +41,7 @@
 
 	$result = $user->user_list();
 
-	if(mysqli_num_rows($result) < 1){
+	if(mysqli_num_rows($result) < 1) {
 		
 		echo "<tr><td colspan='10'>No user yet! Start feeding them from <a href='user_profile_add.php'>here</a></td><tr>";
 	
