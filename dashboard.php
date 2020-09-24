@@ -14,8 +14,6 @@
   }
 
   require_once 'organ.php';
-  
-  $result = $user->chart_data_fetch();
 
 ?>
 
@@ -54,7 +52,7 @@
       <div class="col-md-3 col-6">
         <div class="small-box bg-danger">
           <div class="inner">
-            <h3><?php echo 11; ?></h3>
+            <h3><?php echo mysqli_num_rows($user->user_list_expired()); ?></h3>
             <p>Expired Users</p>
           </div>
           <div class="icon">
@@ -68,10 +66,10 @@
         <div class="small-box bg-warning">
           <div class="inner">
             <h3><?php echo mysqli_num_rows($user->user_list_unpaid()); ?></h3>
-            <p>Overdues</p>
+            <p>Overdue Bills</p>
           </div>
           <div class="icon">
-            <i class="fas fa-rupee-sign"></i>
+            <i class="fas fa-file-invoice"></i>
           </div>
           <a href="user_list_unpaid.php" class="small-box-footer">View <i class="fas fa-arrow-circle-right"></i></a>
         </div>
@@ -84,7 +82,7 @@
             <p>Today's Collection</p>
           </div>
           <div class="icon">
-            <i class="fas fa-hdd"></i>
+            <i class="fas fa-rupee-sign"></i>
           </div>
           <a href="collection_book.php" class="small-box-footer">View <i class="fas fa-arrow-circle-right"></i></a>
         </div>
@@ -93,7 +91,7 @@
       <div class="col-md-6">
         <div class="card">
           <div class="card-header border-0">
-            <h3 class="card-title">Miscellaneous Overviews</h3>
+            <h3 class="card-title">Overviews</h3>
           </div>
           <div class="card-body">
 
@@ -136,47 +134,46 @@
       </div>
 
       <div class="col-md-6">
-        <div class="card">
-          <div class="card-header border-0">
-            <h3 class="card-title">Device Overviews</h3>
+                  <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Expiring</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i></button>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <th>File Name</th>
+                    <th>File Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                
+                <tbody>
+
+                  <tr>
+                    <td>Functional-requirements.docx</td>
+                    <td>49.8005 kb</td>
+                    <td class="text-right py-0 align-middle">
+                      <div class="btn-group btn-group-sm">
+                        <a href="#"><i class="fas fa-sync-alt"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
           </div>
-          <div class="card-body">
-            <div id="piechart"></div>
-          </div>
-        </div>
       </div>
+
 
   </div>
 </div>
-
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-  google.charts.load('current', {'packages':['corechart']});
-  google.charts.setOnLoadCallback(drawChart);
-
-  function drawChart() {
-
-    var data = google.visualization.arrayToDataTable([
-      ['MSO', 'Device Count'],
-
-      <?php
-
-          while($row = mysqli_fetch_array($result)){  
-              echo "['".$row["device_mso"]."', ".$row["devices"]."],";  
-            }
-
-      ?>
-
-    ]);
-
-    var options = {
-      title: 'MSO Wise Devices'
-    };
-
-    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-    chart.draw(data, options);
-  }
-</script>
 
 <?php require_once 'assets/footer.php'; ?>
