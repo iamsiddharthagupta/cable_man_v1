@@ -527,8 +527,6 @@
               COUNT(ud.dev_id) AS device_count,
               ud.dev_id,
               CASE
-                WHEN ud.dev_id IS NULL THEN 'Device Unmapped'
-                WHEN u.user_status = 0 THEN 'Inactive'
                 WHEN u.user_status = 1 THEN 'Active'
               END AS user_status
 
@@ -536,7 +534,40 @@
 
               RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
               LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
-              GROUP BY u.user_id ORDER BY u.doi DESC";
+              WHERE u.user_status = 1 AND ud.dev_id IS NOT NULL
+              GROUP BY u.user_id
+              ORDER BY u.doi DESC
+          ";
+
+        return mysqli_query($this->conn,$sql);
+    }
+
+    public function user_list_terminate() {
+
+    $sql = " SELECT
+              u.user_id,
+              u.first_name,
+              u.last_name,
+              u.phone_no,
+              u.address,
+              u.area,
+              u.user_status,
+              SUM(d.package) AS package,
+              COUNT(ud.dev_id) AS device_count,
+              ud.dev_id,
+              CASE
+                WHEN u.user_status = 0 THEN 'Terminated'
+                WHEN ud.dev_id IS NULL THEN 'Device Unmapped'
+              END AS user_status
+
+              FROM cbl_user_dev ud
+
+              RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
+              LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
+              WHERE u.user_status = 0 OR ud.dev_id IS NULL
+              GROUP BY u.user_id
+              ORDER BY u.doi DESC
+          ";
 
         return mysqli_query($this->conn,$sql);
     }
