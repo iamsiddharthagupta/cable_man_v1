@@ -44,10 +44,10 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="user_list_terminate.php" class="nav-link <?php if($page == 'user_list_terminate.php'){ echo 'active'; } ?>">
+                <a href="user_list_dc.php" class="nav-link <?php if($page == 'user_list_dc.php'){ echo 'active'; } ?>">
                   <i class="far fa-dot-circle nav-icon"></i>
-                  <p>Terminated List</p>
-                  <span class="right badge badge-danger"><?php echo mysqli_num_rows($user->user_list_terminate()); ?></span>
+                  <p>Disconnected List</p>
+                  <span class="right badge badge-danger"><?php echo mysqli_num_rows($user->user_list_dc()); ?></span>
                 </a>
               </li>
               <li class="nav-item">

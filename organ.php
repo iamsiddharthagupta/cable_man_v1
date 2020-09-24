@@ -137,6 +137,7 @@
       $ledger_id = $_POST['ledger_id'];
       $due_amount = $_POST['due_amount'];
       $pay_amount = $_POST['pay_amount'];
+      $pay_discount = $_POST['pay_discount'];
       $pay_date = $_POST['pay_date'];
       $due_invoice = $_POST['due_invoice'];
       $pay_month = date('F',strtotime($pay_date));
@@ -144,6 +145,7 @@
       $sql = "
                 UPDATE cbl_ledger SET
                 pay_amount = '$pay_amount',
+                pay_discount = '$pay_discount',
                 pay_date = '$pay_date',
                 pay_month = '$pay_month',
                 ledger_status = 'Paid',
@@ -426,8 +428,27 @@
 
     public function user_profile_ledger_fetch($user_id) {
 
-      $sql = "
-                    SELECT * FROM cbl_user_dev ud
+          $sql = "
+                    SELECT
+
+                    d.dev_id,
+                    d.device_no,
+                    l.ledger_id,
+                    l.renew_date,
+                    l.expiry_date,
+                    l.renew_term,
+                    l.due_amount,
+                    l.pay_amount,
+                    l.pay_balance,
+                    l.pay_status,
+                    CASE
+                      WHEN l.pay_date IS NULL THEN 'Unpaid'
+                      ELSE DATE_FORMAT(l.pay_date, '%e %b %Y')
+                    END AS pay_date,
+                    l.ledger_status,
+                    l.user_id
+
+                    FROM cbl_user_dev ud
 
                     RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
                     LEFT JOIN cbl_ledger l ON l.dev_id = ud.dev_id
@@ -502,7 +523,7 @@
               FROM cbl_ledger l
               LEFT JOIN cbl_user u ON u.user_id = l.user_id
               LEFT JOIN cbl_dev_stock d ON d.dev_id = l.dev_id
-              WHERE CURDATE() BETWEEN l.renew_date AND l.expiry_date
+              WHERE CURDATE() BETWEEN l.renew_date AND l.expiry_date AND u.user_status = 1
               GROUP BY d.device_mso
               
             ";
@@ -542,7 +563,7 @@
         return mysqli_query($this->conn,$sql);
     }
 
-    public function user_list_terminate() {
+    public function user_list_dc() {
 
     $sql = " SELECT
               u.user_id,
@@ -556,7 +577,7 @@
               COUNT(ud.dev_id) AS device_count,
               ud.dev_id,
               CASE
-                WHEN u.user_status = 0 THEN 'Terminated'
+                WHEN u.user_status = 0 THEN 'Disconnected'
                 WHEN ud.dev_id IS NULL THEN 'Device Unmapped'
               END AS user_status
 

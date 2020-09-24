@@ -10,7 +10,7 @@
   } else {
     header('Location: index.php');
   }
-  $page = 'user_list_terminate.php';
+  $page = 'user_list_dc.php';
   
   require_once 'organ.php';
 ?>
@@ -39,7 +39,7 @@
 
 <?php
 
-	$result = $user->user_list_terminate();
+	$result = $user->user_list_dc();
 
 	if(mysqli_num_rows($result) < 1) {
 		

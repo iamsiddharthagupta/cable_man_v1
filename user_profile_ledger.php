@@ -44,13 +44,7 @@
                 
                 <td><?php echo $row['pay_status']; ?></td>
                 
-                <td>
-                  <?php if($row['pay_date'] == NULL){ ?>
-                    <div class="text-danger">Unpaid</div>
-                  <?php } else { ?>
-                    <div><?php echo date('j F y',strtotime($row['pay_date'])); ?></div>
-                  <?php } ?>
-                </td>
+                <td><?php echo $row['pay_date']; ?></td>
                 
                 <td>
                   <div class="btn-group" role="group">
