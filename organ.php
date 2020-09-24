@@ -493,8 +493,20 @@
           return $result;
     }
 
-  public function chart_data_fetch() {
-    $sql = "SELECT device_mso, COUNT(dev_id) as devices FROM cbl_dev_stock GROUP BY device_mso";
+  public function device_summary() {
+    $sql = "
+              SELECT
+              COUNT(DISTINCT l.dev_id) AS devices,
+              d.device_mso AS device_mso
+
+              FROM cbl_ledger l
+              LEFT JOIN cbl_user u ON u.user_id = l.user_id
+              LEFT JOIN cbl_dev_stock d ON d.dev_id = l.dev_id
+              WHERE CURDATE() BETWEEN l.renew_date AND l.expiry_date
+              GROUP BY d.device_mso
+              
+            ";
+
     $result = mysqli_query($this->conn,$sql);
     return $result;
   }
@@ -680,30 +692,44 @@
     return mysqli_query($this->conn,$sql);
   }
 
-  public function collection_summary() {
+  public function day_collection_summary() {
 
-    $sql = "
-                SELECT pay_date AS pay_date,
-                SUM(pay_amount) AS pay_amount
-                FROM cbl_ledger
-                WHERE pay_amount > 0
-                GROUP BY pay_date
-                ORDER BY pay_date DESC
-              ";
+      $sql = "
+              SELECT pay_date AS pay_date,
+              SUM(pay_amount) AS pay_amount
+              FROM cbl_ledger
+              WHERE pay_amount > 0
+              GROUP BY pay_date
+              ORDER BY pay_date DESC
+            ";
+
+    return mysqli_query($this->conn,$sql);
+  }
+
+  public function month_collection_summary() {
+
+      $sql = "
+              SELECT MONTHNAME(pay_date) AS month,
+              SUM(pay_amount) AS pay_amount
+              FROM cbl_ledger
+              WHERE pay_amount > 0
+              GROUP BY month
+              ORDER BY month ASC
+            ";
 
     return mysqli_query($this->conn,$sql);
   }
 
   // Counting functions
 
-  public function CountExpiring($date) {
-    $sql = "SELECT COUNT(ledger_id) AS count_expiring FROM cbl_ledger WHERE expiry_date = '$date'";
+  public function CountExpiring() {
+    $sql = "SELECT COUNT(ledger_id) AS count_expiring FROM cbl_ledger WHERE expiry_date = CURDATE()";
     $result = mysqli_query($this->conn,$sql);
     $row = mysqli_fetch_assoc($result);
     return $row['count_expiring'];
   }
 
-  public function CountDateColl($date) {
+  public function todays_collection($date) {
     $sql = "
               SELECT
               CASE
@@ -861,22 +887,6 @@
 
 
 // Dynamic Query Functions for Sidebar Lists
-
-  function DailyCollMonth($date){
-
-    $query = "WHERE cbl_ledger.pay_date = '$date' AND cbl_ledger.ledger_status = 'Paid' AND cbl_ledger.renew_term = 1 GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
-
-    return urlencode($query);
-  
-  }
-
-    function DailyCollScheme($date){
-
-    $query = "WHERE cbl_ledger.pay_date = '$date' AND cbl_ledger.ledger_status = 'Paid' AND cbl_ledger.renew_term > 1 GROUP BY cbl_ledger.ledger_id ORDER BY cbl_ledger.renew_month DESC";
-
-    return urlencode($query);
-  
-  }
 
     function RecentUser($curr_date){
 

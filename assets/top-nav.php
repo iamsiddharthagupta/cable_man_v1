@@ -44,13 +44,13 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge"><?php echo $user->CountExpiring(date('Y-m-d')); ?></span>
+          <span class="badge badge-warning navbar-badge"><?php echo $user->CountExpiring(); ?></span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-header"><?php echo $user->CountExpiring(date('Y-m-d')); ?> Notifications</span>
+          <span class="dropdown-header"><?php echo $user->CountExpiring(); ?> Notifications</span>
           <div class="dropdown-divider"></div>
           <a href="user_list_active.php" class="dropdown-item">
-            <i class="fas fa-hourglass-end mr-2"></i><?php echo $user->CountExpiring(date('Y-m-d')); ?> Expiring Today
+            <i class="fas fa-hourglass-end mr-2"></i><?php echo $user->CountExpiring(); ?> Expiring Today
           </a>
         </div>
       </li>
