@@ -53,8 +53,8 @@
 				    <div class="form-row">
 				    	<div class="form-group col-md">
 				    		<label>User Status:</label>
-				    		<select class="form-control" name="user_status">
-				    			<option value="" disabled>Select Status</option>
+				    		<select class="form-control" name="user_status" required="">
+				    			<option value="">Select Status</option>
 				    			<option value="1" <?php if($row["user_status"] == '1'){ echo "selected"; } ?>>Active</option>
 				    			<option value="0" <?php if($row["user_status"] == '0'){ echo "selected"; } ?>>Disconnect</option>
 				    		</select>

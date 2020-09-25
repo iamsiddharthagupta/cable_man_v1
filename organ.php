@@ -632,17 +632,18 @@
 
     $sql = "
               SELECT
-              CONCAT(u.first_name,' ',u.last_name) AS full_name,
+              u.first_name,
+              u.last_name,
               CONCAT(u.address,', ',u.area) AS address,
               MAX(l.expiry_date) AS expiry_date
 
               FROM cbl_user_dev ud
 
-              RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
-              RIGHT JOIN cbl_ledger l ON l.dev_id = ud.dev_id
+              LEFT JOIN cbl_user u ON u.user_id = ud.user_id
+              LEFT JOIN cbl_ledger l ON l.dev_id = ud.dev_id
 
               WHERE u.user_status = 1 AND l.expiry_date = CURDATE()
-              GROUP BY u.user_id,ud.dev_id
+              GROUP BY u.user_id
               ORDER BY l.expiry_date ASC
             ";
 

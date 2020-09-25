@@ -76,7 +76,7 @@
 				<td><strong><?php echo $row['device_mso']; ?></strong> - <span><?php echo $row['device_no']; ?></span></td>
 
 				<td>
-					<strong class="text-danger">Expired On: <?php echo date('j M',strtotime($row['expiry_date'])); ?></strong>
+					Expired - <strong class="text-danger"><?php echo date('j M',strtotime($row['expiry_date'])); ?></strong>
 				</td>
 
 				<td><?php echo $row['phone_no'];?></td>

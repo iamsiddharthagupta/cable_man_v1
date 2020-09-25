@@ -132,7 +132,7 @@
                   <i class="fas fa-minus"></i></button>
               </div>
             </div>
-            <div class="card-body p-0">
+            <div class="card-body table-responsive p-0" style="height: 300px;">
               <table class="table table-sm text-nowrap">
                 <tbody>
 
@@ -144,7 +144,7 @@
                         
                         ?>
 
-                          <td class="text-danger"><?php echo $row['full_name']; ?></td>
+                          <td class="text-danger"><?php echo $row['first_name'].' '.$row['last_name']; ?></td>
                           <td class="text-danger"><?php echo $row['address']; ?></td>
                           <td class="text-danger"><?php echo date('j M',strtotime($row['expiry_date'])); ?></td>
 
