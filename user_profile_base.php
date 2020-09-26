@@ -61,7 +61,7 @@
                 <h3 class="profile-username text-center"><?php echo $row['first_name']." ".$row['last_name']; ?></h3>
 
                 <div class="btn-group btn-block" role="group">
-                    <button type="button" class="btn <?php if($row['user_status'] == 0 OR empty($row['dev_id'])){ ?> btn-danger <?php } else { ?> btn-primary <?php } ?> dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn <?php if($row['user_status'] == 0 OR empty($row['dev_id'])){ ?> btn-danger <?php } else { ?> btn-success <?php } ?> dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Action
                     </button>
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
