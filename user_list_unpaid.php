@@ -31,6 +31,7 @@
 			      	<th>Name</th>
 			      	<th>Bills</th>
 			      	<th>Due</th>
+			      	<th>Arrears</th>
 			        <th>Mobile No</th>
 			        <th>Address</th>
 			      </tr>

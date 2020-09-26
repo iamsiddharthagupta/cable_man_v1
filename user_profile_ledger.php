@@ -2,8 +2,17 @@
 
 		<div class="col-md-9">
 
-    	<div class="card-body table-responsive p-0" style="height: 490px;">
-        <table class="table table-hover text-center table-bordered table-sm table-head-fixed">
+      <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Ledger Book</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+              <i class="fas fa-minus"></i></button>
+          </div>
+        </div>
+        <div class="card-body table-responsive p-0" style="height: 490px;">
+          <table class="table table-hover text-center table-bordered table-sm table-head-fixed text-nowrap">
+            <thead class="thead-light">
                 <thead>
                     <tr>
                       <th>Device</th>
@@ -22,7 +31,7 @@
           $result = $user->user_profile_ledger_fetch($_GET['user_id']);
 
           if (mysqli_num_rows($result) < 1){
-            echo "<tr><td colspan='8'>Not Yet Active.</td><tr>";
+            echo "<tr><td colspan='8'>Not Entries Yet!</td><tr>";
           } else {
             
             foreach ($result as $key => $row) : ?>
@@ -81,7 +90,7 @@
         </table>
       </div>
     </div>
-	
+  </div>
 
   </div>
 </div>

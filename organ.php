@@ -440,7 +440,10 @@
                     l.due_amount,
                     l.pay_amount,
                     l.pay_balance,
-                    l.pay_status,
+                    CASE
+                      WHEN l.pay_status IS NULL THEN '-'
+                      ELSE l.pay_status
+                    END AS pay_status,
                     CASE
                       WHEN l.pay_date IS NULL THEN 'Unpaid'
                       ELSE DATE_FORMAT(l.pay_date, '%e %b %Y')
@@ -500,14 +503,20 @@
                     d.device_no,
                     d.package,
                     d.device_mso,
-                    d.device_type
+                    d.device_type,
+                    CASE
+                      WHEN MAX(l.renew_date) IS NULL THEN 'Unavailable'
+                      ELSE MAX(l.renew_date)
+                    END AS renew_date
                     
                     FROM cbl_user_dev ud
 
                     RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
                     LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
+                    LEFT JOIN cbl_ledger l ON l.ledger_id = ud.dev_id
                     
                     WHERE ud.dev_id = '$dev_id'
+                    GROUP BY ud.user_id
                     ";
 
           $result = mysqli_query($this->conn,$sql);
@@ -603,13 +612,16 @@
               u.phone_no,
               u.address,
               u.area,
-              d.package,
               d.dev_id,
               d.device_no,
               d.device_mso,
-              MAX(l.renew_date) AS renew_date,
-              MAX(l.expiry_date) AS expiry_date,
               l.ledger_id,
+              l.renew_date,
+              l.expiry_date,
+              CASE
+                WHEN l.pay_amount = 0 THEN 'Due'
+                ELSE 'Paid'
+              END AS status,
               CASE
                 WHEN CURDATE() = l.expiry_date THEN '(Expiring)'
               END AS ledger_status
@@ -620,7 +632,7 @@
               RIGHT JOIN cbl_ledger l ON l.dev_id = ud.dev_id
               LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
 
-              WHERE u.user_status = 1 AND CURDATE() BETWEEN l.renew_date AND l.expiry_date
+              WHERE u.user_status = 1 AND CURDATE() BETWEEN l.renew_date AND l.expiry_date AND l.renew_date = (SELECT MAX(l.renew_date) FROM cbl_ledger)
               GROUP BY u.user_id,ud.dev_id
               ORDER BY l.expiry_date ASC
             ";
@@ -635,7 +647,8 @@
               u.first_name,
               u.last_name,
               CONCAT(u.address,', ',u.area) AS address,
-              MAX(l.expiry_date) AS expiry_date
+              MAX(l.expiry_date) AS expiry_date,
+              l.ledger_status AS status
 
               FROM cbl_user_dev ud
 
@@ -645,7 +658,7 @@
               WHERE u.user_status = 1 AND l.expiry_date = CURDATE()
               GROUP BY u.user_id
               ORDER BY l.expiry_date ASC
-            ";
+          ";
 
     return mysqli_query($this->conn,$sql);
 

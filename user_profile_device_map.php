@@ -74,7 +74,7 @@
 
             if (mysqli_num_rows($result) < 1){
 
-              echo "<tr><td colspan='4'>Not Yet Active!</td><tr>";
+              echo "<tr><td colspan='5'>No Device Available!</td><tr>";
 
             } else {
 

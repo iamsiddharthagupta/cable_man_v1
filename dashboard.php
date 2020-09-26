@@ -147,6 +147,7 @@
                           <td class="text-danger"><?php echo $row['first_name'].' '.$row['last_name']; ?></td>
                           <td class="text-danger"><?php echo $row['address']; ?></td>
                           <td class="text-danger"><?php echo date('j M',strtotime($row['expiry_date'])); ?></td>
+                          <td class="text-danger"><?php echo $row['status']; ?></td>
 
                   </tr>
                     <?php

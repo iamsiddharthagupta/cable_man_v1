@@ -1,25 +1,25 @@
 <?php require_once 'user_profile_base.php'; ?>
 
       <div class="col-md">
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Select Device</h3>
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="card-body">
-            <div class="card-body table-responsive p-0">
-              <table class="table table-hover text-center table-bordered table-sm table-head-fixed">
-                  <thead>
-                    <tr>
-                      <th>Device</th>
-                      <th>MSO</th>
-                      <th>Duration</th>
-                      <th>Renew</th>
-                    </tr>
-                </thead>
+      <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Select Device</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+              <i class="fas fa-minus"></i></button>
+          </div>
+        </div>
+        <div class="card-body table-responsive p-0">
+          <table class="table table-hover text-center table-bordered table-sm table-head-fixed text-nowrap">
+            <thead class="thead-light">
+              <thead>
+                <tr>
+                  <th>Device</th>
+                  <th>MSO</th>
+                  <th>Duration</th>
+                  <th>Renew</th>
+                </tr>
+            </thead>
 
         <?php
         

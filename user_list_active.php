@@ -34,7 +34,7 @@
 			      	<th>Duration</th>
 			        <th>Phone</th>
 			        <th>Address</th>
-			        <th>Rate</th>
+			        <th>Due</th>
 			      </tr>
 				</thead>
 
@@ -80,7 +80,7 @@
 
 				<td><?php echo $row['address'];?>, <strong><?php echo $row['area'];?></strong></td>
 
-				<td><span>Rs.</span><?php echo $row['package'];?></td>
+				<td><span></span><?php echo $row['status'];?></td>
 
 			</tr>
 		</tbody>
