@@ -179,17 +179,23 @@
 
   public function user_profile_ledger_delete($ledger_id,$user_id) {
 
-    $sql = "DELETE FROM cbl_ledger WHERE ledger_id ='" . $_GET["ledger_id"] . "'";
+    $sql = "INSERT INTO cbl_ledger_backup SELECT * FROM cbl_ledger WHERE ledger_id = '$ledger_id'";
 
     if(mysqli_query($this->conn,$sql)) {
 
-      $msg = 'Entry Deleted Successfully.';
-      header('Location: user_profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
+    $sql = "DELETE FROM cbl_ledger WHERE ledger_id = '$ledger_id'";
 
-    } else {
+      if(mysqli_query($this->conn,$sql)) {
 
-      $msg = 'Database Error.';
-      header('Location: user_profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
+        $msg = 'Entry Deleted Successfully.';
+        header('Location: user_profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
+
+      } else {
+
+        $msg = 'Database Error.';
+        header('Location: user_profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
+
+      }
 
     }
 
@@ -210,12 +216,8 @@
 
           $dev_id = $data['dev_id'];
 
-          $sql = "
-                    INSERT INTO cbl_user_dev
-                    (user_id,dev_id)
-                    VALUES
-                    ('$user_id','$dev_id')
-                  ";
+          $sql = "INSERT INTO cbl_user_dev (user_id,dev_id) VALUES ('$user_id','$dev_id')";
+
           $result = mysqli_query($this->conn,$sql);
 
           $msg = 'Device Mapped Successfully.';
@@ -225,7 +227,7 @@
 
           $msg = 'Please insert valid device number!';
           header('Location: user_profile_device_map.php?user_id='.$user_id.'&msg='.$msg);
-            
+
         }
       }
     }

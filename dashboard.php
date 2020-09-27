@@ -87,7 +87,7 @@
         </div>
       </div>
 
-<!-- Complain Kiosk -->
+
       <div class="col-md-6">
           <div class="card card-info">
             <div class="card-header">
@@ -99,7 +99,6 @@
               </div>
             </div>
             <div class="card-body p-0">
-
               <table class="table table-sm text-nowrap">
                 <tbody>
 
@@ -107,6 +106,13 @@
                     
                     <?php
                         $result = $user->device_summary();
+                        
+                        if(mysqli_num_rows($result) < 1) {
+
+                          echo "<td colspan='2'>No Active Devices!</td>";
+
+                        } else {
+
                         foreach ($result as $key => $row) : ?>
 
                           <td><strong><?php echo $row['devices']; ?></strong></td>
@@ -114,6 +120,7 @@
                   </tr>
                     <?php
                       endforeach;
+                    }
                     ?>
                 </tbody>
               </table>
@@ -140,9 +147,14 @@
                     
                     <?php
                       $result = $user->dashboard_expiring_list();
-                      foreach ($result as $key => $row) :
                         
-                        ?>
+                        if(mysqli_num_rows($result) < 1) {
+
+                          echo "<td colspan='4'>No User Yet!</td>";
+
+                        } else {
+
+                          foreach ($result as $key => $row) : ?>
 
                           <td class="text-danger"><?php echo $row['first_name'].' '.$row['last_name']; ?></td>
                           <td class="text-danger"><?php echo $row['address']; ?></td>
@@ -150,9 +162,13 @@
                           <td class="text-danger"><?php echo $row['status']; ?></td>
 
                   </tr>
-                    <?php
+                  <?php
+
                       endforeach;
-                    ?>
+
+                    }
+
+                  ?>
                 </tbody>
               </table>
             </div>

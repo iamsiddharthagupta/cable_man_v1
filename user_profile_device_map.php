@@ -6,7 +6,7 @@
 ?>
 
 	<div class="col-md-3">
-    <div class="card card-primary">
+    <div class="card card-info">
         <div class="card-header">
           <h3 class="card-title">Mapped Device</h3>
           <div class="card-tools">
@@ -48,7 +48,7 @@
     </div>
 	</div>
 	<div class="col-md-6">
-      <div class="card card-primary">
+      <div class="card card-info">
         <div class="card-header">
           <h3 class="card-title">Device List</h3>
           <div class="card-tools">

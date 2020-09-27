@@ -18,6 +18,18 @@
   $result = $user->user_profile_base_fetch($_GET['user_id']);
   $row = mysqli_fetch_assoc($result);
 
+  if($row['user_status'] == 0 OR empty($row['dev_id'])){
+
+    $btn = "btn-danger";
+    $card = "card-danger";
+
+  } else {
+
+    $btn = "btn-success";
+    $card = "card-success";
+
+  }
+
 ?>
 
 <!-- Breadcrumbs Starts -->
@@ -52,7 +64,7 @@
               </div>
             <?php } ?>
 
-            <div class="card card-primary card-outline">
+            <div class="card <?php echo $card; ?> card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle" src="assets/avatar.png" alt="User profile picture">
@@ -61,7 +73,7 @@
                 <h3 class="profile-username text-center"><?php echo $row['first_name']." ".$row['last_name']; ?></h3>
 
                 <div class="btn-group btn-block" role="group">
-                    <button type="button" class="btn <?php if($row['user_status'] == 0 OR empty($row['dev_id'])){ ?> btn-danger <?php } else { ?> btn-success <?php } ?> dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn <?php echo $btn; ?> dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Action
                     </button>
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
@@ -75,7 +87,7 @@
               </div>
             </div>
 
-            <div class="card card-primary">
+            <div class="card <?php echo $card; ?>">
               <div class="card-header">
                 <h3 class="card-title">Basic Details</h3>
                 <div class="card-tools">

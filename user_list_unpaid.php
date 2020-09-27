@@ -31,7 +31,6 @@
 			      	<th>Name</th>
 			      	<th>Bills</th>
 			      	<th>Due</th>
-			      	<th>Arrears</th>
 			        <th>Mobile No</th>
 			        <th>Address</th>
 			      </tr>
@@ -42,7 +41,7 @@
 	$result = $user->user_list_unpaid();
 
 	if (mysqli_num_rows($result) < 1){
-		echo "<tr><td colspan='13'>No user yet.</td><tr>";
+		echo "<tr><td colspan='6'>No user yet.</td><tr>";
 	} else {
 		
 		foreach ($result as $key => $row) : ?>

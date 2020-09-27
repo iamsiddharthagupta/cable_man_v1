@@ -1,7 +1,7 @@
 <?php require_once 'user_profile_base.php'; ?>
 
       <div class="col-md">
-      <div class="card card-primary">
+      <div class="card card-info">
         <div class="card-header">
           <h3 class="card-title">Select Device</h3>
           <div class="card-tools">
