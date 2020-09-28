@@ -12,15 +12,15 @@
 	}
 
 	$page = 'user_list_expired.php';
-
 	require_once 'organ.php';
+
 ?>
 
 <div class="container-fluid p-2">
 
 	<div class="form-row justify-content-center">
 		<div class="form-group col-md-6">
-			<input id="myInput" class="form-control text-center" placeholder="Search...">
+			<input id="myInput" class="form-control text-center" placeholder="Quick Search">
 		</div>
 	</div>
 
@@ -43,7 +43,7 @@
 	$result = $user->user_list_expired();
 
 	if (mysqli_num_rows($result) < 1) {
-		echo "<tr><td colspan='13'>No user yet.</td><tr>";
+		echo "<tr><td colspan='7'>No user yet.</td><tr>";
 	} else {
 
 		foreach ($result as $key => $row) :
@@ -63,14 +63,13 @@
 	    				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 						      <a class="dropdown-item" href="user_profile_renewal.php?user_id=<?php echo $row['user_id']; ?>&dev_id=<?php echo $row['dev_id']; ?>">Renew</a>
 						      <a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
+						      <a class="dropdown-item" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Ledger</a>
 					    </div>
 				  	</div>
 				</td>
 
 				<td>
-					<strong>
-						<a href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>"><?php echo $row['first_name']." ".$row['last_name'];?></a>
-					</strong>
+					<strong><?php echo $row['first_name']." ".$row['last_name'];?></strong>
 				</td>
 
 				<td><strong><?php echo $row['device_mso']; ?></strong> - <span><?php echo $row['device_no']; ?></span></td>

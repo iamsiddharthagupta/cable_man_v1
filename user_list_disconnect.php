@@ -1,25 +1,26 @@
 <?php
 
-  session_start();
+	session_start();
 
-  if(isset($_SESSION['user_level'])) {
-      $curr_user = ucwords($_SESSION['curr_user']);
-      if($_SESSION['user_level'] != 1) {
-          header('Location: agent_panel.php');
-      }
-  } else {
-    header('Location: index.php');
-  }
-  $page = 'user_list_dc.php';
-  
-  require_once 'organ.php';
+	if(isset($_SESSION['user_level'])) {
+	  $curr_user = ucwords($_SESSION['curr_user']);
+	  if($_SESSION['user_level'] != 1) {
+	    header('Location: agent_panel.php');
+	  }
+	} else {
+		header('Location: index.php');
+	}
+
+	$page = 'user_list_disconnect.php';
+	require_once 'organ.php';
+
 ?>
 
 <div class="container-fluid p-2">
 
 	<div class="form-row justify-content-center">
 		<div class="form-group col-md-6">
-			<input id="myInput" class="form-control text-center" placeholder="Search...">
+			<input id="myInput" class="form-control text-center" placeholder="Quick Search">
 		</div>
 	</div>
 
@@ -43,7 +44,7 @@
 
 	if(mysqli_num_rows($result) < 1) {
 		
-		echo "<tr><td colspan='10'>No user yet! Start feeding them from <a href='user_profile_add.php'>here</a></td><tr>";
+		echo "<tr><td colspan='7'>No user yet.</td><tr>";
 	
 	} else {
 
@@ -65,6 +66,7 @@
 		    						<a class="dropdown-item" href="user_profile_select_device.php?user_id=<?php echo $row['user_id']; ?>">Activate</a>
 		    					<?php } ?>
 								<a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
+								<a class="dropdown-item" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Ledger</a>
 						    </div>
 				  		</div>
 					</td>
@@ -73,7 +75,7 @@
 						<?php echo $row['user_status']; ?>
 					</td>
 
-					<td><a href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>"><strong><?php echo $row['first_name']." ".$row['last_name'];?></strong></a></td>
+					<td><strong><?php echo $row['first_name']." ".$row['last_name'];?></strong></td>
 
 					<td><?php echo $row['address'];?>, <strong><?php echo $row['area'] ?></strong></td>
 

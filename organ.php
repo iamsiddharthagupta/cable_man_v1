@@ -852,6 +852,33 @@
     }
   }
 
+  public function pay_receipt($ledger_id) {
+
+    $sql = "
+              SELECT
+
+              u.first_name,
+              u.last_name,
+              u.address,
+              u.area,
+              u.phone_no,
+              l.invoice_no,
+              l.renew_date,
+              l.expiry_date,
+              l.pay_amount,
+              d.package
+
+              FROM cbl_ledger l
+              
+              LEFT JOIN cbl_user u ON u.user_id = l.user_id
+              RIGHT JOIN cbl_dev_stock d ON d.dev_id = l.dev_id
+
+              WHERE ledger_id = '$ledger_id'
+            ";
+    $result = mysqli_query($this->conn, $sql);
+    return $result;
+  }
+
 }
   class Admin extends User {
 

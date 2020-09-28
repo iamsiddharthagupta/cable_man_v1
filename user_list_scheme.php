@@ -1,24 +1,25 @@
 <?php
 
-  session_start();
+    session_start();
 
-  if(isset($_SESSION['user_level'])) {
-      $curr_user = ucwords($_SESSION['curr_user']);
-      if($_SESSION['user_level'] != 1) {
-          header('Location: agent_panel.php');
-      }
-  } else {
-    header('Location: index.php');
-  }
-  $page = 'user_list_scheme.php';
-  require_once 'organ.php';
+    if(isset($_SESSION['user_level'])) {
+        $curr_user = ucwords($_SESSION['curr_user']);
+        if($_SESSION['user_level'] != 1) {
+            header('Location: agent_panel.php');
+        }
+    } else {
+            header('Location: index.php');
+    }
+    $page = 'user_list_scheme.php';
+    require_once 'organ.php';
+
 ?>
 
 <div class="container-fluid p-2">
 
   <div class="form-row justify-content-center">
     <div class="form-group col-md-6">
-      <input id="myInput" class="form-control text-center" placeholder="Search...">
+      <input id="myInput" class="form-control text-center" placeholder="Quick Search">
     </div>
   </div>
 
@@ -41,7 +42,7 @@
   $result = $user->user_list_scheme();
 
   if (mysqli_num_rows($result) < 1) {
-    echo "<tr><td colspan='13'>No user yet.</td><tr>";
+    echo "<tr><td colspan='7'>No user yet.</td><tr>";
   } else {
 
     foreach ($result as $key => $row) : ?>
@@ -57,14 +58,14 @@
               <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                   <a class="dropdown-item" href="user_profile_select_device.php?user_id=<?php echo $row['user_id']; ?>">Renew</a>
                   <a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
-                  <a class="dropdown-item" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Add Payment</a>
+                  <a class="dropdown-item" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Ledger</a>
               </div>
             </div>
         </td>
 
         <td>
           <strong>
-          <a href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>"><?php echo $row['first_name']." ".$row['last_name'];?></a> <span class="text-warning"><?php echo $row['ledger_status']; ?></span>
+              <?php echo $row['first_name']." ".$row['last_name'];?> <span class="text-warning"><?php echo $row['ledger_status']; ?></span>
           </strong>
         </td>
 

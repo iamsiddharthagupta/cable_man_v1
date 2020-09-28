@@ -43,7 +43,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="user_list_dc.php" class="nav-link <?php if($page == 'user_list_dc.php'){ echo 'active'; } ?>">
+                <a href="user_list_disconnect.php" class="nav-link <?php if($page == 'user_list_disconnect.php'){ echo 'active'; } ?>">
                   <i class="far fa-dot-circle nav-icon"></i>
                   <p>Disconnected List</p>
                   <span class="right badge badge-danger"><?php echo mysqli_num_rows($user->user_list_dc()); ?></span>

@@ -1,27 +1,28 @@
 <?php
 
-  session_start();
+	session_start();
 
-  if(isset($_SESSION['user_level'])){
-      $curr_user = ucwords($_SESSION['curr_user']);
-      if($_SESSION['user_level'] != 1){
-          header('Location: agent_panel.php');
-      }
-  } else {
-    header('Location: index.php');
-  }
+	if(isset($_SESSION['user_level'])){
+	  $curr_user = ucwords($_SESSION['curr_user']);
+	  if($_SESSION['user_level'] != 1){
+		header('Location: agent_panel.php');
+	  }
+	} else {
+		header('Location: index.php');
+	}
 
-  $page = 'user_list_unpaid.php';
-  require_once 'organ.php';
+	$page = 'user_list_unpaid.php';
+	require_once 'organ.php';
+
 ?>
 
 <div class="container-fluid p-2">
 
-	<div class="form-row justify-content-center mb-1">
-		<div class="form-group col-md-6">
-			<input id="myInput" class="form-control text-center" placeholder="Search...">
-		</div>
-	</div>
+  <div class="form-row justify-content-center">
+    <div class="form-group col-md-6">
+      <input id="myInput" class="form-control text-center" placeholder="Quick Search">
+    </div>
+  </div>
 
 	<div class="card-body table-responsive p-0" style="height: 600px;">
 		<table class="table table-hover text-center table-bordered table-sm table-head-fixed text-nowrap">
@@ -57,14 +58,13 @@
 	    				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 							<a class="dropdown-item" target="_blank" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Add Payment</a>
 							<a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
+							<a class="dropdown-item" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Ledger</a>
 					    </div>
 				  	</div>
 				</td>
 
 				<td>
-					<a href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">
-						<strong><?php echo $row['first_name']." ".$row['last_name'];?></strong>
-					</a>
+					<strong><?php echo $row['first_name']." ".$row['last_name'];?></strong>
 				</td>
 
 				<td><strong class="text-danger"><?php echo $row['months'];?></strong></td>

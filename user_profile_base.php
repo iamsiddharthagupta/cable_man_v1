@@ -14,7 +14,7 @@
 
   require_once 'organ.php';
 
-  $user = new User();
+
   $result = $user->user_profile_base_fetch($_GET['user_id']);
   $row = mysqli_fetch_assoc($result);
 

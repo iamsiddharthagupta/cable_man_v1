@@ -1,18 +1,12 @@
 <?php
 
-	require_once 'connection.php';
+  ob_start();
 
-	$ledger_id = $_POST['ledger_id'];
-	$query = "
-					SELECT * FROM cbl_ledger
-					LEFT JOIN cbl_user ON cbl_user.user_id = cbl_ledger.user_id
-					RIGHT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_ledger.dev_id
+	require_once 'organ.php';
 
-					WHERE ledger_id = '$ledger_id'
-				";
-	$result = mysqli_query($conn, $query);
-	$data = mysqli_fetch_assoc($result);
+  $result = $user->pay_receipt($_GET['ledger_id']);
 
+	$row = mysqli_fetch_assoc($result);
 
 	// Invoice Part from below --------------------------------------------------------------------------------->
     // Include autoloader 
@@ -20,8 +14,6 @@
  
     // Reference the Dompdf namespace 
     use Dompdf\Dompdf;
- 
-
 
     $html = '
 
@@ -30,7 +22,7 @@
                 <head>
                   <meta charset="utf-8">
                   
-                  <title>Thank you... '.$data['first_name'].' '.$data['last_name'].'</title>
+                  <title>Thank you... '.$row['first_name'].' '.$row['last_name'].'</title>
                   
                   <style type="text/css">
                     .clearfix:after {
@@ -162,7 +154,7 @@
                 </head>
                 <body>
                   <header class="clearfix">
-                    <h1>RECEIPT #'.$data["invoice_no"].'</h1>
+                    <h1>RECEIPT #'.$row["invoice_no"].'</h1>
                     <div id="company" class="clearfix">
                       <div><span>Aalishan Cable TV & Internet Service</span></div>
                       <div><span>GSTIN</span> 07ALHPG0805D2ZP</span></div>
@@ -170,10 +162,10 @@
                       <div><span>011-26176696, +91-8285433529</span></div>
                     </div>
                     <div id="customer">
-                      <div><span>NAME</span> '.$data["first_name"]." ".$data["last_name"].'</div>
-                      <div><span>ADDRESS</span> '.$data["address"].", ".$data["area"].'</div>
-                      <div><span>PHONE</span> '.$data["phone_no"].'</div>
-                      <div><span>DUE DATE</span> '.date("jS M, Y",strtotime($data["renew_date"])).'</div>
+                      <div><span>NAME</span> '.$row["first_name"]." ".$row["last_name"].'</div>
+                      <div><span>ADDRESS</span> '.$row["address"].", ".$row["area"].'</div>
+                      <div><span>PHONE</span> '.$row["phone_no"].'</div>
+                      <div><span>DUE DATE</span> '.date("jS M, Y",strtotime($row["renew_date"])).'</div>
                     </div>
                   </header>
                   <main>
@@ -189,9 +181,9 @@
                       </thead>
                       <tbody>
                         <tr>
-                          <td class="service">INR '.$data['package'].'</td>
-                          <td class="desc"><span>'.date("jS M y",strtotime($data["renew_date"])).'</span> - <span>'.date("jS M y",strtotime($data["expiry_date"])).'</span></td>
-                          <td class="unit">INR '.$data['package'].'</td>
+                          <td class="service">INR '.$row['package'].'</td>
+                          <td class="desc"><span>'.date("jS M y",strtotime($row["renew_date"])).'</span> - <span>'.date("jS M y",strtotime($row["expiry_date"])).'</span></td>
+                          <td class="unit">INR '.$row['package'].'</td>
                           <td class="qty"> 1</td>
                           <td class="total">INR </td>
                         </tr>
@@ -205,7 +197,7 @@
                         </tr>
                         <tr>
                           <td colspan="4" class="grand total">PAID AMOUNT</td>
-                          <td class="grand total">INR '.$data["pay_amount"].'</td>
+                          <td class="grand total">INR '.$row["pay_amount"].'</td>
                         </tr>
                       </tbody>
                     </table>
