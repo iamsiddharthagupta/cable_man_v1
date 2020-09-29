@@ -30,8 +30,8 @@
 			      <tr>
 			      	<th>Actions</th>
 			      	<th>Name</th>
-			      	<th>Bills</th>
-			      	<th>Due</th>
+			      	<th>Months</th>
+			      	<th>Dues</th>
 			        <th>Mobile No</th>
 			        <th>Address</th>
 			      </tr>
@@ -69,7 +69,7 @@
 
 				<td><strong class="text-danger"><?php echo $row['months'];?></strong></td>
 				
-				<td><strong><?php echo $row['bills'];?></strong></td>
+				<td><strong><?php echo $row['dues'];?></strong></td>
 
 				<td><?php echo $row['phone_no'];?></td>
 

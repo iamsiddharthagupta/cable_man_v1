@@ -744,8 +744,8 @@
               u.address,
               u.area,
               u.phone_no,
-              SUM(l.due_amount) AS bills,
               SUM(l.renew_term) AS months,
+              SUM(l.due_amount) AS dues,
               l.user_id,
               l.ledger_id
 
@@ -857,11 +857,13 @@
     $sql = "
               SELECT
 
+              u.user_id,
               u.first_name,
               u.last_name,
               u.address,
               u.area,
               u.phone_no,
+              l.ledger_id,
               l.invoice_no,
               l.renew_date,
               l.expiry_date,

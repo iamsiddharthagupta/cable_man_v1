@@ -5,7 +5,6 @@
 	$result = $user->user_profile_update();
 
 ?>
-		
 		<div class="col-md-9">
 			<div class="card card-info">
 				<div class="card-header">
@@ -39,12 +38,12 @@
 				          <label>Area:</label>
 				            <select name="area" class="form-control" required="">
 				              
-				              <option value="">Select Area</option>
-				              <option value="Humayunpur" <?php if($row["area"] == 'Humayunpur'){ echo "selected"; } ?>>Humayunpur</option>
-				              <option value="Arjun Nagar" <?php if($row["area"] == 'Arjun Nagar'){ echo "selected"; } ?>>Arjun Nagar</option>
-				              <option value="Krishna Nagar" <?php if($row["area"] == 'Krishna Nagar'){ echo "selected"; } ?>>Krishna Nagar</option>
-				              <option value="B-4" <?php if($row["area"] == 'B-4'){ echo "selected"; } ?>>B-4</option>
-				              <option value="Other" <?php if($row["area"] == 'Other'){ echo "selected"; }?>>Other</option>
+								<option value="">Select Area</option>
+								<option value="Humayunpur" <?php if($row["area"] == 'Humayunpur'){ echo "selected"; } ?>>Humayunpur</option>
+								<option value="Arjun Nagar" <?php if($row["area"] == 'Arjun Nagar'){ echo "selected"; } ?>>Arjun Nagar</option>
+								<option value="Krishna Nagar" <?php if($row["area"] == 'Krishna Nagar'){ echo "selected"; } ?>>Krishna Nagar</option>
+								<option value="B-4" <?php if($row["area"] == 'B-4'){ echo "selected"; } ?>>B-4</option>
+								<option value="Other" <?php if($row["area"] == 'Other'){ echo "selected"; }?>>Other</option>
 				            
 				            </select>
 				      	</div>

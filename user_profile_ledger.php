@@ -67,7 +67,7 @@
                         
                         <?php } else { ?>
                           
-                          <a href="user_profile_pay_receipt.php?ledger_id=<?php echo $row['ledger_id']; ?>" class="dropdown-item">Receipt</a>
+                          <a href="user_profile_bill.php?ledger_id=<?php echo $row['ledger_id']; ?>" class="dropdown-item">Bill</a>
 
                         <?php } ?>
                         
