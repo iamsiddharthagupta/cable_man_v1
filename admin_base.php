@@ -51,7 +51,7 @@
 	        <div class="card card-primary card-outline">
 	          <div class="card-body box-profile">
 	            <div class="text-center">
-	              <img class="profile-user-img img-fluid img-circle" src="assets/avatar.png" alt="User profile picture">
+	              <img class="profile-user-img img-fluid img-circle" src="assets/images/avatar.png" alt="User profile picture">
 	            </div>
 
 	            <h3 class="profile-username text-center"><?php echo $row['full_name']; ?></h3>

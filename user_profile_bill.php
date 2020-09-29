@@ -1,28 +1,59 @@
 <?php
 
-  session_start();
+    session_start();
 
-  if(isset($_SESSION['user_level'])){
-    $curr_user = ucwords($_SESSION['curr_user']);
-    if($_SESSION['user_level'] != 1){
-      header('Location: agent_panel.php');
+    if(isset($_SESSION['user_level'])){
+      $curr_user = ucwords($_SESSION['curr_user']);
+      if($_SESSION['user_level'] != 1){
+        header('Location: agent_panel.php');
+      }
+    } else {
+      header('Location: index.php');
     }
-  } else {
-    header('Location: index.php');
-  }
 
-	require_once 'organ.php';
+  	require_once 'organ.php';
 
-  $result = $user->pay_receipt($_GET['ledger_id']);
-	$row = mysqli_fetch_assoc($result);
+    $result = $user->pay_receipt($_GET['ledger_id']);
+    $row = mysqli_fetch_assoc($result);
+
+    // GST Declaration on Plan Rate and conversion to Numbers.
+    $gst = intval(18/100 * $row["package"]);
+    $package = intval($row['package']);
+    $duration = intval($row['renew_term']);
+    $discount = intval($row['pay_discount']);
+
+    $gst_duration = $gst * $duration;
+    $sub_total = ($package - $gst) * $duration;
+    $grand_total = $sub_total + $gst_duration;
 
 ?>
+
+<style type="text/css">
+
+    @page {
+      size: 5.5in 8.5in;
+      size: A4 landscape;
+      /* you can also specify margins here: */
+      margin: 5mm;
+      /* margin-right: 5mm; /* for compatibility with both A4 and Letter */
+    }
+
+    @page:left{
+      @bottom-left {
+      content: "Page " counter(page) " of " counter(pages);
+    }
+
+    @page :right {
+      margin-left: 4cm;
+    }
+
+</style>
 
 <div class="content-header">
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0 text-dark">Generated Receipt</h1>
+        <h1 class="m-0 text-dark"><?php echo $row['first_name']; ?>'s Receipt</h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
@@ -43,9 +74,13 @@
         <!-- title row -->
         <div class="row">
           <div class="col-12">
+            <div class="ribbon-wrapper ribbon-lg">
+              <div class="ribbon bg-success text-lg">
+                Paid
+              </div>
+            </div>
             <h4>
                 <i class="fas fa-globe"></i> Aalishan Cable TV and Internet Service
-              <small class="float-right">Date: <?php echo date('jS M Y'); ?></small>
             </h4>
           </div>
           <!-- /.col -->
@@ -70,7 +105,7 @@
               <?php echo $row['address']; ?><br>
               <?php echo $row['area']; ?><br>
               Phone: <?php echo $row['phone_no']; ?><br>
-              Email: <?php echo $row['address']; ?>
+              Connections: <?php echo 2; ?>
             </address>
           </div>
           <!-- /.col -->
@@ -78,7 +113,7 @@
             <b>Invoice #<?php echo $row['invoice_no']; ?></b><br>
             <br>
             <b>Order ID:</b> <?php echo $row['ledger_id'] . rand(0,999); ?><br>
-            <b>Payment Due:</b> 2/22/2014<br>
+            <b>Payment Due:</b> <?php echo date('jS M Y',strtotime($row['renew_date'])); ?><br>
             <b>Account:</b> <?php echo $row['user_id']; ?>
           </div>
           <!-- /.col -->
@@ -91,41 +126,20 @@
             <table class="table table-striped">
               <thead>
               <tr>
-                <th>Qty</th>
-                <th>Product</th>
-                <th>Serial #</th>
-                <th>Description</th>
+                <th>Device</th>
+                <th>Service Period</th>
+                <th>Plan Rate</th>
+                <th>Duration</th>
                 <th>Subtotal</th>
               </tr>
               </thead>
               <tbody>
               <tr>
-                <td>1</td>
-                <td>Call of Duty</td>
-                <td>455-981-221</td>
-                <td>El snort testosterone trophy driving gloves handsome</td>
-                <td>$64.50</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Need for Speed IV</td>
-                <td>247-925-726</td>
-                <td>Wes Anderson umami biodiesel</td>
-                <td>$50.00</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Monsters DVD</td>
-                <td>735-845-642</td>
-                <td>Terry Richardson helvetica tousled street art master</td>
-                <td>$10.70</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Grown Ups Blue Ray</td>
-                <td>422-568-642</td>
-                <td>Tousled lomo letterpress</td>
-                <td>$25.99</td>
+                <td><?php echo $row['device_no'].' '.$row['device_mso']; ?></td>
+                <td><?php echo date('j M Y',strtotime($row['renew_date'])); ?> - <?php echo date('j M Y',strtotime($row['expiry_date'])); ?></td>
+                <td>Rs.<?php echo $package; ?></td>
+                <td><?php echo $row['renew_term_month']; ?></td>
+                <td>Rs.<?php echo $sub_total; ?></td>
               </tr>
               </tbody>
             </table>
@@ -138,10 +152,10 @@
           <!-- accepted payments column -->
           <div class="col-6">
             <p class="lead">Accepted Payment Methods:</p>
-            <img src="assets/paytm.png" alt="Paytm">
-            <img src="assets/phonepe.png" alt="PhonePe">
-            <img src="assets/gpay.png" alt="GooglePay">
-            <img src="assets/upi.png" alt="UPI">
+            <img src="assets/images/paytm.png" alt="Paytm">
+            <img src="assets/images/phonepe.png" alt="PhonePe">
+            <img src="assets/images/gpay.png" alt="GooglePay">
+            <img src="assets/images/upi.png" alt="UPI">
 
             <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
               * Payment should be made on the due date.
@@ -149,25 +163,29 @@
           </div>
           <!-- /.col -->
           <div class="col-6">
-            <p class="lead">Amount Due 2/22/2014</p>
+            <p class="lead">Paid On: <?php echo date('jS M Y',strtotime($row['pay_date'])); ?></p>
 
             <div class="table-responsive">
               <table class="table">
                 <tr>
                   <th style="width:50%">Subtotal:</th>
-                  <td>$250.30</td>
+                  <td>Rs.<?php echo $sub_total; ?></td>
                 </tr>
                 <tr>
-                  <th>Tax (9.3%)</th>
-                  <td>$10.34</td>
+                  <th>CGST + SGST (18%)</th>
+                  <td>Rs.<?php echo $gst_duration; ?></td>
                 </tr>
                 <tr>
-                  <th>Shipping:</th>
-                  <td>$5.80</td>
+                  <th>Grand Total:</th>
+                  <td>Rs.<?php echo $grand_total; ?></td>
                 </tr>
                 <tr>
-                  <th>Total:</th>
-                  <td>$265.24</td>
+                  <th>Discount:</th>
+                  <td>Rs.<?php echo $discount; ?></td>
+                </tr>
+                <tr>
+                  <th>Paid Total:</th>
+                  <td>Rs.<?php echo $grand_total; ?></td>
                 </tr>
               </table>
             </div>
@@ -176,17 +194,22 @@
         </div>
         <!-- /.row -->
 
-        <!-- this row will not appear when printing -->
         <div class="row no-print">
           <div class="col-12">
-            <a href="invoice-print.html" target="_blank" class="btn btn-success float-right"><i class="fas fa-print"></i> Print</a>
+
+            <input type="button" value="Print" class="btn btn-success float-right" onclick="printPage();"></input>
           </div>
         </div>
       </div>
-      <!-- /.invoice -->
-    </div><!-- /.col -->
-  </div><!-- /.row -->
-</div><!-- /.container-fluid -->
 
+    </div>
+  </div>
+</div>
 
-<?php require_once 'assets/footer.php'; ?>
+  <?php require_once 'assets/footer.php'; ?>
+
+<script language="javascript">
+    function printPage() {
+        window.print();
+    }
+</script>

@@ -2,7 +2,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="dashboard.php" class="brand-link">
-      <img src="assets/logo.png" alt="Endeavour Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="assets/images/logo.png" alt="Endeavour Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Endeavour Tech.</span>
     </a>
 
@@ -11,7 +11,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="assets/avatar.png" class="img-circle elevation-2" alt="User Image">
+          <img src="assets/images/avatar.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="admin_change_pass.php" class="d-block"><?php echo $curr_user; ?></a>
@@ -21,8 +21,6 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
 
           <li class="nav-header">User Management</li>
 

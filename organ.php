@@ -868,7 +868,13 @@
               l.renew_date,
               l.expiry_date,
               l.pay_amount,
-              d.package
+              l.pay_discount,
+              l.renew_term,
+              l.renew_term_month,
+              l.pay_date,
+              d.package,
+              d.device_no,
+              d.device_mso
 
               FROM cbl_ledger l
               

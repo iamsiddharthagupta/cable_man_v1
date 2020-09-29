@@ -11,11 +11,13 @@
 </div>
 
 <!-- AdminLTE Scripts -->
-    <script src="assets/jquery.overlayScrollbars.min.js"></script>
-    <script src="assets/adminlte.min.js"></script>
-    <script src="assets/bootstrap.bundle.min.js"></script>
+  <script src="assets/scripts/jquery.min.js"></script>
+  <script src="assets/scripts/jquery-ui.js"></script>
+  <script src="assets/scripts/jquery.overlayScrollbars.min.js"></script>
+  <script src="assets/scripts/adminlte.min.js"></script>
+  <script src="assets/scripts/bootstrap.bundle.min.js"></script>
 <!-- Misc Script -->
-	<script type="text/javascript" src="assets/script.js"></script>
+	<script src="assets/scripts/script.js"></script>
 
 </body>
 </html>

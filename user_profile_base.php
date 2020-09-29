@@ -67,7 +67,7 @@
             <div class="card <?php echo $card; ?> card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle" src="assets/avatar.png" alt="User profile picture">
+                  <img class="profile-user-img img-fluid img-circle" src="assets/images/avatar.png" alt="User profile picture">
                 </div>
 
                 <h3 class="profile-username text-center"><?php echo $row['first_name']." ".$row['last_name']; ?></h3>
