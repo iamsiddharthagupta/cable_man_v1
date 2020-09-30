@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="assets/styles/adminlte.min.css">
     <link rel="stylesheet" type="text/css" href="assets/styles/OverlayScrollbars.min.css">
     <link rel="stylesheet" type="text/css" href="assets/styles/jquery-ui.css">
-
+    <link rel="stylesheet" type ="text/css" media="print" href="assets/styles/print.css">
 
 </head>
 

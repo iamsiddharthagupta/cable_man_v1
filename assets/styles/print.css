@@ -1,0 +1,26 @@
+  @media print {
+     .main-footer { /* Add the elements you want to hide */
+        display: none; 
+     }
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;   /* Chrome, Safari */
+    color-adjust: exact !important;                 /*Firefox*/
+  }
+    @page {
+
+      size: A4 landscape;
+      /* you can also specify margins here: */
+      margin: 5mm;
+      /* margin-right: 5mm; /* for compatibility with both A4 and Letter */
+    }
+
+    @page:left{
+      @bottom-left {
+      content: "Page " counter(page) " of " counter(pages);
+    }
+
+    @page :right {
+      margin-left: 4cm;
+    }

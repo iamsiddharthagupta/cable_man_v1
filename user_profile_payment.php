@@ -12,7 +12,7 @@
 		<div class="col-md-9">
 			<div class="card card-info">
 				<div class="card-header">
-					<h3 class="card-title">Renewal Panel</h3>
+					<h3 class="card-title">Payment Panel</h3>
 					<div class="card-tools">
 					  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
 					  </button>
@@ -21,7 +21,6 @@
 				<div class="card-body">
 		        <form method="POST">
 					<div class="card">
-						<div class="card-header">Payment Panel:</div>
 						  <ul class="list-group list-group-flush">
 						    <li class="list-group-item"><span class="mr-2">Device:</span>
 						    	<strong>[<?php echo $row['device_mso']; ?>] <?php echo $row['device_no']; ?></strong>

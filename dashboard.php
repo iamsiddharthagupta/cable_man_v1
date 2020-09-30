@@ -150,7 +150,7 @@
                         
                         if(mysqli_num_rows($result) < 1) {
 
-                          echo "<td colspan='4'>No User Yet!</td>";
+                          echo "<td colspan='4'>Hurray! No User Today.</td>";
 
                         } else {
 

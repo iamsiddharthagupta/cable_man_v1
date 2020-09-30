@@ -28,27 +28,6 @@
 
 ?>
 
-<style type="text/css">
-
-    @page {
-      size: 5.5in 8.5in;
-      size: A4 landscape;
-      /* you can also specify margins here: */
-      margin: 5mm;
-      /* margin-right: 5mm; /* for compatibility with both A4 and Letter */
-    }
-
-    @page:left{
-      @bottom-left {
-      content: "Page " counter(page) " of " counter(pages);
-    }
-
-    @page :right {
-      margin-left: 4cm;
-    }
-
-</style>
-
 <div class="content-header">
   <div class="container-fluid">
     <div class="row mb-2">
@@ -79,9 +58,7 @@
                 Paid
               </div>
             </div>
-            <h4>
-                <i class="fas fa-globe"></i> Aalishan Cable TV and Internet Service
-            </h4>
+            <img src="assets/images/fb_logo.jpg" alt="FB_Logo" style="height: 100px; width: 100px; margin-bottom: 1%;" class="img-thumbnail">
           </div>
           <!-- /.col -->
         </div>

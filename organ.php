@@ -683,6 +683,8 @@
               MAX(l.renew_date) AS renew_date,
               MAX(l.expiry_date) AS expiry_date,
               l.ledger_id,
+              l.renew_term,
+              SUM(l.pay_amount) AS pay_amount,
               CASE
                 WHEN CURDATE() = l.expiry_date THEN '(Expiring)'
               END AS ledger_status

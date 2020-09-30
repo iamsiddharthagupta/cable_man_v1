@@ -34,6 +34,7 @@
               <th>Phone</th>
               <th>Address</th>
               <th>Rate</th>
+              <th>Paid Amount</th>
             </tr>
         </thead>
 
@@ -42,7 +43,7 @@
   $result = $user->user_list_scheme();
 
   if (mysqli_num_rows($result) < 1) {
-    echo "<tr><td colspan='7'>No user yet.</td><tr>";
+    echo "<tr><td colspan='8'>No user yet.</td><tr>";
   } else {
 
     foreach ($result as $key => $row) : ?>
@@ -72,7 +73,7 @@
         <td><strong><?php echo $row['device_mso']; ?></strong> - <span><?php echo $row['device_no']; ?></span></td>
 
         <td>
-          <strong><?php echo date('j M',strtotime($row['renew_date'])); ?><span> - </span><?php echo date('j M',strtotime($row['expiry_date'])); ?>
+          <strong><?php echo date('j M y',strtotime($row['renew_date'])); ?><span> - </span><?php echo date('j M y',strtotime($row['expiry_date'])); ?> (x <?php echo $row['renew_term']; ?>)
           </strong>
         </td>
 
@@ -81,6 +82,8 @@
         <td><?php echo $row['address'];?>, <strong><?php echo $row['area'];?></strong></td>
 
         <td><span>Rs.</span><?php echo $row['package'];?></td>
+        
+        <td><span>Rs.</span><?php echo $row['pay_amount'];?></td>
 
       </tr>
     </tbody>
