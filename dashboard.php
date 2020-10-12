@@ -13,7 +13,10 @@
 
   }
 
-  require_once 'organ.php'; ?>
+  require_once 'includes/top-nav.php';
+  require_once 'includes/side-nav.php';
+
+?>
 
 <div class="content-header">
   <div class="container-fluid">
@@ -180,4 +183,4 @@
   </div>
 </div>
 
-<?php require_once 'assets/footer.php'; ?>
+<?php require_once 'includes/footer.php'; ?>

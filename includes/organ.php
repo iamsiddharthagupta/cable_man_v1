@@ -1012,9 +1012,4 @@
 
   }
 
-  // Including Navbar and Sidebar
-
-  require_once 'assets/top-nav.php';
-  require_once 'assets/side-nav.php'; 
-
 ?>

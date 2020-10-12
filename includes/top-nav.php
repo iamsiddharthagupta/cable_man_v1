@@ -1,14 +1,6 @@
-<?php
+<?php require_once 'header.php'; ?>
 
-  require_once 'header.php';
-  require_once 'organ.php';
-
-  $user = new User();
-  $admin = new Admin();
-
-  $result = $user->user_search();
-
-?>
+<body class="hold-transition sidebar-mini layout-fixed">
 
 <div class="wrapper">
   <!-- Navbar -->
@@ -68,4 +60,3 @@
 
     </ul>
   </nav>
-  <!-- /.navbar -->

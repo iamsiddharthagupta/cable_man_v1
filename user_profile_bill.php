@@ -58,7 +58,7 @@
                 Paid
               </div>
             </div>
-            <img src="assets/images/fb_logo.jpg" alt="FB_Logo" style="height: 100px; width: 100px; margin-bottom: 1%;" class="img-thumbnail">
+            <img src="assets/images/fb_logo.png" alt="FB_Logo" class="img-thumbnail">
           </div>
           <!-- /.col -->
         </div>
@@ -173,7 +173,6 @@
 
         <div class="row no-print">
           <div class="col-12">
-
             <input type="button" value="Print" class="btn btn-success float-right" onclick="printPage();"></input>
           </div>
         </div>
