@@ -30,8 +30,10 @@
 
           $result = $user->user_profile_ledger_fetch($_GET['user_id']);
 
-          if (mysqli_num_rows($result) < 1){
+          if (mysqli_num_rows($result) < 1) {
+            
             echo "<tr><td colspan='8'>Not Entries Yet!</td><tr>";
+          
           } else {
             
             foreach ($result as $key => $row) : ?>

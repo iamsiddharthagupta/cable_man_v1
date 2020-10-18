@@ -28,7 +28,7 @@
 
           if (mysqli_num_rows($result) < 1) {
             
-            echo "<tr><td colspan='4'>No Device Assigned!</td><tr>";
+            echo "<tr><td colspan='5'>No Device Assigned!</td><tr>";
           
           } else {
 
