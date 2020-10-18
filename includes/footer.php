@@ -10,13 +10,12 @@
   </footer>
 </div>
 
-<!-- AdminLTE Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   <script src="assets/scripts/jquery.min.js"></script>
   <script src="assets/scripts/jquery-ui.js"></script>
   <script src="assets/scripts/jquery.overlayScrollbars.min.js"></script>
   <script src="assets/scripts/adminlte.min.js"></script>
   <script src="assets/scripts/bootstrap.bundle.min.js"></script>
-<!-- Misc Script -->
 	<script src="assets/scripts/script.js"></script>
 
 </body>

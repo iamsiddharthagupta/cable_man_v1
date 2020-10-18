@@ -1,4 +1,10 @@
-<?php require_once 'assets/header.php'; ?>
+<?php
+  
+  session_start();
+  require_once 'includes/header.php';
+  $result = $security->login();
+
+?>
 
 <div class="hold-transition login-page">
   <div class="login-box">
@@ -9,15 +15,15 @@
 
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Authorized Personnel Only</p>
+      <p class="login-box-msg">Authorized Personnel Only.</p>
 
           <?php if(isset($_GET['msg'])){ ?>
             <div class="alert alert-warning" role="alert"><?php echo $_GET['msg']; ?></div>
           <?php } ?>
 
-      <form method="POST" action="<?php echo htmlspecialchars('login_process.php'); ?>">
+      <form method="POST">
         <div class="input-group mb-3">
-          <input type="text" name="username" class="form-control" placeholder="Username" autofocus>
+          <input type="text" name="username" value="aalishan" class="form-control" placeholder="Username" autofocus>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -25,7 +31,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" name="password" class="form-control" placeholder="Password">
+          <input type="password" name="password" value="Aalishan850" class="form-control" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>

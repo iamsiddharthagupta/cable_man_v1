@@ -1,18 +1,15 @@
 <?php
 
-  session_start();
+	session_start();
 
-  if(isset($_SESSION['user_level'])){
-      $curr_user = ucwords($_SESSION['curr_user']);
-      if($_SESSION['user_level'] != 1){
-          header('Location: agent_panel.php');
-      }
-  } else {
-    header('Location: index.php');
-  }
-  $page = 'collection_book.php';
-  require_once 'connection.php';
-  require_once 'organ.php';
+	$curr_user = $_SESSION['curr_user'];
+	$user_level = $_SESSION['user_level'];
+
+	$page = 'collection_book.php';
+	require_once 'includes/top-nav.php';
+	require_once 'includes/side-nav.php';
+
+	$result = $security->session($curr_user, $user_level);
 
 ?>
 
@@ -123,4 +120,4 @@
     </div>
 </div>
 
-<?php require_once 'assets/footer.php'; ?>
+<?php require_once 'includes/footer.php'; ?>

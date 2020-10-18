@@ -1,20 +1,14 @@
 <?php
 
   session_start();
+  $curr_user = $_SESSION['curr_user'];
+  $user_level = $_SESSION['user_level'];
 
-  if(isset($_SESSION['user_level'])){
-      $curr_user = ucwords($_SESSION['curr_user']);
-      if($_SESSION['user_level'] != 1){
-          header('Location: agent_panel.php');
-      }
-  } else {
-
-    header('Location: index.php');
-
-  }
 
   require_once 'includes/top-nav.php';
   require_once 'includes/side-nav.php';
+
+  $result = $security->session($curr_user, $user_level);
 
 ?>
 
@@ -102,32 +96,7 @@
               </div>
             </div>
             <div class="card-body p-0">
-              <table class="table table-sm text-nowrap">
-                <tbody>
-
-                  <tr>
-                    
-                    <?php
-                        $result = $user->device_summary();
-                        
-                        if(mysqli_num_rows($result) < 1) {
-
-                          echo "<td colspan='2'>No Active Devices!</td>";
-
-                        } else {
-
-                        foreach ($result as $key => $row) : ?>
-
-                          <td><strong><?php echo $row['devices']; ?></strong></td>
-                          <td><strong><?php echo $row['device_mso']; ?></strong></td>
-                  </tr>
-                    <?php
-                      endforeach;
-                    }
-                    ?>
-                </tbody>
-              </table>
-
+              <canvas id="myChart"></canvas>
             </div>
           </div>
       </div>
@@ -142,7 +111,7 @@
                   <i class="fas fa-minus"></i></button>
               </div>
             </div>
-            <div class="card-body table-responsive p-0" style="height: 300px;">
+            <div class="card-body table-responsive p-0" style="height: 320px;">
               <table class="table table-sm text-nowrap">
                 <tbody>
 
@@ -179,8 +148,50 @@
           </div>
       </div>
 
-
   </div>
 </div>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php
+
+  require_once 'includes/footer.php';
+  
+  $devices = '';
+  $device_mso = '';
+
+  $result = $device->device_summary();
+
+  while ($row = mysqli_fetch_array($result)) {
+
+    $devices = $devices . '"'. $row['devices'].'",';
+    $device_mso = $device_mso . '"'. $row['device_mso'] .'",';
+  }
+
+  $devices = trim($devices,",");
+  $device_mso = trim($device_mso,",");
+
+
+?>
+
+<script type="text/javascript">
+
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var chart = new Chart(ctx, {
+      // The type of chart we want to create
+      type: 'doughnut',
+
+      // The data for our dataset
+      data: {
+          labels: [<?php echo $device_mso; ?>],
+          datasets: [{
+              label: 'Area-wise Active Connections',
+              backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef'],
+              borderColor: 'rgba(210, 214, 222, 1)',
+              data: [<?php echo $devices; ?>]
+          }]
+      },
+
+      // Configuration options go here
+      options: {}
+  });
+
+</script>

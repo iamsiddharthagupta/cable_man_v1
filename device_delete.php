@@ -2,6 +2,8 @@
 	
 	ob_start();
 
-	require_once 'organ.php';
+	require_once 'includes/header.php';
 
-	$result = $user->device_delete($_GET['dev_id'],$_GET['user_id']);
+
+
+	$result = $device->device_delete($_GET['dev_id'],$_GET['user_id']);

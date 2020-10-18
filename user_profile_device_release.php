@@ -1,6 +1,6 @@
 <?php
 	
 	ob_start();
-	require_once 'organ.php';
+	require_once 'includes/header.php';
 
-	$result = $user->release_device($_GET['assign_id'],$_GET['user_id']);
+	$result = $device->release_device($_GET['assign_id'],$_GET['user_id']);

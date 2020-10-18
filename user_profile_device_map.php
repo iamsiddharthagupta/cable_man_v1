@@ -1,7 +1,7 @@
 <?php
 
   require_once 'user_profile_base.php';
-  $result = $user->user_device_map();
+  $result = $device->user_device_map();
 
 ?>
 
@@ -19,7 +19,7 @@
               <table class="table table-sm text-nowrap">
 
               <?php
-                $result = $user->user_profile_device_fetch($_GET['user_id']);
+                $result = $device->user_profile_device_fetch($_GET['user_id']);
                 $row = mysqli_fetch_assoc($result);
                 foreach ($result as $key => $row) :
               ?>
@@ -70,7 +70,7 @@
 
           <?php
 
-            $result = $user->user_profile_device_list_fetch();
+            $result = $device->user_profile_device_list_fetch();
 
             if (mysqli_num_rows($result) < 1){
 
@@ -127,4 +127,4 @@
   </div>
 </div>
 
-<?php require_once 'assets/footer.php'; ?>
+<?php require_once 'includes/footer.php'; ?>

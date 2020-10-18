@@ -42,4 +42,4 @@
 	</div>
 </div>
 
-<?php include 'assets/footer.php'; ?>
+<?php include 'includes/footer.php'; ?>

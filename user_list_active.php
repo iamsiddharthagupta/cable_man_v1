@@ -2,17 +2,14 @@
 
 	session_start();
 
-	if(isset($_SESSION['user_level'])) {
-	  $curr_user = ucwords($_SESSION['curr_user']);
-	  if($_SESSION['user_level'] != 1){
-	      header('Location: agent_panel.php');
-	  }
-	} else {
-	header('Location: index.php');
-	}
+	$curr_user = $_SESSION['curr_user'];
+	$user_level = $_SESSION['user_level'];
 
 	$page = 'user_list_active.php';
-	require_once 'organ.php';
+	require_once 'includes/top-nav.php';
+	require_once 'includes/side-nav.php';
+
+	$result = $security->session($curr_user, $user_level);
 
 ?>
 
@@ -57,9 +54,9 @@
       						Action
     					</button>
 	    				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-						      <a class="dropdown-item" href="user_profile_renewal.php?user_id=<?php echo $row['user_id']; ?>&dev_id=<?php echo $row['dev_id']; ?>">Renew</a>
-						      <a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
-						      <a class="dropdown-item" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Ledger</a>
+							<a class="dropdown-item" href="user_profile_extend.php?user_id=<?php echo $row['user_id']; ?>&dev_id=<?php echo $row['dev_id']; ?>">Extend</a>
+							<a class="dropdown-item" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Ledger</a>
+							<a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
 					    </div>
 				  	</div>
 				</td>
@@ -93,4 +90,4 @@
 	</div>
 </div>
 
-<?php require_once 'assets/footer.php'; ?>
+<?php require_once 'includes/footer.php'; ?>

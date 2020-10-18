@@ -23,7 +23,9 @@
 <?php
 
     require_once 'init.php';
+    $security = new Security();
     $user = new User();
+    $device = new Device();
     $admin = new Admin();
 
 ?>

@@ -3,22 +3,19 @@
 	ob_start();
 	session_start();
 
-	if(isset($_SESSION['user_level'])){
-	  $curr_user = ucwords($_SESSION['curr_user']);
-	  if($_SESSION['user_level'] != 1){
-	    header('Location: agent_panel.php');
-	  }
-	} else {
-		header('Location: index.php');
-	}
+	$curr_user = $_SESSION['curr_user'];
+	$user_level = $_SESSION['user_level'];
 
-	require_once 'organ.php';
 
-	$user = new User();
-	$result = $user->device_edit_fetch($_GET['dev_id']);
+	require_once 'includes/top-nav.php';
+	require_once 'includes/side-nav.php';
+
+	$result = $security->session($curr_user, $user_level);
+
+	$result = $device->device_edit_fetch($_GET['dev_id']);
 
 	$row = mysqli_fetch_assoc($result);
-	$result = $user->device_edit($_GET['user_id']);
+	$result = $device->device_edit($_GET['user_id']);
 ?>
 
 <div class="content-header">
@@ -88,4 +85,4 @@
 </div>
 
 
-<?php require_once 'assets/footer.php'; ?>
+<?php require_once 'includes/footer.php'; ?>
