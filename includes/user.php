@@ -289,24 +289,24 @@
 
             $sql = "
                     SELECT
-                    l.user_id,
+                    ud.user_id,
                     d.dev_id,
                     d.device_no,
                     d.package,
                     d.device_mso,
                     d.device_type,
                     CASE
-                      WHEN MAX(l.renew_date) IS NULL THEN 'Unavailable'
-                      ELSE MAX(l.renew_date)
-                    END AS renew_date,
+                      WHEN l.renew_date AND l.expiry_date IS NULL THEN 'Unavailable'
+                      ELSE CONCAT(MAX(l.renew_date), MAX(l.expiry_date))
+                    END AS dates,
+                    MAX(l.renew_date) AS renew_date,
                     MAX(l.expiry_date) AS expiry_date
 
-                    FROM cbl_ledger l
+                    FROM cbl_user_dev ud
 
-                    RIGHT JOIN cbl_dev_stock d ON d.dev_id = l.dev_id
-                    RIGHT JOIN cbl_user_dev ud ON ud.dev_id = l.dev_id
-
-                    WHERE l.dev_id = '$dev_id' AND l.user_id = '$user_id'
+                    LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
+                    LEFT JOIN cbl_ledger l ON l.user_id = ud.user_id
+                    WHERE ud.dev_id = '$dev_id' AND ud.user_id = '$user_id'
                   ";
 
           $result = mysqli_query($this->conn,$sql);

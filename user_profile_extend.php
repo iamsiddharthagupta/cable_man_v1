@@ -28,7 +28,7 @@
 							      <strong>Rs.<?php echo $row['package']; ?></strong>
 							    </li>
 							    <li class="list-group-item"><span class="mr-2">Last Renewal:</span>
-							      <strong><?php echo date('jS M y',strtotime($row['renew_date'])).' - '.date('jS M y',strtotime($row['expiry_date'])); ?></strong>
+							      <strong><?php echo $row['renew_date']; ?></strong>
 							    </li>
 							    <li class="list-group-item">
 							      <input type="text" name="renew_date" value="<?php echo $row['expiry_date']; ?>" class="form-control">

@@ -28,7 +28,7 @@
 							      <strong>Rs.<?php echo $row['package']; ?></strong>
 							    </li>
 							    <li class="list-group-item"><span class="mr-2">Last Renewal:</span>
-							      <strong><?php echo $row['renew_date']; ?></strong>
+							      <strong><?php echo $row['dates']; ?></strong>
 							    </li>
 							    <li class="list-group-item">
 							      <input type="text" name="renew_date" class="form-control curr_date" required>
