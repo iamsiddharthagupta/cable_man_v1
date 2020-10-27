@@ -189,6 +189,7 @@
                     LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
 
                     WHERE ud.user_id = '$user_id'
+                    GROUP BY d.device_no
                     ";
       $result = mysqli_query($this->conn,$sql);
       return $result;

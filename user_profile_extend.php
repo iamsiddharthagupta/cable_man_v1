@@ -28,10 +28,10 @@
 							      <strong>Rs.<?php echo $row['package']; ?></strong>
 							    </li>
 							    <li class="list-group-item"><span class="mr-2">Last Renewal:</span>
-							      <strong><?php echo $row['renew_date']; ?></strong>
+							      <strong><?php echo $row['last_renewal']; ?></strong>
 							    </li>
 							    <li class="list-group-item">
-							      <input type="text" name="renew_date" value="<?php echo $row['expiry_date']; ?>" class="form-control">
+							      <input type="text" name="renew_date" value="<?php echo $row['expiry_date']; ?>" class="form-control" readonly>
 							    </li>
 							    <li class="list-group-item"><span class="mr-2">Renewal Term:</span>
 							      <select class="form-control" name="renew_term" required="">

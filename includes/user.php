@@ -296,9 +296,9 @@
                     d.device_mso,
                     d.device_type,
                     CASE
-                      WHEN l.renew_date AND l.expiry_date IS NULL THEN 'Unavailable'
-                      ELSE CONCAT(MAX(l.renew_date), MAX(l.expiry_date))
-                    END AS dates,
+                      WHEN l.renew_date IS NULL THEN 'Unavailable'
+                      ELSE MAX(l.renew_date)
+                    END AS last_renewal,
                     MAX(l.renew_date) AS renew_date,
                     MAX(l.expiry_date) AS expiry_date
 

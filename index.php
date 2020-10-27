@@ -1,5 +1,5 @@
 <?php
-  
+
   session_start();
   require_once 'includes/header.php';
   $result = $security->login();
@@ -8,7 +8,6 @@
 
 <div class="hold-transition login-page">
   <div class="login-box">
-<!-- Login Form-->
   <div class="login-logo">
     <b>Cable</b>ERP
   </div>
@@ -42,12 +41,12 @@
           <div class="col-4">
             <button type="submit" name="submit" class="btn btn-primary btn-block">Sign In</button>
           </div>
-          <!-- /.col -->
+
         </div>
       </form>
   </div>
 </div>
-<!-- /.login-box -->  
+
 </div>
 </div>
 
