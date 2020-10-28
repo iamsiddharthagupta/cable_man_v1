@@ -95,22 +95,29 @@
               </div>
 
               <div class="card-body">
-                  <span><strong>Phone:</strong> <span class="text-muted"><?php if(empty($row['phone_no'])){echo 'Unavailable';} else { echo $row['phone_no']; } ?></span></span><br>
-                  <span><strong>Address:</strong> <span class="text-muted"><?php echo $row['address'].", ".$row['area']; ?></span></span><br>
-                  <span><strong>Customer Since:</strong> <span class="text-muted"><?php echo date('jS M y',strtotime($row['doi'])); ?></span></span>
+                  <span>
+                    <strong>Phone:</strong> <span class="text-muted"><?php if(empty($row['phone_no'])){echo 'Unavailable';} else { echo $row['phone_no']; } ?></span>
+                  </span><br>
+
+                  <span>
+                    <strong>Address:</strong> <span class="text-muted"><?php echo $row['address'].", ".$row['area']; ?></span>
+                  </span><br>
+                  
+                  <span>
+                    <strong>Customer Since:</strong> <span class="text-muted"><?php echo date('jS M y',strtotime($row['doi'])); ?></span>
+                  </span>
 
                     <hr>
 
                   <strong>Device and Package:</strong><br>
 
                   <?php
-                    foreach ($result as $key => $row) {
-                        ?>
-                            <span><?php echo $row['device_details']; ?><a href="device_edit.php?dev_id=<?php echo $row['dev_id']; ?>&user_id=<?php echo $row['user_id']; ?>">
-                          <?php echo $row['device_no']; ?>
-                        </a></span><br>
-                        <?php
-                    }
+                    foreach ($result as $key => $row) : ?>
+                          <span><?php echo $row['device_details']; ?>
+                            <?php echo $row['device_no']; ?>
+                          </span><br>
+                    <?php
+                    endforeach;
                   ?>
               </div>
             </div>

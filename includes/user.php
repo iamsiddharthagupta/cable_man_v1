@@ -85,7 +85,6 @@
         $renew_date = $_POST['renew_date'];
         $renew_term = $_POST['renew_term'];
 
-
         $renew_term_month = $renew_term." "."months";
         $due_amount = $package * $renew_term;
 
@@ -99,22 +98,21 @@
         $expiry_date = date_format($format_expiry,'Y-m-d');
         $expiry_month = date('F',strtotime($expiry_date));
 
-    // Query.
-      $sql = "  INSERT INTO cbl_ledger (user_id,dev_id,renew_date,renew_month,expiry_month,expiry_date,renew_term,renew_term_month,invoice_no,due_amount) VALUES ('$user_id','$dev_id','$renew_date','$renew_month','$expiry_month','$expiry_date','$renew_term','$renew_term_month','$invoice_no','$due_amount')";
+        $sql = "  INSERT INTO cbl_ledger (user_id,dev_id,renew_date,renew_month,expiry_month,expiry_date,renew_term,renew_term_month,invoice_no,due_amount) VALUES ('$user_id','$dev_id','$renew_date','$renew_month','$expiry_month','$expiry_date','$renew_term','$renew_term_month','$invoice_no','$due_amount')";
 
-      if(mysqli_query($this->conn,$sql)){
-        
-        $msg = 'Activation Successful.';
-        header('Location: user_profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
+        if(mysqli_query($this->conn,$sql)) {
+          
+          $msg = 'Activation Successful.';
+          header('Location: user_profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
 
-      } else {
-        
-        $msg = 'Database Error.';
-        header('Location: user_profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
+        } else {
+          
+          $msg = 'Database Error.';
+          header('Location: user_profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
 
+        }
       }
     }
-  }
 
   public function user_profile_payment() {
 

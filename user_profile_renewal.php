@@ -5,7 +5,7 @@
 	$result = $user->user_profile_renewal_fetch($_GET['user_id'],$_GET['dev_id']);
 	$row = mysqli_fetch_assoc($result);
 
-	$result = $user->user_profile_renewal();
+	$renew = $user->user_profile_renewal();
 ?>
 
 		<div class="col-md-9">
@@ -34,8 +34,8 @@
 							      <input type="text" name="renew_date" class="form-control curr_date" required>
 							    </li>
 							    <li class="list-group-item"><span class="mr-2">Renewal Term:</span>
-							      <select class="form-control" name="renew_term">
-							      	<option value="" disabled>Select Term</option>
+							      <select class="form-control" id="term" name="renew_term" required="">
+							      	<option value="">Select Term</option>
 							      	<option value="1">Monthly</option>
 							      	<option value="3">Quarterly</option>
 							      	<option value="6">Half Yearly</option>
@@ -60,3 +60,7 @@
 </div>
 
 <?php require_once 'includes/footer.php'; ?>
+
+<script type="text/javascript">
+	$("#term").chosen();
+</script>
