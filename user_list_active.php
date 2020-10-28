@@ -55,7 +55,8 @@
     					</button>
 	    				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 							<a class="dropdown-item" href="user_profile_extend.php?user_id=<?php echo $row['user_id']; ?>&dev_id=<?php echo $row['dev_id']; ?>">Extend</a>
-							<a class="dropdown-item" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Ledger</a>
+							<a class="dropdown-item" href="">Deactivate</a>
+							<a class="dropdown-item" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Ledger Book</a>
 							<a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
 					    </div>
 				  	</div>

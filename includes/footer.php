@@ -17,7 +17,6 @@
   <script src="assets/scripts/adminlte.min.js"></script>
   <script src="assets/scripts/bootstrap.bundle.min.js"></script>
 	<script src="assets/scripts/script.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g==" crossorigin="anonymous"></script>
 
 </body>
 </html>
