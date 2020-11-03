@@ -22,7 +22,7 @@
 
       <form method="POST">
         <div class="input-group mb-3">
-          <input type="text" name="username" value="aalishan" class="form-control" placeholder="Username" autofocus>
+          <input type="text" name="username" class="form-control" placeholder="Username" autofocus>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -30,7 +30,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" name="password" value="Aalishan850" class="form-control" placeholder="Password">
+          <input type="password" name="password" class="form-control" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
