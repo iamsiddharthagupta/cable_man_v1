@@ -41,7 +41,7 @@
             <tbody>
               <tr>
                 
-                <td><?php echo $row['device_no']; ?></td>
+                <td><?php echo $row['device_no'].' - '.$row['device_mso']; ?></td>
 
                 <td>
                   <strong><?php echo date('jS M',strtotime($row['renew_date'])); ?> - <?php echo date('jS M',strtotime($row['expiry_date'])); ?> (<?php echo $row['renew_term']; ?>)</strong>

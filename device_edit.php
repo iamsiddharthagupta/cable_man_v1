@@ -50,6 +50,7 @@
 					<option value="Sky HD" <?php if($row["device_mso"]=='Sky HD'){ echo "selected"; } ?>>Sky HD</option>
 					<option value="Hathway" <?php if($row["device_mso"]=='Hathway'){ echo "selected"; } ?>>Hathway</option>
 					<option value="In-Digital" <?php if($row["device_mso"]=='In-Digital'){ echo "selected"; } ?>>In-Digital</option>
+					<option value="Den Jio" <?php if($row["device_mso"]=='Den Jio'){ echo "selected"; } ?>>Den Jio</option>
 				</select>
 			</div>
 		</div>

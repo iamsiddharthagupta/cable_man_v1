@@ -100,6 +100,12 @@
               <p>Collection Book</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="device_history.php" class="nav-link <?php if($page == 'device_history.php'){ echo 'active'; } ?>">
+              <i class="nav-icon fas fa-hdd"></i>
+              <p>Device History</p>
+            </a>
+          </li>
 
         </ul>
       </nav>

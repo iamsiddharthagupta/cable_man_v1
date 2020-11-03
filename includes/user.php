@@ -219,26 +219,27 @@
     public function user_profile_base_fetch($user_id) {
 
       $sql = "
-            SELECT
-            u.user_id,
-            u.first_name,
-            u.last_name,
-            u.phone_no,
-            u.address,
-            u.area,
-            u.doi,
-            u.user_status,
-            d.device_no,
-            CONCAT('Rs.',d.package,' - ',d.device_mso) AS device_details,
-            d.device_type,
-            d.dev_id
+                SELECT
+                u.user_id,
+                u.first_name,
+                u.last_name,
+                u.phone_no,
+                u.address,
+                u.area,
+                u.doi,
+                u.user_status,
+                d.device_no,
+                CONCAT('Rs.',d.package,' - ',d.device_mso) AS device_details,
+                d.device_type,
+                d.dev_id
 
-            FROM cbl_user_dev ud
+                FROM cbl_user_dev ud
 
-            RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
-            LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
+                RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
+                LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
 
-            WHERE u.user_id = '$user_id'";
+                WHERE u.user_id = '$user_id'
+            ";
 
   
       $result = mysqli_query($this->conn,$sql);
@@ -249,36 +250,36 @@
 
           $sql = "
                     SELECT
+                      d.dev_id,
+                      d.device_no,
+                      d.device_mso,
+                      l.ledger_id,
+                      l.renew_date,
+                      l.expiry_date,
+                      l.renew_term,
+                      l.due_amount,
+                      l.pay_amount,
+                      l.pay_balance,
+                      CASE
+                        WHEN l.pay_status IS NULL THEN '-'
+                        ELSE l.pay_status
+                      END AS pay_status,
+                      CASE
+                        WHEN l.pay_date IS NULL THEN 'Unpaid'
+                        ELSE DATE_FORMAT(l.pay_date, '%e %b %Y')
+                      END AS pay_date,
+                      l.ledger_status,
+                      l.user_id
 
-                    d.dev_id,
-                    d.device_no,
-                    l.ledger_id,
-                    l.renew_date,
-                    l.expiry_date,
-                    l.renew_term,
-                    l.due_amount,
-                    l.pay_amount,
-                    l.pay_balance,
-                    CASE
-                      WHEN l.pay_status IS NULL THEN '-'
-                      ELSE l.pay_status
-                    END AS pay_status,
-                    CASE
-                      WHEN l.pay_date IS NULL THEN 'Unpaid'
-                      ELSE DATE_FORMAT(l.pay_date, '%e %b %Y')
-                    END AS pay_date,
-                    l.ledger_status,
-                    l.user_id
+                      FROM cbl_user_dev ud
 
-                    FROM cbl_user_dev ud
+                      RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
+                      LEFT JOIN cbl_ledger l ON l.dev_id = ud.dev_id
+                      LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
 
-                    RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
-                    LEFT JOIN cbl_ledger l ON l.dev_id = ud.dev_id
-                    LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
-
-                    WHERE l.user_id = '$user_id'
-                    ORDER BY renew_date DESC
-                ";
+                      WHERE l.user_id = '$user_id'
+                      ORDER BY renew_date DESC
+                  ";
       $result = mysqli_query($this->conn,$sql);
       return $result;
     }
@@ -350,15 +351,13 @@
               u.user_status,
               SUM(d.package) AS package,
               COUNT(ud.dev_id) AS device_count,
-              ud.dev_id,
-              CASE
-                WHEN u.user_status = 1 THEN 'Active'
-              END AS user_status
+              ud.dev_id
 
               FROM cbl_user_dev ud
 
               RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
               LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
+
               WHERE u.user_status = 1 AND ud.dev_id IS NOT NULL
               GROUP BY u.user_id
               ORDER BY u.doi DESC
@@ -411,8 +410,8 @@
               d.device_no,
               d.device_mso,
               l.ledger_id,
-              l.renew_date,
-              l.expiry_date,
+              MAX(l.renew_date) AS renew_date,
+              MAX(l.expiry_date) AS expiry_date,
               CASE
                 WHEN l.pay_amount = 0 THEN 'Due'
                 ELSE 'Paid'
@@ -421,14 +420,14 @@
                 WHEN CURDATE() = l.expiry_date THEN '(Expiring)'
               END AS ledger_status
 
-              FROM cbl_user_dev ud
+              FROM cbl_ledger l
 
-              RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
-              RIGHT JOIN cbl_ledger l ON l.dev_id = ud.dev_id
-              LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
+              LEFT JOIN cbl_user u ON u.user_id = l.user_id
+              RIGHT JOIN cbl_user_dev ud ON ud.dev_id = l.dev_id
+              RIGHT JOIN cbl_dev_stock d ON d.dev_id = l.dev_id
 
-              WHERE u.user_status = 1 AND CURDATE() BETWEEN l.renew_date AND l.expiry_date AND l.renew_date = (SELECT MAX(l.renew_date) FROM cbl_ledger)
-              GROUP BY u.user_id,ud.dev_id
+              WHERE u.user_status = 1
+              GROUP BY l.dev_id
               ORDER BY l.expiry_date ASC
             ";
 
