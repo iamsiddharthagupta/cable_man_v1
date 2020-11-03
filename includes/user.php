@@ -445,6 +445,7 @@
               u.address,
               u.area,
               d.package,
+              d.dev_id,
               d.device_no,
               d.device_mso,
               MAX(l.renew_date) AS renew_date,
@@ -463,7 +464,7 @@
               LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
 
               WHERE u.user_status = 1 AND CURDATE() BETWEEN l.renew_date AND l.expiry_date AND l.renew_term > 1
-              GROUP BY u.user_id,ud.dev_id
+              GROUP BY u.user_id
               ORDER BY l.expiry_date ASC
             ";
 
@@ -486,6 +487,9 @@
               d.device_mso,
               MAX(l.renew_date) AS renew_date,
               MAX(l.expiry_date) AS expiry_date,
+              CASE
+                WHEN CURDATE() = l.expiry_date THEN '(Expiring)'
+              END AS ledger_status,
               l.ledger_id
 
               FROM cbl_user_dev ud

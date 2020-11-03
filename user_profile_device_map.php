@@ -26,7 +26,15 @@
                 <tbody>
                   <tr>
                     <td><?php echo $row['device_mso'].' - '.$row['device_no']; ?></td>
-                    <td><a href="user_profile_device_release.php?assign_id=<?php echo $row['assign_id']; ?>&user_id=<?php echo $_GET['user_id']; ?>" onclick="return confirm('Do you want to release this device?');"><i class="fas fa-minus-circle"></i></a></td>
+                    <td>
+                      <a href="user_profile_device_release.php?assign_id=<?php echo $row['assign_id']; ?>&user_id=<?php echo $_GET['user_id']; ?>" onclick="return confirm('Do you want to release this device?');"><i class="fas fa-minus-circle"></i>
+                      </a>
+                    </td>
+                    <td>
+                      <a href="device_edit.php?dev_id=<?php echo $row['dev_id']; ?>&user_id=<?php echo $_GET['user_id']; ?>">
+                        <i class="fas fa-pen-square"></i>
+                      </a>
+                    </td>
                   </tr>
                 </tbody>
               

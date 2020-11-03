@@ -66,14 +66,12 @@
 				</td>
 
 				<td>
-					<strong><?php echo $row['first_name']." ".$row['last_name'];?></strong>
+					<strong><?php echo $row['first_name']." ".$row['last_name'];?><span class="ml-1 text-warning"><?php echo $row['ledger_status']; ?></span></strong>
 				</td>
 
 				<td><strong><?php echo $row['device_mso']; ?></strong> - <span><?php echo $row['device_no']; ?></span></td>
 
-				<td>
-					Expired - <strong class="text-danger"><?php echo date('j M',strtotime($row['expiry_date'])); ?></strong>
-				</td>
+				<td><strong class="text-danger">Expiry: <?php echo date('j M',strtotime($row['expiry_date'])); ?></strong></td>
 
 				<td><?php echo $row['phone_no'];?></td>
 

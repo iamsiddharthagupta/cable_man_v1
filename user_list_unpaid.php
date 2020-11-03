@@ -38,8 +38,10 @@
 	
 	$result = $user->user_list_unpaid();
 
-	if (mysqli_num_rows($result) < 1){
+	if (mysqli_num_rows($result) < 1) {
+		
 		echo "<tr><td colspan='6'>No user yet.</td><tr>";
+	
 	} else {
 		
 		foreach ($result as $key => $row) : ?>
@@ -54,8 +56,8 @@
     					</button>
 	    				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 							<a class="dropdown-item" target="_blank" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Add Payment</a>
-							<a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
 							<a class="dropdown-item" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Ledger Book</a>
+							<a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
 					    </div>
 				  	</div>
 				</td>

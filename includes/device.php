@@ -202,8 +202,10 @@
               d.device_mso AS device_mso
 
               FROM cbl_ledger l
-              LEFT JOIN cbl_user u ON u.user_id = l.user_id
-              LEFT JOIN cbl_dev_stock d ON d.dev_id = l.dev_id
+
+              RIGHT JOIN cbl_user u ON u.user_id = l.user_id
+              RIGHT JOIN cbl_dev_stock d ON d.dev_id = l.dev_id
+
               WHERE CURDATE() BETWEEN l.renew_date AND l.expiry_date AND u.user_status = 1
               GROUP BY d.device_mso
               
