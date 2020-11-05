@@ -486,7 +486,7 @@
               d.dev_id,
               d.device_no,
               d.device_mso,
-              DATE_FORMAT(l.expiry_date, '%e %b %Y') AS expiry,
+              MAX(l.expiry_date) AS expiry,
               l.ledger_id
 
               FROM cbl_user_dev ud
@@ -497,7 +497,7 @@
 
               WHERE u.user_status = 1 AND l.user_id NOT IN (SELECT user_id FROM cbl_ledger WHERE expiry_date > CURDATE())
 
-              GROUP BY u.user_id,ud.dev_id
+              GROUP BY u.user_id
               ORDER BY l.expiry_date ASC
             ";
 
