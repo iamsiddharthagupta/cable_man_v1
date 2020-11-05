@@ -40,15 +40,12 @@
 	$result = $user->user_list_expired();
 
 	if (mysqli_num_rows($result) < 1) {
+		
 		echo "<tr><td colspan='7'>No user yet.</td><tr>";
+	
 	} else {
 
-		foreach ($result as $key => $row) :
-
-		$current_date = date_create(date('Y-m-d'));
-		$end_date = date_create($row['expiry_date']);
-
-?>
+		foreach ($result as $key => $row) : ?>
 		<tbody id="myTable">
 			<tr>
 
@@ -66,12 +63,12 @@
 				</td>
 
 				<td>
-					<strong><?php echo $row['first_name']." ".$row['last_name'];?><span class="ml-1 text-warning"><?php echo $row['ledger_status']; ?></span></strong>
+					<strong><?php echo $row['first_name']." ".$row['last_name'];?></strong>
 				</td>
 
 				<td><strong><?php echo $row['device_mso']; ?></strong> - <span><?php echo $row['device_no']; ?></span></td>
 
-				<td><strong class="text-danger">Expiry: <?php echo date('j M',strtotime($row['expiry_date'])); ?></strong></td>
+				<td><strong class="text-danger">Expiry: <?php echo date('j M',strtotime($row['expiry'])); ?></strong></td>
 
 				<td><?php echo $row['phone_no'];?></td>
 
@@ -83,6 +80,7 @@
 		</tbody>
 		<?php
 			endforeach;
+			mysqli_free_result($result);
 		}
 	?>
 		</table>

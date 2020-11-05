@@ -32,6 +32,7 @@
 		        <th>Phone</th>
 		        <th>Box</th>
 		        <th>Rate</th>
+		        <th>Install Date</th>
 		      </tr>
 			</thead>
 
@@ -81,10 +82,13 @@
 					<td><?php echo $row['device_count']; ?></td>
 					
 					<td><?php echo $row['package'];?></td>
+
+					<td><?php echo date('jS M y',strtotime($row['doi'])); ?></td>
 				</tr>
 			</tbody>
 		<?php
 				endforeach;
+				mysqli_free_result($result);
 			}
 		?>
 		</table>

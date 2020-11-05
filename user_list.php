@@ -31,6 +31,7 @@
 		        <th>Phone</th>
 		        <th>Box</th>
 		        <th>Rate</th>
+		        <th>Install Date</th>
 		      </tr>
 			</thead>
 
@@ -59,10 +60,11 @@
 		    					<?php if(empty($row['dev_id'])){ ?>
 		    						<a class="dropdown-item" href="user_profile_device_map.php?user_id=<?php echo $row['user_id']; ?>">Assign Device</a>
 		    					<?php } elseif(!empty($row['dev_id'])){ ?>
-		    						<a class="dropdown-item" href="user_profile_select_device.php?user_id=<?php echo $row['user_id']; ?>">Activate</a>
+		    						<a class="dropdown-item" href="user_profile_select_device.php?user_id=<?php echo $row['user_id']; ?>">Start</a>
 		    					<?php } ?>
+		    					<a class="dropdown-item" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Ledger Book</a>
 								<a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
-								<a class="dropdown-item" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Ledger Book</a>
+								<a class="dropdown-item" href="user_profile_device_map.php?user_id=<?php echo $row['user_id']; ?>">Map/Edit Device</a>
 						    </div>
 				  		</div>
 					</td>
@@ -76,10 +78,13 @@
 					<td><?php echo $row['device_count']; ?></td>
 					
 					<td><?php echo $row['package'];?></td>
+
+					<td><?php echo date('jS M y',strtotime($row['doi'])); ?></td>
 				</tr>
 			</tbody>
 		<?php
 				endforeach;
+				mysqli_free_result($result);
 			}
 		?>
 		</table>

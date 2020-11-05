@@ -40,7 +40,9 @@
 	$result = $user->user_list_active();
 
 	if (mysqli_num_rows($result) < 1) {
+		
 		echo "<tr><td colspan='7'>No user yet.</td><tr>";
+	
 	} else {
 
 		foreach ($result as $key => $row) : ?>
@@ -61,11 +63,7 @@
 				  	</div>
 				</td>
 
-				<td>
-					<strong>
-					<?php echo $row['first_name']." ".$row['last_name'];?><span class="ml-1 text-warning"><?php echo $row['ledger_status']; ?></span>
-					</strong>
-				</td>
+				<td><strong><?php echo $row['first_name']." ".$row['last_name'];?></strong></td>
 
 				<td><strong><?php echo $row['device_mso']; ?></strong> - <span><?php echo $row['device_no']; ?></span></td>
 
@@ -84,6 +82,7 @@
 		</tbody>
 		<?php
 			endforeach;
+			mysqli_free_result($result);
 		}
 	?>
 		</table>

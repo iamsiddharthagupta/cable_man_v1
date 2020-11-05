@@ -232,9 +232,7 @@
                 u.area,
                 u.doi,
                 u.user_status,
-                d.device_no,
-                CONCAT('Rs.',d.package,' - ',d.device_mso) AS device_details,
-                d.device_type,
+                CONCAT(d.device_no,' - ',d.device_mso,' | ',d.device_type,' | ',d.package) AS device_details,
                 d.dev_id
 
                 FROM cbl_user_dev ud
@@ -352,6 +350,7 @@
               u.phone_no,
               u.address,
               u.area,
+              u.doi,
               u.user_status,
               SUM(d.package) AS package,
               COUNT(ud.dev_id) AS device_count,
@@ -379,6 +378,7 @@
               u.phone_no,
               u.address,
               u.area,
+              u.doi,
               u.user_status,
               SUM(d.package) AS package,
               COUNT(ud.dev_id) AS device_count,
@@ -419,10 +419,7 @@
               CASE
                 WHEN l.pay_amount = 0 THEN 'Due'
                 ELSE 'Paid'
-              END AS status,
-              CASE
-                WHEN CURDATE() = l.expiry_date THEN '(Expiring)'
-              END AS ledger_status
+              END AS status
 
               FROM cbl_ledger l
 
@@ -489,11 +486,7 @@
               d.dev_id,
               d.device_no,
               d.device_mso,
-              MAX(l.renew_date) AS renew_date,
-              MAX(l.expiry_date) AS expiry_date,
-              CASE
-                WHEN CURDATE() = l.expiry_date THEN '(Expiring)'
-              END AS ledger_status,
+              DATE_FORMAT(l.expiry_date, '%e %b %Y') AS expiry,
               l.ledger_id
 
               FROM cbl_user_dev ud

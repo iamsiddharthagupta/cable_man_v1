@@ -124,7 +124,8 @@
           </tbody>
 
             <?php
-              endforeach;
+                endforeach;
+                mysqli_free_result($result);
               }
             ?>
         </table>

@@ -113,8 +113,8 @@
 
                   <?php
                     foreach ($result as $key => $row) : ?>
-                          <span><?php echo $row['device_details']; ?>
-                            <?php echo $row['device_no']; ?>
+                          <span>
+                            <?php echo $row['device_details']; ?>
                           </span><br>
                     <?php
                     endforeach;

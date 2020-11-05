@@ -78,6 +78,7 @@
 		</tbody>
 		<?php
 				endforeach;
+				mysqli_free_result($result);
 			}
 		?>
 				</table>

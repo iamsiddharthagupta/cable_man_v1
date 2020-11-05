@@ -174,23 +174,23 @@
     public function user_profile_select_device_fetch($user_id) {
 
           $sql = "
-                    SELECT
-                    ud.user_id,
-                    d.dev_id,
-                    d.device_no,
-                    d.device_mso,
-                    d.device_type,
-                    MAX(l.renew_date) AS renew_date,
-                    MAX(l.expiry_date) AS expiry_date
+                  SELECT
+                  ud.user_id,
+                  d.dev_id,
+                  d.device_no,
+                  d.device_mso,
+                  d.device_type,
+                  MAX(l.renew_date) AS renew_date,
+                  MAX(l.expiry_date) AS expiry_date
 
-                    FROM cbl_user_dev ud
+                  FROM cbl_user_dev ud
 
-                    LEFT JOIN cbl_ledger l ON l.dev_id = ud.dev_id
-                    LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
+                  LEFT JOIN cbl_ledger l ON l.user_id = ud.user_id
+                  LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
 
-                    WHERE ud.user_id = '$user_id'
-                    GROUP BY d.device_no
-                    ";
+                  WHERE ud.user_id = '$user_id'
+                  GROUP BY d.device_no
+                ";
       $result = mysqli_query($this->conn,$sql);
       return $result;
     }
