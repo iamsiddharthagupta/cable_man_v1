@@ -3,14 +3,18 @@
 	ob_start();
 	session_start();
 
-	$curr_user = $_SESSION['curr_user'];
-	$user_level = $_SESSION['user_level'];
+	if(isset($_SESSION['user_level'])){
+	  $curr_user = ucwords($_SESSION['curr_user']);
+	  if($_SESSION['user_level'] != 1){
+	      header('Location: agent_panel.php');
+	  }
+	} else {
+	header('Location: index.php');
+	}
 
 
 	require_once 'includes/top-nav.php';
 	require_once 'includes/side-nav.php';
-
-	$result = $security->session($curr_user, $user_level);
 
 	$result = $admin->admin_profile_fetch($curr_user);
 	$row = mysqli_fetch_assoc($result);

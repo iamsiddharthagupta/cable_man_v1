@@ -60,26 +60,6 @@
 				}
 
 			}
-	}
-
-	public function session($curr_user, $user_level) {
-
-		if(isset($user_level)) {
-		  
-		  $curr_user = ucwords($curr_user);
-		  
-		  if($user_level != 1) {
-		  
-			header('Location: agent_panel.php');
-		  
-		  }
-
-		} else {
-
-			header('Location: index.php');
-
 		}
-
-	}
 
 }
