@@ -3,8 +3,8 @@
 	// Database Connection Constants
 
 	define('DB_HOST','localhost');
-	define('DB_USER','u189374615_redundant');
-	define('DB_PASS','7N~awOB:W=^q');
-	define('DB_NAME','u189374615_redundant');
+	define('DB_USER','root');
+	define('DB_PASS','');
+	define('DB_NAME','cable_db');
 
 ?>

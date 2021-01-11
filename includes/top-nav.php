@@ -18,17 +18,7 @@
       </li>
     </ul>
 
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3" method="POST">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="text" name="search_input" id="user_search" placeholder="Search" aria-label="Search" required>
-        <div class="input-group-append">
-          <button class="btn btn-navbar" name="submit" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
+
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
