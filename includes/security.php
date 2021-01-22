@@ -2,63 +2,38 @@
 
 	class Security extends Connection {
 
-	public function login() {
+		public function login() {
 
 			if(isset($_POST['submit'])) {
 
-			$username = stripcslashes($_POST['username']);
-			$password = stripcslashes($_POST['password']);
-			$username = mysqli_real_escape_string($this->conn,$username);
-			$password = mysqli_real_escape_string($this->conn,$password);
+				$username = $this->conn->real_escape_string(stripcslashes($_POST['username']));
+				$password = $this->conn->real_escape_string(stripcslashes(md5($_POST['password'])));
 
-			// Hashing Passkeys    
-			$password = md5($password);
+				if(!empty($username) && !empty($password)) {
 
-			if(!empty($username) && !empty($password)) {
+					$result = $this->conn->query("SELECT *, CONCAT(first_name,' ',last_name) AS logged_staff FROM tbl_staff WHERE username = '$username' AND password = '$password' LIMIT 1");
 
-				$sql = "SELECT * FROM tbl_auth WHERE username = '$username' AND password = '$password' LIMIT 1";
-				$result = mysqli_query($this->conn,$sql);
+					$row = $result->fetch_assoc();
 
-				$row = mysqli_num_rows($result);
-				$data = mysqli_fetch_assoc($result);
+					if($result->num_rows > 0) {
 
-				$user_level = intval($data['user_level']);
+						$_SESSION['staff_id'] = $row['staff_id'];
+						$_SESSION['logged_staff'] = $row['logged_staff'];
+						header('Location: dashboard.php');
 
-				if($row == 1) {
+					} else {
 
-				if($user_level == 1) {
+						$msg = 'Authentication Failed.';
+						header('Location: index.php?msg='.$msg);
 
-					$_SESSION['curr_user'] = $data['full_name'];
-					$_SESSION['user_level'] = $user_level;
-					header('Location: dashboard.php');
-
-				} else if($user_level == 2) {
-				  
-					$_SESSION['curr_user'] = $data['full_name'];
-					$_SESSION['user_level'] = $user_level;
-					header('Location: agent_panel.php');
+					}
 
 				} else {
 
-					$msg = 'Failed to authenticate user level.';
-					header('Location: index.php?msg='.$msg);
+						$msg = 'Please enter credentials.';
+						header('Location: index.php?msg='.$msg);
 
 				}
-
-				} else {
-
-					$msg = 'Failed to authenticate.';
-					header('Location: index.php?msg='.$msg);
-
-				}
-
-				} else {
-
-					$msg = 'Please enter credentials.';
-					header('Location: index.php?msg='.$msg);
-
-				}
-
 			}
 		}
 

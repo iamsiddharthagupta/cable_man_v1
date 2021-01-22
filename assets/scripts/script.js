@@ -1,26 +1,39 @@
-// User search function
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  // User search function
+  $(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
     });
   });
-});
 
-// User Searchbar
-$(function() {
- $( "#user_search" ).autocomplete({
-   source: 'user_search.php',
- });
-});
+  // Default Date (Datepicker)
+  $(function() {
+      $( "#date" ).datepicker({
+          dateFormat: 'yy-mm-dd'
+      });
+  });
 
+  // Current Date (Datepicker)
+  $(document).ready(function () {
+      var date = new Date();
+      $("#today").datepicker({
+          dateFormat: 'yy-mm-dd'
+      }).datepicker('setDate', date)
+  });
 
-// Datepicker Current Date
+  // Input Mask for Phone Numbers and various.
+  $(document).ready(function($){
+    $('#phone').mask("9999999999", {placeholder:"XXXXXXXXXX"});
+  });
 
-$(document).ready(function () {
-    var date = new Date();
-    $(".curr_date").datepicker({
-        dateFormat: 'yy-mm-dd'
-    }).datepicker('setDate', date)
-});
+  // Back Button.
+    function goBack() {
+    window.history.back();
+  }
+
+  // Print Page Trigger.
+    function printPage() {
+      window.print();
+  }

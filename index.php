@@ -1,9 +1,12 @@
 <?php
 
-  session_start();
-  
-  require_once 'includes/header.php';
-  $result = $security->login();
+    session_start();
+
+    if(isset($_SESSION['logged_staff'])) : header('Location: dashboard.php'); endif;
+
+    require_once 'includes/header.php';
+
+    $security->login();
 
 ?>
 

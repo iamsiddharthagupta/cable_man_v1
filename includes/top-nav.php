@@ -14,35 +14,28 @@
         <a href="dashboard.php" class="nav-link">Dashboard</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="user_profile_add.php" class="nav-link"><i class="fas fa-plus-circle"></i></a>
+        <a href="profile_add.php" class="nav-link"><i class="fas fa-user-plus"></i></a>
       </li>
     </ul>
 
-
-
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge"><?php echo $user->CountExpiring(); ?></span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-header"><?php echo $user->CountExpiring(); ?> Notifications</span>
-          <div class="dropdown-divider"></div>
-          <a href="user_list_active.php" class="dropdown-item">
-            <i class="fas fa-hourglass-end mr-2"></i><?php echo $user->CountExpiring(); ?> Expiring Today
-          </a>
+    <form class="form-inline ml-3">
+      <div class="input-group input-group-sm">
+        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+        <div class="input-group-append">
+          <button class="btn btn-navbar" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
         </div>
-      </li>
-      
+      </div>
+    </form>
+
+    <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <?php echo $curr_user; ?>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="admin_change_pass.php">Change Password</a>
+          <a class="dropdown-item" href="staff_password_change.php">Change Password</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="logout.php">Logout</a>
         </div>
