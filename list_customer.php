@@ -57,18 +57,18 @@
 	    					</button>
 		    				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 		    					<?php if(empty($row['dev_id'])){ ?>
-		    						<a class="dropdown-item" href="user_profile_device_map.php?user_id=<?php echo $row['user_id']; ?>">Assign Device</a>
+		    						<a class="dropdown-item" href="profile_device_map.php?cust_id=<?php echo $row['cust_id']; ?>">Assign Device</a>
 		    					<?php } elseif(!empty($row['dev_id'])){ ?>
-		    						<a class="dropdown-item" href="user_profile_select_device.php?user_id=<?php echo $row['user_id']; ?>">Start</a>
+		    						<a class="dropdown-item" href="user_profile_select_device.php?cust_id=<?php echo $row['cust_id']; ?>">Start</a>
 		    					<?php } ?>
-		    					<a class="dropdown-item" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Ledger Book</a>
-								<a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
-								<a class="dropdown-item" href="user_profile_device_map.php?user_id=<?php echo $row['user_id']; ?>">Map/Edit Device</a>
+		    					<a class="dropdown-item" href="user_profile_ledger.php?cust_id=<?php echo $row['cust_id']; ?>">Ledger Book</a>
+								<a class="dropdown-item" href="user_profile_update.php?cust_id=<?php echo $row['cust_id']; ?>">Update Profile</a>
+								<a class="dropdown-item" href="user_profile_device_map.php?cust_id=<?php echo $row['cust_id']; ?>">Map/Edit Device</a>
 						    </div>
 				  		</div>
 					</td>
 
-					<td><strong><?php echo $row['first_name']." ".$row['last_name'];?></strong></td>
+					<td><a href="profile_ledger.php?cust_id=<?php echo htmlentities($row['cust_id']); ?>"><?php echo $row['first_name']." ".$row['last_name'];?></a></td>
 
 					<td><?php echo $row['address'];?>, <strong><?php echo $row['area_name'] ?></strong></td>
 

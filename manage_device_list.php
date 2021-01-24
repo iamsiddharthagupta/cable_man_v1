@@ -72,7 +72,7 @@
             
             <td><?php echo $row['device_type']; ?></td>
             
-            <td><a href="manage_device_edit.php?device_id=<?php echo htmlentities($row['device_id']); ?>"><i class="fas fa-pen-square"></i></a></td>
+            <td><a href="manage_device_edit.php?dev_id=<?php echo htmlentities($row['dev_id']); ?>"><i class="fas fa-pen-square"></i></a></td>
 
           </tr>
         </tbody>

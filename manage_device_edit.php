@@ -10,9 +10,10 @@
 	require_once 'includes/top-nav.php';
 	require_once 'includes/side-nav.php';
 
-	$row = $read->device_edit_fetch($_GET['device_id'])->fetch_assoc();
+	$row = $read->device_edit_fetch($_GET['dev_id'])->fetch_assoc();
 
 	$update->update_device();
+
 ?>
 
 <div class="content-header">
@@ -52,7 +53,6 @@
 					<div class="col-sm">
 						<label>Device Type:</label>
 						<select class="form-control" name="device_type">
-							<option value="">Select Type</option>
 							<option value="SD" <?php if($row["device_type"] == 'SD'){ echo "selected"; } ?>>SD</option>
 							<option value="HD" <?php if($row["device_type"] == 'HD'){ echo "selected"; } ?>>HD</option>
 						</select>
@@ -60,7 +60,7 @@
 				</div>
 			</div>
 			<div class="card-footer">
-				<input type="hidden" name="device_id" value="<?php echo $row['device_id']; ?>">
+				<input type="hidden" name="dev_id" value="<?php echo $row['dev_id']; ?>">
 				<div class="btn-group float-right" role="group" aria-label="Basic example">
 					<button type="submit" name="submit" class="btn btn-dark">Update</button>
 					<button type="button" onclick="goBack()" class="btn btn-secondary">Cancel</button>

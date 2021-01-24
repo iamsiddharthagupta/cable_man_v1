@@ -53,7 +53,8 @@
 
 	    </div>
 	    <div class="col-md-9">
-		<div class="card card-primary">
+	    <form method="POST" autocomplete="off">
+		<div class="card card-info">
 	        <div class="card-header">
 	          <h3 class="card-title">Change Password</h3>
 	          <div class="card-tools">
@@ -61,22 +62,31 @@
 	              <i class="fas fa-minus"></i></button>
 	          </div>
 	        </div>
-	        <div class="card-body">
-				<form method="POST" autocomplete="off">
-					<div class="form-group">
-						<input type="password" name="current_pass" class="form-control" placeholder="Enter your current password">
+			<div class="card-body">
+					<div class="form-group row">
+						<label for="inputPass1" class="col-sm-2 col-form-label">Current Password:</label>
+						<div class="col-sm-8">
+						  <input type="password" name="current_pass" class="form-control" id="inputPass1" placeholder="Current Password">
+						</div>
 					</div>
-					<div class="form-group">
-						<input type="password" name="new_pass" class="form-control" placeholder="Enter your new password">
+					<div class="form-group row">
+						<label for="inputPass1" class="col-sm-2 col-form-label">New Password:</label>
+						<div class="col-sm-8">
+						  <input type="password" name="new_pass" class="form-control" id="inputPass1" placeholder="New Password">
+						</div>
 					</div>
-					<div class="form-group">
-						<input type="password" name="confirm_pass" class="form-control mb-2" placeholder="Confirm your new password">
+					<div class="form-group row">
+						<label for="inputPass1" class="col-sm-2 col-form-label">Confirm Password:</label>
+						<div class="col-sm-8">
+						  <input type="password" name="confirm_pass" class="form-control" id="inputPass1" placeholder="Confirm Password">
+						</div>
 					</div>
-					<div class="form-group">
-						<button type="submit" name="submit" class="btn btn-outline-primary">Submit</button>
+				</div>
+					<div class="card-footer">
+						<button type="submit" name="submit" class="btn btn-outline-info float-right">Submit</button>
 					</div>
-				</form>
 			</div>
+		</form>
 		</div>
 	</div>
 

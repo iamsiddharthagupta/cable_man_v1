@@ -2,35 +2,6 @@
 
 	class Read extends Connection {
 
-	    public function fetch_profile_base($user_id) {
-
-			$sql = "
-	                SELECT
-	                u.user_id,
-	                u.first_name,
-	                u.last_name,
-	                u.phone_no,
-	                u.address,
-	                u.area,
-	                u.doi,
-	                u.user_status,
-	                CONCAT(d.device_no,' - ',d.device_mso,' | ',d.device_type,' | ',d.package) AS device_details,
-	                d.dev_id
-
-	                FROM cbl_user_dev ud
-
-	                RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
-	                LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
-
-	                WHERE u.user_id = '$user_id'
-	            ";
-	  
-			return $this->conn->query($sql);
-
-			$this->conn->close();
-
-	    }
-
 	    public function user_profile_ledger_fetch($user_id) {
 
 			$sql = "
@@ -76,7 +47,7 @@
 
 			$sql = " 
 					SELECT
-					cu.customer_id,
+					cu.cust_id,
 					cu.first_name,
 					cu.last_name,
 					cu.phone_no,
@@ -87,7 +58,7 @@
 					FROM tbl_customer cu
 					LEFT JOIN tbl_area ar ON cu.area_id = ar.area_id
 					WHERE cu.customer_status = 1
-					GROUP BY cu.customer_id
+					GROUP BY cu.cust_id
 					ORDER BY cu.install_date DESC
 			      ";
 
@@ -379,9 +350,9 @@
 
 		}
 
-		public function device_edit_fetch($device_id) {
+		public function device_edit_fetch($dev_id) {
 
-		    $sql = "SELECT * FROM tbl_device_stack WHERE device_id = '$device_id'";
+		    $sql = "SELECT * FROM tbl_device_stack WHERE dev_id = '$dev_id'";
 
 		   	return $this->conn->query($sql);
 
@@ -427,11 +398,33 @@
 
 			$this->conn->close();
 
+		}
+
+// New Functions from below ----------------->
+
+		public function fetch_profile_base($cust_id) {
+
+			$sql = "
+						SELECT
+						CONCAT(cu.first_name,' ',cu.last_name) AS full_name,
+						cu.phone_no,
+						cu.address,
+						cu.install_date,
+						ar.area_name
+						FROM tbl_customer cu
+						LEFT JOIN tbl_area ar ON ar.area_id = cu.area_id
+						WHERE cust_id = '$cust_id'
+					";
+
+			return $this->conn->query($sql);
+
+			$this->conn->close();
+
 	    }
 
 		public function fetch_device_list() {
 
-			$sql = "SELECT * FROM tbl_device_stack";
+			$sql = "SELECT * FROM tbl_device_stack ORDER BY edited_at";
 
 			return $this->conn->query($sql);
 

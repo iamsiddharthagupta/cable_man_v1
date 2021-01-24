@@ -81,15 +81,15 @@
 
 			if(isset($_POST['submit'])) {
 
-				$device_id = intval($_POST['device_id']);
+				$dev_id = intval($_POST['dev_id']);
 				$device_no = $this->conn->real_escape_string($_POST['device_no']);
 				$device_type = $this->conn->real_escape_string($_POST['device_type']);
 
-				$sql = "  
+				$sql = "
 						UPDATE tbl_device_stack SET
 				        device_no = '$device_no',
 				        device_type = '$device_type'
-				        WHERE device_id = '$device_id'
+				        WHERE dev_id = '$dev_id'
 				      ";
 
 					if($this->conn->query($sql)) {
