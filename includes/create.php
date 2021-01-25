@@ -338,7 +338,7 @@
 
 				if(!empty($device_no) && !empty($device_type)) {
 
-					$check = $this->conn->query("SELECT device_no FROM tbl_device_stack WHERE device_no = '$device_no'");
+					$check = $this->conn->query("SELECT device_no FROM tbl_device WHERE device_no = '$device_no'");
 
 					if($check->num_rows > 0) {
 
@@ -348,7 +348,7 @@
 
 					} else {
 
-						$sql = "INSERT IGNORE INTO tbl_device_stack (device_no, device_type) VALUES ('$device_no','$device_type')";
+						$sql = "INSERT IGNORE INTO tbl_device (device_no, device_type) VALUES ('$device_no','$device_type')";
 
 						if(mysqli_query($this->conn,$sql)){
 

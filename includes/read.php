@@ -352,7 +352,7 @@
 
 		public function device_edit_fetch($dev_id) {
 
-		    $sql = "SELECT * FROM tbl_device_stack WHERE dev_id = '$dev_id'";
+		    $sql = "SELECT * FROM tbl_device WHERE dev_id = '$dev_id'";
 
 		   	return $this->conn->query($sql);
 
@@ -424,7 +424,7 @@
 
 		public function fetch_device_list() {
 
-			$sql = "SELECT * FROM tbl_device_stack ORDER BY edited_at";
+			$sql = "SELECT * FROM tbl_device ORDER BY edited_at";
 
 			return $this->conn->query($sql);
 
@@ -500,7 +500,7 @@
 					stf.phone_no,
 					CASE
 						WHEN stf.staff_position = 1 THEN 'Admin'
-						ELSE 'Agent'
+						WHEN  stf.staff_position = 2 THEN 'Agent'
 					END AS staff_position,
 					bra.branch_name
 

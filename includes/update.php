@@ -86,7 +86,7 @@
 				$device_type = $this->conn->real_escape_string($_POST['device_type']);
 
 				$sql = "
-						UPDATE tbl_device_stack SET
+						UPDATE tbl_device SET
 				        device_no = '$device_no',
 				        device_type = '$device_type'
 				        WHERE dev_id = '$dev_id'

@@ -57,7 +57,7 @@
 
           if ($result->num_rows < 1){
 
-            echo "<tr><td colspan='3'>No Device Available!</td><tr>";
+            echo "<tr><td colspan='4'>No Device Available!</td><tr>";
 
           } else {
 

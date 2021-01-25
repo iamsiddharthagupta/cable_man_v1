@@ -115,7 +115,7 @@
 				</div>
 
 				<div class="card-body table-responsive p-0">
-				<table class="table table-hover text-center table-bordered table-sm table-head-fixed text-nowrap">
+				<table class="table table-hover text-center table-bordered table-sm">
 		          <thead>
 		            <tr>
 						<th>Position</th>
