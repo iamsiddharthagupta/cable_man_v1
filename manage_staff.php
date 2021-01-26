@@ -30,55 +30,53 @@
   </div>
 </div>
 
-<div class="container-fluid pt-2">
-	<div class="col-md">
-		<div class="card card-info card-outline">
-			<div class="card-header">
-				<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModal">
-					Add Staff
-				</button>
-				<div class="card-tools">
-				  <div class="input-group input-group-sm">
-				    <input type="text" name="table_search" id="myInput" class="form-control float-right" placeholder="Search">
-				  </div>
-				</div>
+<div class="container-fluid">
+	<div class="card card-info card-outline">
+		<div class="card-header">
+			<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModal">
+				Add Staff
+			</button>
+			<div class="card-tools">
+			  <div class="input-group input-group-sm">
+			    <input type="text" name="table_search" id="myInput" class="form-control float-right" placeholder="Search">
+			  </div>
 			</div>
-
-			<div class="card-body table-responsive p-0" style="height:500px;">
-			<table class="table table-hover text-center table-bordered table-sm">
-				<thead>
-				    <tr>
-						<th>Position</th>
-						<th>Username</th>
-						<th>Name</th>
-						<th>Phone</th>
-						<th>Branch</th>
-				    </tr>
-				</thead>         
-				<?php
-					$result = $read->fetch_staff_detail_list();
-						if ($result->num_rows < 1) {
-							echo "<tr><td colspan='5'>No MSO Yet!</td><tr>";
-						} else {
-							foreach ($result as $key => $row) :
-				?>
-				<tbody id="myTable">
-					<tr>
-						<td><span class="badge badge-danger"><?php echo $row['staff_position']; ?></span></td>
-						<td><?php echo $row['username']; ?></td>
-						<td><?php echo $row['full_name']; ?></td>
-						<td><?php echo $row['phone_no']; ?></td>
-						<td><?php echo $row['branch_name']; ?></td>
-					</tr>
-				</tbody>
-				<?php
-					endforeach;
-						$result->free_result();
-					}
-				?>
-				</table>
-	  		</div>
 		</div>
+
+		<div class="card-body table-responsive p-0" style="height:500px;">
+		<table class="table table-hover text-center table-bordered table-sm">
+			<thead>
+			    <tr>
+					<th>Position</th>
+					<th>Username</th>
+					<th>Name</th>
+					<th>Phone</th>
+					<th>Branch</th>
+			    </tr>
+			</thead>         
+			<?php
+				$result = $read->fetch_staff_detail_list();
+					if ($result->num_rows < 1) {
+						echo "<tr><td colspan='5'>No MSO Yet!</td><tr>";
+					} else {
+						foreach ($result as $key => $row) :
+			?>
+			<tbody id="myTable">
+				<tr>
+					<td><span class="badge badge-danger"><?php echo $row['staff_position']; ?></span></td>
+					<td><?php echo $row['username']; ?></td>
+					<td><?php echo $row['full_name']; ?></td>
+					<td><?php echo $row['phone_no']; ?></td>
+					<td><?php echo $row['branch_name']; ?></td>
+				</tr>
+			</tbody>
+			<?php
+				endforeach;
+					$result->free_result();
+				}
+			?>
+			</table>
+  		</div>
 	</div>
 </div>
 

@@ -30,7 +30,7 @@
   </div>
 </div>
 
-<div class="container-fluid pt-2">
+<div class="container-fluid">
 	<div class="card card-outline card-info">
 		<div class="card-header">
 			<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModal">

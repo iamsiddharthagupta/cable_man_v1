@@ -348,7 +348,7 @@
 
 					} else {
 
-						$sql = "INSERT IGNORE INTO tbl_device (device_no, device_type) VALUES ('$device_no','$device_type')";
+						$sql = "INSERT IGNORE INTO tbl_device (device_no, device_type, pack_id) VALUES ('$device_no','$device_type', '$pack_id')";
 
 						if(mysqli_query($this->conn,$sql)){
 

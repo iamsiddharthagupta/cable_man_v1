@@ -424,7 +424,19 @@
 
 		public function fetch_device_list() {
 
-			$sql = "SELECT * FROM tbl_device ORDER BY edited_at";
+			$sql = "
+					SELECT
+					dv.dev_id,
+					dv.device_no,
+					dv.device_type,
+					pk.pack_name,
+					mso.mso_name
+
+					FROM tbl_device dv
+					LEFT JOIN tbl_package pk ON pk.pack_id = dv.pack_id
+					LEFT JOIN tbl_mso mso ON mso.mso_id = pk.mso_id
+					ORDER BY dv.created_at
+					";
 
 			return $this->conn->query($sql);
 

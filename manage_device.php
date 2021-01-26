@@ -31,7 +31,7 @@
 </div>
 
 <div class="container-fluid">
-  <div class="card">
+  <div class="card card-outline card-info">
     <div class="card-header">
       <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#add_device">
         Add Device
@@ -50,7 +50,8 @@
             <tr>
               <th>Device ID</th>
               <th>Device Type</th>
-              <th>Device Status</th>
+              <th>Package</th>
+              <th>MSO</th>
               <th>Action</th>
             </tr>
         </thead>
@@ -101,7 +102,8 @@
           <tr>
             <td><?php echo $row['device_no']; ?></td>
             <td><?php echo $row['device_type']; ?></td>
-            <td><?php echo $row['device_type']; ?></td>
+            <td><?php echo $row['pack_name']; ?></td>
+            <td><?php echo $row['mso_name']; ?></td>
             <td><a href="#" data-toggle="modal" data-target="#edit_data<?php echo $row['dev_id']; ?>"><i class="fas fa-pen-square"></i></a></td>
           </tr>
         </tbody>
