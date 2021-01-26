@@ -107,8 +107,13 @@
 					</div>
 				</div>
 
+<<<<<<< Updated upstream
 				<div class="card-body table-responsive p-0">
 				<table class="table table-hover text-center table-bordered table-sm">
+=======
+				<div class="card-body table-responsive p-0" style="height:500px;">
+				<table class="table table-hover table-bordered table-sm table-head-fixed">
+>>>>>>> Stashed changes
 		          <thead>
 		            <tr>
 		              <th>Name</th>

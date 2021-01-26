@@ -34,16 +34,14 @@
 	<div class="row">
 			<div class="col-md-4">
 				<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" autocomplete="off">
-					<div class="card card-outline card-info">
+					<div class="card card-info">
 						<div class="card-header">
 						  <h3 class="card-title">Add Area</h3>
-
 						  <div class="card-tools">
 						    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
 						      <i class="fas fa-minus"></i></button>
 						  </div>
 						</div>
-
 						<div class="card-body">
 						  <div class="form-group">
 						    <input type="text" name="area_name" placeholder="Area" class="form-control">
@@ -72,6 +70,7 @@
 			</div>
 
 			<div class="col-md-8">
+<<<<<<< Updated upstream
 				<div class="card card-outline card-info">
 				<div class="card-header">
 					<h3 class="card-title">Areas</h3>
@@ -139,6 +138,46 @@
 	      	</div>
 	      </div>
 	  </div>
+=======
+				<div class="table-responsive p-0" style="height:500px;">
+					<table class="table table-hover text-center table-bordered table-sm">
+						<thead class="thead-dark">
+							<tr>
+								<th>Area</th>
+								<th>District</th>
+								<th>City</th>
+								<th>State</th>
+								<th>Pincode</th>
+								<th>Country</th>
+							</tr>
+						</thead>         
+
+							<?php $result = $read->fetch_area_list();
+								if ($result->num_rows < 1) {
+								echo "<tr><td colspan='6'>No areas added yet!</td><tr>";
+								} else {
+								foreach ($result as $key => $row) :
+							?>
+
+						<tbody id="myTable">
+							<tr>
+								<td><?php echo $row['area_name']; ?></td>
+								<td><?php echo $row['area_district']; ?></td>
+								<td><?php echo $row['area_city']; ?></td>
+								<td><?php echo $row['area_state']; ?></td>
+								<td><?php echo $row['area_pin']; ?></td>
+								<td><?php echo $row['area_country']; ?></td>
+							</tr>
+						</tbody>
+	                  <?php
+	                    endforeach;
+	                    $result->free_result();
+	                  }
+	                ?>
+	        </table>
+	    </div>
+	</div>
+>>>>>>> Stashed changes
 	</div>
 </div>
 

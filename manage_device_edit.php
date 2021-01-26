@@ -53,8 +53,8 @@
 					<div class="col-sm">
 						<label>Device Type:</label>
 						<select class="form-control" name="device_type">
-							<option value="SD" <?php if($row["device_type"] == 'SD'){ echo "selected"; } ?>>SD</option>
-							<option value="HD" <?php if($row["device_type"] == 'HD'){ echo "selected"; } ?>>HD</option>
+							<option value="SD" <?php if($row["device_type"] == 'SD'){ echo "selected"; } ?>>Standard Definition [SD]</option>
+							<option value="HD" <?php if($row["device_type"] == 'HD'){ echo "selected"; } ?>>High Definition [HD]</option>
 						</select>
 					</div>
 				</div>

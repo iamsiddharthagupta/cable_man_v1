@@ -8,10 +8,7 @@
     <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
     <title>Endeavour Technologies</title>
 
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="assets/fonts/all.css">
-    
-    <!-- AdminLTE Styles -->
     <link rel="stylesheet" type="text/css" href="assets/styles/adminlte.min.css">
     <link rel="stylesheet" type="text/css" href="assets/styles/OverlayScrollbars.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
