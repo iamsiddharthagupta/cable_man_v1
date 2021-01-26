@@ -9,6 +9,7 @@
 
     require_once 'includes/top-nav.php';
     require_once 'includes/side-nav.php';
+    $create->create_device();
 
 ?>
 
@@ -31,7 +32,9 @@
 <div class="container-fluid">
   <div class="card">
     <div class="card-header">
-      <a href="manage_device_add.php" class="btn btn-sm btn-info">Add Device</a>
+      <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModal">
+        Add Device
+      </button>
 
       <div class="card-tools">
         <div class="input-group input-group-sm">
@@ -88,3 +91,39 @@
 </div>
 
 <?php require_once 'includes/footer.php'; ?>
+
+<!-- Add Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" autocomplete="off">
+          <div class="form-group">
+            <label>Device No:</label>
+            <input type="text" name="device_no" class="form-control" placeholder="STB, VC, NDS Number">
+          </div>
+          <div class="form-group">
+                <div class="form-group">
+                  <label>Device Type:</label>
+                  <select name="device_type" class="form-control">
+                    <option value="">Device type:</option>
+                    <option value="SD">Standard Definition [SD]</option>
+                    <option value="HD">High Definition [HD]</option>
+                  </select>
+                </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" name="submit" class="btn btn-primary">Save changes</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>

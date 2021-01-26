@@ -89,7 +89,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="manage_device_list.php" class="nav-link <?php if($page == 'manage_device.php'){ echo 'active'; } ?>">
+            <a href="manage_device.php" class="nav-link <?php if($page == 'manage_device.php'){ echo 'active'; } ?>">
               <i class="nav-icon fas fa-hdd"></i>
               <p>Manage Device</p>
             </a>

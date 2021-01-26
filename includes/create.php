@@ -344,7 +344,7 @@
 
 						$msg = 'Device already exist.';
 						$code = 'info';
-						header('Location: manage_device_add.php?msg='.$msg.'&code='.$code);
+						header('Location: manage_device.php?msg='.$msg.'&code='.$code);
 
 					} else {
 
@@ -354,13 +354,13 @@
 
 							$msg = 'Device added successfully.';
 							$code = 'success';
-							header('Location: manage_device_list.php?msg='.$msg.'&code='.$code);
+							header('Location: manage_device.php?msg='.$msg.'&code='.$code);
 
 						} else {
 
 							$msg = 'Database error.';
 							$code = 'error';
-							header('Location: manage_device_list.php?msg='.$msg.'&code='.$code);
+							header('Location: manage_device.php?msg='.$msg.'&code='.$code);
 
 						}
 
@@ -370,7 +370,7 @@
 
 					$msg = 'Please fill details.';
 					$code = 'warning';
-					header('Location: manage_device_add.php?msg='.$msg.'&code='.$code);
+					header('Location: manage_device.php?msg='.$msg.'&code='.$code);
 
 				}
 
