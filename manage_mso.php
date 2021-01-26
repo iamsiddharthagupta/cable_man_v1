@@ -31,90 +31,86 @@
 </div>
 
 <div class="container-fluid pt-2">
-	<div class="row">
-			<div class="col-md-4">
-				<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" autocomplete="off">
-					<div class="card card-outline card-info">
-						<div class="card-header">
-						  <h3 class="card-title">Add MSO</h3>
-
-						  <div class="card-tools">
-						    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-						      <i class="fas fa-minus"></i></button>
-						  </div>
-						</div>
-
-						<div class="card-body">
-						  <div class="form-group">
-						  	<label>MSO Name</label>
-						    <input type="text" name="mso_name" placeholder="MSO Name" class="form-control">
-						  </div>
-						  <div class="form-group">
-						  	<label>MSO Price</label>
-						    <input type="text" name="mso_price" placeholder="MSO Price" class="form-control">
-						  </div>
-						</div>
-						<div class="card-footer">
-							<button type="submit" name="submit" class="btn btn-info float-right">Add</button>
-						</div>
-					</div>
-				</form>
+	<div class="card card-outline card-info">
+		<div class="card-header">
+			<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModal">Add MSO</button>
+			<div class="card-tools">
+			  <div class="input-group input-group-sm">
+			    <input type="text" name="table_search" id="myInput" class="form-control float-right" placeholder="Search">
+			  </div>
 			</div>
+		</div>
 
-			<div class="col-md-8">
-				<div class="card card-outline card-info">
-				<div class="card-header">
-					<h3 class="card-title">MSOs</h3>
+		<div class="card-body table-responsive p-0">
+			<table class="table table-hover text-center table-bordered table-sm table-head-fixed text-nowrap">
+	          <thead>
+	            <tr>
+	              <th>MSO Name</th>
+	              <th>MSO Price</th>
+	            </tr>
+	          </thead>         
 
-					<div class="card-tools">
-					  <div class="input-group input-group-sm">
-					    <input type="text" name="table_search" id="myInput" class="form-control float-right" placeholder="Search">
-					  </div>
-					</div>
-				</div>
+				<?php
 
-				<div class="card-body table-responsive p-0">
-				<table class="table table-hover text-center table-bordered table-sm table-head-fixed text-nowrap">
-		          <thead>
-		            <tr>
-		              <th>MSO Name</th>
-		              <th>MSO Price</th>
-		            </tr>
-		          </thead>         
+					$result = $read->fetch_mso_list();
 
-					<?php
+					if ($result->num_rows < 1) {
 
-						$result = $read->fetch_mso_list();
+					echo "<tr><td colspan='2'>No MSO added yet!</td><tr>";
 
-						if ($result->num_rows < 1) {
+					} else {
 
-						echo "<tr><td colspan='2'>No MSO added yet!</td><tr>";
+					foreach ($result as $key => $row) :
 
-						} else {
+				?>
+						<tbody id="myTable">
+							<tr>
+								<td><?php echo $row['mso_name']; ?></td>
+								<td><?php echo $row['mso_price']; ?></td>
+							</tr>
+						</tbody>
+				<?php
 
-						foreach ($result as $key => $row) :
+					endforeach;
 
-					?>
-							<tbody id="myTable">
-								<tr>
-									<td><?php echo $row['mso_name']; ?></td>
-									<td><?php echo $row['mso_price']; ?></td>
-								</tr>
-							</tbody>
-					<?php
+					$result->free_result();
 
-						endforeach;
+					}
 
-						$result->free_result();
-
-						}
-
-					?>
-		        </table>
-	      	</div>
-	      </div>
-	  </div>
+				?>
+			</table>
+		</div>
 	</div>
 </div>
 
 <?php require_once 'includes/footer.php'; ?>
+
+<!-- Add Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add MSO</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" autocomplete="off">
+			<div class="form-group">
+				<label>MSO Name</label>
+				<input type="text" name="mso_name" placeholder="MSO Name" class="form-control" required="">
+			</div>
+			<div class="form-group">
+				<label>MSO Price</label>
+				<input type="text" name="mso_price" placeholder="MSO Price" class="form-control" required="">
+			</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" name="submit" class="btn btn-primary">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
