@@ -57,17 +57,11 @@
 	          </thead>         
 
 				<?php
-
 					$result = $read->fetch_package_list();
-
-					if ($result->num_rows < 1) {
-
-					echo "<tr><td colspan='5'>No package added yet!</td><tr>";
-
-					} else {
-
-					foreach ($result as $key => $row) :
-
+						if ($result->num_rows < 1) {
+							echo "<tr><td colspan='5'>No package added yet!</td><tr>";
+						} else {
+							foreach ($result as $key => $row) :
 				?>
 						<tbody id="myTable">
 							<tr>
@@ -79,13 +73,9 @@
 							</tr>
 						</tbody>
 				<?php
-
 					endforeach;
-
-					$result->free_result();
-
+						$result->free_result();
 					}
-
 				?>
 	        </table>
 	  	</div>
@@ -95,7 +85,7 @@
 
 <?php require_once 'includes/footer.php'; ?>
 
-<!-- Add Modal -->
+<!-- Add -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -132,18 +122,18 @@
 				</div>
 				<div class="form-group col-md">
 					<label>MSO:</label>
-				<?php
+						<?php
 
-				  $msos = $read->fetch_mso_list();
+						  $msos = $read->fetch_mso_list();
 
-				  echo "<select name='mso_id' class='form-control'>";
-				  echo "<option value=''>Select MSO</option>";
-				    foreach ($msos as $key => $mso) {
-				      echo "<option value='$mso[mso_id]'>$mso[mso_name]</option>";
-				    }
-				  echo "</select>";
+						  echo "<select name='mso_id' class='form-control'>";
+						  echo "<option value=''>Select MSO</option>";
+						    foreach ($msos as $key => $mso) {
+						      echo "<option value='$mso[mso_id]'>$mso[mso_name]</option>";
+						    }
+						  echo "</select>";
 
-				?>
+						?>
 				</div>
 			</div>
       </div>

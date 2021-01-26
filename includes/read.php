@@ -519,6 +519,7 @@
 
 			$sql = "	SELECT
 
+						pk.pack_id,
 						pk.pack_name,
 						pk.pack_price,
 						pk.pack_type,
@@ -533,6 +534,12 @@
 			return $this->conn->query($sql);
 
 			$this->conn->close();
+
+		}
+
+		public function fetch_package_list_all() {
+
+			return $this->conn->query("SELECT * FROM tbl_package");
 
 		}
 

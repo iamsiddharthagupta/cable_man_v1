@@ -17,9 +17,8 @@
         <div class="card-body">
           <form method="POST">
               <table class="table table-sm text-nowrap">
-
               <?php
-                $result = $device->user_profile_device_fetch($_GET['user_id']);
+                $result = $read->user_profile_device_fetch($_GET['user_id']);
                 $row = mysqli_fetch_assoc($result);
                 foreach ($result as $key => $row) :
               ?>
@@ -37,7 +36,6 @@
                     </td>
                   </tr>
                 </tbody>
-              
               <?php
                 endforeach;
               ?>

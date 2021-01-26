@@ -89,16 +89,16 @@
           </li>
 
           <li class="nav-item">
-            <a href="manage_device.php" class="nav-link <?php if($page == 'manage_device.php'){ echo 'active'; } ?>">
-              <i class="nav-icon fas fa-hdd"></i>
-              <p>Manage Device</p>
+            <a href="manage_package.php" class="nav-link <?php if($page == 'manage_package.php'){ echo 'active'; } ?>">
+              <i class="nav-icon fas fa-box-open"></i>
+              <p>Manage Package</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="manage_package.php" class="nav-link <?php if($page == 'manage_package.php'){ echo 'active'; } ?>">
-              <i class="nav-icon fas fa-box-open"></i>
-              <p>Manage Package</p>
+            <a href="manage_device.php" class="nav-link <?php if($page == 'manage_device.php'){ echo 'active'; } ?>">
+              <i class="nav-icon fas fa-hdd"></i>
+              <p>Manage Device</p>
             </a>
           </li>
 

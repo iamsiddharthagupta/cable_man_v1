@@ -79,7 +79,7 @@
 
 		public function update_device() {
 
-			if(isset($_POST['submit'])) {
+			if(isset($_POST['update'])) {
 
 				$dev_id = intval($_POST['dev_id']);
 				$device_no = $this->conn->real_escape_string($_POST['device_no']);
@@ -96,13 +96,13 @@
 
 						$msg = 'Device updated successfully.';
 						$code = 'success';
-						header('Location: manage_device_list.php?msg='.$msg.'&code='.$code);
+						header('Location: manage_device.php?msg='.$msg.'&code='.$code);
 
 					} else {
 
 						$msg = 'Database error.';
 						$code = 'error';
-						header('Location: manage_device_list.php?msg='.$msg.'&code='.$code);
+						header('Location: manage_device.php?msg='.$msg.'&code='.$code);
 
 					}
 			}

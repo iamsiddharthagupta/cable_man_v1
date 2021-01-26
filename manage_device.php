@@ -10,6 +10,7 @@
     require_once 'includes/top-nav.php';
     require_once 'includes/side-nav.php';
     $create->create_device();
+    $update->update_device();
 
 ?>
 
@@ -32,7 +33,7 @@
 <div class="container-fluid">
   <div class="card">
     <div class="card-header">
-      <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModal">
+      <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#add_device">
         Add Device
       </button>
 
@@ -55,31 +56,55 @@
         </thead>
 
         <?php
-
           $result = $read->fetch_device_list();
+            if ($result->num_rows < 1) {
+              echo "<tr><td colspan='4'>No Device Available!</td><tr>";
+            } else {
+              foreach ($result as $key => $row) :
+        ?>
 
-          if ($result->num_rows < 1){
+          <!-- Edit -->
+          <div class="modal fade" id="edit_data<?php echo $row['dev_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Edit Package</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" autocomplete="off">
+                    <div class="col-sm">
+                      <label>Device ID:</label>
+                      <input type="text" name="device_no" class="form-control" value="<?php echo $row['device_no']; ?>">
+                    </div>
+                    <div class="col-sm">
+                      <label>Device Type:</label>
+                      <select class="form-control" name="device_type">
+                        <option value="SD" <?php if($row["device_type"] == 'SD'){ echo "selected"; } ?>>Standard Definition [SD]</option>
+                        <option value="HD" <?php if($row["device_type"] == 'HD'){ echo "selected"; } ?>>High Definition [HD]</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <input type="hidden" name="dev_id" value="<?php echo $row['dev_id']; ?>">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="update" name="update" class="btn btn-primary">Save changes</button>
+                </form>
+                </div>
+              </div>
+            </div>
+          </div>
 
-            echo "<tr><td colspan='4'>No Device Available!</td><tr>";
-
-          } else {
-
-            foreach ($result as $key => $row) : ?>
-              
         <tbody id="myTable">
           <tr>
-
             <td><?php echo $row['device_no']; ?></td>
-            
             <td><?php echo $row['device_type']; ?></td>
-            
             <td><?php echo $row['device_type']; ?></td>
-            
-            <td><a href="manage_device_edit.php?dev_id=<?php echo htmlentities($row['dev_id']); ?>"><i class="fas fa-pen-square"></i></a></td>
-
+            <td><a href="#" data-toggle="modal" data-target="#edit_data<?php echo $row['dev_id']; ?>"><i class="fas fa-pen-square"></i></a></td>
           </tr>
         </tbody>
-
           <?php
               endforeach;
               $result->free_result();
@@ -92,12 +117,12 @@
 
 <?php require_once 'includes/footer.php'; ?>
 
-<!-- Add Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Add -->
+<div class="modal fade" id="add_device" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add Device</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -118,10 +143,25 @@
                   </select>
                 </div>
           </div>
+          <div class="form-group">
+            <label>Package:</label>
+              <?php
+
+                $packs = $read->fetch_package_list();
+
+                echo "<select name='pack_id' class='form-control'>";
+                echo "<option value=''>Select Package</option>";
+                  foreach ($packs as $key => $pack) {
+                    echo "<option value='$pack[pack_id]'>$pack[pack_name] - $pack[mso_name]</option>";
+                  }
+                echo "</select>";
+
+              ?>
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" name="submit" class="btn btn-primary">Save changes</button>
+        <button type="add" name="add" class="btn btn-primary">Save changes</button>
       </form>
       </div>
     </div>

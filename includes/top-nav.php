@@ -13,9 +13,6 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="dashboard.php" class="nav-link">Dashboard</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="profile_add.php" class="nav-link"><i class="fas fa-user-plus"></i></a>
-      </li>
     </ul>
 
     <form class="form-inline ml-3">

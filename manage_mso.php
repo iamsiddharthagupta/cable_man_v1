@@ -41,42 +41,30 @@
 			</div>
 		</div>
 
-		<div class="card-body table-responsive p-0">
+		<div class="card-body table-responsive p-0" style="height: 500px;">
 			<table class="table table-hover text-center table-bordered table-sm table-head-fixed text-nowrap">
 	          <thead>
 	            <tr>
 	              <th>MSO Name</th>
-	              <th>MSO Price</th>
 	            </tr>
 	          </thead>         
 
 				<?php
-
 					$result = $read->fetch_mso_list();
-
-					if ($result->num_rows < 1) {
-
-					echo "<tr><td colspan='2'>No MSO added yet!</td><tr>";
-
-					} else {
-
-					foreach ($result as $key => $row) :
-
+						if ($result->num_rows < 1) {
+							echo "<tr><td colspan='1'>No MSO added yet!</td><tr>";
+						} else {
+							foreach ($result as $key => $row) :
 				?>
 						<tbody id="myTable">
 							<tr>
 								<td><?php echo $row['mso_name']; ?></td>
-								<td><?php echo $row['mso_price']; ?></td>
 							</tr>
 						</tbody>
 				<?php
-
 					endforeach;
-
-					$result->free_result();
-
+						$result->free_result();
 					}
-
 				?>
 			</table>
 		</div>
@@ -85,7 +73,7 @@
 
 <?php require_once 'includes/footer.php'; ?>
 
-<!-- Add Modal -->
+<!-- Add -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -100,10 +88,6 @@
 			<div class="form-group">
 				<label>MSO Name</label>
 				<input type="text" name="mso_name" placeholder="MSO Name" class="form-control" required="">
-			</div>
-			<div class="form-group">
-				<label>MSO Price</label>
-				<input type="text" name="mso_price" placeholder="MSO Price" class="form-control" required="">
 			</div>
       </div>
       <div class="modal-footer">

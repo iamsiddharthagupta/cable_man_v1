@@ -26,7 +26,7 @@
 
 		        $msg = 'Database Error.';
 		        $code = 'error';
-		        header('Location: profile_add.php?msg='.$msg.'&code='.$code);
+		        header('Location: list_customer.php?msg='.$msg.'&code='.$code);
 	          
 	          }
 
@@ -34,7 +34,7 @@
 
 		        $msg = 'Please fill details.';
 		        $code = 'warning';
-		        header('Location: profile_add.php?msg='.$msg.'&code='.$code);
+		        header('Location: list_customer.php?msg='.$msg.'&code='.$code);
 
 	        }
 	      }
@@ -218,11 +218,10 @@
 			if(isset($_POST['submit'])) {
 
 				$mso_name = $_POST['mso_name'];
-				$mso_price = $_POST['mso_price'];
 
-				if(!empty($mso_name) && !empty($mso_price)) {
+				if(!empty($mso_name)) {
 
-					if($this->conn->query("INSERT INTO tbl_mso (mso_name, mso_price) VALUES ('$mso_name', '$mso_price')")) {
+					if($this->conn->query("INSERT INTO tbl_mso (mso_name) VALUES ('$mso_name')")) {
 
 						$msg = 'MSO added successfully.';
 						$code = 'success';
@@ -331,10 +330,11 @@
 
 		public function create_device() {
 
-			if(isset($_POST['submit'])) {
+			if(isset($_POST['add'])) {
 
 				$device_no = $this->conn->real_escape_string($_POST['device_no']);
 				$device_type = $this->conn->real_escape_string($_POST['device_type']);
+				$pack_id = intval($_POST['pack_id']);
 
 				if(!empty($device_no) && !empty($device_type)) {
 
