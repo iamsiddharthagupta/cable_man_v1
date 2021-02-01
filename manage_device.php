@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <div class="card-body table-responsive p-0" style="height: 550px;">
+    <div class="card-body table-responsive p-0" style="height: 500px;">
     <table class="table table-hover text-center table-bordered table-sm table-head-fixed text-nowrap">
           <thead class="thead-light">
             <tr>
