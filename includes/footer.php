@@ -5,7 +5,7 @@
       <strong>Copyright &copy; 2019-<?php echo date('Y') ?> Endeavour Technologies Pvt Ltd.</strong> All rights reserved.
     </footer>
 </div>
-
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.23/datatables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="assets/scripts/jquery.min.js"></script>
     <script src="assets/scripts/jquery-ui.js"></script>
@@ -15,7 +15,6 @@
     <script src="assets/scripts/maskedinput.js"></script>
     <script src="assets/scripts/toastr.min.js"></script>
     <script src="assets/scripts/script.js"></script>
-
 <!-- Notification LEDs -->
   <script type="text/javascript">
     <?php 

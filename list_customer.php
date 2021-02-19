@@ -41,21 +41,15 @@
 				</thead>
 
 				<?php
-
 					$result = $read->fetch_list_customer();
-
 					if($result->num_rows < 1) {
-						
 						echo "<tr><td colspan='10'>No customer yet!</td><tr>";
-					
 					} else {
-
 						foreach ($result as $key => $row) :
 				?>
 
 				<tbody id="myTable">
 					<tr>
-
 						<td>
 							<div class="btn-group" role="group">
 		    					<button type="button" class="btn btn-dark btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -73,17 +67,11 @@
 							    </div>
 					  		</div>
 						</td>
-
 						<td><a href="profile_ledger.php?cust_id=<?php echo htmlentities($row['cust_id']); ?>"><?php echo $row['first_name']." ".$row['last_name'];?></a></td>
-
 						<td><?php echo $row['address'];?>, <strong><?php echo $row['area_name'] ?></strong></td>
-
 						<td><?php echo $row['phone_no'];?></td>
-
 						<td>2</td>
-						
 						<td>500</td>
-
 						<td><?php echo date('jS M y',strtotime($row['install_date'])); ?></td>
 					</tr>
 				</tbody>
