@@ -5,12 +5,12 @@
 
     (!isset($_SESSION['logged_staff'])) ? header('Location: index.php') : $curr_user = ucwords($_SESSION['logged_staff']);
 
-	$page = 1.1;
+	$page = 1.4;
 
 	require_once 'includes/top-nav.php';
 	require_once 'includes/side-nav.php';
 
-	$create->create_area();
+    $create->create_package();
 
 ?>
 
@@ -18,12 +18,12 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-6">
-        <h4 class="text-dark">Add Area</h4>
+        <h4 class="text-dark">Add Package</h4>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-          <li class="breadcrumb-item active">Area Management</li>
+          <li class="breadcrumb-item active">Package Management</li>
         </ol>
       </div>
     </div>
@@ -31,7 +31,7 @@
 </div>
 
 <div class="container">
-  <form method="POST" class="needs-validation" novalidate>
+  <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="needs-validation" novalidate>
     <div class="card card-info">
       <div class="card-header">
         <div class="card-tools">
@@ -41,34 +41,32 @@
         </div>
       </div>
       <div class="card-body">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" name="pack_name" class="form-control" required="">
+        </div>
         <div class="form-row">
           <div class="form-group col-md">
-            <label>Area</label>
-            <input type="text" name="area_name" class="form-control" required="">
+            <label>Duration</label>
+            <input type="number" name="pack_duration" class="form-control" required="">
           </div>
           <div class="form-group col-md">
-            <label>District</label>
-            <input type="text" name="area_district" value="South-West Delhi" class="form-control" required="">
+            <label>Price</label>
+            <input type="number" name="pack_price" class="form-control" required="">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md">
-            <label>City</label>
-            <input type="text" name="area_city" value="New Delhi" class="form-control" required="">
+            <label>Type</label>
+            <select name="pack_type" class="custom-select" required="">
+              <option value="">Choose...</option>
+              <option value="SD">Standard Definition [SD]</option>
+              <option value="HD">High Definition [HD]</option>
+            </select>
           </div>
           <div class="form-group col-md">
-            <label>State</label>
-            <input type="text" name="area_state" value="Delhi" class="form-control" required="">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md">
-            <label>Pincode</label>
-            <input type="text" name="area_pin" value="110029" class="form-control" required="">
-          </div>
-          <div class="form-group col-md">
-            <label>Country</label>
-            <input type="text" name="area_country" value="India" class="form-control" required="">
+            <label>MSO</label>
+              <input type="text" name="mso_name" class="form-control" required="">
           </div>
         </div>
       </div>

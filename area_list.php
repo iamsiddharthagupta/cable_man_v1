@@ -5,7 +5,7 @@
 
     (!isset($_SESSION['logged_staff'])) ? header('Location: index.php') : $curr_user = ucwords($_SESSION['logged_staff']);
 
-	$page = 'manage_area.php';
+	$page = 1.1;
 
 	require_once 'includes/top-nav.php';
 	require_once 'includes/side-nav.php';
@@ -18,7 +18,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-6">
-        <h4 class="text-dark">Area Management</h4>
+        <h4 class="text-dark">Area List</h4>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
