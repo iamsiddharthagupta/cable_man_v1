@@ -21,48 +21,44 @@
 
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
+              <i class="nav-icon fas fa-user"></i>
               <p>
-                Customer
+                User
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="list_customer.php" class="nav-link <?php if($page == 'list_customer.php'){ echo 'active'; } ?>">
-                  <i class="fas fa-dot-circle nav-icon"></i>
-                  <p>All Customer</p>
+                <a href="user_list.php" class="nav-link <?php if($page == 1){ echo 'active'; } ?>">
+                  <i class="fas fa-users nav-icon"></i>
+                  <p>User List</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="list_customer_active.php" class="nav-link <?php if($page == 'list_customer_active.php'){ echo 'active'; } ?>">
-                  <i class="fas fa-dot-circle nav-icon"></i>
+                <a href="user_list_active.php" class="nav-link <?php if($page == 2){ echo 'active'; } ?>">
+                  <i class="fas fa-user-check nav-icon"></i>
                   <p>Active List</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="list_customer_expired.php" class="nav-link <?php if($page == 'list_customer_expired.php'){ echo 'active'; } ?>">
-                  <i class="fas fa-dot-circle nav-icon"></i>
+                <a href="user_list_expired.php" class="nav-link <?php if($page == 3){ echo 'active'; } ?>">
+                  <i class="fas fa-user-times nav-icon"></i>
                   <p>Expired List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="user_list_unpaid.php" class="nav-link <?php if($page == 4){ echo 'active'; } ?>">
+                  <i class="nav-icon fas fa-rupee-sign"></i>
+                  <p>Manage Bills</p>
                 </a>
               </li>
             </ul>
           </li>
 
-          <li class="nav-header">Payment Center</li>
-
-          <li class="nav-item">
-            <a href="list_customer_unpaid.php" class="nav-link <?php if($page == 'bills.php'){ echo 'active'; } ?>">
-              <i class="nav-icon fas fa-rupee-sign"></i>
-              <p>Manage Bills</p>
-            </a>
-          </li>
-
           <li class="nav-header">Control Center</li>
-
           <li class="nav-item">
             <a href="manage_area.php" class="nav-link <?php if($page == 'manage_area.php'){ echo 'active'; } ?>">
-              <i class="nav-icon fas fa-house-user"></i>
+              <i class="nav-icon fas fa-building"></i>
               <p>Manage Area</p>
             </a>
           </li>
@@ -78,13 +74,6 @@
             <a href="manage_staff.php" class="nav-link <?php if($page == 'manage_staff.php'){ echo 'active'; } ?>">
               <i class="nav-icon fas fa-user-check"></i>
               <p>Manage Staff</p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="manage_mso.php" class="nav-link <?php if($page == 'manage_mso.php'){ echo 'active'; } ?>">
-              <i class="nav-icon fas fa-building"></i>
-              <p>Manage MSO</p>
             </a>
           </li>
 

@@ -5,7 +5,7 @@
 
     (!isset($_SESSION['logged_staff'])) ? header('Location: index.php') : $curr_user = ucwords($_SESSION['logged_staff']);
   
-	$page = 'list_customer.php';
+	$page = 2;
 	
 	require_once 'includes/top-nav.php';
 	require_once 'includes/side-nav.php';
@@ -13,20 +13,35 @@
 
 ?>
 
-<div class="container-fluid p-2">
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6">
+        <h4 class="text-dark">Area Management</h4>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+          <li class="breadcrumb-item active">Area Management</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
 	<div class="card card-outline card-info">
 		<div class="card-header">
 			<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#staticBackdrop">
 			  Add Customer
 			</button>
-
 			<div class="card-tools">
 			  <div class="input-group input-group-sm">
 			    <input type="text" name="table_search" id="myInput" class="form-control float-right" placeholder="Search">
 			  </div>
 			</div>
 		</div>
-		<div class="card-body table-responsive p-0" style="height: 550px;">
+		<div class="card-body table-responsive p-0">
 			<table class="table table-hover text-center table-bordered table-sm table-head-fixed text-nowrap">
 			    <thead class="thead-light">
 			      <tr>
@@ -39,7 +54,6 @@
 			        <th>Install Date</th>
 			      </tr>
 				</thead>
-
 				<?php
 					$result = $read->fetch_list_customer();
 					if($result->num_rows < 1) {
@@ -47,7 +61,6 @@
 					} else {
 						foreach ($result as $key => $row) :
 				?>
-
 				<tbody id="myTable">
 					<tr>
 						<td>

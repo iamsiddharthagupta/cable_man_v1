@@ -4,9 +4,9 @@
   session_start();
 
     (!isset($_SESSION['logged_staff'])) ? header('Location: index.php') : $curr_user = ucwords($_SESSION['logged_staff']);
-  
+
 	$page = 'manage_area.php';
-	
+
 	require_once 'includes/top-nav.php';
 	require_once 'includes/side-nav.php';
 
@@ -30,12 +30,10 @@
   </div>
 </div>
 
-<div class="container-fluid">
+<div class="container">
 	<div class="card card-outline card-info">
 		<div class="card-header">
-			<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModal">
-			  Add Area
-			</button>
+			<a href="area_add.php" class="btn btn-info btn-sm">Add Area</a>
 
 			<div class="card-tools">
 			  <div class="input-group input-group-sm">
@@ -44,7 +42,7 @@
 			</div>
 		</div>
 
-		<div class="card-body table-responsive p-0" style="height:500px;">
+		<div class="card-body table-responsive p-0">
 			<table class="table table-hover text-center table-bordered table-sm">
 				<thead>
 					<tr>
@@ -82,44 +80,5 @@
 	  	</div>
 	</div>
 </div>
-<?php require_once 'includes/footer.php'; ?>
 
-<!-- Add -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Area</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      	<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" autocomplete="off">
-			<div class="form-group">
-				<input type="text" name="area_name" placeholder="Area" class="form-control" required="">
-			</div>
-			<div class="form-group">
-				<input type="text" name="area_district" placeholder="District" value="South-West Delhi" class="form-control" required="">
-			</div>
-			<div class="form-group">
-				<input type="text" name="area_city" placeholder="City" value="New Delhi" class="form-control" required="">
-			</div>
-			<div class="form-group">
-				<input type="text" name="area_state" placeholder="State" value="Delhi" class="form-control" required="">
-			</div>
-			<div class="form-group">
-				<input type="text" name="area_pin" placeholder="Pin" value="110029" class="form-control" required="">
-			</div>
-			<div class="form-group">
-				<input type="text" name="area_country" placeholder="Country" value="India" class="form-control" required="">
-			</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" name="submit" class="btn btn-primary">Save changes</button>
-    </form>
-      </div>
-    </div>
-  </div>
-</div>
+<?php require_once 'includes/footer.php'; ?>

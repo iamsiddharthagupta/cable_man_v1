@@ -30,7 +30,7 @@
   </div>
 </div>
 
-<div class="container-fluid">
+<div class="container">
 	<div class="card card-outline card-info">
 		<div class="card-header">
 			<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModal">
@@ -44,7 +44,7 @@
 			</div>
 		</div>
 
-		<div class="card-body table-responsive p-0" style="height: 500px;">
+		<div class="card-body table-responsive p-0">
 			<table class="table table-hover text-center table-bordered table-sm table-head-fixed text-nowrap">
 	          <thead>
 	            <tr>
