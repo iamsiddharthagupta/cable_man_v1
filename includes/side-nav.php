@@ -14,42 +14,30 @@
       </div>
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-header">Customer Center</li>
-            <li class="nav-item has-treeview menu-open">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-user"></i>
-                <p>
-                  User
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="user_list.php" class="nav-link <?php if($page == 1){ echo 'active'; } ?>">
-                    <i class="fas fa-users nav-icon"></i>
-                    <p>User List</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="user_list_active.php" class="nav-link <?php if($page == 2){ echo 'active'; } ?>">
-                    <i class="fas fa-user-check nav-icon"></i>
-                    <p>Active List</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="user_list_expired.php" class="nav-link <?php if($page == 3){ echo 'active'; } ?>">
-                    <i class="fas fa-user-times nav-icon"></i>
-                    <p>Expired List</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="user_list_unpaid.php" class="nav-link <?php if($page == 4){ echo 'active'; } ?>">
-                    <i class="nav-icon fas fa-rupee-sign"></i>
-                    <p>Manage Bills</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
+          <li class="nav-header">User Center</li>
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link <?php if($page == 1){ echo 'active'; } ?>">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                User
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="user_profile_add.php" class="nav-link <?php if($page == 3.1){ echo 'active'; } ?>">
+                  <i class="fas fa-user-plus nav-icon"></i>
+                  <p>Add User</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="user_list.php" class="nav-link <?php if($page == 3.2){ echo 'active'; } ?>">
+                  <i class="fas fa-users nav-icon"></i>
+                  <p>Users</p>
+                </a>
+              </li>
+            </ul>
+          </li>
 
           <li class="nav-header">Control Center</li>
             <li class="nav-item">
@@ -60,7 +48,7 @@
             </li>
             <li class="nav-item">
               <a href="franchise_list.php" class="nav-link <?php if($page == 1.2){ echo 'active'; } ?>">
-                <i class="nav-icon fas fa-code-branch"></i>
+                <i class="nav-icon fas fa-store"></i>
                 <p>Manage Franchise</p>
               </a>
             </li>

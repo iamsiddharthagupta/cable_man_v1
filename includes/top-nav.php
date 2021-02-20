@@ -1,6 +1,6 @@
 <?php require_once 'header.php'; ?>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed pace-white">
 
 <div class="wrapper">
   <!-- Navbar -->
