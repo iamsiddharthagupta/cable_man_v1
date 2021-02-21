@@ -10,7 +10,40 @@
 	require_once 'includes/top-nav.php';
 	require_once 'includes/side-nav.php';
 
-	$create->create_area();
+  if(isset($_POST['submit'])) {
+
+        $fr_name = $organ->escapeString($_POST['fr_name']);
+        $landline_no = $organ->escapeString($_POST['landline_no']);
+        $mobile_no = $organ->escapeString($_POST['mobile_no']);
+        $gst_no = $organ->escapeString($_POST['gst_no']);
+        $fr_address = $organ->escapeString($_POST['fr_address']);
+        $area_id = $organ->escapeString($_POST['area_id']);
+
+        $array = array(
+            "fr_name" => $fr_name,
+            "landline_no" => $landline_no,
+            "mobile_no" => $mobile_no,
+            "gst_no" => $gst_no,
+            "fr_address" => $fr_address,
+            "area_id" => $area_id
+          );
+
+    $res = $organ->insert('tbl_franchise', $array);
+
+    if($res) {
+
+              $msg = 'Franchise Added Successfully.';
+              $code = 'success';
+              header('Location: franchise_list.php?msg='.$msg.'&code='.$code);
+
+    } else {
+
+        $msg = 'Database Error.';
+        $code = 'error';
+        header('Location: franchise_list.php?msg='.$msg.'&code='.$code);
+
+    }
+  }
 
 ?>
 
@@ -44,22 +77,22 @@
 
         <div class="form-group">
           <label>Name</label>
-          <input type="text" name="branch_name" class="form-control" required="">
+          <input type="text" name="fr_name" class="form-control" required="">
         </div>
         <div class="form-row">
           <div class="form-group col-md">
             <label>Landline No</label>
-            <input type="text" name="branch_landline" class="form-control" required="">
+            <input type="text" name="landline_no" class="form-control" required="">
           </div>
           <div class="form-group col-md">
             <label>Mobile No</label>
-            <input type="text" name="branch_mobile" id="phone" class="form-control" required="">
+            <input type="text" name="mobile_no" id="phone" class="form-control" required="">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md">
             <label>GST No</label>
-            <input type="text" name="branch_gst" class="form-control" required="">
+            <input type="text" name="gst_no" class="form-control" required="">
           </div>
           <div class="form-group col-md">
             <label>Area</label>
@@ -68,7 +101,7 @@
                 echo "<select name='area_id' class='custom-select' required>";
                 echo "<option value=''>Select Area</option>";
                   foreach ($areas as $key => $area) {
-                    echo "<option value='$area[area_id]'>$area[area_name]</option>";
+                    echo "<option value='$area[area_id]'>$area[a_name]</option>";
                   }
                 echo "</select>";
               ?>
@@ -77,7 +110,7 @@
         <div class="form-row">
           <div class="form-group col-md">
             <label>Address</label>
-            <textarea class="form-control" name="branch_address" required=""></textarea>
+            <textarea class="form-control" name="fr_address" required=""></textarea>
           </div>
         </div>
 

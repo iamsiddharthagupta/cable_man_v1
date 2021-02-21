@@ -10,8 +10,6 @@
 	require_once 'includes/top-nav.php';
 	require_once 'includes/side-nav.php';
 
-	$create->create_area();
-
 ?>
 
 <div class="content-header">
@@ -57,18 +55,18 @@
 			        <?php
 			        	$result = $read->fetch_area_list();
 							if ($result->num_rows < 1) {
-								echo "<tr><td colspan='6'>No areas added yet!</td><tr>";
+								echo "<tr><td colspan='6'>No areas yet!</td><tr>";
 							} else {
 								foreach ($result as $key => $row) :
 			        ?>
 				<tbody id="myTable">
 					<tr>
-						<td><?php echo $row['area_name']; ?></td>
-						<td><?php echo $row['area_district']; ?></td>
-						<td><?php echo $row['area_city']; ?></td>
-						<td><?php echo $row['area_state']; ?></td>
-						<td><?php echo $row['area_pin']; ?></td>
-						<td><?php echo $row['area_country']; ?></td>
+						<td><?php echo $row['a_name']; ?></td>
+						<td><?php echo $row['a_district']; ?></td>
+						<td><?php echo $row['a_city']; ?></td>
+						<td><?php echo $row['a_state']; ?></td>
+						<td><?php echo $row['a_pin']; ?></td>
+						<td><?php echo $row['a_country']; ?></td>
 					</tr>
 				</tbody>
 					<?php

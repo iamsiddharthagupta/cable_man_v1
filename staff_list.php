@@ -62,8 +62,8 @@
 					<td><span class="badge badge-danger"><?php echo $row['staff_position']; ?></span></td>
 					<td><?php echo $row['username']; ?></td>
 					<td><?php echo $row['full_name']; ?></td>
-					<td><?php echo $row['phone_no']; ?></td>
-					<td><?php echo $row['branch_name']; ?></td>
+					<td><?php echo $row['mobile_no']; ?></td>
+					<td><?php echo $row['fr_name']; ?></td>
 				</tr>
 			</tbody>
 			<?php

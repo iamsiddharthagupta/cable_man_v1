@@ -10,7 +10,40 @@
 	require_once 'includes/top-nav.php';
 	require_once 'includes/side-nav.php';
 
-	$create->create_area();
+  if(isset($_POST['submit'])) {
+
+        $first_name = $organ->escapeString($_POST['first_name']);
+        $last_name = $organ->escapeString($_POST['last_name']);
+        $mobile_no = $organ->escapeString($_POST['mobile_no']);
+        $install_date = $organ->escapeString($_POST['install_date']);
+        $address = $organ->escapeString($_POST['address']);
+        $area_id = $organ->escapeString($_POST['area_id']);
+        $user_status = $organ->escapeString($_POST['user_status']);
+
+        $array = array(
+            "first_name" => $first_name,
+            "last_name" => $last_name,
+            "mobile_no" => $mobile_no,
+            "install_date" => $install_date,
+            "address" => $address,
+            "area_id" => $area_id,
+            "user_status" => $user_status
+          );
+
+    $res = $organ->insert('tbl_user', $array);
+
+    if($res) {
+
+        header('Location: user_profile_device_map.php?user_id='.$organ->insert_id());
+
+    } else {
+
+        $msg = 'Database Error.';
+        $code = 'error';
+        header('Location: user_profile_add.php?msg='.$msg.'&code='.$code);
+
+    }
+  }
 
 ?>
 
@@ -44,18 +77,18 @@
           <div class="form-row">
               <div class="form-group col-md">
                 <label>First Name</label>
-                  <input type="text" class="form-control" name="first_name" required="">
+                  <input type="text" class="form-control" name="first_name" value="XYZ" required="">
               </div>
               <div class="form-group col-md">
                 <label>Last Name</label>
-                  <input type="text" class="form-control" name="last_name" required="">
+                  <input type="text" class="form-control" name="last_name" value="XYZ" required="">
               </div>
           </div>
 
           <div class="form-row">
             <div class="form-group col-md">
               <label>Phone Number</label>
-                <input type="text" class="form-control" name="phone_no" id="phone" required="">
+                <input type="text" class="form-control" name="mobile_no" id="phone" value="1234567890" required="">
             </div>
             <div class="form-group col-md">
               <label>Installation Date</label>
@@ -66,7 +99,7 @@
           <div class="form-row">
             <div class=" form-group col-md">
               <label>Address</label>
-              <input type="text" name="address" class="form-control" required="">
+              <input type="text" name="address" value="XYZ" class="form-control" required="">
             </div>
             <div class="form-group col-md">
               <label>Area</label>
@@ -75,7 +108,7 @@
                   echo "<select name='area_id' class='custom-select' required>";
                   echo "<option value=''>Choose...</option>";
                     foreach ($areas as $key => $area) {
-                      echo "<option value='$area[area_id]'>$area[area_name]</option>";
+                      echo "<option value='$area[area_id]'>$area[a_name]</option>";
                     }
                   echo "</select>";
               ?>
@@ -83,6 +116,7 @@
           </div>
       </div>
       <div class="card-footer">
+        <input type="hidden" name="user_status" value="1">
         <div class="btn-group float-right" role="group" aria-label="Basic example">
           <button name="submit" type="submit" class="btn btn-dark">Add</button>
           <button type="button" onclick="goBack()" class="btn btn-secondary">Go Back</button>

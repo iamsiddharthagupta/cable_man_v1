@@ -48,23 +48,25 @@
 	              <th>Type</th>
 	              <th>Duration</th>
 	              <th>MSO</th>
+	              <th>MSO Rate</th>
 	            </tr>
 	          </thead>         
 
 				<?php
 					$result = $read->fetch_package_list();
 						if ($result->num_rows < 1) {
-							echo "<tr><td colspan='5'>No package added yet!</td><tr>";
+							echo "<tr><td colspan='6'>No package added yet!</td><tr>";
 						} else {
 							foreach ($result as $key => $row) :
 				?>
 						<tbody id="myTable">
 							<tr>
-								<td><?php echo $row['pack_name']; ?></td>
-								<td><?php echo $row['pack_price']; ?></td>
-								<td><?php echo $row['pack_type']; ?></td>
-								<td><?php echo $row['pack_duration']; ?></td>
+								<td><?php echo $row['pc_name']; ?></td>
+								<td><?php echo $row['pc_rate']; ?></td>
+								<td><?php echo $row['pc_type']; ?></td>
+								<td><?php echo $row['pc_duration']; ?></td>
 								<td><?php echo $row['mso_name']; ?></td>
+								<td><?php echo $row['mso_rate']; ?></td>
 							</tr>
 						</tbody>
 				<?php

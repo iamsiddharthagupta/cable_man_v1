@@ -10,8 +10,6 @@
     require_once 'includes/top-nav.php';
     require_once 'includes/side-nav.php';
 
-    $create->create_branch();
-
 ?>
 
 <div class="content-header">
@@ -42,7 +40,7 @@
 		</div>
 
 			<div class="card-body table-responsive p-0">
-				<table class="table table-hover table-bordered table-sm table-head-fixed">
+				<table class="table table-hover text-center table-bordered table-sm">
 					<thead>
 						<tr>
 						  <th>Name</th>
@@ -52,18 +50,18 @@
 						</tr>
 					</thead>         
 						<?php
-							$result = $read->fetch_branch_list();
+							$result = $read->franchise_list();
 								if ($result->num_rows < 1) {
-									echo "<tr><td colspan='4'>No branches added yet!</td><tr>";
+									echo "<tr><td colspan='4'>No franchise yet!</td><tr>";
 								} else {
 									foreach ($result as $key => $row) :
 						?>
 					<tbody id="myTable">
 						<tr>
-							<td><?php echo $row['branch_name']; ?></td>
-							<td><?php echo $row['branch_gst']; ?></td>
-							<td><?php echo $row['branch_landline'].', '.$row['branch_mobile']; ?></td>
-							<td><?php echo $row['branch_address'].', '.$row['area_name']; ?></td>
+							<td><?php echo $row['fr_name']; ?></td>
+							<td><?php echo $row['gst_no']; ?></td>
+							<td><?php echo $row['landline_no'].', '.$row['mobile_no']; ?></td>
+							<td><?php echo $row['fr_address'].', '.$row['a_name']; ?></td>
 						</tr>
 					</tbody>
 						<?php

@@ -10,7 +10,42 @@
     require_once 'includes/top-nav.php';
     require_once 'includes/side-nav.php';
 
-    $create->create_staff();
+  if(isset($_POST['submit'])) {
+
+        $username = $organ->escapeString($_POST['username']);
+        $password = $organ->escapeString(md5($_POST['password']));
+        $first_name = $organ->escapeString($_POST['first_name']);
+        $last_name = $organ->escapeString($_POST['last_name']);
+        $mobile_no = $organ->escapeString($_POST['mobile_no']);
+        $staff_position = $organ->escapeString($_POST['staff_position']);
+        $fr_id = $organ->escapeString($_POST['fr_id']);
+
+        $array = array(
+            "username" => $username,
+            "password" => $password,
+            "first_name" => $first_name,
+            "last_name" => $last_name,
+            "mobile_no" => $mobile_no,
+            "staff_position" => $staff_position,
+            "fr_id" => $fr_id
+          );
+
+    $res = $organ->insert('tbl_staff', $array);
+
+    if($res) {
+
+              $msg = 'Staff Added Successfully.';
+              $code = 'success';
+              header('Location: staff_list.php?msg='.$msg.'&code='.$code);
+
+    } else {
+
+        $msg = 'Database Error.';
+        $code = 'error';
+        header('Location: staff_list.php?msg='.$msg.'&code='.$code);
+
+    }
+  }
 
 ?>
 
@@ -64,7 +99,7 @@
         <div class="form-row">
           <div class="form-group col-md">
             <label>Phone No</label>
-            <input type="text" name="phone_no" id="phone" class="form-control" required="">
+            <input type="text" name="mobile_no" id="phone" class="form-control" required="">
           </div>
           <div class="form-group col-md">
             <label>Staff Position</label>
@@ -76,13 +111,13 @@
           </div>
         </div>
         <div class="form-group">
-          <label>Branch</label>
+          <label>Franchise</label>
             <?php
-              $branches = $read->fetch_branch_list_all();
-                echo "<select name='branch_id' class='custom-select' required>";
-                echo "<option value=''>Select Branch</option>";
-                  foreach ($branches as $key => $branch) {
-                    echo "<option value='$branch[branch_id]'>$branch[branch_name]</option>";
+              $frs = $read->franchise_list();
+                echo "<select name='fr_id' class='custom-select' required>";
+                echo "<option value=''>Choose...</option>";
+                  foreach ($frs as $key => $fr) {
+                    echo "<option value='$fr[fr_id]'>$fr[fr_name]</option>";
                   }
                 echo "</select>";
             ?>

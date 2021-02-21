@@ -22,6 +22,7 @@
 
     require_once 'init.php';
     $security = new Security();
+    $organ = new Organ();
     $create = new Create();
     $read = new Read();
     $update = new Update();

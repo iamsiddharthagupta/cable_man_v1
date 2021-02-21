@@ -10,7 +10,40 @@
 	require_once 'includes/top-nav.php';
 	require_once 'includes/side-nav.php';
 
-	$create->create_area();
+  if(isset($_POST['submit'])) {
+
+        $a_name = $organ->escapeString($_POST['a_name']);
+        $a_district = $organ->escapeString($_POST['a_district']);
+        $a_city = $organ->escapeString($_POST['a_city']);
+        $a_state = $organ->escapeString($_POST['a_state']);
+        $a_pin = $organ->escapeString($_POST['a_pin']);
+        $a_country = $organ->escapeString($_POST['a_country']);
+
+        $array = array(
+            "a_name" => $a_name,
+            "a_district" => $a_district,
+            "a_city" => $a_city,
+            "a_state" => $a_state,
+            "a_pin" => $a_pin,
+            "a_country" => $a_country
+          );
+
+    $res = $organ->insert('tbl_area', $array);
+
+    if($res) {
+
+              $msg = 'Area added successfully.';
+              $code = 'success';
+              header('Location: area_list.php?msg='.$msg.'&code='.$code);
+
+    } else {
+
+        $msg = 'Database Error.';
+        $code = 'error';
+        header('Location: area_list.php?msg='.$msg.'&code='.$code);
+
+    }
+  }
 
 ?>
 
@@ -44,31 +77,31 @@
         <div class="form-row">
           <div class="form-group col-md">
             <label>Area</label>
-            <input type="text" name="area_name" class="form-control" required="">
+            <input type="text" name="a_name" class="form-control" required="">
           </div>
           <div class="form-group col-md">
             <label>District</label>
-            <input type="text" name="area_district" value="South-West Delhi" class="form-control" required="">
+            <input type="text" name="a_district" value="South-West Delhi" class="form-control" required="">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md">
             <label>City</label>
-            <input type="text" name="area_city" value="New Delhi" class="form-control" required="">
+            <input type="text" name="a_city" value="New Delhi" class="form-control" required="">
           </div>
           <div class="form-group col-md">
             <label>State</label>
-            <input type="text" name="area_state" value="Delhi" class="form-control" required="">
+            <input type="text" name="a_state" value="Delhi" class="form-control" required="">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md">
             <label>Pincode</label>
-            <input type="text" name="area_pin" value="110029" class="form-control" required="">
+            <input type="text" name="a_pin" value="110029" class="form-control" required="">
           </div>
           <div class="form-group col-md">
             <label>Country</label>
-            <input type="text" name="area_country" value="India" class="form-control" required="">
+            <input type="text" name="a_country" value="India" class="form-control" required="">
           </div>
         </div>
       </div>

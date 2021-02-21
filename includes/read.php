@@ -47,19 +47,18 @@
 
 			$sql = " 
 					SELECT
-					cu.cust_id,
-					cu.first_name,
-					cu.last_name,
-					cu.phone_no,
-					cu.address,
-					cu.install_date,
-					cu.customer_status,
-					ar.area_name
-					FROM tbl_customer cu
-					LEFT JOIN tbl_area ar ON cu.area_id = ar.area_id
-					WHERE cu.customer_status = 1
-					GROUP BY cu.cust_id
-					ORDER BY cu.install_date DESC
+					u.user_id,
+					u.first_name,
+					u.last_name,
+					u.mobile_no,
+					u.address,
+					u.install_date,
+					u.user_status,
+					ar.a_name
+					FROM tbl_user u
+					LEFT JOIN tbl_area ar ON ar.area_id = u.area_id
+					WHERE u.user_status = 1
+					ORDER BY u.install_date DESC
 			      ";
 
 			return $this->conn->query($sql);
@@ -361,10 +360,19 @@
 		public function user_profile_device_fetch($user_id) {
 
 		    $sql = "
-		            SELECT * FROM cbl_user_dev
-		            RIGHT JOIN cbl_user ON cbl_user.user_id = cbl_user_dev.user_id
-		            LEFT JOIN cbl_dev_stock ON cbl_dev_stock.dev_id = cbl_user_dev.dev_id
-		            WHERE cbl_user_dev.user_id = '$user_id'
+					SELECT
+					m.map_id,
+					dv.dev_id,
+					u.user_id,
+					dv.dev_no,
+					dv.dev_type,
+					pc.mso_name
+					FROM
+					tbl_mapping m
+					LEFT JOIN tbl_user u ON u.user_id = m.user_id
+					RIGHT JOIN tbl_device dv ON dv.dev_id = m.dev_id
+					RIGHT JOIN tbl_package pc ON pc.pack_id = dv.pack_id
+					WHERE m.user_id = '$user_id'
 		            ";
 
 			return $this->conn->query($sql);
@@ -402,18 +410,20 @@
 
 // New Functions from below ----------------->
 
-		public function fetch_profile_base($cust_id) {
+		public function fetch_profile_base($user_id) {
 
 			$sql = "
 						SELECT
-						CONCAT(cu.first_name,' ',cu.last_name) AS full_name,
-						cu.phone_no,
-						cu.address,
-						cu.install_date,
-						ar.area_name
-						FROM tbl_customer cu
-						LEFT JOIN tbl_area ar ON ar.area_id = cu.area_id
-						WHERE cust_id = '$cust_id'
+						u.user_id,
+						u.first_name,
+						u.last_name,
+						u.mobile_no,
+						u.address,
+						u.install_date,
+						ar.a_name
+						FROM tbl_user u
+						LEFT JOIN tbl_area ar ON ar.area_id = u.area_id
+						WHERE user_id = '$user_id'
 					";
 
 			return $this->conn->query($sql);
@@ -427,14 +437,14 @@
 			$sql = "
 					SELECT
 					dv.dev_id,
-					dv.device_no,
-					dv.device_type,
-					pk.pack_name,
-					mso.mso_name
+					dv.dev_no,
+					dv.dev_type,
+					pc.pc_name,
+					pc.pc_rate,
+					pc.mso_name
 
 					FROM tbl_device dv
-					LEFT JOIN tbl_package pk ON pk.pack_id = dv.pack_id
-					LEFT JOIN tbl_mso mso ON mso.mso_id = pk.mso_id
+					LEFT JOIN tbl_package pc ON pc.pack_id = dv.pack_id
 					ORDER BY dv.created_at
 					";
 
@@ -452,20 +462,20 @@
 
 		}
 
-		public function fetch_branch_list() {
+		public function franchise_list() {
 
 			$sql = "
 					SELECT
+					fr.fr_id,
+					fr.fr_name,
+					fr.gst_no,
+					fr.landline_no,
+					fr.mobile_no,
+					fr.fr_address,
+					ar.a_name
 
-					br.branch_name,
-					br.branch_gst,
-					br.branch_landline,
-					br.branch_mobile,
-					br.branch_address,
-					ar.area_name
-
-					FROM tbl_branch br
-					LEFT JOIN tbl_area ar ON ar.area_id = br.area_id
+					FROM tbl_franchise fr
+					LEFT JOIN tbl_area ar ON ar.area_id = fr.area_id
 					";
 
 			return $this->conn->query($sql);
@@ -494,31 +504,20 @@
 
 	    }
 
-		public function fetch_branch_list_all() {
-
-			return $this->conn->query("SELECT * FROM tbl_branch");
-
-			$this->conn->close();
-
-		}
-
 		public function fetch_staff_detail_list() {
 
 			$sql = "
 					SELECT
-
-					stf.username,
-					CONCAT(stf.first_name,' ',stf.last_name) AS full_name,
-					stf.phone_no,
+					sf.username,
+					CONCAT(sf.first_name,' ',sf.last_name) AS full_name,
+					sf.mobile_no,
 					CASE
-						WHEN stf.staff_position = 1 THEN 'Admin'
-						WHEN  stf.staff_position = 2 THEN 'Agent'
+						WHEN sf.staff_position = 1 THEN 'Admin'
+						WHEN  sf.staff_position = 2 THEN 'Agent'
 					END AS staff_position,
-					bra.branch_name
-
-					FROM tbl_staff stf
-					LEFT JOIN tbl_branch bra ON bra.branch_id = stf.branch_id
-
+					fr.fr_name
+					FROM tbl_staff sf
+					LEFT JOIN tbl_franchise fr ON fr.fr_id = sf.fr_id
 					";
 
 			return $this->conn->query($sql);
@@ -529,19 +528,7 @@
 
 		public function fetch_package_list() {
 
-			$sql = "	SELECT
-
-						pk.pack_id,
-						pk.pack_name,
-						pk.pack_price,
-						pk.pack_type,
-						pk.pack_duration,
-						ms.mso_name
-
-
-						FROM tbl_package pk
-						LEFT JOIN tbl_mso ms ON pk.mso_id = ms.mso_id
-					";
+			$sql = "SELECT * FROM tbl_package";
 
 			return $this->conn->query($sql);
 

@@ -16,7 +16,7 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h4 class="m-0 text-dark">Device Management</h4>
+        <h4 class="m-0 text-dark">Device List</h4>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
@@ -43,9 +43,10 @@
     <table class="table table-hover text-center table-bordered table-sm table-head-fixed text-nowrap">
           <thead class="thead-light">
             <tr>
-              <th>Device ID</th>
-              <th>Device Type</th>
+              <th>Device #</th>
+              <th>Device type</th>
               <th>Package</th>
+              <th>Rate</th>
               <th>MSO</th>
               <th>Action</th>
             </tr>
@@ -54,15 +55,16 @@
         <?php
           $result = $read->fetch_device_list();
             if ($result->num_rows < 1) {
-              echo "<tr><td colspan='4'>No Device Available!</td><tr>";
+              echo "<tr><td colspan='6'>No device yet!</td><tr>";
             } else {
               foreach ($result as $key => $row) :
         ?>
         <tbody id="myTable">
           <tr>
-            <td><?php echo $row['device_no']; ?></td>
-            <td><?php echo $row['device_type']; ?></td>
-            <td><?php echo $row['pack_name']; ?></td>
+            <td><?php echo $row['dev_no']; ?></td>
+            <td><?php echo $row['dev_type']; ?></td>
+            <td><?php echo $row['pc_name']; ?></td>
+            <td><?php echo $row['pc_rate']; ?></td>
             <td><?php echo $row['mso_name']; ?></td>
             <td><a href="device_edit.php?dev_id=<?php echo $row['dev_id']; ?>"><i class="fas fa-pen-square"></i></a></td>
           </tr>

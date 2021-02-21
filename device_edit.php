@@ -18,12 +18,12 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-6">
-        <h4 class="text-dark">Area Management</h4>
+        <h4 class="text-dark">Edit Device</h4>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-          <li class="breadcrumb-item active">Area Management</li>
+          <li class="breadcrumb-item active">Add Management</li>
         </ol>
       </div>
     </div>
@@ -41,17 +41,17 @@
         </div>
       </div>
       <div class="card-body">
-                    <div class="col-sm">
-                      <label>Device ID:</label>
-                      <input type="text" name="device_no" class="form-control" value="<?php echo $row['device_no']; ?>">
-                    </div>
-                    <div class="col-sm">
-                      <label>Device Type:</label>
-                      <select class="form-control" name="device_type">
-                        <option value="SD" <?php if($row["device_type"] == 'SD'){ echo "selected"; } ?>>Standard Definition [SD]</option>
-                        <option value="HD" <?php if($row["device_type"] == 'HD'){ echo "selected"; } ?>>High Definition [HD]</option>
-                      </select>
-                    </div>
+        <div class="col-md">
+          <label>Device ID:</label>
+          <input type="text" name="device_no" class="form-control" value="<?php echo $row['device_no']; ?>">
+        </div>
+        <div class="col-md">
+          <label>Device Type:</label>
+          <select class="form-control" name="device_type">
+            <option value="SD" <?php if($row["device_type"] == 'SD'){ echo "selected"; } ?>>Standard Definition [SD]</option>
+            <option value="HD" <?php if($row["device_type"] == 'HD'){ echo "selected"; } ?>>High Definition [HD]</option>
+          </select>
+        </div>
       </div>
       <div class="card-footer">
         <div class="btn-group float-right" role="group" aria-label="Basic example">
