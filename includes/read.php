@@ -365,7 +365,10 @@
 					dv.dev_id,
 					u.user_id,
 					dv.dev_no,
-					dv.dev_type,
+					CASE
+						WHEN dv.dev_type = 1 THEN '[SD]'
+						WHEN dv.dev_type = 2 THEN '[HD]'
+					END AS dev_type,
 					pc.mso_name
 					FROM
 					tbl_mapping m

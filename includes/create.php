@@ -105,7 +105,7 @@
 
 				$dev_id = $data['dev_id'];
 
-				$sql = "INSERT INTO cbl_user_dev (user_id,dev_id) VALUES ('$user_id','$dev_id')";
+				$sql = "INSERT INTO cbl_user_dev (user_id, dev_id) VALUES ('$user_id', '$dev_id')";
 
 				$result = mysqli_query($this->conn,$sql);
 

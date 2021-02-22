@@ -32,52 +32,56 @@
 
       <div class="container-fluid">
         <div class="row">
-
           <div class="col-md-3">
             <div class="card card-info card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle" src="assets/images/avatar.png" alt="User profile picture">
                 </div>
-
                 <h3 class="profile-username text-center"><?php echo $row['first_name'].' '.$row['last_name']; ?></h3>
-
                 <div class="btn-group btn-block" role="group">
-                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Action
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                      <a class="dropdown-item" href="user_profile_select_device.php?user_id=<?php echo $row['user_id']; ?>">Renew/Extend</a>
-                      <a class="dropdown-item" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Ledger Book</a>
-                      <a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
-                      <a class="dropdown-item" href="user_profile_device_map.php?user_id=<?php echo $row['user_id']; ?>">Map/Edit Device</a>
-                    </div>
+                  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Action
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <a class="dropdown-item" href="user_profile_select_device.php?user_id=<?php echo $row['user_id']; ?>">Renew/Extend</a>
+                    <a class="dropdown-item" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Ledger Book</a>
+                    <a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
+                    <a class="dropdown-item" href="user_profile_device_map.php?user_id=<?php echo $row['user_id']; ?>">Map/Edit Device</a>
+                  </div>
                 </div>
-
               </div>
             </div>
 
             <div class="card card-info">
               <div class="card-header">
-                <h3 class="card-title">Basic Details</h3>
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                  </button>
-                </div>
+                <h3 class="card-title">About</h3>
               </div>
-
               <div class="card-body">
-                  <span>
-                    <strong>Phone:</strong> <span class="text-muted"><?php echo (empty($row['mobile_no'])) ? 'Unavailable' : $row['mobile_no']; ?></span>
-                  </span><br>
+                <strong><i class="fas fa-phone-alt mr-1"></i>Phone</strong>
 
-                  <span>
-                    <strong>Address:</strong> <span class="text-muted"><?php echo $row['address'].", ".$row['a_name']; ?></span>
-                  </span><br>
-                  
-                  <span>
-                    <strong>Customer Since:</strong> <span class="text-muted"><?php echo date('jS M y',strtotime($row['install_date'])); ?></span>
-                  </span>
+                <p class="text-muted">
+                  <?php echo (empty($row['mobile_no'])) ? 'Unavailable' : $row['mobile_no']; ?>
+                </p>
+
+                <hr>
+
+                <strong><i class="fas fa-map-marker-alt mr-1"></i>Location</strong>
+
+                <p class="text-muted"><?php echo $row['address'].", ".$row['a_name']; ?></p>
+
+                <hr>
+
+                <strong><i class="fas fa-hdd mr-1"></i>Devices</strong>
+
+                <p class="text-muted">
+                    <?php
+                      $res = $read->user_profile_device_fetch($_GET['user_id']);
+                        foreach ($res as $key => $row) :
+                    ?>
+                        <span class="text-muted ml-1"><?php echo $row['dev_no'].' - '.$row['mso_name'].' '.$row['dev_type']; ?></span><br>
+                    <?php endforeach; ?>
+                </p>
               </div>
             </div>
 

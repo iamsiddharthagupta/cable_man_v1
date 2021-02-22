@@ -32,6 +32,13 @@
 
     }
 
+// Basic query.
+    public function query($sql) {
+
+      return $this->conn->query($sql);
+
+    }
+
   // Function to insert into the database
     public function insert($table, $params = array()) {
 
@@ -85,10 +92,14 @@
             return $this->conn->query($delete);
     }
 
-    function numRows($query) {
-        $result  = mysqli_query($this->conn, $query);
-        $rowcount = mysqli_num_rows($result);
-        return $rowcount;
+    function num_rows($query) {
+
+        $result  = $this->conn->query($query);
+
+        $row_count = $result->num_rows;
+
+        return $row_count;
+
     }
 
 }

@@ -17,7 +17,22 @@
     }, false);
   })();
 
-  // User search function
+  // Device checker script.
+  function checkAvailability() {
+    $("#loaderIcon").show();
+    jQuery.ajax({
+    url: "device_checker.php",
+    data:'dev_no='+$("#dev_no").val(),
+    type: "POST",
+    success:function(data){
+      $("#user-availability-status").html(data);
+      $("#loaderIcon").hide();
+    },
+    error:function (){}
+    });
+  }
+
+  // User search function.
   $(document).ready(function(){
     $("#myInput").on("keyup", function() {
       var value = $(this).val().toLowerCase();
@@ -25,21 +40,6 @@
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
       });
     });
-  });
-
-  // Default Date (Datepicker)
-  $(function() {
-      $( "#date" ).datepicker({
-          dateFormat: 'yy-mm-dd'
-      });
-  });
-
-  // Current Date (Datepicker)
-  $(document).ready(function () {
-      var date = new Date();
-      $("#today").datepicker({
-          dateFormat: 'yy-mm-dd'
-      }).datepicker('setDate', date)
   });
 
   // Input Mask for Phone Numbers and various.
@@ -52,7 +52,7 @@
     window.history.back();
   }
 
-  // Print Page Trigger.
+  // Print Page.
     function printPage() {
       window.print();
   }

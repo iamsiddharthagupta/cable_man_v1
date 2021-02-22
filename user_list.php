@@ -66,7 +66,7 @@
 		    					</button>
 			    				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 			    					<?php if(empty($row['dev_id'])){ ?>
-			    						<a class="dropdown-item" href="profile_device_map.php?user_id=<?php echo $row['user_id']; ?>">Assign Device</a>
+			    						<a class="dropdown-item" href="user_profile_device_map.php?user_id=<?php echo $row['user_id']; ?>">Assign Device</a>
 			    					<?php } elseif(!empty($row['dev_id'])){ ?>
 			    						<a class="dropdown-item" href="user_profile_select_device.php?user_id=<?php echo $row['user_id']; ?>">Start</a>
 			    					<?php } ?>
