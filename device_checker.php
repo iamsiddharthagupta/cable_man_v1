@@ -8,6 +8,7 @@
 				SELECT
 				dv.dev_no,
 				dv.dev_type,
+				u.user_id,
 				u.first_name,
 				u.last_name
 				FROM
@@ -18,16 +19,20 @@
 	  
 	  $row = $organ->query($sql)->fetch_assoc();
 	  
-	  if(empty($row['first_name'])) {
+		if($_POST["dev_no"] != $row['dev_no']) {
 
-	      echo "<strong class='text-danger'>Device not available.</strong>";
+			echo "<strong class='text-danger'>Device number is invalid!</strong>";
 
-	  } else {
+		} elseif(!empty($row['user_id'])) {
 
-	      echo "<strong class='text-success'>Device available.</strong>";
+		  echo "<strong class='text-danger'>Device is already assigned to ".$row['first_name'].' '.$row['last_name']."</strong>";
 
-	  }
+		} else {
 
+		  echo "<strong class='text-success'>Device available.</strong>";
+
+		}
 	}
+
 
 ?>
