@@ -19,13 +19,13 @@
 	  
 	  $row = $organ->query($sql)->fetch_assoc();
 	  
-		if($_POST["dev_no"] != $row['dev_no']) {
+		if($_POST["dev_no"] != isset($row['dev_no'])) {
 
-			echo "<strong class='text-danger'>Device number is invalid!</strong>";
+			echo "<strong class='text-danger'>Please enter a valid device number or make fresh registration of this device.</strong>";
 
 		} elseif(!empty($row['user_id'])) {
 
-		  echo "<strong class='text-danger'>Device is already assigned to ".$row['first_name'].' '.$row['last_name']."</strong>";
+		  echo "<strong class='text-warning'>Device is already assigned to ".$row['first_name'].' '.$row['last_name']."</strong>";
 
 		} else {
 
