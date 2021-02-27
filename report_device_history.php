@@ -7,6 +7,7 @@
 
 	$page = 'report_device_history.php';
 
+	require_once 'config/init.php';
 	require_once 'includes/top-nav.php';
 	require_once 'includes/side-nav.php';
 

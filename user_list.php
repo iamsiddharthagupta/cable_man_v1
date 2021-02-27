@@ -7,6 +7,7 @@
 
 	$page = 3.2;
 
+	require_once 'config/init.php';
 	require_once 'includes/top-nav.php';
 	require_once 'includes/side-nav.php';
 
@@ -76,7 +77,7 @@
 							    </div>
 					  		</div>
 						</td>
-						<td><a href="profile_ledger.php?user_id=<?php echo htmlentities($row['user_id']); ?>"><?php echo $row['first_name']." ".$row['last_name'];?></a></td>
+						<td><a href="user_profile_ledger.php?user_id=<?php echo htmlentities($row['user_id']); ?>"><?php echo $row['first_name']." ".$row['last_name'];?></a></td>
 						<td><?php echo $row['address'];?>, <strong><?php echo $row['a_name'] ?></strong></td>
 						<td><?php echo $row['mobile_no'];?></td>
 						<td>2</td>

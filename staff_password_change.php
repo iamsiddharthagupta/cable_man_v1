@@ -5,6 +5,7 @@
 
     (!isset($_SESSION['logged_staff'])) ? header('Location: index.php') : $curr_user = ucwords($_SESSION['logged_staff']);
 
+    require_once 'config/init.php';
 	require_once 'includes/top-nav.php';
 	require_once 'includes/side-nav.php';
 

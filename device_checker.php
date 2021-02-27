@@ -15,7 +15,8 @@
 				tbl_mapping m
 				LEFT JOIN tbl_user u ON u.user_id = m.user_id
 				RIGHT JOIN tbl_device dv ON dv.dev_id = m.dev_id
-				WHERE dv.dev_no ='" . $_POST["dev_no"] . "'";
+				WHERE dv.dev_no ='" . $_POST["dev_no"] . "'
+			";
 	  
 	  $row = $organ->query($sql)->fetch_assoc();
 	  

@@ -1,49 +1,50 @@
 <?php
 
-  ob_start();
-  session_start();
+    ob_start();
+    session_start();
 
-    (!isset($_SESSION['logged_staff'])) ? header('Location: index.php') : $curr_user = ucwords($_SESSION['logged_staff']);
+      (!isset($_SESSION['logged_staff'])) ? header('Location: index.php') : $curr_user = ucwords($_SESSION['logged_staff']);
 
-	$page = 1.1;
+    $page = 1.1;
 
-	require_once 'includes/top-nav.php';
-	require_once 'includes/side-nav.php';
+    require_once 'config/init.php';
+    require_once 'includes/top-nav.php';
+    require_once 'includes/side-nav.php';
 
-  if(isset($_POST['submit'])) {
+    if(isset($_POST['submit'])) {
 
-        $a_name = $organ->escapeString($_POST['a_name']);
-        $a_district = $organ->escapeString($_POST['a_district']);
-        $a_city = $organ->escapeString($_POST['a_city']);
-        $a_state = $organ->escapeString($_POST['a_state']);
-        $a_pin = $organ->escapeString($_POST['a_pin']);
-        $a_country = $organ->escapeString($_POST['a_country']);
+          $area = $organ->escapeString($_POST['area']);
+          $district = $organ->escapeString($_POST['district']);
+          $city = $organ->escapeString($_POST['city']);
+          $state = $organ->escapeString($_POST['state']);
+          $pincode = $organ->escapeString($_POST['pincode']);
+          $country = $organ->escapeString($_POST['country']);
 
-        $array = array(
-            "a_name" => $a_name,
-            "a_district" => $a_district,
-            "a_city" => $a_city,
-            "a_state" => $a_state,
-            "a_pin" => $a_pin,
-            "a_country" => $a_country
-          );
+          $array = array(
+              "area" => $area,
+              "district" => $district,
+              "city" => $city,
+              "state" => $state,
+              "pincode" => $pincode,
+              "country" => $country
+            );
 
-    $res = $organ->insert('tbl_area', $array);
+      $res = $organ->insert('tbl_area', $array);
 
-    if($res) {
+      if($res) {
 
-              $msg = 'Area added successfully.';
-              $code = 'success';
-              header('Location: area_list.php?msg='.$msg.'&code='.$code);
+                $msg = 'Area added successfully.';
+                $code = 'success';
+                header('Location: area_list.php?msg='.$msg.'&code='.$code);
 
-    } else {
+      } else {
 
-        $msg = 'Database Error.';
-        $code = 'error';
-        header('Location: area_list.php?msg='.$msg.'&code='.$code);
+          $msg = 'Database Error.';
+          $code = 'error';
+          header('Location: area_list.php?msg='.$msg.'&code='.$code);
 
+      }
     }
-  }
 
 ?>
 
@@ -77,31 +78,31 @@
         <div class="form-row">
           <div class="form-group col-md">
             <label>Area</label>
-            <input type="text" name="a_name" class="form-control" required="">
+            <input type="text" name="area" class="form-control" required="">
           </div>
           <div class="form-group col-md">
             <label>District</label>
-            <input type="text" name="a_district" value="South-West Delhi" class="form-control" required="">
+            <input type="text" name="district" value="South-West Delhi" class="form-control" required="">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md">
             <label>City</label>
-            <input type="text" name="a_city" value="New Delhi" class="form-control" required="">
+            <input type="text" name="city" value="New Delhi" class="form-control" required="">
           </div>
           <div class="form-group col-md">
             <label>State</label>
-            <input type="text" name="a_state" value="Delhi" class="form-control" required="">
+            <input type="text" name="state" value="Delhi" class="form-control" required="">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md">
             <label>Pincode</label>
-            <input type="text" name="a_pin" value="110029" class="form-control" required="">
+            <input type="text" name="pincode" value="110029" class="form-control" required="">
           </div>
           <div class="form-group col-md">
             <label>Country</label>
-            <input type="text" name="a_country" value="India" class="form-control" required="">
+            <input type="text" name="country" value="India" class="form-control" required="">
           </div>
         </div>
       </div>

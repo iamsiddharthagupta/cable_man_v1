@@ -3,5 +3,7 @@
 	# Development started on August 2019.
 
 # 17-01-2021
-
 	# Redesign everything.
+
+# 27-02-2021
+	# Link Secondary connection of users with primary user's connection with their building floor differences.

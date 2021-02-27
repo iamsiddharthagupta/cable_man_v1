@@ -17,15 +17,3 @@
     <link rel="stylesheet" type="text/css" href="assets/styles/pace-theme-flash.css">
 
 </head>
-
-<?php
-
-    require_once 'init.php';
-    $security = new Security();
-    $organ = new Organ();
-    $create = new Create();
-    $read = new Read();
-    $update = new Update();
-    $delete = new Delete();
-
-?>

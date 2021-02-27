@@ -7,6 +7,7 @@
 
 	$page = 1.2;
 
+  require_once 'config/init.php';
 	require_once 'includes/top-nav.php';
 	require_once 'includes/side-nav.php';
 
@@ -101,7 +102,7 @@
                 echo "<select name='area_id' class='custom-select' required>";
                 echo "<option value=''>Select Area</option>";
                   foreach ($areas as $key => $area) {
-                    echo "<option value='$area[area_id]'>$area[a_name]</option>";
+                    echo "<option value='$area[area_id]'>$area[area]</option>";
                   }
                 echo "</select>";
               ?>

@@ -1,4 +1,4 @@
-<?php require_once 'profile_base.php'; ?>
+<?php require_once 'user_profile_base.php'; ?>
 
 		<div class="col-md-9">
 
@@ -28,7 +28,7 @@
 
         <?php
 
-          $result = $user->user_profile_ledger_fetch($_GET['user_id']);
+          $result = $read->user_profile_ledger_fetch($_GET['user_id']);
 
           if (mysqli_num_rows($result) < 1) {
             

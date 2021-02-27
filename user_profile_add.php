@@ -7,6 +7,7 @@
 
 	$page = 3.1;
 
+  require_once 'config/init.php';
 	require_once 'includes/top-nav.php';
 	require_once 'includes/side-nav.php';
 
@@ -77,18 +78,18 @@
           <div class="form-row">
               <div class="form-group col-md">
                 <label>First Name</label>
-                  <input type="text" class="form-control" name="first_name" value="XYZ" required="">
+                  <input type="text" class="form-control" name="first_name" required="">
               </div>
               <div class="form-group col-md">
                 <label>Last Name</label>
-                  <input type="text" class="form-control" name="last_name" value="XYZ" required="">
+                  <input type="text" class="form-control" name="last_name" required="">
               </div>
           </div>
 
           <div class="form-row">
             <div class="form-group col-md">
               <label>Phone Number</label>
-                <input type="text" class="form-control" name="mobile_no" id="phone" value="1234567890" required="">
+                <input type="text" class="form-control" name="mobile_no" id="phone" required="">
             </div>
             <div class="form-group col-md">
               <label>Installation Date</label>
@@ -99,7 +100,7 @@
           <div class="form-row">
             <div class=" form-group col-md">
               <label>Address</label>
-              <input type="text" name="address" value="XYZ" class="form-control" required="">
+              <input type="text" name="address" class="form-control" required="">
             </div>
             <div class="form-group col-md">
               <label>Area</label>

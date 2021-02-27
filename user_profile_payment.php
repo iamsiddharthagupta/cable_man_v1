@@ -1,12 +1,9 @@
 <?php
 
 	require_once 'profile_base.php';
-
 	$ledger_id = $_GET['ledger_id'];
-	
 	$result = $user->user_profile_payment_fetch($_GET['ledger_id']);
 	$row = mysqli_fetch_assoc($result);
-
 	$result = $user->user_profile_payment();
 ?>
 		<div class="col-md-9">

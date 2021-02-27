@@ -9,4 +9,12 @@
 	require_once 'delete.php';
 	require_once 'security.php';
 
+    require_once 'init.php';
+    $security = new Security();
+    $organ = new Organ();
+    $create = new Create();
+    $read = new Read();
+    $update = new Update();
+    $delete = new Delete();
+
 ?>

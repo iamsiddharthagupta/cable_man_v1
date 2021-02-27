@@ -1,7 +1,6 @@
 <?php
 
 	require_once 'profile_base.php';
-
 	$result = $user->user_profile_update();
 
 ?>

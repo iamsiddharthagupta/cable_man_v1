@@ -7,6 +7,7 @@
 
     $page = 1.2;
 
+    require_once 'config/init.php';
     require_once 'includes/top-nav.php';
     require_once 'includes/side-nav.php';
 
@@ -61,7 +62,7 @@
 							<td><?php echo $row['fr_name']; ?></td>
 							<td><?php echo $row['gst_no']; ?></td>
 							<td><?php echo $row['landline_no'].', '.$row['mobile_no']; ?></td>
-							<td><?php echo $row['fr_address'].', '.$row['a_name']; ?></td>
+							<td><?php echo $row['address'].', '.$row['area']; ?></td>
 						</tr>
 					</tbody>
 						<?php

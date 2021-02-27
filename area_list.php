@@ -7,6 +7,7 @@
 
 	$page = 1.1;
 
+	require_once 'config/init.php';
 	require_once 'includes/top-nav.php';
 	require_once 'includes/side-nav.php';
 
@@ -61,12 +62,12 @@
 			        ?>
 				<tbody id="myTable">
 					<tr>
-						<td><?php echo $row['a_name']; ?></td>
-						<td><?php echo $row['a_district']; ?></td>
-						<td><?php echo $row['a_city']; ?></td>
-						<td><?php echo $row['a_state']; ?></td>
-						<td><?php echo $row['a_pin']; ?></td>
-						<td><?php echo $row['a_country']; ?></td>
+						<td><?php echo $row['area']; ?></td>
+						<td><?php echo $row['district']; ?></td>
+						<td><?php echo $row['city']; ?></td>
+						<td><?php echo $row['state']; ?></td>
+						<td><?php echo $row['pincode']; ?></td>
+						<td><?php echo $row['country']; ?></td>
 					</tr>
 				</tbody>
 					<?php
