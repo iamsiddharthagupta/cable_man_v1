@@ -1,17 +1,45 @@
 <?php
 
-  ob_start();
-  session_start();
+    ob_start();
+    session_start();
 
-  (!isset($_SESSION['logged_staff'])) ? header('Location: index.php') : $curr_user = ucwords($_SESSION['logged_staff']);
+    (!isset($_SESSION['logged_staff'])) ? header('Location: index.php') : $curr_user = ucwords($_SESSION['logged_staff']);
 
-	$page = 1.1;
+  	$page = 1.5;
 
-  require_once 'config/init.php';
-	require_once 'includes/top-nav.php';
-	require_once 'includes/side-nav.php';
+    require_once 'config/init.php';
+  	require_once 'includes/top-nav.php';
+  	require_once 'includes/side-nav.php';
 
-  $update->update_device();
+    $row = $organ->query("SELECT * FROM tbl_device WHERE device_id = '". $_GET['device_id'] ."'")->fetch_assoc();
+
+    if(isset($_POST['submit'])) {
+
+          $device_id = intval($_POST['device_id']);
+          $device_no = $organ->escapeString($_POST['device_no']);
+          $device_type = $organ->escapeString($_POST['device_type']);
+
+          $array = array(
+              "device_no" => $device_no,
+              "device_type" => $device_type
+            );
+
+      $res = $organ->update('tbl_device', $array, "device_id = '$device_id'");
+
+      if($res) {
+
+            $msg = 'Device Updated Successfully.';
+            $code = 'success';
+            header('Location: device_list.php?&msg='.$msg.'&code='.$code);
+
+      } else {
+
+            $msg = 'Database Error.';
+            $code = 'error';
+            header('Location: device_edit.php?device_id='.$device_id.'&msg='.$msg.'&code='.$code);
+        
+      }
+    }
 
 ?>
 
@@ -48,13 +76,14 @@
         </div>
         <div class="col-md">
           <label>Device Type:</label>
-          <select class="form-control" name="device_type">
-            <option value="SD" <?php if($row["device_type"] == 'SD'){ echo "selected"; } ?>>Standard Definition [SD]</option>
-            <option value="HD" <?php if($row["device_type"] == 'HD'){ echo "selected"; } ?>>High Definition [HD]</option>
+          <select class="custom-select" name="device_type">
+            <option value="1" <?php if($row["device_type"] == 1){ echo "selected"; } ?>>Standard Definition [SD]</option>
+            <option value="2" <?php if($row["device_type"] == 2){ echo "selected"; } ?>>High Definition [HD]</option>
           </select>
         </div>
       </div>
       <div class="card-footer">
+        <input type="hidden" name="device_id" value="<?php echo $row['device_id']; ?>">
         <div class="btn-group float-right" role="group" aria-label="Basic example">
           <button name="submit" type="submit" class="btn btn-dark">Add</button>
           <button type="button" onclick="goBack()" class="btn btn-secondary">Go Back</button>

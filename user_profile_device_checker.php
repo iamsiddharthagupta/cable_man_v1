@@ -1,26 +1,26 @@
 <?php
 
-	require_once 'includes/header.php';
+	require_once 'config/init.php';
 
-	if(!empty($_POST["dev_no"])) {
+	if(!empty($_POST["device_no"])) {
 	  
 	  $sql = "
 				SELECT
-				dv.dev_no,
-				dv.dev_type,
+				dv.device_no,
+				dv.device_type,
 				u.user_id,
 				u.first_name,
 				u.last_name
 				FROM
 				tbl_mapping m
 				LEFT JOIN tbl_user u ON u.user_id = m.user_id
-				RIGHT JOIN tbl_device dv ON dv.dev_id = m.dev_id
-				WHERE dv.dev_no ='" . $_POST["dev_no"] . "'
+				RIGHT JOIN tbl_device dv ON dv.device_id = m.device_id
+				WHERE dv.device_no = '" . $_POST["device_no"] . "'
 			";
 	  
 	  $row = $organ->query($sql)->fetch_assoc();
 	  
-		if($_POST["dev_no"] != isset($row['dev_no'])) {
+		if($_POST["device_no"] != isset($row['device_no'])) {
 
 			echo "<strong class='text-danger'>Please enter a valid device number or make fresh registration of this device.</strong>";
 

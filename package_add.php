@@ -13,18 +13,18 @@
 
   if(isset($_POST['submit'])) {
 
-        $pc_name = $_POST['pc_name'];
-        $pc_rate = $_POST['pc_rate'];
-        $pc_type = $_POST['pc_type'];
-        $pc_duration = $_POST['pc_duration'];
+        $pack_name = $_POST['pack_name'];
+        $pack_rate = $_POST['pack_rate'];
+        $pack_type = $_POST['pack_type'];
+        $pack_duration = $_POST['pack_duration'];
         $mso_name = $_POST['mso_name'];
         $mso_rate = $_POST['mso_rate'];
 
         $array = array(
-            "pc_name" => $pc_name,
-            "pc_rate" => $pc_rate,
-            "pc_type" => $pc_type,
-            "pc_duration" => $pc_duration,
+            "pack_name" => $pack_name,
+            "pack_rate" => $pack_rate,
+            "pack_type" => $pack_type,
+            "pack_duration" => $pack_duration,
             "mso_name" => $mso_name,
             "mso_rate" => $mso_rate
           );
@@ -78,18 +78,18 @@
         <div class="form-row">
           <div class="form-group col-md">
             <label>Pack name</label>
-            <input type="text" name="pc_name" class="form-control" required="">
+            <input type="text" name="pack_name" class="form-control" required="">
           </div>
           <div class="form-group col-md">
             <label>Pack rate</label>
-            <input type="number" name="pc_rate" class="form-control" required="">
+            <input type="number" name="pack_rate" class="form-control" required="">
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-md">
             <label>Pack type</label>
-            <select name="pc_type" class="custom-select" required="">
+            <select name="pack_type" class="custom-select" required="">
               <option value="">Choose...</option>
               <option value="1">Standard Definition [SD]</option>
               <option value="2">High Definition [HD]</option>
@@ -97,7 +97,7 @@
           </div>
           <div class="form-group col-md">
             <label>Pack duration (Months)</label>
-            <input type="number" name="pc_duration" class="form-control" required="">
+            <input type="number" name="pack_duration" class="form-control" required="">
           </div>
         </div>
         <div class="form-row">

@@ -1,15 +1,16 @@
 <?php
 
-	require_once 'profile_base.php';
-	$ledger_id = $_GET['ledger_id'];
-	$result = $user->user_profile_payment_fetch($_GET['ledger_id']);
-	$row = mysqli_fetch_assoc($result);
-	$result = $user->user_profile_payment();
+	require_once 'user_profile_base.php';
+
+	$row = $user->payment_wizard($_GET['ledger_id'])->fetch_assoc();
+
+	$user->user_profile_payment();
+
 ?>
 		<div class="col-md-9">
 			<div class="card card-info">
 				<div class="card-header">
-					<h3 class="card-title">Payment Panel</h3>
+					<h3 class="card-title">Payment Wizard</h3>
 					<div class="card-tools">
 					  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
 					  </button>

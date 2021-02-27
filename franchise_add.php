@@ -17,7 +17,7 @@
         $landline_no = $organ->escapeString($_POST['landline_no']);
         $mobile_no = $organ->escapeString($_POST['mobile_no']);
         $gst_no = $organ->escapeString($_POST['gst_no']);
-        $fr_address = $organ->escapeString($_POST['fr_address']);
+        $address = $organ->escapeString($_POST['address']);
         $area_id = $organ->escapeString($_POST['area_id']);
 
         $array = array(
@@ -25,7 +25,7 @@
             "landline_no" => $landline_no,
             "mobile_no" => $mobile_no,
             "gst_no" => $gst_no,
-            "fr_address" => $fr_address,
+            "address" => $address,
             "area_id" => $area_id
           );
 
@@ -98,7 +98,7 @@
           <div class="form-group col-md">
             <label>Area</label>
               <?php
-                $areas = $read->fetch_area_list();
+                $areas = $organ->query("SELECT * FROM tbl_area");
                 echo "<select name='area_id' class='custom-select' required>";
                 echo "<option value=''>Select Area</option>";
                   foreach ($areas as $key => $area) {
@@ -111,7 +111,7 @@
         <div class="form-row">
           <div class="form-group col-md">
             <label>Address</label>
-            <textarea class="form-control" name="fr_address" required=""></textarea>
+            <textarea class="form-control" name="address" required=""></textarea>
           </div>
         </div>
 

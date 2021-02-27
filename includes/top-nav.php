@@ -13,6 +13,9 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="dashboard.php" class="nav-link">Dashboard</a>
       </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="user_profile_add.php" class="nav-link"><i class="fas fa-user-plus"></i></a>
+      </li>
     </ul>
 
     <form class="form-inline ml-3">
@@ -32,7 +35,7 @@
           <?php echo $curr_user; ?>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="staff_password_change.php">Change Password</a>
+          <a class="dropdown-item" href="staff_edit_password.php">Change Password</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="logout.php">Logout</a>
         </div>

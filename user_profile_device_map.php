@@ -1,7 +1,37 @@
 <?php
 
     require_once 'user_profile_base.php';
-    $create->user_device_map();
+
+    if(isset($_POST['submit'])) {
+
+        $user_id = $_POST['user_id'];
+        $device_no = $_POST['device_no'];
+
+        $row = $organ->query("SELECT device_id FROM tbl_device WHERE device_no = '$device_no'")->fetch_assoc();
+
+        $device_id = $row['device_id'];
+
+        $array = array(
+            "user_id" => $user_id,
+            "device_id" => $device_id
+          );
+
+        $res = $organ->insert('tbl_mapping', $array);
+
+        if($res) {
+
+                  $msg = 'Device Mapped Successfully.';
+                  $code = 'success';
+                  header('Location: user_profile_ledger.php?user_id='.$user_id.'&msg='.$msg);
+
+        } else {
+
+            $msg = 'Database Error.';
+            $code = 'error';
+            header('Location: user_profile_device_map.php?msg='.$msg.'&code='.$code);
+
+        }
+    }
 
 ?>
 
@@ -19,7 +49,7 @@
         <div class="card-body">
           <div class="form-group col-md">
             <label>Device #</label>
-              <input type="text" class="form-control" name="device_no" id="dev_no" onBlur="checkAvailability()" required=""><span id="user-availability-status"></span>
+              <input type="text" class="form-control" name="device_no" id="device_no" onBlur="checkAvailability()" required=""><span id="user-availability-status"></span>
               <div class="invalid-feedback">
                 Please provide a valid device number.
               </div>

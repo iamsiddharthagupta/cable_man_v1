@@ -28,7 +28,7 @@
 
         <?php
 
-          $result = $read->user_profile_ledger_fetch($_GET['user_id']);
+          $result = $read->profile_ledger($_GET['user_id']);
 
           if (mysqli_num_rows($result) < 1) {
             

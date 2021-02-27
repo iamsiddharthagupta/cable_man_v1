@@ -105,11 +105,11 @@
             <div class="form-group col-md">
               <label>Area</label>
               <?php
-                $areas = $read->fetch_area_list();
+                $areas = $organ->query("SELECT * FROM tbl_area");
                   echo "<select name='area_id' class='custom-select' required>";
                   echo "<option value=''>Choose...</option>";
                     foreach ($areas as $key => $area) {
-                      echo "<option value='$area[area_id]'>$area[a_name]</option>";
+                      echo "<option value='$area[area_id]'>$area[area]</option>";
                     }
                   echo "</select>";
               ?>

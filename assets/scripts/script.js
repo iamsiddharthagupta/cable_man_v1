@@ -21,8 +21,8 @@
   function checkAvailability() {
     $("#loaderIcon").show();
     jQuery.ajax({
-    url: "device_checker.php",
-    data:'dev_no='+$("#dev_no").val(),
+    url: "user_profile_device_checker.php",
+    data:'device_no='+$("#device_no").val(),
     type: "POST",
     success:function(data){
       $("#user-availability-status").html(data);

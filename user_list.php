@@ -32,6 +32,7 @@
 <div class="container">
 	<div class="card card-outline card-info">
 		<div class="card-header">
+			<a href="user_profile_add.php" class="btn btn-sm btn-info">Add User</a>
 			<div class="card-tools">
 			  <div class="input-group input-group-sm">
 			    <input type="text" name="table_search" id="myInput" class="form-control float-right" placeholder="Search">
@@ -52,7 +53,7 @@
 			      </tr>
 				</thead>
 				<?php
-					$result = $read->fetch_list_customer();
+					$result = $read->user_list();
 					if($result->num_rows < 1) {
 						echo "<tr><td colspan='10'>No customer yet!</td><tr>";
 					} else {
@@ -66,19 +67,18 @@
 		      						Action
 		    					</button>
 			    				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-			    					<?php if(empty($row['dev_id'])){ ?>
-			    						<a class="dropdown-item" href="user_profile_device_map.php?user_id=<?php echo $row['user_id']; ?>">Assign Device</a>
-			    					<?php } elseif(!empty($row['dev_id'])){ ?>
-			    						<a class="dropdown-item" href="user_profile_select_device.php?user_id=<?php echo $row['user_id']; ?>">Start</a>
-			    					<?php } ?>
+
+			    					<a class="dropdown-item" href="user_profile_device_map.php?user_id=<?php echo $row['user_id']; ?>">Assign Device</a>
+			    					<a class="dropdown-item" href="user_profile_device_select.php?user_id=<?php echo $row['user_id']; ?>">Start</a>
 			    					<a class="dropdown-item" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Ledger Book</a>
 									<a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
 									<a class="dropdown-item" href="user_profile_device_map.php?user_id=<?php echo $row['user_id']; ?>">Map/Edit Device</a>
+
 							    </div>
 					  		</div>
 						</td>
 						<td><a href="user_profile_ledger.php?user_id=<?php echo htmlentities($row['user_id']); ?>"><?php echo $row['first_name']." ".$row['last_name'];?></a></td>
-						<td><?php echo $row['address'];?>, <strong><?php echo $row['a_name'] ?></strong></td>
+						<td><?php echo $row['address'];?>, <strong><?php echo $row['area'] ?></strong></td>
 						<td><?php echo $row['mobile_no'];?></td>
 						<td>2</td>
 						<td>500</td>

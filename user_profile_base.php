@@ -11,7 +11,7 @@
     require_once 'includes/top-nav.php';
     require_once 'includes/side-nav.php';
 
-    $row = $read->fetch_profile_base($_GET['user_id'])->fetch_assoc();
+    $row = $read->profile_base($_GET['user_id'])->fetch_assoc();
 
 ?>
 
@@ -40,7 +40,7 @@
                   <img class="profile-user-img img-fluid img-circle" src="assets/images/avatar.png" alt="User profile picture">
                 </div>
                 <h3 class="profile-username text-center"><?php echo $row['first_name'].' '.$row['last_name']; ?></h3>
-                <p class="text-success text-center"><?php echo $row['a_name']; ?></p>
+                <p class="text-success text-center"><?php echo $row['area']; ?></p>
                 <div class="btn-group btn-block" role="group">
                   <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Action
@@ -70,7 +70,7 @@
 
                 <strong><i class="fas fa-map-marker-alt mr-1"></i>Location</strong>
 
-                <p class="text-muted"><?php echo $row['address'].", ".$row['a_name']; ?></p>
+                <p class="text-muted"><?php echo $row['address'].", ".$row['area']; ?></p>
 
                 <hr>
 
@@ -78,10 +78,10 @@
 
                 <p class="text-muted">
                     <?php
-                      $res = $read->user_profile_device_fetch($_GET['user_id']);
+                      $res = $read->mapped_device($_GET['user_id']);
                         foreach ($res as $key => $row) :
                     ?>
-                        <span class="text-muted ml-1"><?php echo $row['dev_no'].' - '.$row['mso_name'].' '.$row['dev_type']; ?></span><br>
+                        <span class="text-muted ml-1"><?php echo $row['device_no'].' - '.$row['mso_name'].' '.$row['device_type']; ?></span><br>
                     <?php endforeach; ?>
                 </p>
               </div>

@@ -11,42 +11,42 @@
     require_once 'includes/top-nav.php';
     require_once 'includes/side-nav.php';
 
-  if(isset($_POST['submit'])) {
+    if(isset($_POST['submit'])) {
 
-        $username = $organ->escapeString($_POST['username']);
-        $password = $organ->escapeString(md5($_POST['password']));
-        $first_name = $organ->escapeString($_POST['first_name']);
-        $last_name = $organ->escapeString($_POST['last_name']);
-        $mobile_no = $organ->escapeString($_POST['mobile_no']);
-        $staff_position = $organ->escapeString($_POST['staff_position']);
-        $fr_id = $organ->escapeString($_POST['fr_id']);
+          $username = $organ->escapeString($_POST['username']);
+          $password = $organ->escapeString(md5($_POST['password']));
+          $first_name = $organ->escapeString($_POST['first_name']);
+          $last_name = $organ->escapeString($_POST['last_name']);
+          $mobile_no = $organ->escapeString($_POST['mobile_no']);
+          $staff_position = $organ->escapeString($_POST['staff_position']);
+          $fr_id = $organ->escapeString($_POST['fr_id']);
 
-        $array = array(
-            "username" => $username,
-            "password" => $password,
-            "first_name" => $first_name,
-            "last_name" => $last_name,
-            "mobile_no" => $mobile_no,
-            "staff_position" => $staff_position,
-            "fr_id" => $fr_id
-          );
+          $array = array(
+              "username" => $username,
+              "password" => $password,
+              "first_name" => $first_name,
+              "last_name" => $last_name,
+              "mobile_no" => $mobile_no,
+              "staff_position" => $staff_position,
+              "fr_id" => $fr_id
+            );
 
-    $res = $organ->insert('tbl_staff', $array);
+      $res = $organ->insert('tbl_staff', $array);
 
-    if($res) {
+      if($res) {
 
-              $msg = 'Staff Added Successfully.';
-              $code = 'success';
-              header('Location: staff_list.php?msg='.$msg.'&code='.$code);
+                $msg = 'Staff Added Successfully.';
+                $code = 'success';
+                header('Location: staff_list.php?msg='.$msg.'&code='.$code);
 
-    } else {
+      } else {
 
-        $msg = 'Database Error.';
-        $code = 'error';
-        header('Location: staff_list.php?msg='.$msg.'&code='.$code);
+          $msg = 'Database Error.';
+          $code = 'error';
+          header('Location: staff_list.php?msg='.$msg.'&code='.$code);
 
+      }
     }
-  }
 
 ?>
 

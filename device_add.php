@@ -11,34 +11,34 @@
     require_once 'includes/top-nav.php';
     require_once 'includes/side-nav.php';
 
-  if(isset($_POST['submit'])) {
+    if(isset($_POST['submit'])) {
 
-        $dev_no = $organ->escapeString($_POST['dev_no']);
-        $dev_type = $organ->escapeString($_POST['dev_type']);
-        $pack_id = $organ->escapeString($_POST['pack_id']);
+          $device_no = $organ->escapeString($_POST['device_no']);
+          $device_type = $organ->escapeString($_POST['device_type']);
+          $package_id = $organ->escapeString($_POST['package_id']);
 
-        $array = array(
-            "dev_no" => $dev_no,
-            "dev_type" => $dev_type,
-            "pack_id" => $pack_id
-          );
+          $array = array(
+              "device_no" => $device_no,
+              "device_type" => $device_type,
+              "package_id" => $package_id
+            );
 
-    $res = $organ->insert('tbl_device', $array);
+      $res = $organ->insert('tbl_device', $array);
 
-    if($res) {
+      if($res) {
 
-        $msg = 'Device added successfully.';
-        $code = 'success';
+          $msg = 'Device added successfully.';
+          $code = 'success';
+          header('Location: device_list.php?msg='.$msg.'&code='.$code);
+
+      } else {
+
+        $msg = 'Database Error.';
+        $code = 'error';
         header('Location: device_list.php?msg='.$msg.'&code='.$code);
 
-    } else {
-
-      $msg = 'Database Error.';
-      $code = 'error';
-      header('Location: device_list.php?msg='.$msg.'&code='.$code);
-
+      }
     }
-  }
 
 ?>
 
@@ -71,12 +71,12 @@
       <div class="card-body">
         <div class="form-group">
           <label>Device number</label>
-          <input type="text" name="dev_no" class="form-control" required="">
+          <input type="text" name="device_no" class="form-control" required="">
         </div>
         <div class="form-group">
               <div class="form-group">
                 <label>Device type</label>
-                <select name="dev_type" class="custom-select" required="">
+                <select name="device_type" class="custom-select" required="">
                   <option value="">Choose...</option>
                   <option value="1">Standard Definition [SD]</option>
                   <option value="2">High Definition [HD]</option>
@@ -86,11 +86,11 @@
         <div class="form-group">
           <label>Package</label>
             <?php
-                $packs = $read->fetch_package_list();
-                  echo "<select name='pack_id' class='custom-select' required>";
+                $packs = $organ->query("SELECT * FROM tbl_package");
+                  echo "<select name='package_id' class='custom-select' required>";
                   echo "<option value=''>Choose...</option>";
                     foreach ($packs as $key => $pack) {
-                      echo "<option value='$pack[pack_id]'>$pack[pc_name] - $pack[mso_name]</option>";
+                      echo "<option value='$pack[package_id]'>$pack[pack_name] - $pack[mso_name]</option>";
                     }
                   echo "</select>";
             ?>

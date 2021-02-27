@@ -54,7 +54,7 @@
 					</tr>
 				</thead>         
 			        <?php
-			        	$result = $read->fetch_area_list();
+			        	$result = $organ->query("SELECT * FROM tbl_area");
 							if ($result->num_rows < 1) {
 								echo "<tr><td colspan='6'>No areas yet!</td><tr>";
 							} else {

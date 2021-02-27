@@ -4,6 +4,7 @@
 
     if(isset($_SESSION['logged_staff'])) : header('Location: dashboard.php'); endif;
 
+    require_once 'config/init.php';
     require_once 'includes/header.php';
 
     $security->login();
@@ -16,12 +17,12 @@
     <b>Cable</b>ERP
   </div>
 
-  <div class="card">
+  <div class="card card-outline card-primary">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Authorized Personnel Only.</p>
 
-          <?php if(isset($_GET['msg'])){ ?>
-            <div class="alert alert-warning" role="alert"><?php echo $_GET['msg']; ?></div>
+          <?php if(isset($_GET['msg'], $_GET['code'])){ ?>
+            <div class="alert alert-<?php echo $_GET['code']; ?>" role="alert"><?php echo $_GET['msg']; ?></div>
           <?php } ?>
 
       <form method="POST">

@@ -54,7 +54,7 @@
 	          </thead>         
 
 				<?php
-					$result = $read->fetch_package_list();
+					$result = $organ->query("SELECT * FROM tbl_package");
 						if ($result->num_rows < 1) {
 							echo "<tr><td colspan='6'>No package added yet!</td><tr>";
 						} else {
@@ -62,10 +62,10 @@
 				?>
 						<tbody id="myTable">
 							<tr>
-								<td><?php echo $row['pc_name']; ?></td>
-								<td><?php echo $row['pc_rate']; ?></td>
-								<td><?php echo $row['pc_type']; ?></td>
-								<td><?php echo $row['pc_duration']; ?></td>
+								<td><?php echo $row['pack_name']; ?></td>
+								<td><?php echo $row['pack_rate']; ?></td>
+								<td><?php echo $row['pack_type']; ?></td>
+								<td><?php echo $row['pack_duration']; ?></td>
 								<td><?php echo $row['mso_name']; ?></td>
 								<td><?php echo $row['mso_rate']; ?></td>
 							</tr>

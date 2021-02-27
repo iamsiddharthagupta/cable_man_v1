@@ -1,4 +1,4 @@
-<?php require_once 'profile_base.php'; ?>
+<?php require_once 'user_profile_base.php'; ?>
 
       <div class="col-md">
       <div class="card card-info">
@@ -16,17 +16,15 @@
                 <tr>
                   <th>Device</th>
                   <th>MSO</th>
-                  <th>Duration</th>
                   <th>Renew</th>
-                  <th>Extend</th>
                 </tr>
             </thead>
 
         <?php
         
-          $result = $device->user_profile_select_device_fetch($_GET['user_id']);
+          $result = $read->mapped_device($_GET['user_id']);
 
-          if (mysqli_num_rows($result) < 1) {
+          if ($result->num_rows < 1) {
             
             echo "<tr><td colspan='5'>No Device Assigned!</td><tr>";
           
@@ -36,23 +34,11 @@
 
             <tbody>
               <tr>
-                
                 <td><?php echo $row['device_no']; ?></td>
-                
-                <td><?php echo $row['device_mso']; ?></td>
-
+                <td><?php echo $row['mso_name']; ?></td>
                 <td>
-                  <strong><?php if(empty($row['renew_date'])){ echo 'Activation Pending'; } else {echo date('jS M y',strtotime($row['renew_date'])).' - '. date('jS M y',strtotime($row['expiry_date']));} ?></strong>
+                  <a href="user_profile_renewal.php?user_id=<?php echo $row['user_id']; ?>&device_id=<?php echo $row['device_id']; ?>"><i class="fas fa-sync"></i></a>
                 </td>
-
-                <td>
-                    <a href="user_profile_renewal.php?user_id=<?php echo $row['user_id']; ?>&dev_id=<?php echo $row['dev_id']; ?>"><i class="fas fa-sync"></i></a>
-                </td>
-
-                <td>
-                  <a href="user_profile_extend.php?user_id=<?php echo $row['user_id']; ?>&dev_id=<?php echo $row['dev_id']; ?>"><i class="fas fa-plus"></i></a>
-                </td>
-
               </tr>
             </tbody>
             <?php

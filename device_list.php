@@ -54,7 +54,7 @@
         </thead>
 
         <?php
-          $result = $read->fetch_device_list();
+          $result = $read->device_list();
             if ($result->num_rows < 1) {
               echo "<tr><td colspan='6'>No device yet!</td><tr>";
             } else {
@@ -62,12 +62,12 @@
         ?>
         <tbody id="myTable">
           <tr>
-            <td><?php echo $row['dev_no']; ?></td>
-            <td><?php echo $row['dev_type']; ?></td>
-            <td><?php echo $row['pc_name']; ?></td>
-            <td><?php echo $row['pc_rate']; ?></td>
+            <td><?php echo $row['device_no']; ?></td>
+            <td><?php echo $row['device_type']; ?></td>
+            <td><?php echo $row['pack_name']; ?></td>
+            <td><?php echo $row['pack_rate']; ?></td>
             <td><?php echo $row['mso_name']; ?></td>
-            <td><a href="device_edit.php?dev_id=<?php echo $row['dev_id']; ?>"><i class="fas fa-pen-square"></i></a></td>
+            <td><a href="device_edit.php?device_id=<?php echo $row['device_id']; ?>"><i class="fas fa-pen-square"></i></a></td>
           </tr>
         </tbody>
           <?php

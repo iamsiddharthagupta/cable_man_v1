@@ -9,35 +9,18 @@
           <img src="assets/images/avatar.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="staff_password_change.php" class="d-block"><?php echo $curr_user; ?></a>
+          <a href="staff_edit_password.php" class="d-block"><?php echo $curr_user; ?></a>
         </div>
       </div>
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-header">User Center</li>
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link <?php if($page == 1){ echo 'active'; } ?>">
-              <i class="nav-icon fas fa-user"></i>
-              <p>
-                User
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="user_profile_add.php" class="nav-link <?php if($page == 3.1){ echo 'active'; } ?>">
-                  <i class="fas fa-user-plus nav-icon"></i>
-                  <p>Add User</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="user_list.php" class="nav-link <?php if($page == 3.2){ echo 'active'; } ?>">
-                  <i class="fas fa-users nav-icon"></i>
-                  <p>Users</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+            <li class="nav-item">
+              <a href="user_list.php" class="nav-link <?php if($page == 3.2){ echo 'active'; } ?>">
+                <i class="fas fa-users nav-icon"></i>
+                <p>Users</p>
+              </a>
+            </li>
 
           <li class="nav-header">Control Center</li>
             <li class="nav-item">

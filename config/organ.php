@@ -7,7 +7,7 @@
     // Create query from the variables passed to the function
     $q = 'SELECT '.$rows.' FROM '.$table;
     if($join != null) {
-      $q .= ' LEFT JOIN '.$join;
+      $q .= ' JOIN '.$join;
     }
         if($where != null) {
           $q .= ' WHERE '.$where;

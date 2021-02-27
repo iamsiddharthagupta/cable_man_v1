@@ -1,17 +1,17 @@
 <?php
 
-	require_once 'profile_base.php';
+	require_once 'user_profile_base.php';
 
-	$result = $user->user_profile_renewal_fetch($_GET['user_id'],$_GET['dev_id']);
-	$row = mysqli_fetch_assoc($result);
+	$row = $user->renewal_wizard($_GET['user_id'], $_GET['dev_id'])->fetch_assoc();
 
-	$renew = $user->user_profile_renewal();
+	$user->user_profile_renewal();
+
 ?>
 
 		<div class="col-md-9">
 			<div class="card card-info">
 				<div class="card-header">
-					<h3 class="card-title">Renewal Panel</h3>
+					<h3 class="card-title">Renewal Wizard</h3>
 					<div class="card-tools">
 					  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
 					  </button>

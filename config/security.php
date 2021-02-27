@@ -24,14 +24,16 @@
 					} else {
 
 						$msg = 'Authentication Failed.';
-						header('Location: index.php?msg='.$msg);
+						$code = 'danger';
+						header('Location: index.php?msg='.$msg.'&code='.$code);
 
 					}
 
 				} else {
 
 						$msg = 'Please enter credentials.';
-						header('Location: index.php?msg='.$msg);
+						$code = 'warning';
+						header('Location: index.php?msg='.$msg.'&code='.$code);
 
 				}
 			}
