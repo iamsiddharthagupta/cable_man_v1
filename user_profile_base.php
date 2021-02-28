@@ -46,7 +46,7 @@
                       Action
                   </button>
                   <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                    <a class="dropdown-item" href="user_profile_select_device.php?user_id=<?php echo $row['user_id']; ?>">Activate</a>
+                    <a class="dropdown-item" href="user_profile_device_select.php?user_id=<?php echo $row['user_id']; ?>">Activate</a>
                     <a class="dropdown-item" href="user_profile_ledger.php?user_id=<?php echo $row['user_id']; ?>">Ledger Book</a>
                     <a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $row['user_id']; ?>">Update Profile</a>
                     <a class="dropdown-item" href="user_profile_device_map.php?user_id=<?php echo $row['user_id']; ?>">Manage Device</a>
@@ -77,12 +77,20 @@
                 <strong><i class="fas fa-hdd mr-1"></i>Devices</strong>
 
                 <p class="text-muted">
-                    <?php
+                  <?php
                       $res = $read->mapped_device($_GET['user_id']);
-                        foreach ($res as $key => $row) :
-                    ?>
-                        <span class="text-muted ml-1"><?php echo $row['device_no'].' - '.$row['mso_name'].' '.$row['device_type']; ?></span><br>
-                    <?php endforeach; ?>
+                      if ($res->num_rows < 1) { ?>
+                        <span class="text-muted ml-1">No device available</span>
+                  <?php } else {
+                      foreach ($res as $key => $row) :
+                  ?>
+                        <span class="text-muted ml-1">
+                          <?php echo $row['device_no'].' - '.$row['mso_name'].' '.$row['device_type']; ?>
+                        </span><br>
+                  <?php
+                      endforeach;
+                    }
+                  ?>
                 </p>
               </div>
             </div>

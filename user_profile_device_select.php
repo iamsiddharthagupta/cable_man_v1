@@ -21,16 +21,16 @@
             </thead>
 
         <?php
-        
-          $result = $read->mapped_device($_GET['user_id']);
+              $result = $read->mapped_device($_GET['user_id']);
 
-          if ($result->num_rows < 1) {
-            
-            echo "<tr><td colspan='5'>No Device Assigned!</td><tr>";
-          
-          } else {
+              if ($result->num_rows < 1) {
+                
+                echo "<tr><td colspan='5'>No Device Assigned!</td><tr>";
+              
+              } else {
 
-          foreach ($result as $key => $row) : ?>
+              foreach ($result as $key => $row) :
+        ?>
 
             <tbody>
               <tr>

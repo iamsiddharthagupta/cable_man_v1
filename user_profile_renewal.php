@@ -2,7 +2,7 @@
 
 	require_once 'user_profile_base.php';
 
-	$row = $user->renewal_wizard($_GET['user_id'], $_GET['dev_id'])->fetch_assoc();
+	$row = $read->renewal_wizard($_GET['user_id'], $_GET['device_id'])->fetch_assoc();
 
 	$user->user_profile_renewal();
 

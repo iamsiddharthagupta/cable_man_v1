@@ -53,11 +53,11 @@
 			      </tr>
 				</thead>
 				<?php
-					$result = $read->user_list();
-					if($result->num_rows < 1) {
+					$res = $read->user_list();
+					if($res->num_rows < 1) {
 						echo "<tr><td colspan='10'>No customer yet!</td><tr>";
 					} else {
-						foreach ($result as $key => $row) :
+						foreach ($res as $key => $row) :
 				?>
 				<tbody id="myTable">
 					<tr>
@@ -87,7 +87,7 @@
 				</tbody>
 			<?php
 					endforeach;
-					$result->free_result();
+					$res->free_result();
 				}
 			?>
 			</table>
