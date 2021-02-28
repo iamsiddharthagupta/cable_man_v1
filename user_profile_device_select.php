@@ -1,4 +1,26 @@
-<?php require_once 'user_profile_base.php'; ?>
+<?php
+
+    require_once 'user_profile_base.php';
+
+    $sql = "
+            SELECT
+            m.mapped_id,
+            dv.device_id,
+            u.user_id,
+            dv.device_no,
+            CASE
+            WHEN dv.device_type = 1 THEN '[SD]'
+            WHEN dv.device_type = 2 THEN '[HD]'
+            END AS device_type,
+            pc.mso_name
+            FROM
+            tbl_mapping m
+            LEFT JOIN tbl_user u ON u.user_id = m.user_id
+            RIGHT JOIN tbl_device dv ON dv.device_id = m.device_id
+            RIGHT JOIN tbl_package pc ON pc.package_id = dv.package_id
+            WHERE m.user_id = '" .$_GET['user_id']. "'";
+
+?>
 
       <div class="col-md-9">
 
@@ -22,11 +44,11 @@
               </thead>
 
               <?php
-                $result = $organ->mapped_device($_GET['user_id']);
-                if ($result->num_rows < 1) {
+                $res = $organ->query($mapped_devs);
+                if ($res->num_rows < 1) {
                   echo "<tr><td colspan='5'>No Device Assigned!</td><tr>";
                 } else {
-                foreach ($result as $key => $row) :
+                foreach ($res as $key => $row) :
               ?>
 
               <tbody>

@@ -11,6 +11,21 @@
     require_once 'includes/top-nav.php';
     require_once 'includes/side-nav.php';
 
+	$sql = "
+			SELECT
+			sf.username,
+			sf.first_name,
+			sf.last_name,
+			sf.mobile_no,
+			CASE
+				WHEN sf.staff_position = 1 THEN 'Admin'
+				WHEN  sf.staff_position = 2 THEN 'Agent'
+			END AS staff_position,
+			fr.fr_name
+			FROM tbl_staff sf
+			LEFT JOIN tbl_franchise fr ON fr.fr_id = sf.fr_id
+			";
+
 ?>
 
 <div class="content-header">
@@ -52,7 +67,7 @@
 			    </tr>
 			</thead>         
 			<?php
-				$result = $organ->staff_list();
+				$result = $organ->query($sql);
 					if ($result->num_rows < 1) {
 						echo "<tr><td colspan='5'>No MSO Yet!</td><tr>";
 					} else {

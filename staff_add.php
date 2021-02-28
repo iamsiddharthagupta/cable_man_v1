@@ -1,15 +1,29 @@
 <?php
 
-    ob_start();
-    session_start();
+      ob_start();
+      session_start();
 
-    (!isset($_SESSION['logged_staff'])) ? header('Location: index.php') : $curr_user = ucwords($_SESSION['logged_staff']);
+      (!isset($_SESSION['logged_staff'])) ? header('Location: index.php') : $curr_user = ucwords($_SESSION['logged_staff']);
 
-    $page = 1.3;
+      $page = 1.3;
 
-    require_once 'config/init.php';
-    require_once 'includes/top-nav.php';
-    require_once 'includes/side-nav.php';
+      require_once 'config/init.php';
+      require_once 'includes/top-nav.php';
+      require_once 'includes/side-nav.php';
+
+      $lists = "
+              SELECT
+              fr.fr_id,
+              fr.fr_name,
+              fr.gst_no,
+              fr.landline_no,
+              fr.mobile_no,
+              fr.address,
+              ar.area
+
+              FROM tbl_franchise fr
+              LEFT JOIN tbl_area ar ON ar.area_id = fr.area_id
+              ";
 
     if(isset($_POST['submit'])) {
 
@@ -114,7 +128,7 @@
         <div class="form-group">
           <label>Franchise</label>
             <?php
-              $frs = $organ->franchise_list();
+              $frs = $organ->query($lists);
                 echo "<select name='fr_id' class='custom-select' required>";
                 echo "<option value=''>Choose...</option>";
                   foreach ($frs as $key => $fr) {

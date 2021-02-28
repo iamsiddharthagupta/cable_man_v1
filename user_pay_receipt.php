@@ -9,8 +9,34 @@
     require_once 'includes/top-nav.php';
     require_once 'includes/side-nav.php';
 
-    $result = $organ->pay_receipt($_GET['ledger_id']);
-    $row = mysqli_fetch_assoc($result);
+    $sql = "
+              SELECT
+              u.user_id,
+              u.first_name,
+              u.last_name,
+              u.address,
+              u.area,
+              u.phone_no,
+              l.ledger_id,
+              l.invoice_no,
+              l.renew_date,
+              l.expiry_date,
+              l.pay_amount,
+              l.pay_discount,
+              l.renew_term,
+              l.renew_term_month,
+              l.pay_date,
+              d.package,
+              d.device_no,
+              d.device_mso
+              FROM cbl_ledger l
+              LEFT JOIN cbl_user u ON u.user_id = l.user_id
+              RIGHT JOIN cbl_dev_stock d ON d.dev_id = l.dev_id
+              WHERE ledger_id = '" .$_GET['ledger_id']. "'
+            ";
+
+
+    $row = $organ->query($sql)->fetch_assoc();
 
     // GST Declaration on Plan Rate and conversion to Numbers.
     $gst = intval(18/100 * $row["package"]);

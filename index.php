@@ -1,13 +1,46 @@
 <?php
 
-    session_start();
+  session_start();
 
-    if(isset($_SESSION['logged_staff'])) : header('Location: dashboard.php'); endif;
+  if(isset($_SESSION['logged_staff'])) : header('Location: dashboard.php'); endif;
 
-    require_once 'config/init.php';
-    require_once 'includes/header.php';
+  require_once 'config/init.php';
+  require_once 'includes/header.php';
 
-    $security->login();
+  $msg = '';
+  $code = '';
+
+  if(isset($_POST['submit'])) {
+
+    $username = $organ->escapeString(stripcslashes($_POST['username']));
+    $password = $organ->escapeString(stripcslashes(md5($_POST['password'])));
+
+    if(!empty($username) && !empty($password)) {
+
+      $res = $organ->query("SELECT *, CONCAT(first_name,' ',last_name) AS logged_staff FROM tbl_staff WHERE username = '$username' AND password = '$password' LIMIT 1");
+
+      $row = $res->fetch_assoc();
+
+      if($res->num_rows > 0) {
+
+        $_SESSION['staff_id'] = $row['staff_id'];
+        $_SESSION['logged_staff'] = $row['logged_staff'];
+        header('Location: dashboard.php');
+
+      } else {
+
+        $msg = 'Authentication Failed.';
+        $code = 'danger';
+
+      }
+
+    } else {
+
+        $msg = 'Please enter credentials.';
+        $code = 'warning';
+
+    }
+  }
 
 ?>
 
@@ -21,9 +54,7 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Authorized Personnel Only.</p>
 
-          <?php if(isset($_GET['msg'], $_GET['code'])){ ?>
-            <div class="alert alert-<?php echo $_GET['code']; ?>" role="alert"><?php echo $_GET['msg']; ?></div>
-          <?php } ?>
+        <div class="alert alert-<?php echo $code; ?>" role="alert"><?php echo $msg; ?></div>
 
       <form method="POST">
         <div class="input-group mb-3">

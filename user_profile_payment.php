@@ -2,9 +2,30 @@
 
 	require_once 'user_profile_base.php';
 
-	$row = $organ->payment_wizard($_GET['ledger_id'])->fetch_assoc();
+	$sql = "
+			SELECT
+			d.device_no,
+			d.device_mso,
+			l.renew_date,
+			l.expiry_date,
+			l.renew_month,
+			l.invoice_no,
+			l.due_amount,
+			l.pay_balance,
+			l.ledger_id,
+			l.user_id
 
-	$organ->user_profile_payment();
+			FROM cbl_user_dev ud
+
+			RIGHT JOIN cbl_user u ON u.user_id = ud.user_id
+			LEFT JOIN cbl_ledger l ON l.dev_id = ud.dev_id
+			LEFT JOIN cbl_dev_stock d ON d.dev_id = ud.dev_id
+
+			WHERE l.ledger_id = '" .$_GET['ledger_id']. "'";
+
+	$row = $organ->query($sql)->fetch_assoc();
+
+	// $organ->user_profile_payment();
 
 ?>
 		<div class="col-md-9">

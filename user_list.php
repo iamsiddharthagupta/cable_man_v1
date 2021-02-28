@@ -11,6 +11,22 @@
 	require_once 'includes/top-nav.php';
 	require_once 'includes/side-nav.php';
 
+	$sql = " 
+			SELECT
+			u.user_id,
+			u.first_name,
+			u.last_name,
+			u.mobile_no,
+			u.address,
+			u.install_date,
+			u.user_status,
+			ar.area
+			FROM tbl_user u
+			LEFT JOIN tbl_area ar ON ar.area_id = u.area_id
+			WHERE u.user_status = 1
+			ORDER BY u.install_date DESC
+			";
+
 ?>
 
 <div class="content-header">
@@ -53,7 +69,7 @@
 			      </tr>
 				</thead>
 				<?php
-					$res = $organ->user_list();
+					$res = $organ->query($sql);
 					if($res->num_rows < 1) {
 						echo "<tr><td colspan='10'>No customer yet!</td><tr>";
 					} else {

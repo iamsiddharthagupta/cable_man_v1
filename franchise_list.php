@@ -1,31 +1,45 @@
 <?php
 
-    ob_start();
-    session_start();
+	ob_start();
+	session_start();
 
-    (!isset($_SESSION['logged_staff'])) ? header('Location: index.php') : $curr_user = ucwords($_SESSION['logged_staff']);
+	(!isset($_SESSION['logged_staff'])) ? header('Location: index.php') : $curr_user = ucwords($_SESSION['logged_staff']);
 
-    $page = 1.2;
+	$page = 1.2;
 
-    require_once 'config/init.php';
-    require_once 'includes/top-nav.php';
-    require_once 'includes/side-nav.php';
+	require_once 'config/init.php';
+	require_once 'includes/top-nav.php';
+	require_once 'includes/side-nav.php';
+
+	$lists = "
+				SELECT
+				fr.fr_id,
+				fr.fr_name,
+				fr.gst_no,
+				fr.landline_no,
+				fr.mobile_no,
+				fr.address,
+				ar.area
+
+				FROM tbl_franchise fr
+				LEFT JOIN tbl_area ar ON ar.area_id = fr.area_id
+			";
 
 ?>
 
 <div class="content-header">
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-6">
-        <h4 class="text-dark">Franchise List</h4>
-      </div>
-      <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-          <li class="breadcrumb-item active">Franchise Management</li>
-        </ol>
-      </div>
-    </div>
+	<div class="row">
+	  <div class="col-sm-6">
+		<h4 class="text-dark">Franchise List</h4>
+	  </div>
+	  <div class="col-sm-6">
+		<ol class="breadcrumb float-sm-right">
+		  <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+		  <li class="breadcrumb-item active">Franchise Management</li>
+		</ol>
+	  </div>
+	</div>
   </div>
 </div>
 
@@ -35,7 +49,7 @@
 			<a href="franchise_add.php" class="btn btn-sm btn-info">Add Franchise</a>
 			<div class="card-tools">
 			  <div class="input-group input-group-sm">
-			    <input type="text" name="table_search" id="myInput" class="form-control float-right" placeholder="Search">
+				<input type="text" name="table_search" id="myInput" class="form-control float-right" placeholder="Search">
 			  </div>
 			</div>
 		</div>
@@ -51,7 +65,7 @@
 						</tr>
 					</thead>         
 						<?php
-							$result = $organ->franchise_list();
+							$result = $organ->query($lists);
 								if ($result->num_rows < 1) {
 									echo "<tr><td colspan='4'>No franchise yet!</td><tr>";
 								} else {
@@ -70,8 +84,8 @@
 								$result->free_result();
 							}
 						?>
-		        </table>
-	      	</div>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>

@@ -11,6 +11,20 @@
     require_once 'includes/top-nav.php';
     require_once 'includes/side-nav.php';
 
+    $sql = "
+            SELECT
+            dv.device_id,
+            dv.device_no,
+            dv.device_type,
+            pc.pack_code,
+            pc.pack_rate,
+            pc.mso_name
+
+            FROM tbl_device dv
+            LEFT JOIN tbl_package pc ON pc.package_id = dv.package_id
+            ORDER BY dv.created_at
+            ";
+
 ?>
 
 <div class="content-header">
@@ -54,7 +68,7 @@
         </thead>
 
         <?php
-          $result = $read->device_list();
+          $result = $read->query($sql);
             if ($result->num_rows < 1) {
               echo "<tr><td colspan='6'>No device yet!</td><tr>";
             } else {
