@@ -9,7 +9,7 @@
     require_once 'includes/top-nav.php';
     require_once 'includes/side-nav.php';
 
-    $result = $user->pay_receipt($_GET['ledger_id']);
+    $result = $organ->pay_receipt($_GET['ledger_id']);
     $row = mysqli_fetch_assoc($result);
 
     // GST Declaration on Plan Rate and conversion to Numbers.

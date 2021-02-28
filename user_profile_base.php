@@ -11,7 +11,7 @@
     require_once 'includes/top-nav.php';
     require_once 'includes/side-nav.php';
 
-    $row = $read->profile_base($_GET['user_id'])->fetch_assoc();
+    $row = $organ->profile_base($_GET['user_id'])->fetch_assoc();
 
 ?>
 
@@ -78,7 +78,7 @@
 
                 <p class="text-muted">
                   <?php
-                      $res = $read->mapped_device($_GET['user_id']);
+                      $res = $organ->mapped_device($_GET['user_id']);
                       if ($res->num_rows < 1) { ?>
                         <span class="text-muted ml-1">No device available</span>
                   <?php } else {

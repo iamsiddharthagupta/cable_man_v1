@@ -51,7 +51,7 @@
 						</tr>
 					</thead>         
 						<?php
-							$result = $read->franchise_list();
+							$result = $organ->franchise_list();
 								if ($result->num_rows < 1) {
 									echo "<tr><td colspan='4'>No franchise yet!</td><tr>";
 								} else {

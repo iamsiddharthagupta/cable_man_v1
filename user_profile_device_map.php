@@ -49,7 +49,7 @@
         <div class="card-body">
           <div class="form-group col-md">
             <label>Device #</label>
-              <input type="text" class="form-control" name="device_no" id="device_no" onBlur="checkAvailability()" required=""><span id="user-availability-status"></span>
+              <input type="text" class="form-control" name="device_no" id="device_no" onBlur="checkAvailability()" placeholder="Enter a valid device number" required=""><span id="user-availability-status"></span>
               <div class="invalid-feedback">
                 Please provide a valid device number.
               </div>

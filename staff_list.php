@@ -52,7 +52,7 @@
 			    </tr>
 			</thead>         
 			<?php
-				$result = $read->fetch_staff_detail_list();
+				$result = $organ->staff_list();
 					if ($result->num_rows < 1) {
 						echo "<tr><td colspan='5'>No MSO Yet!</td><tr>";
 					} else {

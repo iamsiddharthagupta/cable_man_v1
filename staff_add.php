@@ -114,7 +114,7 @@
         <div class="form-group">
           <label>Franchise</label>
             <?php
-              $frs = $read->franchise_list();
+              $frs = $organ->franchise_list();
                 echo "<select name='fr_id' class='custom-select' required>";
                 echo "<option value=''>Choose...</option>";
                   foreach ($frs as $key => $fr) {

@@ -2,9 +2,9 @@
 
 	require_once 'user_profile_base.php';
 
-	$row = $user->payment_wizard($_GET['ledger_id'])->fetch_assoc();
+	$row = $organ->payment_wizard($_GET['ledger_id'])->fetch_assoc();
 
-	$user->user_profile_payment();
+	$organ->user_profile_payment();
 
 ?>
 		<div class="col-md-9">

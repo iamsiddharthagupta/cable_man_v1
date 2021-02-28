@@ -28,15 +28,15 @@
 
         <?php
 
-          $result = $read->profile_ledger($_GET['user_id']);
+          $res = $organ->profile_ledger($_GET['user_id']);
 
-          if (mysqli_num_rows($result) < 1) {
-            
+          if (mysqli_num_rows($res) < 1) {
+
             echo "<tr><td colspan='8'>Not Entries Yet!</td><tr>";
-          
+
           } else {
-            
-            foreach ($result as $key => $row) : ?>
+
+            foreach ($res as $key => $row) : ?>
 
             <tbody>
               <tr>
@@ -84,7 +84,7 @@
             </tbody>
             <?php
               endforeach;
-              mysqli_free_result($result);
+              mysqli_free_result($res);
             }
           ?>
         </table>

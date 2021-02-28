@@ -53,7 +53,7 @@
 			      </tr>
 				</thead>
 				<?php
-					$res = $read->user_list();
+					$res = $organ->user_list();
 					if($res->num_rows < 1) {
 						echo "<tr><td colspan='10'>No customer yet!</td><tr>";
 					} else {

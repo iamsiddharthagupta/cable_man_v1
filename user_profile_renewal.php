@@ -2,9 +2,9 @@
 
 	require_once 'user_profile_base.php';
 
-	$row = $read->renewal_wizard($_GET['user_id'], $_GET['device_id'])->fetch_assoc();
+	$row = $organ->renewal_wizard($_GET['device_id'])->fetch_assoc();
 
-	$user->user_profile_renewal();
+	// $user->user_profile_renewal();
 
 ?>
 
@@ -17,40 +17,34 @@
 					  </button>
 					</div>
 				</div>
-				<div class="card-body">
-				    <form method="POST">
-					    <div class="card">
-							<ul class="list-group list-group-flush">
-							    <li class="list-group-item"><span class="mr-2">Device No:</span>
-							      <strong>[<?php echo $row['device_mso']; ?>] <?php echo $row['device_no']; ?></strong>
-							    </li>
-							    <li class="list-group-item"><span class="mr-2">Package:</span>
-							      <strong>Rs.<?php echo $row['package']; ?></strong>
-							    </li>
-							    <li class="list-group-item"><span class="mr-2">Last Renewal:</span>
-							      <strong><?php echo $row['last_renewal']; ?></strong>
-							    </li>
-							    <li class="list-group-item">
-							      <input type="text" name="renew_date" class="form-control curr_date" required>
-							    </li>
-							    <li class="list-group-item"><span class="mr-2">Renewal Term:</span>
-							      <select class="form-control" name="renew_term">
-							      	<option value="" disabled="">Select Term</option>
-							      	<option value="1">Monthly</option>
-							      	<option value="3">Quarterly</option>
-							      	<option value="6">Half Yearly</option>
-							      	<option value="12">Annually</option>
-							      </select>
-							    </li>
-							    <li class="list-group-item">
-							      <input type="hidden" name="invoice_no" value="<?php echo 'ALC'.date('Ymd').$row['user_id']; ?>">
-							      <input type="hidden" name="package" value="<?php echo $row['package']; ?>">
-							      <input type="hidden" name="user_id" value="<?php echo $row['user_id']; ?>">
-							      <input type="hidden" name="dev_id" value="<?php echo $row['dev_id']; ?>">
-							      <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-							    </li>
-							</ul>
+				<form method="POST" class="needs-validation" novalidate>
+					<div class="card-body">
+						<ul class="list-group">
+							<li class="list-group-item"><span class="mr-2">Device #</span>
+						      <strong><?php echo $row['mso_name']; ?><?php echo $row['device_no']; ?></strong>
+						    </li>
+						    <li class="list-group-item mb-2"><span class="mr-2">Package</span>
+						      <strong><?php echo $row['pack_code']; ?></strong>
+						    </li>
+						</ul>
+						<div class="form-row">
+							<div class="form-group col-md">
+								<label>Renewal date</label>
+								<input type="date" name="start_date" value="<?php echo date('Y-m-d'); ?>" class="form-control" required="">
+							</div>
+							<div class="form-group col-md">
+								<label>Duration</label>
+								<input type="number" name="duration" class="form-control" required="">
+							</div>
 						</div>
+					</div>
+					<div class="card-footer">
+						<input type="hidden" name="invoice_no" value="<?php echo 'ALC'.date('Ymd').$row['user_id']; ?>">
+						<input type="hidden" name="pack_code" value="<?php echo $row['pack_code']; ?>">
+						<input type="hidden" name="user_id" value="<?php echo $row['user_id']; ?>">
+						<input type="hidden" name="device_id" value="<?php echo $row['device_id']; ?>">
+						<button type="submit" name="submit" class="btn btn-primary float-right">Submit</button>
+					</div>
 				  	</form>
 				</div>
 			</div>
